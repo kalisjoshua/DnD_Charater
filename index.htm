@@ -7,212 +7,210 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>D&D 1E+ Character Generator</title>
-<script src="{theme}/js/libs/modernizr-1.6.min.js"></script>
+<title>Character</title>
+<script src="js/libs/modernizr-1.6.min.js"></script>
 
 <link rel="stylesheet" href="all.css" type="text/css" />
 </head>
 
 <body>
 
-<ol style="display: none;">
-	<li>saves modification in racial descriptions</li>
-	<li>base languages</li>
-	<li>spells matrix</li>
-	
-	<li>XP</li>
-	<li>money</li>
-	
-	<li>magic resistance matrix</li>
-	<li>see invisibility matrix</li>
-	
-	<li>acrobat abilities</li>
-	
-	<li>comeliness/surprise matrix</li>
-</ol>
+<!--
+= To Do List
+* saves modification in racial descriptions
+* base languages
+* spells matrix
 
-<form name="generator" action="./" method="post" class="styled">
-		
-	<div id="worksheet">
-		<div id="slider">
-			<div class="row">
-				<label class="info">Level</label>
-				<input class="lvl" name="level" value="1" />
-			</div>
-			
-			<div class="row">
-				<label class="info">Race</label>
-				<select class="opt" name="race">
-					<option value="">-- select one --</option>
-				</select>
-			</div>
-			
-			<div class="row">
-				<label class="info">Primary Class</label>
-				<select class="opt" name="pClass">
-					<option value="">-- select one --</option>
-				</select>
-			</div>
-			
-			<div class="row">
-				<label class="info">Secondary Class</label>
-				<select class="opt" name="sClass">
-					<option value=""></option>
-				</select>
-				<span id="classComment"></span>
-			</div>
-			
-			<div class="row">
-				<label class="info">Stats</label>
-				<input class="opt" name="stats" value="" disabled="disabled" />
-				<span id="rating" onClick="RandomStats.Generate();"><a href="javascript: RandomStats.Read();"></a></span>
-				<div class="indent">
-					<label class="clickable"><input type="checkbox" checked="true" name="useRandom" />
-						&nbsp;Yes, use these generated stats. (click to re-generate)</label>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div id="baseCharacter">
-		<div class="column stats">
-			<div class="row">
-				<label class="stats">str</label>
-				<input class="value" type="row" name="str" />
-			</div>
-			<div class="row">
-				<label class="stats">int</label>
-				<input class="value" type="row" name="int" />
-			</div>
-			<div class="row">
-				<label class="stats">wis</label>
-				<input class="value" type="row" name="wis" />
-			</div>
-			<div class="row">
-				<label class="stats">dex</label>
-				<input class="value" type="row" name="dex" />
-			</div>
-			<div class="row">
-				<label class="stats">con</label>
-				<input class="value" type="row" name="con" />
-			</div>
-			<div class="row">
-				<label class="stats">cha</label>
-				<input class="value" type="row" name="cha" />
-			</div>
-			<div class="row">
-				<label class="stats">com</label>
-				<input class="value" type="row" name="com" />
-			</div>
-		</div>
-		<div class="column statsMatrix">
-			<div class="row" id="str">&nbsp;</div>
-			<div class="row" id="int">&nbsp;</div>
-			<div class="row" id="wis">&nbsp;</div>
-			<div class="row" id="dex">&nbsp;</div>
-			<div class="row" id="con">&nbsp;</div>
-			<div class="row" id="cha">&nbsp;</div>
-			<div class="row" id="com">&nbsp;</div>
-		</div>
-		
-		<div class="column">
-			<div class="row">
-				<label class="stats">HP</label>
-				<input class="value" name="hp" disabled="disabled" />
-			</div>
-			<div class="row">
-				<label class="stats">THAC0</label>
-				<input class="value" name="thaco" disabled="disabled" />
-			</div>
-			<div class="row">
-				<label class="stats">Move</label>
-				<input class="value" name="move" disabled="disabled" />
-			</div>
-			<div class="row">
-				<div style="text-align: right;">See Invisible</div>
-				<label class="stats">&nbsp;</label>
-				<input class="value" name="seeInvis" disabled="disabled" />
-			</div>
-			<div class="row">
-				<div style="text-align: right;">Magic Resistance</div>
-				<label class="stats">&nbsp;</label>
-				<input class="value" name="magicRes" disabled="disabled" />
-			</div>
-		</div>
-		
-		<div class="column">
-			<div class="row">
-				<label class="stats">ppd</label>
-				<input class="value" name="ppd" disabled="disabled" />
-			</div>
-			<div class="row">
-				<label class="stats">pp</label>
-				<input class="value" name="pp" disabled="disabled" />
-			</div>
-			<div class="row">
-				<label class="stats">rsw</label>
-				<input class="value" name="rsw" disabled="disabled" />
-			</div>
-			<div class="row">
-				<label class="stats">bw</label>
-				<input class="value" name="bw" disabled="disabled" />
-			</div>
-			<div class="row">
-				<label class="stats">sp</label>
-				<input class="value" name="sp" disabled="disabled" />
-			</div>
-		</div>
-	</div>
-	
-	
-	<div id="thiefSkills">
-		<div>
-			<input class="value" name="pickPockets" disabled="disabled" /><br />
-			Pick Pockets
-		</div>
-		<div>
-			<input class="value" name="openLocks" disabled="disabled" /><br />
-			Open Locks
-		</div>
-		<div>
-			<input class="value" name="findRemove" disabled="disabled" /><br />
-			Find/Remove
-		</div>
-		<div>
-			<input class="value" name="moveSilent" disabled="disabled" /><br />
-			Move Silent
-		</div>
-		<div>
-			<input class="value" name="shadowHide" disabled="disabled" /><br />
-			Shadow Hide
-		</div>
-		<div>
-			<input class="value" name="hearNoise" disabled="disabled" /><br />
-			Hear Noise
-		</div>
-		<div>
-			<input class="value" name="climbWalls" disabled="disabled" /><br />
-			Climb Walls
-		</div>
-		<div>
-			<input class="value" name="readLanguage" disabled="disabled" /><br />
-			Read Language
-		</div>
-	</div>
+* XP
+* money
 
-</form>
+* magic resistance matrix
+* see invisibility matrix
+
+* acrobat abilities
+
+* comeliness/surprise matrix
+-->
+
+<div id="builder">
+	<div class="row">
+		<label for="level">Level</label>
+		<input id="level" name="level" />
+	</div>
+	
+	<div class="row">
+		<label for="race">Race</label>
+		<select id="race" name="race">
+			<option value="">-- select one --</option>
+		</select>
+	</div>
+	
+	<div class="row">
+		<label for="classPrimary">Primary Class</label>
+		<select id="classPrimary" name="classPrimary">
+			<option value="">-- select one --</option>
+		</select>
+	</div>
+		
+	<div class="row">
+		<label for="classSecondary">Secondary Class</label>
+		<select id="classSecondary" name="classSecondary">
+			<option value=""></option>
+		</select>
+		<span id="classComment"></span>
+	</div>
+	
+	<div class="row">
+		<label for="stats">Stats</label>
+		<input id="stats" name="stats" />
+	</div>
+	
+	<div class="row">
+	    <button>Apply</button>
+	</div>
+</div>
+
+<div id="detail">
+	<div class="column" id="abilities">
+		<div class="row">
+			<label for="str">str</label>
+			<input id="str" name="str" />
+			<span></span>
+		</div>
+		
+		<div class="row">
+			<label for="int">int</label>
+			<input id="int" name="int" />
+			<span></span>
+		</div>
+		
+		<div class="row">
+			<label for="wis">wis</label>
+			<input id="wis" name="wis" />
+			<span></span>
+		</div>
+		
+		<div class="row">
+			<label for="dex">dex</label>
+			<input id="dex" name="dex" />
+			<span></span>
+		</div>
+		
+		<div class="row">
+			<label for="con">con</label>
+			<input id="con" name="con" />
+			<span></span>
+		</div>
+		
+		<div class="row">
+			<label for="cha">cha</label>
+			<input id="cha" name="cha" />
+			<span></span>
+		</div>
+		
+		<div class="row">
+			<label for="com">com</label>
+			<input id="com" name="com" />
+			<span></span>
+		</div>
+	</div>
+	
+	<div class="column" id="vitals">
+		<div class="row">
+			<label for="hp">HP</label>
+			<input id="hp" name="hp" />
+		</div>
+		
+		<div class="row">
+			<label for="thaco">THAC0</label>
+			<input id="thaco" name="thaco" />
+		</div>
+		
+		<div class="row">
+			<label for="move">Move</label>
+			<input id="move" name="move" />
+		</div>
+		
+		<div class="row">
+			<label for="see">See Invisible</label>
+			<input id="see" name="see" />
+		</div>
+		
+		<div class="row">
+			<label for="mr">Magic Resistance</label>
+			<input id="mr" name="mr" />
+		</div>
+	</div>
+	
+	<div class="column" id="saves">
+		<div class="row">
+			<label for="ppd">ppd</label>
+			<input id="ppd" name="ppd" />
+		</div>
+		<div class="row">
+			<label for="pp">pp</label>
+			<input id="pp" name="pp" />
+		</div>
+		<div class="row">
+			<label for="rsw">rsw</label>
+			<input id="rsw" name="rsw" />
+		</div>
+		<div class="row">
+			<label for="bw">bw</label>
+			<input id="bw" name="bw" />
+		</div>
+		<div class="row">
+			<label for="sp">sp</label>
+			<input id="sp" name="sp" />
+		</div>
+	</div>
+	
+    <div id="skills">
+    	<div>
+    		<label for="pickPockets">Pick Pockets</label>
+    		<input id="pickPockets" name="pickPockets" />
+    	</div>
+	
+    	<div>
+    		<label for="openLocks">Open Locks</label>
+    		<input id="openLocks" name="openLocks" />
+    	</div>
+	
+    	<div>
+    		<label for="findRemove">Find/Remove</label>
+    		<input id="findRemove" name="findRemove" />
+    	</div>
+	
+    	<div>
+    		<label for="moveSilent">Move Silent</label>
+    		<input id="moveSilent" name="moveSilent" />
+    	</div>
+	
+    	<div>
+    		<label for="shadowHide">Shadow Hide</label>
+    		<input id="shadowHide" name="shadowHide" />
+    	</div>
+	
+    	<div>
+    		<label for="hearNoise">Hear Noise</label>
+    		<input id="hearNoise" name="hearNoise" />
+    	</div>
+	
+    	<div>
+    		<label for="climbWalls">Climb Walls</label>
+    		<input id="climbWalls" name="climbWalls" />
+    	</div>
+	
+    	<div>
+    		<label for="readLanguage">Read Language</label>
+    		<input id="readLanguage" name="readLanguage" />
+    	</div>
+    </div>
+</div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.4.2.js"%3E%3C/script%3E'))</script>
 
-<script src="js/scripts.js"></script>
 <script src="js/plugins.js"></script>
-
-<!--[if lt IE 7 ]>
-<script src="js/libs/dd_belatedpng.js"></script>
-<script> DD_belatedPNG.fix('img, .png_bg'); </script>
-<![endif]-->
 </body>
 </html>
-
-
