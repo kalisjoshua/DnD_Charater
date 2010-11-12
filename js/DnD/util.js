@@ -17,4 +17,4 @@
                 return priv.roll.apply(null, arguments);
             }
         };
-}());
+}());*/
