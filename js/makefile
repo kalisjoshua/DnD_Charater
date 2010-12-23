@@ -26,23 +26,21 @@ all: $(SRC_DBG) lint min
 
 lint: $(SRC_DBG)
 	@@echo "lint'ing " $(SRC_DBG)
-	
 	@@${RHINO_ENV} $(DIR_UTIL)/jslint-check.js
 
 min: $(SRC_MIN)
 $(SRC_MIN): $(SRC_DBG)
 	@@echo "minify'ing " $(SRC_DBG)
-	
 	@@$(CLOSURE_COMPILER) --js $(SRC_DBG) --warning_level QUIET --js_output_file $(SRC_MIN)
 
 $(SRC_DBG): $(FILES) $(DIR_DIST)
 	@@echo "building " $(NAME)
-	
 	@@cat $(FILES) > $(SRC_DBG)
+
+dbg: $(SRC_DBG)
 
 clean:
 	@@echo "deleting files: " $(SRC_DBG) ", " $(SRC_MIN)
-	
 	@@rm -f $(SRC_DBG)
 	@@rm -f $(SRC_MIN)
 
