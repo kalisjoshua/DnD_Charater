@@ -1,6 +1,5 @@
 //// races.js
 
-
 var langs = function (ar) {
         var result = [];
     
@@ -84,13 +83,4 @@ prv.races = {
     	SavesBonus  : ""
     }
 };
-
-pub.races = [];
-
-for (var i in prv.races) {
-    if (prv.races.hasOwnProperty(i)) {
-        pub.races.push(i);
-        pub.races[i] = i;
-    }
-}
 

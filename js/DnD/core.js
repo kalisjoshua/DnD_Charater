@@ -17,7 +17,5 @@ prv.languages = [
     "orcish"
 ];
 
-pub.languages = prv.languages.slice();
-
 pub.roll = roll;
 

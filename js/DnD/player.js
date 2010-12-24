@@ -1,1 +1,6 @@
 //// player.js
+
+prv.player = {
+    
+};
+

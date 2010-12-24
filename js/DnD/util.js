@@ -117,4 +117,3 @@ prv.util = {
     }
 };
 
-pub.random_cols = prv.util.stats;

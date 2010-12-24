@@ -2,13 +2,13 @@
 
 prv.stats = {
     abilities: [
-        "str",
-        "int",
-        "wis",
-        "dex",
-        "con",
-        "cha",
-        "com"
+        "str", // 0
+        "int", // 1
+        "wis", // 2
+        "dex", // 3
+        "con", // 4
+        "cha", // 5
+        "com"  // 6
     ],
     
     lookup: function (stat, v, e) {
