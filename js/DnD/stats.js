@@ -8,7 +8,7 @@ prv.stats = {
         "dex",
         "con",
         "cha",
-        "com",
+        "com"
     ],
     
     lookup: function (stat, v, e) {

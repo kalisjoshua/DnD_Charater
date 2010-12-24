@@ -10,12 +10,12 @@ CLOSURE_COMPILER ?= java -jar $(DIR_UTIL)/google-compiler-20100917.jar
 
 FILES=$(DIR_SRC)/_intro.js\
 	$(DIR_SRC)/core.js\
+	$(DIR_SRC)/util.js\
+	$(DIR_SRC)/tables.js\
 	$(DIR_SRC)/stats.js\
 	$(DIR_SRC)/races.js\
 	$(DIR_SRC)/classes.js\
-	$(DIR_SRC)/tables.js\
 	$(DIR_SRC)/player.js\
-	$(DIR_SRC)/util.js\
 	$(DIR_SRC)/_outro.js
 
 SRC_DBG=$(DIR_DIST)/$(NAME).js

@@ -4,11 +4,7 @@ var roll = function () {
     return prv.util.roll.apply(null, arguments);
 };
 
-pub.core = {
-};
-
-
-pub.languages = [
+prv.languages = [
     "burrowing mammal",
     "dwarven",
     "elvish",
@@ -20,6 +16,8 @@ pub.languages = [
     "kobold",
     "orcish"
 ];
+
+pub.languages = prv.languages.slice();
 
 pub.roll = roll;
 

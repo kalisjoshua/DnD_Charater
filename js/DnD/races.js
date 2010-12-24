@@ -5,7 +5,7 @@ var langs = function (ar) {
         var result = [];
     
         do {
-            result.push(pub.languages[ar[0]]);
+            result.push(prv.languages[ar[0]]);
         } while (ar.shift());
     
         return result;
