@@ -37,6 +37,29 @@ prv.util = {
     isType: function (obj, type) {
         return Object.prototype.toString.call(obj) === "[object " + type + "]";
     },
+    
+    langs: function (ar) {
+        var result = [];
+    
+        do {
+            result.push(prv.util.languages[ar[0]]);
+        } while (ar.shift());
+    
+        return result;
+    },
+    
+    languages: [
+        "burrowing mammal",
+        "dwarven",
+        "elvish",
+        "gnoll",
+        "gnome",
+        "goblin",
+        "halfling",
+        "hobgoblin",
+        "kobold",
+        "orcish"
+    ],
 
     roll: function (num, faces) {
         var result = [];
@@ -116,4 +139,8 @@ prv.util = {
         return column(echelon[ness] || echelon.hero);
     }
 };
+
+var roll = function () {
+        return prv.util.roll.apply(null, arguments);
+    };
 
