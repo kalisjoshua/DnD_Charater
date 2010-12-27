@@ -130,8 +130,9 @@ div#builder {
         width: 120px;
         }
     div#builder select {
-        height: 21px;
-        width: 180px;
+        height: 24px;
+        padding: 3px 0px 0px;
+        width: 182px;
         }
     
 div#detail {
