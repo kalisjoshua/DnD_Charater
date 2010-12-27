@@ -1,7 +1,7 @@
 //// classes.js
 
 prv.classes = {
-	Acrobat: {
+	"Acrobat": {
 	    className: "Acrobat",
 	    dual: false,
 	    HDT: 6,
@@ -10,7 +10,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Theif
 	},
 	
-	Archer: {
+	"Archer": {
 	    className: "Archer",
 	    dual: false,
 	    HDT: 8,
@@ -19,7 +19,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Cleric
 	},
 	
-	Assassin: {
+	"Assassin": {
 	    className: "Assassin",
 	    dual: false,
 	    HDT: 6,
@@ -28,7 +28,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Thief
 	},
 	
-	Barbarian: {
+	"Barbarian": {
 	    className: "Barbarian",
 	    dual: false,
 	    HDT: 12,
@@ -37,7 +37,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Fighter
 	},
 	
-	Bard: {
+	"Bard": {
 	    className: "Bard",
 	    dual: false,
 	    HDT: 12,
@@ -47,7 +47,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Fighter
 	},
 	
-	Cavalier: {
+	"Cavalier": {
 	    className: "Cavalier",
 	    dual: false,
 	    HDT: 10,
@@ -56,7 +56,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Fighter
 	},
 	
-	Cleric: {
+	"Cleric": {
 	    className: "Cleric",
 	    dual: true,
 	    HDT: 8,
@@ -98,7 +98,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Cleric
 	},
 	
-	Druid: {
+	"Druid": {
 	    className: "Druid",
 	    dual: true,
 	    HDT: 8,
@@ -125,7 +125,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Cleric
 	},
 	
-	Fighter: {
+	"Fighter": {
 	    className: "Fighter",
 	    dual: true,
 	    HDT: 10,
@@ -134,7 +134,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Fighter
 	},
 	
-	Illusionist: {
+	"Illusionist": {
 	    className: "Illusionist",
 	    dual: true,
 	    HDT: 4,
@@ -173,7 +173,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Mage
 	},
 	
-	Mage: {
+	"Mage": {
 	    className: "Mage",
 	    dual: true,
 	    HDT: 4,
@@ -215,7 +215,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Mage
 	},
 	
-	Monk: {
+	"Monk": {
 	    className: "Monk",
 	    dual: false,
 	    HDT: 4,
@@ -224,7 +224,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Cleric
 	},
 	
-	Paladin: {
+	"Paladin": {
 	    className: "Paladin",
 	    dual: false,
 	    HDT: 10,
@@ -257,7 +257,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Fighter
 	},
 	
-	Ranger: {
+	"Ranger": {
 	    className: "Ranger",
 	    dual: false,
 	    HDT: 10,
@@ -287,7 +287,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Fighter
 	},
 	
-	Thief: {
+	"Thief": {
 	    className: "Thief",
 	    dual: true,
 	    HDT: 6,
