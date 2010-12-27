@@ -16,6 +16,7 @@ FILES=$(DIR_SRC)/_intro.js\
 	$(DIR_SRC)/races.js\
 	$(DIR_SRC)/classes.js\
 	$(DIR_SRC)/player.js\
+	$(DIR_SRC)/ui.js\
 	$(DIR_SRC)/_outro.js
 
 SRC_DBG=$(DIR_DIST)/$(NAME).js
