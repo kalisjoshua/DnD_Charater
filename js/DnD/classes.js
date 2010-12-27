@@ -1,5 +1,5 @@
 //// classes.js
-pub.classes =
+
 prv.classes = {
 	Acrobat: {
 	    className: "Acrobat",
@@ -63,7 +63,8 @@ prv.classes = {
 	    prefs: [2,4,0,3,1,5,6],
 	    saves: prv.tables.saves.Cleric,
         spells: [
-        	[0,0,0,0,0,0,0], //  0
+        //   1 2 3 4 5 6 7  Spell level
+        	[0,0,0,0,0,0,0], //  0th level character
         	[1,0,0,0,0,0,0], //  1
         	[2,0,0,0,0,0,0], //  2
         	[2,1,0,0,0,0,0], //  3
@@ -104,7 +105,8 @@ prv.classes = {
 	    prefs: [2,5,3,4,1,0,6],
 	    saves: prv.tables.saves.Cleric,
 	    spells: [
-        	[0,0,0,0,0,0,0], //  0
+        //   1 2 3 4 5 6 7  Spell level
+        	[0,0,0,0,0,0,0], //  0th level character
         	[2,0,0,0,0,0,0], //  1
         	[2,1,0,0,0,0,0], //  2
         	[3,2,1,0,0,0,0], //  3
@@ -139,7 +141,8 @@ prv.classes = {
 	    prefs: [1,3,6,5,4,2,0],
 	    saves: prv.tables.saves.Mage,
 	    spells: [
-        	[0,0,0,0,0,0,0], //  0
+        //   1 2 3 4 5 6 7  Spell level
+        	[0,0,0,0,0,0,0], //  0th level character
         	[1,0,0,0,0,0,0], //  1
         	[2,0,0,0,0,0,0], //  2
         	[2,1,0,0,0,0,0], //  3
@@ -177,7 +180,8 @@ prv.classes = {
 	    prefs: [1,3,5,2,4,6,0],
 	    saves: prv.tables.saves.Mage,
 	    spells: [
-        	[0,0,0,0,0,0,0,0,0], //  0
+        //   1 2 3 4 5 6 7 8 9  Spell level
+        	[0,0,0,0,0,0,0,0,0], //  0th level character
         	[1,0,0,0,0,0,0,0,0], //  1
         	[2,0,0,0,0,0,0,0,0], //  2
         	[2,1,0,0,0,0,0,0,0], //  3
@@ -227,7 +231,8 @@ prv.classes = {
 	    prefs: [0,4,3,5,1,6,2],
 	    saves: prv.tables.saves.Fighter,
 	    spells: [
-        	[0,0,0,0], //  0
+        //   1 2 3 4  Spell level
+        	[0,0,0,0], //  0th level character
         	[0,0,0,0], //  1
         	[0,0,0,0], //  2
         	[0,0,0,0], //  3
@@ -259,7 +264,8 @@ prv.classes = {
 	    prefs: [0,4,3,2,5,6,1],
 	    saves: prv.tables.saves.Fighter,
 	    spells: [
-        	[0,0,0,0,0], //  0
+        //   1 2 3 4 5  Spell level
+        	[0,0,0,0,0], //  0th level character
         	[0,0,0,0,0], //  1
         	[0,0,0,0,0], //  2
         	[0,0,0,0,0], //  3
@@ -290,7 +296,7 @@ prv.classes = {
 	    thaco: prv.tables.thaco.Thief
 	}
 };
-pub.dualClass = 
+
 prv.dualClass = function (primary, secondary) {
     var result = {
             className: primary.className + " / " + secondary.className,
