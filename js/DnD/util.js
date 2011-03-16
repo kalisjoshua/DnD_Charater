@@ -21,6 +21,52 @@ prv.util = {
         
         return result;
     },
+    
+    echelons: {
+        "champion": function () {
+            var result;
+            
+            do {
+                result = prv.util.array_sum(roll(6, 6).sort().slice(3));
+            } while (result <= 7);
+            
+            return result;
+        },
+        
+        "hero": function () {
+            var result;
+            
+            do {
+                result = prv.util.array_sum(roll(4, 6).sort().slice(1));
+            } while (result <= 4);
+            
+            return result;
+        },
+        
+        "npc": function () {
+            var result;
+            
+            do {
+                result = prv.util.array_sum(roll(3, 6));
+            } while (result <= 4);
+            
+            return result;
+        },
+        
+        "player": function () {
+            var result;
+            
+            do {
+                result = prv.util.array_sum(roll(3, 6));
+            } while (result <= 7);
+            
+            return result;
+        },
+        
+        "pleb": function () {
+            return prv.util.array_sum(roll(3, 6));
+        }
+    },
 
     isArray: function (q) {
         return prv.util.isType(q, "Array");
@@ -88,55 +134,9 @@ prv.util = {
                 return result.sort(function (a, b) {
                         return b - a;
                     });
-            },
-            
-            echelon = {
-                champion: function () {
-                    var result;
-                    
-                    do {
-                        result = prv.util.array_sum(roll(6, 6).sort().slice(3));
-                    } while (result <= 7);
-                    
-                    return result;
-                },
-                
-                hero: function () {
-                    var result;
-                    
-                    do {
-                        result = prv.util.array_sum(roll(4, 6).sort().slice(1));
-                    } while (result <= 4);
-                    
-                    return result;
-                },
-                
-                npc: function () {
-                    var result;
-                    
-                    do {
-                        result = prv.util.array_sum(roll(3, 6));
-                    } while (result <= 4);
-                    
-                    return result;
-                },
-                
-                player: function () {
-                    var result;
-                    
-                    do {
-                        result = prv.util.array_sum(roll(3, 6));
-                    } while (result <= 7);
-                    
-                    return result;
-                },
-                
-                pleab: function () {
-                    return prv.util.array_sum(roll(3, 6));
-                }
             };
         
-        return column(echelon[ness] || echelon.hero);
+        return column(prv.util.echelons[ness] || prv.util.echelons.hero);
     }
 };
 
