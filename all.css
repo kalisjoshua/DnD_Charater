@@ -105,7 +105,16 @@ label {
     text-align: right;
     width: 120px;
     }
+    label.labels {
+        float: none;
+        margin: 0px;
+        padding: 3px 0px 0px 10px;
+        width: auto;
+        }
 
+a.echelons {
+    padding: 3px 0px 0px 10px;
+    }
 div.column {
     float: left;
     }
