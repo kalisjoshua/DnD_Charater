@@ -4,6 +4,10 @@ var dnd =
     window.dnd = {
         roll: function () {
             return Util.roll.apply(null, arguments);
+        },
+        
+        ui_init: function () {
+            UI.init();
         }
     },
     
