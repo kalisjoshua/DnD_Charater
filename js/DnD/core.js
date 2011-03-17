@@ -1,8 +1,10 @@
 //// core.js
 
-var pub = 
+var dnd = 
     window.dnd = {
-        
+        roll: function () {
+            return Util.roll.apply(null, arguments);
+        }
     },
     
     Util = {
@@ -120,8 +122,5 @@ var pub =
         
             return column(Util.caste[ness] || Util.caste.hero);
         }
-    },
-    
-    roll = function () {
-        return Util.roll.apply(null, arguments);
-    };;
+    };
+

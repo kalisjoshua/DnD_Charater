@@ -1,22 +1,24 @@
 //// player.js
 
-pub.Player = function (config) {
-        var obj = {
-                "designation": (function (alpha, beta) {
-                    if (!beta) {
-                        return designation[alpha];
-                    }
-                    // dual class designation algorythm
-                    
-                }(config.classPrimary || "", config.classSecondary || "")),
-                
-                "name": config.name || "Name, None",
-                
-                "race": Race[config.race]
-            };
+var Player = function (config) {
+    return {
+        "designation": (function (alpha, beta) {
+            if (!beta) {
+                return designation[alpha];
+            }
+            // dual class designation algorythm
             
-        return obj;
+        }(config.classPrimary || "", config.classSecondary || "")),
+        
+        "name": config.name || "Name, None",
+        
+        "race": Race[config.race]
     };
+};
+
+dnd.Player = function (config) {
+    return Player(config);
+};
 
 
 // prv.dualClass = function (primary, secondary) {
