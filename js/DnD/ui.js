@@ -1,6 +1,6 @@
 //// ui.js
 
-prv.ui = {
+var UI = {
     form_wireup: function () {
         $(document).change(function () {
                 // if all options are filled build the player's character
@@ -45,7 +45,9 @@ prv.ui = {
     },
     
     init: function () {
-        var node = {};
+        var builder = $("#builder"),
+            details = $("#detail"),
+            node = {};
         
         // primary class select box
         node = $("#classPrimary");

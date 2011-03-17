@@ -1,10 +1,10 @@
-//// races.js
+//// ref_races.js
     
-prv.races = {
+Reference.race = {
     "Dwarf": {
     	abilities   : [0, 10, 15, 0, 0, 0, -10, -5],
     	infravision : 60,
-    	languages   : prv.util.langs([4, 5, 8, 9]),
+    	languages   : [4, 5, 8, 9],
     	move        : 6,
     	raceName    : "Dwarf",
     	stats       : [0, 0, 0, 0, 1, -1, 0],
@@ -14,7 +14,7 @@ prv.races = {
     "Elf": {
     	abilities   : [5, -5, 0, 5, 10, 5, 0, 0],
     	infravision : 60,
-    	languages   : prv.util.langs([3, 4, 5, 6, 7, 9]),
+    	languages   : [3, 4, 5, 6, 7, 9],
     	move        : 12,
     	raceName    : "Elf",
     	stats       : [0, 0, 0, 1, -1, 0, 0],
@@ -24,7 +24,7 @@ prv.races = {
     "Gnome": {
     	abilities   : [0, 5, 10, 5, 5, 10, 15, 0],
     	infravision : 60,
-    	languages   : prv.util.langs([0, 1, 6, 5, 8]),
+    	languages   :[0, 1, 6, 5, 8],
     	move        : 6,
     	raceName    : "Gnome",
     	stats       : [-1, 0, 0, 1, 0, 0, 0],
@@ -34,7 +34,7 @@ prv.races = {
     "Goblin": {
     	abilities   : [ 0, 15, 10, 0, 0, 15, 0, 15],
     	infravision : 30,
-    	languages   : prv.util.langs([1, 3, 7, 8]),
+    	languages   : [1, 3, 7, 8],
     	move        : 8,
     	raceName    : "Goblin",
     	stats       : [-1, 1, 0, 1, 0, -1, 0],
@@ -44,7 +44,7 @@ prv.races = {
     "Half-Elf": {
     	abilities   : [10, 0, 0, 5, 0, 0, 0, 0],
     	infravision : 60,
-    	languages   : prv.util.langs([3, 4, 5, 6, 7, 9]),
+    	languages   : [3, 4, 5, 6, 7, 9],
     	move        : 12,
     	raceName    : "Half-Elf",
     	stats       : [0, 0, 0, 0, 0, 0, 0],
@@ -54,7 +54,7 @@ prv.races = {
     "Half-Orc": {
     	abilities   : [ -5, 5, 5, 0, 0, 5, 5, -10],
     	infravision : 60,
-    	languages   : prv.util.langs([9]),
+    	languages   : [9],
     	move        : 12,
     	raceName    : "Half-Orc",
     	stats       : [1, 0, 0, 0, 1, -1, 0],
@@ -64,7 +64,7 @@ prv.races = {
     "Halfling": {
     	abilities   : [ 5, 5, 5, 10, 15, 5, -15, -5],
     	infravision : 30,
-    	languages   : prv.util.langs([1, 2, 4, 5, 9]),
+    	languages   : [1, 2, 4, 5, 9],
     	move        : 6,
     	raceName    : "Halfling",
     	stats       : [-1, 0, 0, 1, 0, 0, 0],
@@ -74,7 +74,7 @@ prv.races = {
     "Human": {
     	abilities   : [0, 0, 0, 0, 0, 0, 0, 0],
     	infravision : 0,
-    	languages   : prv.util.langs([]),
+    	languages   : [],
     	move        : 12,
     	raceName    : "Human",
     	stats       : [0, 0, 0, 0, 0, 0, 0],

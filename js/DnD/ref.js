@@ -1,6 +1,19 @@
-//// tables.js
+//// ref.js
 
-prv.tables = {
+var Reference = {
+    languages: [
+        "burrowing mammal",
+        "dwarven",
+        "elvish",
+        "gnoll",
+        "gnome",
+        "goblin",
+        "halfling",
+        "hobgoblin",
+        "kobold",
+        "orcish"
+    ],
+    
     saves: {
     	Cleric: [
     	// ppd, pp, rsw, bw, sp
