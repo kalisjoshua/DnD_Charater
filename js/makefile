@@ -1,8 +1,8 @@
 NAME=DnD_1E_lib
 
 REL=./
-DIR_SRC=$(REL)DnD
-DIR_DIST=$(REL)libs
+DIR_SRC=$(REL)src
+DIR_DIST=.
 DIR_UTIL=$(REL)util
 
 RHINO_ENV ?= java -jar $(DIR_UTIL)/Rhino.jar

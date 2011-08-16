@@ -2,6 +2,13 @@
 
 var dnd = 
     window.dnd = {
+        PC: {
+            create: function (config) {
+                console.log(Player(config));
+                return Player(config);
+            }
+        },
+        
         roll: function () {
             return Util.roll.apply(null, arguments);
         },
@@ -12,25 +19,41 @@ var dnd =
     },
     
     Util = {
-        array_sum: function (ar) {
-            if (!Util.isArray(ar)) {
-                throw $.error("type error");
-            }
-        
-            var _ = ar.slice(0),
-                result = 0;
-        
-            while (!!_.length) {
-                if (Util.isNumeric(_[0])) {
-                    result += parseInt(_.shift(), 10);
+        array: {
+            sum: function (ar) {
+                if (!Util.isArray(ar)) {
+                    throw $.error("type error");
                 }
-                else {
-                    result = false;
-                    break;
-                }
-            }
         
-            return result;
+                var _ = ar.slice(0),
+                    result = 0;
+        
+                while (!!_.length) {
+                    if (Util.isNumeric(_[0])) {
+                        result += parseInt(_.shift(), 10);
+                    }
+                    else {
+                        result = false;
+                        break;
+                    }
+                }
+        
+                return result;
+            },
+            
+            unique: function (a) {
+                var f = {},
+                    i = 0,
+                    l = a.length,
+                    r = [];
+
+                while (i < l) {
+                    !f[a[i]] && r.push(a[i]);
+                    f[a[i++]] = 1;
+                }
+                
+                return r;
+            }
         },
     
         caste: {
@@ -38,7 +61,7 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array_sum(roll(6, 6).sort().slice(3));
+                    result = Util.array.sum(roll(6, 6).sort().slice(3));
                 } while (result <= 7);
             
                 return result;
@@ -48,7 +71,7 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array_sum(roll(4, 6).sort().slice(1));
+                    result = Util.array.sum(roll(4, 6).sort().slice(1));
                 } while (result <= 4);
             
                 return result;
@@ -58,7 +81,7 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array_sum(roll(3, 6));
+                    result = Util.array.sum(roll(3, 6));
                 } while (result <= 4);
             
                 return result;
@@ -68,15 +91,30 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array_sum(roll(3, 6));
+                    result = Util.array.sum(roll(3, 6));
                 } while (result <= 7);
             
                 return result;
             },
         
             pleb: function () {
-                return Util.array_sum(roll(3, 6));
+                return Util.array.sum(roll(3, 6));
             }
+        },
+        
+        clone: function(obj){
+            var i,
+                result = Util.isArray(obj) ? [] : {};
+            
+            for (i in obj) {
+                if (Util.isObject(obj[i])) {
+                    result[i] = Util.clone(obj[i]);
+                } else {
+                    result[i] = obj[i];
+                }
+            }
+            
+            return result;
         },
 
         isArray: function (q) {
@@ -93,6 +131,14 @@ var dnd =
 
         isType: function (obj, type) {
             return Object.prototype.toString.call(obj) === "[object " + type + "]";
+        },
+        
+        languages: function (ar) {
+            var result = [];
+            while (ar.length) {
+                result.push(Reference.languages[ar.shift()]);
+            }
+            return result;
         },
 
         roll: function (num, faces) {
