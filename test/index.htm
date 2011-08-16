@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <title>Test Suite</title>
-<link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
+<!-- testing framework files -->
+<link rel="stylesheet" href="libs/qunit.css" type="text/css" media="screen" />
+<script type="text/javascript" src="libs/qunit.js"></script>
 
+<!-- source files to test -->
 <script type="text/javascript" src="../js/src/core.js"></script>
 <script type="text/javascript" src="../js/src/ref.js"></script>
 <script type="text/javascript" src="../js/src/ref_aabilities.js"></script>
@@ -13,8 +16,8 @@
 <script type="text/javascript" src="../js/src/player.js"></script>
 <script type="text/javascript" src="../js/src/ui.js"></script>
 
-<script type="text/javascript" src="qunit.js"></script>
-<script type="text/javascript" src="tests.js"></script>
+<!-- tests to run -->
+<script type="text/javascript" src="src/core.js"></script>
 </head>
 <body>
 <h1 id="qunit-header">QUnit Test Suite</h1>
