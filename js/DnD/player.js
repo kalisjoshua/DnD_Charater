@@ -3,86 +3,79 @@
 var Player = function (config) {
     return {
         "designation": (function (alpha, beta) {
+            alpha = Util.clone(Reference.designation[alpha]);
+            
             if (!beta) {
-                return designation[alpha];
+                return alpha;
             }
-            // dual class designation algorythm
+            
+            beta  = Util.clone(Reference.designation[beta]);
+            
+            // dual-class designation
+            var dual = {
+                    "designation": {
+                        alpha: alpha,
+                        beta: beta
+                    },
+                    
+                    "HDT": Math.round((alpha.HDT + beta.HDT) / 2),
+                    
+                    "prefs": (function (a, b) {
+                        var result = [];
+                        // weave the two skill priority arrays into one
+                        while (a.length) {
+                            result.push(a.shift(), b.shift());
+                        }
+                        
+                        return Util.array.unique(result);
+                    }(alpha.prefs.slice(0), beta.prefs.slice(0))),
+                    
+                    "saves": (function (a, b) {
+                        var level,
+                            result = [];
+                        
+                        while (a.length) {
+                            level = [];
+                            while (a[0].length) {
+                                level.push(a[0][0] < b[0][0] ? a[0][0] : b[0][0]);
+                                a[0].shift();
+                                b[0].shift();
+                            }
+                            result.push(level);
+                            a.shift();
+                            b.shift();
+                        }
+                        
+                        return result;
+                    }(alpha.saves.slice(0), beta.saves.slice(0))),
+                    
+                    "spells": {
+                        "alpha": alpha.spells,
+                        "beta": beta.spells
+                    },
+                    
+                    "thaco": (function (a, b) {
+                        var result = [];
+                        
+                        while (a.length) {
+                            result.push(a[0] < b[0] ? a[0] : b[0]);
+                            a.shift();
+                            b.shift();
+                        }
+                        
+                        return result;
+                    }(alpha.thaco.slice(0), beta.thaco.slice(0))),
+                    
+                    "title": alpha.title + "/" + beta.title
+                };
+            
+            return dual;
             
         }(config.classPrimary || "", config.classSecondary || "")),
         
-        "name": config.name || "Name, None",
+        "name": config.name || "g'Venn Oname",
         
-        "race": Race[config.race]
+        "race": Util.clone(Reference.race[config.race])
     };
 };
 
-dnd.Player = function (config) {
-    return Player(config);
-};
-
-
-// prv.dualClass = function (primary, secondary) {
-//     var result = {
-//             className: primary.className + " / " + secondary.className,
-//             HDT: parseInt((primary.HDT + secondary.HDT) / 2, 10),
-//             prefs: [],
-//             saves: [],
-//             spells: {},
-//             thaco: []
-//         },
-//         
-//         temp = [primary.prefs, secondary.prefs],
-//         
-//         // used is for removing duplicates in the dual-class prefs array
-//         used = [0, 0, 0, 0, 0, 0, 0]; // 0 === false
-//     
-//     result.spells[primary.className] = primary.spells;
-//     result.spells[secondary.className] = secondary.spells;
-//     
-//     // **** Stats preferences **** //
-//     // weave the 2 prefs-lists together, ignoring the chances of duplicates
-//     while (!!temp[0].length) {
-//         result.prefs.push(temp[0].shift(), temp[1].shift());
-//     }
-//     
-//     // reuse the temp variable as an indexer for removing duplicates in the final array
-//     temp = 0;
-//     
-//     // remove the duplicates 
-//     while (result.prefs.length > 7) {
-//         if (!used[result.prefs[temp]]) {
-//             used[result.prefs[temp]] = 1; // 1 === true
-//         }
-//         else {
-//             result.prefs = result.prefs.slice(0, temp).concat(result.prefs.slice(temp + 1));
-//             temp--;
-//         }
-//         
-//         temp++;
-//     }
-//     
-//     // **** THAC0 matrix **** //
-//     while (result.thaco.length < primary.thaco.length) {
-//         temp = result.thaco.length;
-//         result.thaco.push((primary.thaco[temp] < secondary.thaco[temp]) ? primary.thaco[temp] : secondary.thaco[temp]);
-//     }
-//     
-//     // **** Saves martix **** //
-//     while (result.saves.length < primary.saves.length) {
-//         temp = result.saves.length;
-//         result.saves[temp] = [];
-//         for (var i = 0; i < primary.saves[0].length; i++) {
-//             result.saves[temp].push((primary.saves[temp][i] < secondary.saves[temp][i]) ? primary.saves[temp][i] : secondary.saves[temp][i]);
-//         }
-//     }
-//     
-//     return result;
-// };
-
-// Languages
-// function (ar) {
-//     var result = [];
-//     do {
-//         result.push(Reference.languages[ar.shift()]);
-//     } while (ar.length);
-// };
