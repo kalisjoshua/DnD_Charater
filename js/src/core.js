@@ -61,7 +61,7 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array.sum(roll(6, 6).sort().slice(3));
+                    result = Util.array.sum(dnd.roll(6, 6).sort().slice(3));
                 } while (result <= 7);
             
                 return result;
@@ -71,7 +71,7 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array.sum(roll(4, 6).sort().slice(1));
+                    result = Util.array.sum(dnd.roll(4, 6).sort().slice(1));
                 } while (result <= 4);
             
                 return result;
@@ -81,7 +81,7 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array.sum(roll(3, 6));
+                    result = Util.array.sum(dnd.roll(3, 6));
                 } while (result <= 4);
             
                 return result;
@@ -91,14 +91,14 @@ var dnd =
                 var result;
             
                 do {
-                    result = Util.array.sum(roll(3, 6));
+                    result = Util.array.sum(dnd.roll(3, 6));
                 } while (result <= 7);
             
                 return result;
             },
         
             pleb: function () {
-                return Util.array.sum(roll(3, 6));
+                return Util.array.sum(dnd.roll(3, 6));
             }
         },
         
@@ -143,10 +143,21 @@ var dnd =
 
         roll: function (num, faces) {
             var result = [];
+
+            if (num === undefined ||
+                !Util.isNumeric(num) ||
+                (num = parseInt(num, 10) || 0) < 1 ||
+                faces === undefined && num < 2 ||
+                faces !== undefined && !Util.isNumeric(faces) ||
+                Util.isNumeric(faces) && faces < 2) {
+                throw new Error("Invalid arguments passed to roll(). " + arguments);
+            }
         
             if (faces === undefined) {
                 faces = num;
                 num = 1;
+            } else {
+                faces = parseInt(faces, 10);
             }
         
             while (num--) {
@@ -156,7 +167,7 @@ var dnd =
             return result;
         },
     
-        stats: function (ness) {
+        stats: function (caste) {
             var column = function (fn) {
                     var count = 7,
                         result = [];
@@ -170,7 +181,7 @@ var dnd =
                         });
                 };
         
-            return column(Util.caste[ness] || Util.caste.hero);
+            return column(Util.caste[caste] || Util.caste.hero);
         }
     };
 
