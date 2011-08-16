@@ -107,10 +107,10 @@ var dnd =
                 result = Util.isArray(obj) ? [] : {};
             
             for (i in obj) {
-                if (Util.isObject(obj[i])) {
-                    result[i] = Util.clone(obj[i]);
-                } else {
-                    result[i] = obj[i];
+                if (obj.hasOwnProperty(i)) {
+                    result[i] = Util.isObject(obj[i]) ? 
+                        Util.clone(obj[i]) : 
+                        obj[i];
                 }
             }
             
@@ -131,6 +131,13 @@ var dnd =
 
         isType: function (obj, type) {
             return Object.prototype.toString.call(obj) === "[object " + type + "]";
+        },
+
+        isValidAbilityScore: function (v) {
+            if (Util.isNumeric(v)) {
+                v = parseFloat(v, 10);
+            }
+            return v !== undefined && v < 25 && v > 2 && Math.floor(v) === v;
         },
         
         languages: function (ar) {
