@@ -37,7 +37,7 @@ Reference.Ability = {
     Constitution: (function (table) {
         return function (v) {
             if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
+                throw new Error("Invalid value passed to Constitution()");
             }
             return table[v];
         }
@@ -70,7 +70,7 @@ Reference.Ability = {
     Comeliness: (function (table) {
         return function (v) {
             if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
+                throw new Error("Invalid value passed to Comeliness()");
             }
             return table[v];
         }
@@ -103,7 +103,7 @@ Reference.Ability = {
     Dexterity: (function (table) {
         return function (v) {
             if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
+                throw new Error("Invalid value passed to Dexterity()");
             }
             return table[v];
         }
@@ -136,10 +136,7 @@ Reference.Ability = {
     Inteligence: (function (table) {
         return function (v) {
             if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
-            }
-            if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
+                throw new Error("Invalid value passed to Inteligence()");
             }
             return table[v];
         }
@@ -171,29 +168,20 @@ Reference.Ability = {
 
     Strength: (function (table) {
         return function (v, e) {
-            if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
+            if (!Util.isValidAbilityScore(v) ||
+                e !== undefined && !Util.isNumeric(e)) {
+                throw new Error("Invalid value passed to Strength()");
             }
-            if (e >= 0) {
-                e = e === 0 ? 100 : e;
-                
-                if (e < 51) {
-                    return [1, 3, 1000, '3/6', 20]; // 18 01-50
+
+            e = parseInt(e, 10);
+
+            if (v === 18 && e > 0) {
+                if (e < 51) {         return [ 1,  3, 1000,   '3/6', 20]; // 18 / 01-50
+                } else if (e < 76) {  return [ 2,  3, 1250,   '4/6', 25]; // 18 / 51-75
+                } else if (e < 91) {  return [ 2,  4, 1500,   '4/6', 30]; // 18 / 76-90
+                } else if (e < 100) { return [ 2,  5, 2000,   '4/6', 35]; // 18 / 91-99
+                } else {              return [ 3,  6, 3000,   '5/6', 40];  // 18 / 100+
                 }
-                
-                if (e < 76) {
-                    return [2, 3, 1250, '4/6', 25]; // 18 51-75
-                }
-                
-                if (e < 91) {
-                    return [2, 4, 1500, '4/6', 30]; // 18 76-90
-                }
-                
-                if (e < 100) {
-                    return [2, 5, 2000, '4/6', 35]; // 18 91-99
-                }
-                
-                return [3, 6, 3000, '5/6', 40];  // 18 100
             }
         
             return table[v];
@@ -227,22 +215,22 @@ Reference.Ability = {
     Wisdom: (function (table) {
         return function (v) {
             if (!Util.isValidAbilityScore(v)) {
-                throw new Error("Invalid value passed to Charisma()");
+                throw new Error("Invalid value passed to Wisdom()");
             }
             return table[v];
         }
     }([
         [], [], [], // tables start at ability score 3
-        [-3, 100,  0], //  3
-        [-2, 100,  0], //  4
-        [-1, 100,  0], //  5
-        [-1, 100,  0], //  6
-        [-1, 100,  0], //  7
-        [ 0, 100,  0], //  8
-        [ 0,  20,  0], //  9
-        [ 0,  15,  0], // 10
-        [ 0,  10,  0], // 11
-        [ 0,   5,  0], // 12
+        [-3, 100, ""], //  3
+        [-2, 100, ""], //  4
+        [-1, 100, ""], //  5
+        [-1, 100, ""], //  6
+        [-1, 100, ""], //  7
+        [ 0, 100, ""], //  8
+        [ 0,  20, ""], //  9
+        [ 0,  15, ""], // 10
+        [ 0,  10, ""], // 11
+        [ 0,   5, ""], // 12
         [ 0,   0, "1"], // 13
         [ 0,   0, "1,1"], // 14
         [ 1,   0, "1,1,2"], // 15

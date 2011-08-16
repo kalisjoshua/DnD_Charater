@@ -196,6 +196,22 @@ test("Util.isType", function () {
     TODO();
 });
 
+test("Util.isValidAbilityScore", function () {
+    ok(Util.isValidAbilityScore, "Util.isValidAbilityScore defined");
+
+    test_obj = [3,"5",10,3*5,44/2, 24];
+    while (test_obj.length) {
+        ok(Util.isValidAbilityScore(test_obj[0]), "Util.isValidAbilityScore - valid value: " + test_obj[0]);
+        test_obj.shift();
+    }
+
+    test_obj = [1, 3.5,4/2,5*5,"abc"];
+    while (test_obj.length) {
+        ok(!Util.isValidAbilityScore(test_obj[0]), "Util.isValidAbilityScore - invalid value: " + test_obj[0]);
+        test_obj.shift();
+    }
+});
+
 test("Util.roll", function () {
     ok(Util.roll, "Util.roll defined");
 
