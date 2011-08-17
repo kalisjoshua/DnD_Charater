@@ -1,6 +1,6 @@
 //// ref_races.js
     
-Reference.race = {
+Reference.Races = {
     "Dwarf": {
     	abilities   : [0, 10, 15, 0, 0, 0, -10, -5],
     	infravision : 60,
@@ -74,7 +74,7 @@ Reference.race = {
     "Human": {
     	abilities   : [0, 0, 0, 0, 0, 0, 0, 0],
     	infravision : 0,
-    	languages   : Util.languages([]),
+    	languages   : Util.languages([10]),
     	move        : 12,
     	raceName    : "Human",
     	stats       : [0, 0, 0, 0, 0, 0, 0],

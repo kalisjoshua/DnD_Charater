@@ -41,8 +41,8 @@ test("Util.array", function () {
     TODO();
 });
 
-test("Util.caste", function () {
-    ok(Util.caste, "Util.caste defined");
+test("Util.Caste", function () {
+    ok(Util.Caste, "Util.caste defined");
     var castes = [
         "champion",
         "hero",
@@ -51,8 +51,8 @@ test("Util.caste", function () {
         "pleb"
     ];
     while (castes.length) {
-        ok(Util.caste[castes[0]], "Util.caste." + castes[0] + " defined");
-        ok(Util.caste[castes[0]](), "Util.caste." + castes[0] + "() = " + Util.caste[castes[0]]());
+        ok(Util.Caste[castes[0]], "Util.caste." + castes[0] + " defined");
+        ok(Util.Caste[castes[0]](), "Util.caste." + castes[0] + "() = " + Util.Caste[castes[0]]());
         castes.shift();
     }
 });

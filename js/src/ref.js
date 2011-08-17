@@ -11,7 +11,8 @@ var Reference = {
         "halfling",
         "hobgoblin",
         "kobold",
-        "orcish"
+        "orcish",
+        "common"
     ],
     
     saves: {

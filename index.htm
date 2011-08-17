@@ -47,13 +47,25 @@
     </div>
     
     <div class="row">
-        <label for="alpha beta">Class designation</label>
+        <label for="alpha beta">Class</label>
         <select id="alpha" name="alpha">
             <option value="">-- select one --</option>
         </select>
         <select id="beta" name="beta">
             <option value=""></option>
         </select>
+    </div>
+
+    <div class="row">
+        <label for="caste">Caste</label>
+        <select id="caste" name="caste">
+            <option value="">-- select one --</option>
+        </select>
+    </div>
+    
+    <div class="row">
+        <label for="level">Level</label>
+        <input id="level" name="level" />
     </div>
     
     <div class="row">
@@ -109,102 +121,97 @@
     
     <div class="column" id="vitals">
         <div class="row">
-            <label for="level">Level</label>
-            <input id="level" name="level" />
-        </div>
-        
-        <div class="row">
             <label for="hp">HP</label>
-            <input id="hp" name="hp" />
+            <input disabled="true" id="hp" name="hp" />
         </div>
         
         <div class="row">
             <label for="thaco">THAC0</label>
-            <input id="thaco" name="thaco" />
+            <input disabled="true" id="thaco" name="thaco" />
         </div>
         
         <div class="row">
             <label for="move">Move</label>
-            <input id="move" name="move" />
+            <input disabled="true" id="move" name="move" />
         </div>
         
         <div class="row">
             <label for="see">See Invisible</label>
-            <input id="see" name="see" />
+            <input disabled="true" id="see" name="see" />
         </div>
         
         <div class="row">
             <label for="mr">Magic Resistance</label>
-            <input id="mr" name="mr" />
+            <input disabled="true" id="mr" name="mr" />
         </div>
     </div>
     
     <div class="column" id="saves">
         <div class="row">
             <label for="ppd" title="Paralyze, Poison, Death">ppd</label>
-            <input id="ppd" name="ppd" />
+            <input disabled="true" id="ppd" name="ppd" />
         </div>
 
         <div class="row">
             <label for="pp" title="Petrify, Polymorph">pp</label>
-            <input id="pp" name="pp" />
+            <input disabled="true" id="pp" name="pp" />
         </div>
 
         <div class="row">
             <label for="rsw" title="Rods, Staves, Wands">rsw</label>
-            <input id="rsw" name="rsw" />
+            <input disabled="true" id="rsw" name="rsw" />
         </div>
 
         <div class="row">
             <label for="bw" title="Breath Weapon">bw</label>
-            <input id="bw" name="bw" />
+            <input disabled="true" id="bw" name="bw" />
         </div>
 
         <div class="row">
             <label for="sp" title="Spells">sp</label>
-            <input id="sp" name="sp" />
+            <input disabled="true" id="sp" name="sp" />
         </div>
     </div>
     
     <div id="skills">
         <div>
             <label for="pickPockets">Pick Pockets</label>
-            <input id="pickPockets" name="pickPockets" />
+            <input disabled="true" id="pickPockets" name="pickPockets" />
         </div>
     
         <div>
             <label for="openLocks">Open Locks</label>
-            <input id="openLocks" name="openLocks" />
+            <input disabled="true" id="openLocks" name="openLocks" />
         </div>
     
         <div>
             <label for="findRemove">Find/Remove</label>
-            <input id="findRemove" name="findRemove" />
+            <input disabled="true" id="findRemove" name="findRemove" />
         </div>
     
         <div>
             <label for="moveSilent">Move Silent</label>
-            <input id="moveSilent" name="moveSilent" />
+            <input disabled="true" id="moveSilent" name="moveSilent" />
         </div>
     
         <div>
             <label for="shadowHide">Shadow Hide</label>
-            <input id="shadowHide" name="shadowHide" />
+            <input disabled="true" id="shadowHide" name="shadowHide" />
         </div>
     
         <div>
             <label for="hearNoise">Hear Noise</label>
-            <input id="hearNoise" name="hearNoise" />
+            <input disabled="true" id="hearNoise" name="hearNoise" />
         </div>
     
         <div>
             <label for="climbWalls">Climb Walls</label>
-            <input id="climbWalls" name="climbWalls" />
+            <input disabled="true" id="climbWalls" name="climbWalls" />
         </div>
     
         <div>
             <label for="readLanguage">Read Language</label>
-            <input id="readLanguage" name="readLanguage" />
+            <input disabled="true" id="readLanguage" name="readLanguage" />
         </div>
     </div>
 </div>
@@ -212,6 +219,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.4.2.js"%3E%3C/script%3E'))</script>
 
-<script src="js/libs/DnD_1E_lib.js"></script>
+<script type="text/javascript" src="js/src/core.js"></script>
+<script type="text/javascript" src="js/src/ref.js"></script>
+<script type="text/javascript" src="js/src/ref_abilities.js"></script>
+<script type="text/javascript" src="js/src/ref_designations.js"></script>
+<script type="text/javascript" src="js/src/ref_races.js"></script>
+<script type="text/javascript" src="js/src/player.js"></script>
+<script type="text/javascript" src="js/src/ui.js"></script>
+<script>
+$(function () {
+    dnd.ui_init();
+});
+</script>
 </body>
 </html>

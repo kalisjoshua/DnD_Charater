@@ -13,8 +13,11 @@ test("Reference", function () {
     actual = "orcish";
     equal(Reference.languages[9], actual, "Reference.languages[0] = " + actual);
 
-    actual = undefined;
+    actual = "common";
     equal(Reference.languages[10], actual, "Reference.languages[0] = " + actual);
+
+    actual = undefined;
+    equal(Reference.languages[11], actual, "Reference.languages[0] = " + actual);
 
     ok(Reference.saves, "Reference.saves defined");
     ok(Reference.thaco, "Reference.thaco defined");

@@ -14,7 +14,7 @@ var dnd =
         },
         
         ui_init: function () {
-            UI.init();
+            UI.setup();
         }
     },
     
@@ -56,7 +56,7 @@ var dnd =
             }
         },
     
-        caste: {
+        Caste: {
             champion: function () {
                 var result;
             
