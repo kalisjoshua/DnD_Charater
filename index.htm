@@ -34,6 +34,11 @@
 
 <div id="builder">
     <div class="row">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" />
+    </div>
+    
+    <div class="row">
         <label for="race">Race</label>
         <select id="race" name="race">
             <option value="">-- select one --</option>
@@ -55,6 +60,11 @@
             <option value=""></option>
         </select>
     </div>
+    
+    <div class="row">
+        <label for="level">Level</label>
+        <input id="level" name="level" />
+    </div>
 
     <div class="row">
         <label for="caste">Caste</label>
@@ -64,65 +74,60 @@
     </div>
     
     <div class="row">
-        <label for="level">Level</label>
-        <input id="level" name="level" />
-    </div>
-    
-    <div class="row">
-        <label for="stats">Stats</label>
-        <input id="stats" name="stats" />
+        <label for="generated_stats">Stats</label>
+        <input id="generated_stats" name="generated_stats" />
     </div>
 </div>
 
 <div id="detail">
     <div class="column" id="abilities">
         <div class="row">
-            <label for="str">str</label>
-            <input id="str" name="str" />
+            <label for="Strength">str</label>
+            <input id="Strength" name="Strength" />
             <span></span>
         </div>
         
         <div class="row">
-            <label for="int">int</label>
-            <input id="int" name="int" />
+            <label for="Inteligence">int</label>
+            <input id="Inteligence" name="Inteligence" />
             <span></span>
         </div>
         
         <div class="row">
-            <label for="wis">wis</label>
-            <input id="wis" name="wis" />
+            <label for="Wisdom">wis</label>
+            <input id="Wisdom" name="Wisdom" />
             <span></span>
         </div>
         
         <div class="row">
-            <label for="dex">dex</label>
-            <input id="dex" name="dex" />
+            <label for="Dexterity">dex</label>
+            <input id="Dexterity" name="Dexterity" />
             <span></span>
         </div>
         
         <div class="row">
-            <label for="con">con</label>
-            <input id="con" name="con" />
+            <label for="Constitution">con</label>
+            <input id="Constitution" name="Constitution" />
             <span></span>
         </div>
         
         <div class="row">
-            <label for="cha">cha</label>
-            <input id="cha" name="cha" />
+            <label for="Charisma">cha</label>
+            <input id="Charisma" name="Charisma" />
             <span></span>
         </div>
         
         <div class="row">
-            <label for="com">com</label>
-            <input id="com" name="com" />
+            <label for="Comeliness">com</label>
+            <input id="Comeliness" name="Comeliness" />
             <span></span>
         </div>
     </div>
     
     <div class="column" id="vitals">
         <div class="row">
-            <label for="hp">HP</label>
-            <input disabled="true" id="hp" name="hp" />
+            <label for="HP">HP</label>
+            <input disabled="true" id="HP" name="HP" />
         </div>
         
         <div class="row">
@@ -216,8 +221,8 @@
     </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
-<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.4.2.js"%3E%3C/script%3E'))</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-1.4.2.min.js"><\/script>')</script>
 
 <script type="text/javascript" src="js/src/core.js"></script>
 <script type="text/javascript" src="js/src/ref.js"></script>

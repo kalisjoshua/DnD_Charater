@@ -2,83 +2,83 @@
     
 Reference.Races = {
     "Dwarf": {
-    	abilities   : [0, 10, 15, 0, 0, 0, -10, -5],
-    	infravision : 60,
-    	languages   : Util.languages([4, 5, 8, 9]),
-    	move        : 6,
-    	raceName    : "Dwarf",
-    	stats       : [0, 0, 0, 0, 1, -1, 0],
-    	savesBonus  : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+        infravision   : 60,
+        languages     : Util.languages([4, 5, 8, 9]),
+        move          : 6,
+        raceName      : "Dwarf",
+        statModifiers : [0, 0, 0, 0, 1, -1, 0],
+        savesBonus    : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con",
+        thiefSkills   : [0, 10, 15, 0, 0, 0, -10, -5]
     },
     
     "Elf": {
-    	abilities   : [5, -5, 0, 5, 10, 5, 0, 0],
-    	infravision : 60,
-    	languages   : Util.languages([3, 4, 5, 6, 7, 9]),
-    	move        : 12,
-    	raceName    : "Elf",
-    	stats       : [0, 0, 0, 1, -1, 0, 0],
-    	savesBonus  : ""
+        infravision   : 60,
+        languages     : Util.languages([3, 4, 5, 6, 7, 9]),
+        move          : 12,
+        raceName      : "Elf",
+        statModifiers : [0, 0, 0, 1, -1, 0, 0],
+        savesBonus    : "",
+        thiefSkills   : [5, -5, 0, 5, 10, 5, 0, 0]
     },
     
     "Gnome": {
-    	abilities   : [0, 5, 10, 5, 5, 10, 15, 0],
-    	infravision : 60,
-    	languages   : Util.languages([0, 1, 6, 5, 8]),
-    	move        : 6,
-    	raceName    : "Gnome",
-    	stats       : [-1, 0, 0, 1, 0, 0, 0],
-    	savesBonus  : "+1 on saves(rsw, sp) for each 3 1/2 of con"
+        infravision   : 60,
+        languages     : Util.languages([0, 1, 6, 5, 8]),
+        move          : 6,
+        raceName      : "Gnome",
+        statModifiers : [-1, 0, 0, 1, 0, 0, 0],
+        savesBonus    : "+1 on saves(rsw, sp) for each 3 1/2 of con",
+        thiefSkills   : [0, 5, 10, 5, 5, 10, 15, 0]
     },
     
     "Goblin": {
-    	abilities   : [ 0, 15, 10, 0, 0, 15, 0, 15],
-    	infravision : 30,
-    	languages   : Util.languages([1, 3, 7, 8]),
-    	move        : 8,
-    	raceName    : "Goblin",
-    	stats       : [-1, 1, 0, 1, 0, -1, 0],
-    	savesBonus  : ""
+        infravision   : 30,
+        languages     : Util.languages([1, 3, 7, 8]),
+        move          : 8,
+        raceName      : "Goblin",
+        statModifiers : [-1, 1, 0, 1, 0, -1, 0],
+        savesBonus    : "",
+        thiefSkills   : [ 0, 15, 10, 0, 0, 15, 0, 15]
     },
     
     "Half-Elf": {
-    	abilities   : [10, 0, 0, 5, 0, 0, 0, 0],
-    	infravision : 60,
-    	languages   : Util.languages([3, 4, 5, 6, 7, 9]),
-    	move        : 12,
-    	raceName    : "Half-Elf",
-    	stats       : [0, 0, 0, 0, 0, 0, 0],
-    	savesBonus  : ""
+        infravision   : 60,
+        languages     : Util.languages([3, 4, 5, 6, 7, 9]),
+        move          : 12,
+        raceName      : "Half-Elf",
+        statModifiers : [0, 0, 0, 0, 0, 0, 0],
+        savesBonus    : "",
+        thiefSkills   : [10, 0, 0, 5, 0, 0, 0, 0]
     },
     
     "Half-Orc": {
-    	abilities   : [ -5, 5, 5, 0, 0, 5, 5, -10],
-    	infravision : 60,
-    	languages   : Util.languages([9]),
-    	move        : 12,
-    	raceName    : "Half-Orc",
-    	stats       : [1, 0, 0, 0, 1, -1, 0],
-    	savesBonus  : ""
+        infravision   : 60,
+        languages     : Util.languages([9]),
+        move          : 12,
+        raceName      : "Half-Orc",
+        statModifiers : [1, 0, 0, 0, 1, -1, 0],
+        savesBonus    : "",
+        thiefSkills   : [ -5, 5, 5, 0, 0, 5, 5, -10]
     },
     
     "Halfling": {
-    	abilities   : [ 5, 5, 5, 10, 15, 5, -15, -5],
-    	infravision : 30,
-    	languages   : Util.languages([1, 2, 4, 5, 9]),
-    	move        : 6,
-    	raceName    : "Halfling",
-    	stats       : [-1, 0, 0, 1, 0, 0, 0],
-    	savesBonus  : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+        infravision   : 30,
+        languages     : Util.languages([1, 2, 4, 5, 9]),
+        move          : 6,
+        raceName      : "Halfling",
+        statModifiers : [-1, 0, 0, 1, 0, 0, 0],
+        savesBonus    : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con",
+        thiefSkills   : [ 5, 5, 5, 10, 15, 5, -15, -5]
     },
     
     "Human": {
-    	abilities   : [0, 0, 0, 0, 0, 0, 0, 0],
-    	infravision : 0,
-    	languages   : Util.languages([10]),
-    	move        : 12,
-    	raceName    : "Human",
-    	stats       : [0, 0, 0, 0, 0, 0, 0],
-    	savesBonus  : ""
+        infravision   : 0,
+        languages     : Util.languages([10]),
+        move          : 12,
+        raceName      : "Human",
+        statModifiers : [0, 0, 0, 0, 0, 0, 0],
+        savesBonus    : "",
+        thiefSkills   : [0, 0, 0, 0, 0, 0, 0, 0]
     }
 };
 

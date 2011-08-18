@@ -189,6 +189,13 @@ div#detail {
             width: 95px;
             }
 
+input {
+    padding: 4px;
+    border: 1px solid #000000;
+    }
+input.disabled {
+    background: #aea9b1;
+    }
 
 
 

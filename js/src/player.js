@@ -1,19 +1,23 @@
 //// player.js
 
 var Player = function (config) {
+    if (!config.Race || !config.alpha || !config.level) {
+        return {"valid": false};
+    }
+
     return {
-        "designation": (function (alpha, beta) {
-            alpha = Util.clone(Reference.designation[alpha]);
+        "Designation": (function (alpha, beta) {
+            alpha = Util.clone(alpha);
             
             if (!beta) {
                 return alpha;
             }
             
-            beta  = Util.clone(Reference.designation[beta]);
+            beta  = Util.clone(beta);
             
-            // dual-class designation
-            var dual = {
-                    "designation": {
+            // dual-class Designation
+            return {
+                    "dual": {
                         alpha: alpha,
                         beta: beta
                     },
@@ -31,23 +35,24 @@ var Player = function (config) {
                     }(alpha.prefs.slice(0), beta.prefs.slice(0))),
                     
                     "saves": (function (a, b) {
-                        var level,
+                        var al = 0,
+                            bl = 0,
+                            level,
                             result = [];
                         
-                        while (a.length) {
+                        while (a.length > al) {
                             level = [];
-                            while (a[0].length) {
-                                level.push(a[0][0] < b[0][0] ? a[0][0] : b[0][0]);
-                                a[0].shift();
-                                b[0].shift();
+                            bl = 0;
+                            while (a[al].length > bl) {
+                                level.push(a[al][bl] < b[al][bl] ? a[al][bl] : b[al][bl]);
+                                bl++;
                             }
                             result.push(level);
-                            a.shift();
-                            b.shift();
+                            al++;
                         }
                         
                         return result;
-                    }(alpha.saves.slice(0), beta.saves.slice(0))),
+                    }(alpha.saves, beta.saves)),
                     
                     "spells": {
                         "alpha": alpha.spells,
@@ -62,20 +67,21 @@ var Player = function (config) {
                             a.shift();
                             b.shift();
                         }
-                        
+
                         return result;
                     }(alpha.thaco.slice(0), beta.thaco.slice(0))),
                     
                     "title": alpha.title + "/" + beta.title
                 };
-            
-            return dual;
-            
-        }(config.classPrimary || "", config.classSecondary || "")),
+        }(config.alpha || "", config.beta || "")),
+
+        "level": config.level,
         
-        "name": config.name || "g'Venn Oname",
+        "name": config.name || "gi Venn Oname",
         
-        "race": Util.clone(Reference.race[config.race])
+        "Race": Util.clone(config.Race),
+
+        "valid": true
     };
 };
 

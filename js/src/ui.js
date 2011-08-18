@@ -39,8 +39,19 @@ var UI = (function () {
         ui.Races.push(node.clone()[0]);
     });
 
-    ui.changed = function () {
-        console.log("attempt player build");
+    ui.changed = function (event) {
+        // event.preventDefault();
+        $(this).trigger("updateField");
+
+        var pc = Player({
+            alpha: Reference.Designations[ui.elements.alpha.val()],
+            beta: Reference.Designations[ui.elements.beta.val()],
+            level: ui.elements.level.val(),
+            name: ui.elements.name.val(),
+            Race: Reference.Races[ui.elements.race.val()]
+        });
+
+        pc.valid && ui.update(pc);
     };
 
     ui.setup = function () {
@@ -49,24 +60,35 @@ var UI = (function () {
             alpha: $("#alpha"),
             beta: $("#beta"),
             builder: $("#builder"),
-            caste: $("#caste"),
+            caste: $("#caste").parent().hide().end(),
             detail: $("#detail"),
+            generated_stats: $("#generated_stats").parent().hide().end(),
+            level: $("#level"),
+            name: $("#name"),
             race: $("#race"),
-            stats: $("#stats").parent().hide().end(),
+            stats: $("#abilities").find("input"),
             strict: $("#strictDual")
         };
+
+        $("input[disabled]").
+            addClass("disabled");
 
         $().
             add(ui.elements.alpha).
             add(ui.elements.beta).
             add(ui.elements.caste).
             add(ui.elements.race).
+            add(ui.elements.stats).
             add(ui.elements.strict).
             change(ui.changed);
 
+        $().
+            add(ui.elements.level).
+            keyup(ui.changed);
+
         ui.elements.alpha.
             append(ui.Designations.all).
-            change(function () {
+            bind("updateField", function () {
                 // hide/show secondary class select list based on primary class selection
                 if ((ui.elements.strict.is(":checked") && Reference.Designations[this.value].dual) || (!ui.elements.strict.is(":checked") && this.value !== "")) {
                     ui.elements.beta.
@@ -76,6 +98,10 @@ var UI = (function () {
                         hide().
                         val("");
                 }
+
+                if(ui.elements.alpha.val() === ui.elements.beta.val()) {
+                    ui.elements.beta.val("");
+                }
             });
         
         // add null option from beta select box to designations lists since the alpha list is static
@@ -83,7 +109,7 @@ var UI = (function () {
         Array.prototype.unshift.call(ui.Designations.all, ui.elements.beta.children().first().clone()[0]);
 
         ui.elements.beta.
-            change(function () {
+            bind("updateField", function () {
                 if (ui.elements.alpha.val() === ui.elements.beta.val()) {
                     ui.elements.beta.val("");
                 }
@@ -95,19 +121,13 @@ var UI = (function () {
             hide();
 
         ui.elements.caste.
-            append(ui.Caste.clone()).
-            change(function () {
-
-            });
+            append(ui.Caste.clone());
 
         ui.elements.race.
-            append(ui.Races.clone()).
-            change(function () {
-
-            });
+            append(ui.Races.clone());
 
         ui.elements.strict.
-            change(function () {
+            bind("updateField", function () {
                 var selected = ui.elements.beta.val(),
                     strict = ui.elements.strict.is(":checked");
 
@@ -115,7 +135,9 @@ var UI = (function () {
                     empty().
                     append(strict ? ui.Designations.dual.clone() : ui.Designations.all.clone());
                 
-                if (strict && !(Reference.Designations[ui.elements.alpha.val()] || {}).dual) {
+                if (!strict && !ui.elements.alpha.val() || 
+                    strict && !(Reference.Designations[ui.elements.alpha.val()] || {}).dual
+                ) {
                     ui.elements.beta.
                         hide();
                 } else {
@@ -125,6 +147,18 @@ var UI = (function () {
                 
                 ui.elements.beta.val(selected);
             });
+    };
+
+    ui.update = function (pc) {
+        console.clear();
+        console.log(pc);
+
+        $("#thaco").val(pc.Designation.thaco[pc.level]);
+        $("#move").val(pc.Race.move);
+
+        $.each($("#saves").find("input"), function (indx, obj) {
+            obj.value = pc.Designation.saves[pc.level][indx] + pc.Race.statModifiers[indx];
+        });
     };
 
     return ui;
