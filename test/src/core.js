@@ -1,6 +1,6 @@
 var TODO = function () {0 ? ok(false, "TODO: add more tests!") : null;};
 
-module("Initialization");
+module("core.js");
 
 test("dnd global Object setup", function () {
     ok(dnd, "global dnd object is defined");
@@ -15,11 +15,9 @@ test("dnd global Object setup", function () {
 var actual = 11,
     test_obj = [1,2,3,4,1];
 
-module("Private Members", {
-    setup: function () {
-    }
-});
-test("Util.array", function () {
+module("Util");
+
+test(".array", function () {
     ok(Util.array, "Util.array defined");
 
     ok(Util.array.sum, "Util.array.sum defined");
@@ -41,7 +39,7 @@ test("Util.array", function () {
     TODO();
 });
 
-test("Util.Caste", function () {
+test(".Caste{...}", function () {
     ok(Util.Caste, "Util.caste defined");
     var castes = [
         "champion",
@@ -57,7 +55,7 @@ test("Util.Caste", function () {
     }
 });
 
-test("Util.clone", function () {
+test(".clone()", function () {
     ok(Util.clone, "Util.clone defined");
 
     actual = test_obj = [1,2,[3,4],"hello world!",{"name":"Joshua"}];
@@ -89,7 +87,7 @@ test("Util.clone", function () {
     TODO();
 });
 
-test("Util.isArray", function () {
+test(".isArray()", function () {
     ok(Util.isArray, "Util.isArray defined");
 
     test_obj = [];
@@ -115,7 +113,7 @@ test("Util.isArray", function () {
     ok(!Util.isArray(function () {}), "passing in various non-arrays should be fine: " + function () {});
 });
 
-test("Util.isNumeric", function () {
+test(".isNumeric()", function () {
     ok(Util.isNumeric, "Util.isNumeric defined");
 
     test_obj = 100
@@ -169,7 +167,7 @@ test("Util.isNumeric", function () {
     ok(!Util.isNumeric(), "nothing at all");
 });
 
-test("Util.isObject", function () {
+test(".isObject()", function () {
     ok(Util.isObject, "Util.isObject defined");
 
     test_obj = {};
@@ -190,13 +188,13 @@ test("Util.isObject", function () {
     TODO();
 });
 
-test("Util.isType", function () {
+test(".isType()", function () {
     ok(Util.isType, "Util.isType defined");
     
     TODO();
 });
 
-test("Util.isValidAbilityScore", function () {
+test(".isValidAbilityScore()", function () {
     ok(Util.isValidAbilityScore, "Util.isValidAbilityScore defined");
 
     test_obj = [3,"5",10,3*5,44/2, 24];
@@ -212,7 +210,7 @@ test("Util.isValidAbilityScore", function () {
     }
 });
 
-test("Util.roll", function () {
+test(".roll()", function () {
     ok(Util.roll, "Util.roll defined");
 
     test_obj = Util.roll(6);
@@ -282,6 +280,8 @@ test("Util.roll", function () {
     }, Error, "invalid arguments should throw an error to help debugging - second: negative number as string");
 });
 
-test("Util.stats", function () {
+test(".stats()", function () {
     ok(Util.stats, "Util.stats defined");
+
+    TODO();
 });
