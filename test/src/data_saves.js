@@ -1,25 +1,26 @@
-module("Saves");
+module("saves.js");
 
 (function () {
     var actual,
         temp;
 
-    test("saves.js", function () {
-        ok(Saves, "Reference.Saves defined");
+    actual = [
+        "Cleric",
+        "Fighter",
+        "Mage",
+        "Thief"
+    ];
 
-        actual = [
-            "Cleric",
-            "Fighter",
-            "Mage",
-            "Thief"
-        ];
-        
-        while (actual.length) {
-            temp = actual.shift();
-            equal(23, Saves[temp].length, "Saves." + temp + " is initialized to 23 levels");
-        }
+    for (temp in actual) {
+        (function (actual, temp) {
+            test("Saves object initializations | " + actual[temp], function () {
+                equal(23, Saves[actual[temp]].length, "Saves." + actual[temp] + " is initialized to 23 levels");
+                equal(5, Saves[actual[temp]][0].length, "Saves." + actual[temp] + "[0] is initialized with 5 values")
+            });
+        }(actual, temp));
+    }
 
-        // spot checking
+    test("spot checking", function () {
         deepEqual(Saves.Cleric[ 0], [19,19,19,19,19],  "Saves.Cleric for level  0");
         deepEqual(Saves.Cleric[ 1], [10,13,14,16,15],  "Saves.Cleric for level  1");
         deepEqual(Saves.Cleric[21], [02,05,06,08,07],  "Saves.Cleric for level 21");

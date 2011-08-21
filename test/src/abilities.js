@@ -8,7 +8,7 @@ module("abilities.js");
         ok(Abilities, "Abilities defined");
     });
 
-    test("Abilities.Charisma", function () {
+    test(".Charisma()", function () {
         ok(Abilities.Charisma, "Abilities.Charisma defined");
 
         deepEqual(Abilities.Charisma( 3), [ 1, -30, -25,  -5], "Ability level  3 of Charisma");
@@ -24,7 +24,7 @@ module("abilities.js");
         }, Error, "Throws error when values are not valid - too high");
     });
 
-    test("Abilities.Constitution", function () {
+    test(".Constitution()", function () {
         ok(Abilities.Constitution, "Abilities.Constitution defined");
 
         deepEqual(Abilities.Constitution( 3), [-2,  35,  40,  0], "Ability level  3 of Constitution");
@@ -40,7 +40,7 @@ module("abilities.js");
         }, Error, "Throws error when values are not valid - too high");
     });
 
-    test("Abilities.Comeliness", function () {
+    test(".Comeliness()", function () {
         ok(Abilities.Comeliness, "Abilities.Comeliness defined");
 
         deepEqual(Abilities.Comeliness( 3), ['', '', ''], "Ability level  3 of Comeliness");
@@ -56,7 +56,7 @@ module("abilities.js");
         }, Error, "Throws error when values are not valid - too high");
     });
 
-    test("Abilities.Dexterity", function () {
+    test(".Dexterity()", function () {
         ok(Abilities.Dexterity, "Abilities.Dexterity defined");
 
         deepEqual(Abilities.Dexterity( 3), [-3, -3,  4], "Ability level  3 of Dexterity");
@@ -72,7 +72,7 @@ module("abilities.js");
         }, Error, "Throws error when values are not valid - too high");
     });
 
-    test("Abilities.Intelligence", function () {
+    test(".Intelligence()", function () {
         ok(Abilities.Intelligence, "Abilities.Intelligence defined");
 
         deepEqual(Abilities.Intelligence( 3), [ 0,  0,  0,  0], "Ability level  3 of Intelligence");
@@ -88,7 +88,7 @@ module("abilities.js");
         }, Error, "Throws error when values are not valid - too high");
     });
 
-    test("Abilities.Strength", function () {
+    test(".Strength()", function () {
         ok(Abilities.Strength, "Abilities.Strength defined");
 
         deepEqual(Abilities.Strength( 3     ), [-3, -1, -350,   '1/6',  0], "Ability level  3 of Strength");
@@ -145,7 +145,7 @@ module("abilities.js");
         }, Error, "Throws error when values are not valid - second arg is not valid");
     });
 
-    test("Abilities.Wisdom", function () {
+    test(".Wisdom()", function () {
         ok(Abilities.Wisdom, "Abilities.Wisdom defined");
 
         deepEqual(Abilities.Wisdom( 3), [-3, 100, ""], "Ability level  3 of Wisdom");

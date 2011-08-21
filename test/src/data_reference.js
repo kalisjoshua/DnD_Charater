@@ -1,10 +1,10 @@
-module("Reference");
+module("reference.js");
 
 (function () {
     var actual,
         temp;
 
-    test("reference.js - Languages", function () {
+    test("Languages", function () {
         ok(Languages, "Reference.Languages defined");
 
         actual = [
@@ -27,7 +27,7 @@ module("Reference");
         }
     });
 
-    test("reference.js - Thacos", function () {
+    test("Thacos", function () {
         ok(Thacos, "Reference.Thacos defined");
 
         actual = [
