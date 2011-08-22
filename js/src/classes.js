@@ -1,4 +1,4 @@
-//// Classes.js
+//// classes.js
 
 createObject(dnd, "_Class", $.extend);
 

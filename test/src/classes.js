@@ -55,7 +55,7 @@ module("classes.js");
         (function (actual, temp) {
             test("Classes object initializations | " + actual[temp], function () {
                 ok(Classes[actual[temp]], "Classes." + actual[temp] + " exists");
-                deepEqual(Classes[actual[temp]].private(), Designations[temp], actual[temp] + " object");
+                deepEqual(Classes[actual[temp]].state(), Designations[temp], actual[temp] + " object");
             });
         }(actual, temp));
     }

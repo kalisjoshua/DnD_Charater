@@ -4,12 +4,76 @@ module("core.js");
 
 test("dnd global Object setup", function () {
     ok(dnd, "global dnd object is defined");
-    ok(dnd.roll, "roll function is defined");
-    ok(dnd.ui_init, "ui_init function is defined");
+});
 
-    ok(dnd.PC, "PC is defined on global dnd object");
+test("dnd.roll()", function () {
+    ok(dnd.roll, "dnd.roll defined");
 
-    ok(Util, "Util object is defined");
+    test_obj = dnd.roll(6);
+    ok(test_obj, "Passing in only one argument; argument is number of faces on die: " + test_obj);
+
+    test_obj = dnd.roll(1,6);
+    ok(test_obj, "Takes 2 arguments; first is number of dice, second is number of faces on die: " + test_obj);
+
+    raises(function () {
+        dnd.roll();
+    }, Error, "invalid arguments should throw an error to help debugging - both undefined (implicit)");
+
+    raises(function () {
+        dnd.roll(undefined, undefined);
+    }, Error, "invalid arguments should throw an error to help debugging - both undefined (explicit)");
+
+    raises(function () {
+        dnd.roll("abc", "def");
+    }, Error, "invalid arguments should throw an error to help debugging - both invalid strings");
+
+    raises(function () {
+        dnd.roll(undefined, 20);
+    }, Error, "invalid arguments should throw an error to help debugging - first: undefined (explicit)");
+
+    raises(function () {
+        dnd.roll("abc", 20);
+    }, Error, "invalid arguments should throw an error to help debugging - first: string value, non-numeric");
+
+    raises(function () {
+        dnd.roll(-10, 20);
+    }, Error, "invalid arguments should throw an error to help debugging - first: string value, negative value");
+
+    raises(function () {
+        dnd.roll("-10", 20);
+    }, Error, "invalid arguments should throw an error to help debugging - first: string value, negative value as string");
+
+    raises(function () {
+        dnd.roll(0);
+    }, Error, "invalid arguments should throw an error to help debugging - first: zero not allowed");
+
+    raises(function () {
+        dnd.roll(0, "abc");
+    }, Error, "invalid arguments should throw an error to help debugging - first: zero not allowed");
+
+    raises(function () {
+        dnd.roll(0, 20);
+    }, Error, "invalid arguments should throw an error to help debugging - first: zero not allowed");
+
+    raises(function () {
+        dnd.roll(1);
+    }, Error, "invalid arguments should throw an error to help debugging - first only: one not allowed because it is transposed to the second argument");
+
+    raises(function () {
+        dnd.roll(1, "");
+    }, Error, "invalid arguments should throw an error to help debugging - second: empty string");
+
+    raises(function () {
+        dnd.roll(1, "abc");
+    }, Error, "invalid arguments should throw an error to help debugging - second: string");
+
+    raises(function () {
+        dnd.roll(1, -1);
+    }, Error, "invalid arguments should throw an error to help debugging - second: negative number");
+
+    raises(function () {
+        dnd.roll(1, "-1");
+    }, Error, "invalid arguments should throw an error to help debugging - second: negative number as string");
 });
 
 var actual = 11,
@@ -53,6 +117,8 @@ test(".Caste{...}", function () {
         ok(Util.Caste[castes[0]](), "Util.caste." + castes[0] + "() = " + Util.Caste[castes[0]]());
         castes.shift();
     }
+
+    TODO(); // refactor Caste out of Util
 });
 
 test(".clone()", function () {
@@ -208,76 +274,6 @@ test(".isValidAbilityScore()", function () {
         ok(!Util.isValidAbilityScore(test_obj[0]), "Util.isValidAbilityScore - invalid value: " + test_obj[0]);
         test_obj.shift();
     }
-});
-
-test(".roll()", function () {
-    ok(Util.roll, "Util.roll defined");
-
-    test_obj = Util.roll(6);
-    ok(test_obj, "Passing in only one argument; argument is number of faces on die: " + test_obj);
-
-    test_obj = Util.roll(1,6);
-    ok(test_obj, "Takes 2 arguments; first is number of dice, second is number of faces on die: " + test_obj);
-
-    raises(function () {
-        Util.roll();
-    }, Error, "invalid arguments should throw an error to help debugging - both undefined (implicit)");
-
-    raises(function () {
-        Util.roll(undefined, undefined);
-    }, Error, "invalid arguments should throw an error to help debugging - both undefined (explicit)");
-
-    raises(function () {
-        Util.roll("abc", "def");
-    }, Error, "invalid arguments should throw an error to help debugging - both invalid strings");
-
-    raises(function () {
-        Util.roll(undefined, 20);
-    }, Error, "invalid arguments should throw an error to help debugging - first: undefined (explicit)");
-
-    raises(function () {
-        Util.roll("abc", 20);
-    }, Error, "invalid arguments should throw an error to help debugging - first: string value, non-numeric");
-
-    raises(function () {
-        Util.roll(-10, 20);
-    }, Error, "invalid arguments should throw an error to help debugging - first: string value, negative value");
-
-    raises(function () {
-        Util.roll("-10", 20);
-    }, Error, "invalid arguments should throw an error to help debugging - first: string value, negative value as string");
-
-    raises(function () {
-        Util.roll(0);
-    }, Error, "invalid arguments should throw an error to help debugging - first: zero not allowed");
-
-    raises(function () {
-        Util.roll(0, "abc");
-    }, Error, "invalid arguments should throw an error to help debugging - first: zero not allowed");
-
-    raises(function () {
-        Util.roll(0, 20);
-    }, Error, "invalid arguments should throw an error to help debugging - first: zero not allowed");
-
-    raises(function () {
-        Util.roll(1);
-    }, Error, "invalid arguments should throw an error to help debugging - first only: one not allowed because it is transposed to the second argument");
-
-    raises(function () {
-        Util.roll(1, "");
-    }, Error, "invalid arguments should throw an error to help debugging - second: empty string");
-
-    raises(function () {
-        Util.roll(1, "abc");
-    }, Error, "invalid arguments should throw an error to help debugging - second: string");
-
-    raises(function () {
-        Util.roll(1, -1);
-    }, Error, "invalid arguments should throw an error to help debugging - second: negative number");
-
-    raises(function () {
-        Util.roll(1, "-1");
-    }, Error, "invalid arguments should throw an error to help debugging - second: negative number as string");
 });
 
 test(".stats()", function () {

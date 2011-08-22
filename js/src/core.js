@@ -1,20 +1,30 @@
 //// core.js
 
-var dnd = 
-    window.dnd = {
-        PC: {
-            create: function (config) {
-                console.log(Player(config));
-                return Player(config);
+var dnd = {
+        roll: function (num, faces) {
+            var result = [];
+
+            if (num === undefined ||
+                !Util.isNumeric(num) ||
+                (num = parseInt(num, 10) || 0) < 1 ||
+                faces === undefined && num < 2 ||
+                faces !== undefined && !Util.isNumeric(faces) ||
+                Util.isNumeric(faces) && faces < 2) {
+                throw new Error("Invalid arguments passed to roll(). " + arguments);
             }
-        },
         
-        roll: function () {
-            return Util.roll.apply(null, arguments);
-        },
+            if (faces === undefined) {
+                faces = num;
+                num = 1;
+            } else {
+                faces = parseInt(faces, 10);
+            }
         
-        ui_init: function () {
-            UI.setup();
+            while (num--) {
+                result.push(parseInt(Math.random() * faces, 10) + 1);
+            }
+        
+            return result;
         }
     },
     
@@ -145,32 +155,6 @@ var dnd =
             while (ar.length) {
                 result.push(Reference.languages[ar.shift()]);
             }
-            return result;
-        },
-
-        roll: function (num, faces) {
-            var result = [];
-
-            if (num === undefined ||
-                !Util.isNumeric(num) ||
-                (num = parseInt(num, 10) || 0) < 1 ||
-                faces === undefined && num < 2 ||
-                faces !== undefined && !Util.isNumeric(faces) ||
-                Util.isNumeric(faces) && faces < 2) {
-                throw new Error("Invalid arguments passed to roll(). " + arguments);
-            }
-        
-            if (faces === undefined) {
-                faces = num;
-                num = 1;
-            } else {
-                faces = parseInt(faces, 10);
-            }
-        
-            while (num--) {
-                result.push(parseInt(Math.random() * faces, 10) + 1);
-            }
-        
             return result;
         },
     

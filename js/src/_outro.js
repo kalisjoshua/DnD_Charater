@@ -1,2 +1,2 @@
-
+    window.dnd = dnd;
 }(window));

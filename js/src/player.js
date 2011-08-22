@@ -1,87 +1,156 @@
 //// player.js
 
-var Player = function (config) {
-    if (!config.Race || !config.alpha || !config.level) {
-        return {"valid": false};
-    }
+var Player = (function () {
+    var
+        Player = function (config) {
+            var 
+            // mutable properties
+                 _age = 15
+                ,_caste                                 // current Caste
+                ,_designation
+                ,_height
+                ,_level = 0
+                ,_name = "gi Venn Oname"
+                ,_stats = []
+                ,_title                                 // eg. Sir, Count, Lady, etc.
+                ,_weight
 
-    return {
-        "Designation": (function (alpha, beta) {
-            alpha = Util.clone(alpha);
-            
-            if (!beta) {
-                return alpha;
+            // immutable properties
+                ,_background = config.background || ""  // initial class
+                ,_heritage = config.heritage || ""      // begining Caste
+                ,_gender = config.gender || "Gender"
+                ,_race = config.race || "Race"
+
+                ,methods = [
+                    "age",
+                    "caste",
+                    "designation",
+                    "height",
+                    "level",
+                    "name",
+                    "stats",
+                    "title",
+                    "weight",
+                    "background",
+                    "heritage",
+                    "gender",
+                    "race"
+                ]
+
+            // private methods
+                ,increment = function (d, max) {
+                    return Util.isNumeric(d) && d > 0 ? parseInt(d, 10) : 1;
+                }
+            ;
+
+            this.age = function (delta) {
+                delta = increment(delta, _age);
+
+                if (arguments.length === 1 && delta) {
+                    _age = delta;
+                }
+
+                return _age;
+            };
+
+            this.caste = function (delta) {
+                if (arguments.length === 1 && delta || delta === "") {
+                    _caste = delta.toString();
+                }
+
+                return _caste;
+            };
+
+            this.designation = function (delta) {
+                if (arguments.length === 1 && delta || delta === "") {
+                    _designation = delta;
+                }
+
+                return _designation;
+            };
+
+            this.height = function (delta) {
+                delta = increment(delta, _height);
+
+                if (arguments.length === 1 && delta) {
+                    _height = delta;
+                }
+
+                return _height;
+            };
+
+            this.level = function (delta) {
+                delta = increment(delta, _level);
+
+                if (arguments.length === 1 && delta) {
+                    _level = delta;
+                }
+
+                return _level;
+            };
+
+            this.name = function (delta) {
+                if (arguments.length === 1 && delta || delta === "") {
+                    _name = delta;
+                }
+                
+                return _name;
+            };
+
+            this.stats = function (delta) {
+                if (arguments.length === 1 && delta && Util.isArray(delta) && delta.length === 7) {
+                    _stats = delta;
+                }
+
+                return _stats;
+            };
+
+            this.title = function (delta) {
+                if (arguments.length === 1 && delta || delta === "") {
+                    _title = delta;
+                }
+                
+                return _title;
+            };
+
+            this.weight = function (delta) {
+                delta = increment(delta, _weight);
+
+                if (arguments.length === 1 && delta) {
+                    _weight = delta;
+                }
+
+                return _weight;
+            };
+
+            this.background = function () {
+                return _background;
+            };
+
+            this.heritage = function () {
+                return _heritage;
+            };
+
+            this.gender = function () {
+                return _gender;
+            };
+
+            this.race = function () {
+                return _race;
+            };
+
+            for (var m in methods) {
+                this[methods[m]](config[methods[m]]);
             }
-            
-            beta  = Util.clone(beta);
-            
-            // dual-class Designation
-            return {
-                    "dual": {
-                        alpha: alpha,
-                        beta: beta
-                    },
-                    
-                    "HDT": Math.round((alpha.HDT + beta.HDT) / 2),
-                    
-                    "prefs": (function (a, b) {
-                        var result = [];
-                        // weave the two skill priority arrays into one
-                        while (a.length) {
-                            result.push(a.shift(), b.shift());
-                        }
-                        
-                        return Util.array.unique(result);
-                    }(alpha.prefs.slice(0), beta.prefs.slice(0))),
-                    
-                    "saves": (function (a, b) {
-                        var al = 0,
-                            bl = 0,
-                            level,
-                            result = [];
-                        
-                        while (a.length > al) {
-                            level = [];
-                            bl = 0;
-                            while (a[al].length > bl) {
-                                level.push(a[al][bl] < b[al][bl] ? a[al][bl] : b[al][bl]);
-                                bl++;
-                            }
-                            result.push(level);
-                            al++;
-                        }
-                        
-                        return result;
-                    }(alpha.saves, beta.saves)),
-                    
-                    "spells": {
-                        "alpha": alpha.spells,
-                        "beta": beta.spells
-                    },
-                    
-                    "thaco": (function (a, b) {
-                        var result = [];
-                        
-                        while (a.length) {
-                            result.push(a[0] < b[0] ? a[0] : b[0]);
-                            a.shift();
-                            b.shift();
-                        }
+        },
 
-                        return result;
-                    }(alpha.thaco.slice(0), beta.thaco.slice(0))),
-                    
-                    "title": alpha.title + "/" + beta.title
-                };
-        }(config.alpha || "", config.beta || "")),
+        fn = Player.prototype;
 
-        "level": config.level,
-        
-        "name": config.name || "gi Venn Oname",
-        
-        "Race": Util.clone(config.Race),
+    // Player.Castes = {...};
 
-        "valid": true
-    };
-};
+    // Player.create = function (config) {
+    //     return new Player(config);
+    // };
 
+    return Player;
+}());
