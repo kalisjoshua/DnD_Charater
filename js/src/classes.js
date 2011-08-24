@@ -2,16 +2,17 @@
 
 createObject(dnd, "_Class", $.extend);
 
+dnd._Class.prototype.getType = function () {
+    return "[object dnd._Class-" + this.get("title") + "]";
+};
+
 var Bases = {},
     Classes = {},
     allClasses = [],
     dualClasses = [];
 
 (function () {
-    var n,
-        addToBases = function (c) {
-            Bases[c.get("title")] = c;
-        };
+    var n;
 
     dnd._Class.extend({
         dual: function (sub) {
@@ -78,7 +79,9 @@ var Bases = {},
         allClasses.push(Designations[n].title);
         Designations[n].dual.length &&
             dualClasses.push(Designations[n].title) &&
-            addToBases(dnd._Class(Designations[n]));
+            (Bases[dnd._Class(Designations[n]).get("title")] = dnd._Class(Designations[n]));
+        
         Classes[Designations[n].title] = dnd._Class(Designations[n]);
+        Classes[Designations[n].title].getType = dnd._Class.prototype.getType;
     }
 }());

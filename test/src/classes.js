@@ -4,6 +4,12 @@ module("classes.js");
     var actual,
         temp;
 
+    test("dnd._Class object detection", function () {
+        ok(dnd._Class, "dnd._Class object available");
+
+        ok(dnd._Class.prototype.getType, ".prototype.getType method defined");
+    });
+
     test("list checks", function () {
         deepEqual([
             "Acrobat",
@@ -56,6 +62,7 @@ module("classes.js");
             test("Classes object initializations | " + actual[temp], function () {
                 ok(Classes[actual[temp]], "Classes." + actual[temp] + " exists");
                 deepEqual(Classes[actual[temp]].state(), Designations[temp], actual[temp] + " object");
+                equal("[object dnd._Class-" + actual[temp] + "]", Classes[actual[temp]].getType(), ".getType() returns proper string value");
             });
         }(actual, temp));
     }

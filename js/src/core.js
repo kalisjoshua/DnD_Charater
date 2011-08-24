@@ -138,6 +138,10 @@ var dnd = {
         isObject: function (q) {
             return Util.isType(q, "Object");
         },
+    
+        isString: function (q) {
+            return Util.isType(q, "String");
+        },
 
         isType: function (obj, type) {
             return Object.prototype.toString.call(obj) === "[object " + type + "]";

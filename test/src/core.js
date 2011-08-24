@@ -153,112 +153,118 @@ test(".clone()", function () {
     TODO();
 });
 
-test(".isArray()", function () {
-    ok(Util.isArray, "Util.isArray defined");
+(function () {
+    var actual = [
+             (function() {return arguments;}()) //  0 arguments
+            ,[1, 2, 3]                          //  1 array
+            ,new Boolean(true)                  //  2 boolean
+            ,true                               //  3
+            ,new Date()                         //  4 date
+            ,new Error()                        //  5 error
+            ,function () {}                     //  6 function
+            ,JSON                               //  7 json
+            ,Math                               //  8 math
+            ,NaN                                //  9 NaN
+            ,new Number(4)                      // 10 number
+            ,9                                  // 11
+            ,null                               // 11 null
+            ,{a: 4}                             // 12 object
+            ,new Object()                       // 13 
+            ,/a-z/                              // 14 regexp
+            ,new String("abc")                  // 15 string
+            ,"Hello"                            // 16
+            ,(function (u) {return u;}())       // 17 undefined
+        ],
+        temp;
 
-    test_obj = [];
-    ok(Util.isArray(test_obj), "empty array should be detected as an array");
+    test(".isArray()", function () {
+        ok(Util.isArray, "Util.isArray defined");
 
-    test_obj = [1,2,3,4];
-    ok(Util.isArray(test_obj), "simple array: " + test_obj);
+        for(temp in actual) {
+            if (parseInt(temp, 10) === 1) {
+                ok( Util.isArray(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") pass");
+            } else {
+                ok(!Util.isArray(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") fail");
+            }
+        }
+    });
 
-    test_obj = [1,2,[3,4],"hello world!", {"name":"Joshua"}];
-    ok(Util.isArray(test_obj), "more complex array: " + test_obj);
+    test(".isNumeric()", function () {
+        ok(Util.isNumeric, "Util.isNumeric defined");
 
-    test_obj = {};
-    ok(!Util.isArray(test_obj), "empty object should not be detected as an array");
+        for(temp in actual) {
+            if (parseInt(temp, 10) === 10 || parseInt(temp, 10) === 11) {
+                ok( Util.isNumeric(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") pass");
+            } else {
+                ok(!Util.isNumeric(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") fail");
+            }
+        }
 
-    test_obj = {"name":"Joshua"};
-    ok(!Util.isArray(test_obj), "simple object: " + test_obj);
+        var numbers = [
+                ,0
+                ,0.0
+                ,123456
+                ,-123456
+                ,.123456
+                ,1.23456
+                ,123456.
+                ,1/2
+                ,2/3
+                ,1/23456
+                ,1234e56
+                ,1234-56
+                ,"123456"
+                ,"-123456"
+            ];
 
-    ok(!Util.isArray(), "passing in various non-arrays should be fine: " + undefined);
-    ok(!Util.isArray(1), "passing in various non-arrays should be fine: " + 1);
-    ok(!Util.isArray(null), "passing in various non-arrays should be fine: " + null);
-    ok(!Util.isArray(Math), "passing in various non-arrays should be fine: " + Math);
-    ok(!Util.isArray("string"), "passing in various non-arrays should be fine: " + "string");
-    ok(!Util.isArray(function () {}), "passing in various non-arrays should be fine: " + function () {});
-});
+        for(temp in numbers) {
+            ok(Util.isNumeric(numbers[temp]), numbers[temp]);
+        }
 
-test(".isNumeric()", function () {
-    ok(Util.isNumeric, "Util.isNumeric defined");
+        numbers = [
+             "abd.123"
+            ,".123abc"
+        ];
 
-    test_obj = 100
-    ok(Util.isNumeric(test_obj), "simple integer: " + test_obj);
+        for(temp in numbers) {
+            ok(!Util.isNumeric(numbers[temp]), numbers[temp]);
+        }
+    });
 
-    test_obj = -100
-    ok(Util.isNumeric(test_obj), "simple integer: " + test_obj);
+    test(".isObject()", function () {
+        ok(Util.isObject, "Util.isObject defined");
 
-    test_obj = 1/4;
-    ok(Util.isNumeric(test_obj), "fraction: " + test_obj);
+        for(temp in actual) {
+            if (parseInt(temp, 10) === 13 || parseInt(temp, 10) === 14) {
+                ok( Util.isObject(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") pass");
+            } else {
+                ok(!Util.isObject(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") fail");
+            }
+        }
 
-    test_obj = 2/3;
-    ok(Util.isNumeric(test_obj), "fraction: " + test_obj);
+        TODO();
+    });
 
-    test_obj = 1234e56;
-    ok(Util.isNumeric(test_obj), "large numbers: " + test_obj);
+    test(".isString()", function () {
+        ok(Util.isObject, "Util.isString defined");
 
-    test_obj = 1234e-56;
-    ok(Util.isNumeric(test_obj), "very small numbers: " + test_obj);
+        for(temp in actual) {
+            if (parseInt(temp, 10) === 16 || parseInt(temp, 10) === 17) {
+                ok( Util.isString(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") pass");
+            } else {
+                ok(!Util.isString(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") fail");
+            }
+        }
 
-    test_obj = "1234";
-    ok(Util.isNumeric(test_obj), "string numbers: " + test_obj);
+        TODO();
+    });
 
-    test_obj = "-1234";
-    ok(Util.isNumeric(test_obj), "string numbers: " + test_obj);
-
-    test_obj = ".0987";
-    ok(Util.isNumeric(test_obj), "string numbers: " + test_obj);
-
-    test_obj = "0.0987";
-    ok(Util.isNumeric(test_obj), "string numbers: " + test_obj);
-
-    test_obj = "-.0987";
-    ok(Util.isNumeric(test_obj), "string numbers: " + test_obj);
-
-    test_obj = "abc.0987";
-    ok(!Util.isNumeric(test_obj), "non-numeric: " + test_obj);
-
-    test_obj = ".0987abc";
-    ok(!Util.isNumeric(test_obj), "non-numeric: " + test_obj);
-
-    test_obj = "";
-    ok(!Util.isNumeric(test_obj), "non-numeric (empty string): " + test_obj);
-
-    test_obj = Math;
-    ok(!Util.isNumeric(test_obj), "non-numeric: " + test_obj);
-
-    test_obj = [1,2,3,4];
-    ok(!Util.isNumeric(test_obj), "non-numeric: " + test_obj);
-
-    ok(!Util.isNumeric(), "nothing at all");
-});
-
-test(".isObject()", function () {
-    ok(Util.isObject, "Util.isObject defined");
-
-    test_obj = {};
-    ok(Util.isObject(test_obj), "simplest js object: " + test_obj);
-
-    test_obj = new Object();
-    ok(Util.isObject(test_obj), "base js object: " + test_obj);
-
-    test_obj = [];
-    ok(!Util.isObject(), "Array not Object (empty): " + test_obj);
-
-    test_obj = [1,2,3,4];
-    ok(!Util.isObject(), "Array not Object: " + test_obj);
-
-    test_obj = {"name":"Joshua"};
-    ok(Util.isObject(test_obj), "Simple JSON object: " + test_obj);
-
-    TODO();
-});
-
-test(".isType()", function () {
-    ok(Util.isType, "Util.isType defined");
-    
-    TODO();
-});
+    test(".isType()", function () {
+        ok(Util.isType, "Util.isType defined");
+        
+        TODO();
+    });
+}());
 
 test(".isValidAbilityScore()", function () {
     ok(Util.isValidAbilityScore, "Util.isValidAbilityScore defined");
