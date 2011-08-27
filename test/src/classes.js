@@ -1,133 +1,83 @@
 module("classes.js");
 
-(function () {
-    var actual,
-        temp;
+test("list checks", function () {
+    equal(15, Classes.length, "correct number of classes");
 
-    test("dnd._Class object detection", function () {
-        ok(dnd.Class, "dnd._Class object available");
-
-        ok(dnd.Class.prototype.getType, ".prototype.getType method defined");
-    });
-
-    test("list checks", function () {
-        deepEqual([
-            "Acrobat",
-            "Archer",
-            "Assassin",
-            "Barbarian",
-            "Bard",
-            "Cavalier",
-            "Cleric",
-            "Druid",
-            "Fighter",
-            "Illusionist",
-            "Mage",
-            "Monk",
-            "Paladin",
-            "Ranger",
-            "Thief"
-        ], allClasses, "Classes.listAll is correct");
-
-        deepEqual([
-            "Cleric",
-            "Druid",
-            "Fighter",
-            "Illusionist",
-            "Mage",
-            "Thief"
-        ], dualClasses, "Classes.listDual is correct");
-    });
-    
-    actual = [
-        "Acrobat",
-        "Archer",
-        "Assassin",
-        "Barbarian",
-        "Bard",
-        "Cavalier",
-        "Cleric",
-        "Druid",
-        "Fighter",
-        "Illusionist",
-        "Mage",
-        "Monk",
-        "Paladin",
-        "Ranger",
-        "Thief"
-    ];
-
-    for (temp in actual) {
-        (function (actual, temp) {
-            test("Classes object initializations | " + actual[temp], function () {
-                ok(Classes[actual[temp]], "Classes." + actual[temp] + " exists");
-                deepEqual(Classes[actual[temp]].state(), Designations[temp], actual[temp] + " object");
-                equal("[object dnd._Class-" + actual[temp] + "]", Classes[actual[temp]].getType(), ".getType() returns proper string value");
-            });
-        }(actual, temp));
-    }
-    
-    actual = [
-        "Cleric",
-        "Druid",
-        "Fighter",
-        "Illusionist",
-        "Mage",
-        "Thief"
-    ];
-
-    for (temp in actual) {
-        (function (actual, temp) {
-            test("Bases object initializations | " + actual[temp], function () {
-                ok(Bases[actual[temp]], "Bases." + actual[temp] + " exists");
-            });
-        }(actual, temp));
-    }
-}());
-
-test("self-dual-class detection", function () {
-    raises(function () {
-        Classes.Cleric.dual(Classes.Cleric);
-    }, "attemptng self-dual-class should throw an error to help with debugging");
+    equal(6, Classes.dual().length, "correct number of dual classes");
 });
 
-(function () {
-    var a,
-        b,
-        x,
-        y;
+test("dual-classes", function () {
+    raises(function () {
+        Classes.merge();
+    }, "no arguments passed into merge");
+    
+    raises(function () {
+        Classes.merge("Captain", "Awesome");
+    }, "invalid arguments passed into merge");
+    
+    raises(function () {
+        Classes.merge("Cleric", "Awesome");
+    }, "invalid arguments passed into merge");
+    
+    raises(function () {
+        Classes.merge("Captain", "Fighter");
+    }, "invalid arguments passed into merge");
+    
+    raises(function () {
+        Classes.merge(Classes.is("Cleric"), Classes.is("Fighter"));
+    }, "objects passed into merge, seem like it should work but shouldn't");
 
-    test("dual-class objects | Cleric, Fighter", function () {
-        a = Classes.Cleric.clone();
-        b = Classes.Fighter.clone();
-        x = a.dual(b);
-        y = b.dual(a);
+    raises(function () {
+        Classes.merge("Cleric", "Cleric");
+    }, "attemptng self-dual-class");
+});
 
-        deepEqual([16, 17, 18, 19, 19], x.get("saves")[0], "Saves for 0th level");
-        notDeepEqual(x.get("saves"), a.get("saves"), "dual class saves are different than primary class saves");
-        notDeepEqual(x.get("saves"), b.get("saves"), "dual class saves are different than secondary class saves");
+test("dual-class objects | Cleric, Fighter", function () {
+    var  a = Classes.is("Cleric")
+        ,b = Classes.is("Fighter")
+        ,x = Classes.merge("Cleric", "Fighter")
+        ,y = Classes.merge("Fighter", "Cleric");
 
-        deepEqual([6, 9, 10, 9, 11], x.get("saves")[10], "Saves for 10th level");
+    deepEqual(x.saves, y.saves, "saves are the same regaurdless of primary and secondary classes");
+    notDeepEqual(x.saves, a.saves, "saves are not the same as base classes");
+    notDeepEqual(x.saves, b.saves, "saves are not the same as base classes");
+    notDeepEqual(y.saves, a.saves, "saves are not the same as base classes");
+    notDeepEqual(y.saves, b.saves, "saves are not the same as base classes");
 
-        deepEqual([2, 0, 4, 3, 5, 1, 6], x.get("prefs"), "prefs for " + x.get("title"));
-        deepEqual([0, 2, 4, 3, 5, 6, 1], y.get("prefs"), "prefs for " + y.get("title"));
-        notDeepEqual(x.get("prefs"), y.get("prefs"), "prefs for " + x.get("title") + " differs from " + y.get("title"))
-    });
+    equal((a.HDT + b.HDT) / 2, x.HDT, "merged HDT should be correct");
+    equal((a.HDT + b.HDT) / 2, y.HDT, "merged HDT should be correct");
 
-    test("dual-class objects | Mage, Thief", function () {
-        a = Classes.Mage.clone();
-        b = Classes.Thief.clone();
-        x = a.dual(b);
-        y = b.dual(a);
+    notDeepEqual(x.prefs, a.prefs, "prefs are not the same as base classes");
+    notDeepEqual(x.prefs, b.prefs, "prefs are not the same as base classes");
+    notDeepEqual(y.prefs, a.prefs, "prefs are not the same as base classes");
+    notDeepEqual(y.prefs, b.prefs, "prefs are not the same as base classes");
 
-        deepEqual([13, 12, 11, 15, 12], x.get("saves")[1], "Saves for 1th level");
-        notDeepEqual(x.get("saves"), a.get("saves"), "dual class saves are different than primary class saves");
-        notDeepEqual(x.get("saves"), b.get("saves"), "dual class saves are different than secondary class saves");
+    equal(undefined, x.spells[1], "classes without spells should not have any spells");
+    equal(undefined, y.spells[0], "classes without spells should not have any spells");
+});
 
-        deepEqual([11, 10, 9, 13, 10], x.get("saves")[10], "Saves for 10th level");
+test("dual-class objects | Fighter, Thief", function () {
+    var  a = Classes.is("Fighter")
+        ,b = Classes.is("Thief")
+        ,x = Classes.merge("Fighter", "Thief")
+        ,y = Classes.merge("Thief", "Fighter");
 
-        deepEqual([1, 3, 5, 2, 4, 0, 6], x.get("prefs"), "prefs for " + x.get("title"));
-        deepEqual([3, 1, 5, 4, 2, 0, 6], y.get("prefs"), "prefs for " + y.get("title"));
-        notDeepEqual(x.get("prefs"), y.get("prefs"), "prefs for " + x.get("title") + " differs from " + y.get("title"))
-    });
-}());
+    deepEqual(x.saves, y.saves, "saves are the same regaurdless of primary and secondary classes");
+    notDeepEqual(x.saves, a.saves, "saves are not the same as base classes");
+    notDeepEqual(x.saves, b.saves, "saves are not the same as base classes");
+    notDeepEqual(y.saves, a.saves, "saves are not the same as base classes");
+    notDeepEqual(y.saves, b.saves, "saves are not the same as base classes");
+
+    equal((a.HDT + b.HDT) / 2, x.HDT, "merged HDT should be correct");
+    equal((a.HDT + b.HDT) / 2, y.HDT, "merged HDT should be correct");
+
+    notDeepEqual(x.prefs, a.prefs, "prefs are not the same as base classes");
+    notDeepEqual(x.prefs, b.prefs, "prefs are not the same as base classes");
+    notDeepEqual(y.prefs, a.prefs, "prefs are not the same as base classes");
+    notDeepEqual(y.prefs, b.prefs, "prefs are not the same as base classes");
+
+    equal(undefined, a.spells, "classes without spells should not have any spells");
+    equal(undefined, b.spells, "classes without spells should not have any spells");
+    equal(undefined, x.spells, "classes without spells should not have any spells");
+    equal(undefined, y.spells, "classes without spells should not have any spells");
+});

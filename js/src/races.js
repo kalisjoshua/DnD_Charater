@@ -1,35 +1,37 @@
 //// ref_races.js
 
 var Races = (function () {
-    var languages = [
-             "burrowing mammal"
-            ,"dwarven"
-            ,"elvish"
-            ,"gnoll"
-            ,"gnome"
-            ,"goblin"
-            ,"halfling"
-            ,"hobgoblin"
-            ,"kobold"
-            ,"orcish"
-            ,"common"
-        ]
+    var languages = (function () {
+            var langs = [
+                 "burrowing mammal"
+                ,"dwarven"
+                ,"elvish"
+                ,"gnoll"
+                ,"gnome"
+                ,"goblin"
+                ,"halfling"
+                ,"hobgoblin"
+                ,"kobold"
+                ,"orcish"
+                ,"common"
+            ];
 
-        ,list = function (ar) {
-            var result = [];
+            return function (ar) {
+                var result = [];
 
-            ar.forEach(function (n) {
-                result.push(languages[n]);
-            });
+                ar.forEach(function (n) {
+                    result.push(langs[n]);
+                });
 
-            return result;
-        };
+                return result;
+            };
+        }())
 
-    return [
+        ,list = [
             {
                 name         : "Dwarf",
                 infravision   : 60,
-                languages     : list([4, 5, 8, 9]),
+                languages     : languages([4, 5, 8, 9]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -43,7 +45,7 @@ var Races = (function () {
             {
                 name         : "Elf",
                 infravision   : 60,
-                languages     : list([3, 4, 5, 6, 7, 9]),
+                languages     : languages([3, 4, 5, 6, 7, 9]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -57,7 +59,7 @@ var Races = (function () {
             {
                 name         : "Gnome",
                 infravision   : 60,
-                languages     : list([0, 1, 6, 5, 8]),
+                languages     : languages([0, 1, 6, 5, 8]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -71,7 +73,7 @@ var Races = (function () {
             {
                 name         : "Goblin",
                 infravision   : 30,
-                languages     : list([1, 3, 7, 8]),
+                languages     : languages([1, 3, 7, 8]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -85,7 +87,7 @@ var Races = (function () {
             {
                 name         : "Half-Elf",
                 infravision   : 60,
-                languages     : list([3, 4, 5, 6, 7, 9]),
+                languages     : languages([3, 4, 5, 6, 7, 9]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -99,7 +101,7 @@ var Races = (function () {
             {
                 name         : "Half-Orc",
                 infravision   : 60,
-                languages     : list([9]),
+                languages     : languages([9]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -113,7 +115,7 @@ var Races = (function () {
             {
                 name         : "Halfling",
                 infravision   : 30,
-                languages     : list([1, 2, 4, 5, 9]),
+                languages     : languages([1, 2, 4, 5, 9]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -127,7 +129,7 @@ var Races = (function () {
             {
                 name         : "Human",
                 infravision   : 0,
-                languages     : list([10]),
+                languages     : languages([10]),
                 modifiers     : {
                               // pd, pp, rw, bw, sp
                     saves     : [0,  0,  0,  0,  0],
@@ -138,4 +140,6 @@ var Races = (function () {
                 notes         : ""
             }
         ];
+        
+    return augment(list);
 }());

@@ -1,12 +1,12 @@
-var activeList = (function () {
-        var act = function (list) {
-                for (var n in list) {
-                    list.hasOwnProperty(n) && this.push(list[n]);
-                }
+var augment = (function (extend) {
+        var act = function (list, ext) {
+                this.add(list);
+
+                extend(this, ext);
             }
 
-            ,create = function (list) {
-                return new act(list);
+            ,create = function (list, ext) {
+                return new act(list, ext);
             };
 
         // make the new object behaive like an array with all the array functions
@@ -17,6 +17,7 @@ var activeList = (function () {
 
         act.fn.add = function (args) {
             this.push.apply(this, args);
+
             return this;
         };
 
@@ -24,6 +25,8 @@ var activeList = (function () {
             this.forEach(function (node) {
                 fn.call(node);
             });
+
+            return this;
         };
 
         act.fn.find = function (fn) {
@@ -34,5 +37,17 @@ var activeList = (function () {
             return create(result);
         };
 
+        act.fn.is = function (key) {
+            return this.filter(function (node) {
+                return node.name === key;
+            })[0];
+        };
+
+        act.fn.names = function () {
+            return this.map(function (node) {
+                return node.name;
+            });
+        };
+
         return create;
-    }())
+    }($.extend));
