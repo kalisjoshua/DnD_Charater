@@ -4,7 +4,7 @@ module("player.js");
     var _= {
             age: 32,
             caste: "Hero",
-            designation: Classes.Fighter,
+            designation: Classes.is("Fighter"),
             height: 1,
             level: 8,
             name: "Joshua",
@@ -14,7 +14,7 @@ module("player.js");
 
             ignoredProperty: "not initiailized in object",
 
-            background: Classes.Fighter,
+            background: Classes.is("Fighter"),
             gender: "male",
             heritage: "Hero",
             race: Races[0]

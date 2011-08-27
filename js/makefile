@@ -9,16 +9,13 @@ RHINO_ENV ?= java -jar $(DIR_UTIL)/Rhino.jar
 CLOSURE_COMPILER ?= java -jar $(DIR_UTIL)/google-compiler-20100917.jar
 
 FILES=$(DIR_SRC)/_intro.js\
-	$(DIR_SRC)/createObject.js\
-	$(DIR_SRC)/core.js\
-	$(DIR_SRC)/abilities.js\
-	$(DIR_SRC)/data_abilityModifiers.js\
-	$(DIR_SRC)/data_races.js\
-	$(DIR_SRC)/data_reference.js\
-	$(DIR_SRC)/data_saves.js\
-	$(DIR_SRC)/data_designations.js\
+	$(DIR_SRC)/augment.js\
+	$(DIR_SRC)/castes.js\
 	$(DIR_SRC)/classes.js\
+	$(DIR_SRC)/core.js\
 	$(DIR_SRC)/player.js\
+	$(DIR_SRC)/races.js\
+	$(DIR_SRC)/stats.js\
 	$(DIR_SRC)/ui.js\
 	$(DIR_SRC)/_outro.js
 
