@@ -26,9 +26,9 @@ var dnd = {
         
             return result;
         }
-    },
+    }
     
-    Util = {
+    ,Util = {
         array: {
             sum: function (ar) {
                 if (!Util.isArray(ar)) {

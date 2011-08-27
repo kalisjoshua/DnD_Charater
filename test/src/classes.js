@@ -5,9 +5,9 @@ module("classes.js");
         temp;
 
     test("dnd._Class object detection", function () {
-        ok(dnd._Class, "dnd._Class object available");
+        ok(dnd.Class, "dnd._Class object available");
 
-        ok(dnd._Class.prototype.getType, ".prototype.getType method defined");
+        ok(dnd.Class.prototype.getType, ".prototype.getType method defined");
     });
 
     test("list checks", function () {

@@ -204,25 +204,25 @@ var Player = function (config) {
         }
     };
 
-Player.default_config = {
-        age: 32,
-        caste: "Hero",
-        designation: Classes.Fighter,
-        height: 1,
-        level: 8,
-        name: "Joshua",
-        stats: [1,1,1,1,1,1,1],
-        title: "Sir",
-        weight: 290,
+// Player.default_config = {
+//         age: 32,
+//         caste: "Hero",
+//         designation: Classes.Fighter,
+//         height: 1,
+//         level: 8,
+//         name: "Joshua",
+//         stats: [1,1,1,1,1,1,1],
+//         title: "Sir",
+//         weight: 290,
 
-        ignoredProperty: "not initiailized in object",
+//         ignoredProperty: "not initiailized in object",
 
-        background: Classes.Fighter,
-        gender: "male",
-        heritage: "Hero",
-        race: Races[0]
-    };
-Player.sample = Player(Player.default_config);
+//         background: Classes.Fighter,
+//         gender: "male",
+//         heritage: "Hero",
+//         race: Races[0]
+//     };
+// Player.sample = Player(Player.default_config);
 
 Player.getType = function (obj) {
     return Player.prototype.getType.call(obj);
