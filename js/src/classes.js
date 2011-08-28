@@ -521,72 +521,77 @@ var Classes = (function () {
         ];
 
     return augment(list, {
-        dual: function () {
-            return this.filter(function (node) {
-                return node.dual.length > 1;
-            });
-        }
-
-        ,merge: function (_a, _b) {
-            if (_a === _b || _b === undefined || _a === undefined || !Classes.is(_a) || !Classes.is(_b)) {
-                throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
+            dual: function () {
+                return this.filter(function (node) {
+                    return node.dual.length > 1;
+                });
             }
-            _a = Classes.is(_a);
-            _b = Classes.is(_b);
 
-            return {
-                     name: _a.name + "/" + _b.name
+            ,merge: function (_a, _b) {
+                if (_a === _b || _b === undefined || _a === undefined || !Classes.is(_a) || !Classes.is(_b)) {
+                    throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
+                }
+                _a = Classes.is(_a);
+                _b = Classes.is(_b);
 
-                    ,HDT: (_a.HDT + _b.HDT) / 2
+                return {
+                         name: _a.name + "/" + _b.name
 
-                    ,prefs: (function (a, b) {
-                        var  i = 0
-                            ,l = a.length
-                            ,result = [];
+                        ,HDT: (_a.HDT + _b.HDT) / 2
 
-                        for ( ; i < l; i++) {
-                            result.indexOf(a[i]) === -1 && result.push(a[i]);
-                            result.indexOf(b[i]) === -1 && result.push(b[i]);
-                        }
+                        ,prefs: (function (a, b) {
+                            var  i = 0
+                                ,l = a.length
+                                ,result = [];
 
-                        return result;
-                    }(_a.prefs, _b.prefs))
-
-                    ,saves: (function (a, b) {
-                        var level = [],
-                            result = [];
-
-                        while (result.length < a.length) {
-                            level = [];
-
-                            while (level.length < a[0].length) {
-                                level.push(a[result.length][level.length] < b[result.length][level.length] ? a[result.length][level.length] : b[result.length][level.length]);
+                            for ( ; i < l; i++) {
+                                result.indexOf(a[i]) === -1 && result.push(a[i]);
+                                result.indexOf(b[i]) === -1 && result.push(b[i]);
                             }
 
-                            result.push(level);
-                        }
+                            return result;
+                        }(_a.prefs, _b.prefs))
 
-                        return result;
-                    }(_a.saves, _b.saves))
+                        ,saves: (function (a, b) {
+                            var level = [],
+                                result = [];
 
-                    ,spells: (function (a, b) {
-                        if (a || b) {
-                            return [a, b];
-                        }
-                    }(_a.spells, _b.spells))
+                            while (result.length < a.length) {
+                                level = [];
 
-                    ,thaco: (function (a, b) {
-                        var indx = 0,
-                            result = [];
+                                while (level.length < a[0].length) {
+                                    level.push(a[result.length][level.length] < b[result.length][level.length] ? a[result.length][level.length] : b[result.length][level.length]);
+                                }
 
-                        while (indx < a.length) {
-                            result.push(a[indx] < b[indx] ? a[indx] : b[indx]);
-                            indx++;
-                        }
+                                result.push(level);
+                            }
 
-                        return result;
-                    }(_a.thaco, _b.thaco))
-                };
-        }
-    });
+                            return result;
+                        }(_a.saves, _b.saves))
+
+                        ,spells: (function (a, b) {
+                            if (a || b) {
+                                return [a, b];
+                            }
+                        }(_a.spells, _b.spells))
+
+                        ,thaco: (function (a, b) {
+                            var indx = 0,
+                                result = [];
+
+                            while (indx < a.length) {
+                                result.push(a[indx] < b[indx] ? a[indx] : b[indx]);
+                                indx++;
+                            }
+
+                            return result;
+                        }(_a.thaco, _b.thaco))
+                    };
+            }
+        }).
+        each(function (node) {
+            node.getType = function () {
+                return "[object Class-" + this.name + "]";
+            }
+        });
 }());

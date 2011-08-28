@@ -9,30 +9,32 @@ var Player = function (config) {
         // mutable properties
              _age
             ,_caste         // current Caste
-            ,_designation   // Fighter, Cleric, Mage/Thief, etc.
             ,_height
+            ,_job           // Fighter, Cleric, Mage/Thief, etc.
             ,_level
             ,_name
+            ,_race
             ,_stats
             ,_title         // eg. Sir, Count, Lady, etc.
             ,_weight
 
         // immutable properties
-            ,_background   // initial class
+            ,_background    // initial job
             ,_gender
-            ,_heritage     // begining Caste
+            ,_lineage       // begining Caste
             ,_race
 
-            ,initializationMethods = [
-                "age",
-                "caste",
-                "designation",
-                "height",
-                "level",
-                "name",
-                "stats",
-                "title",
-                "weight"
+            ,initMethods = [
+                 "age"
+                ,"caste"
+                ,"height"
+                ,"job"
+                ,"level"
+                ,"name"
+                // ,"race" // not a setter method
+                ,"stats"
+                ,"title"
+                ,"weight"
             ]
 
         // private methods
@@ -43,7 +45,7 @@ var Player = function (config) {
 
             ,tooManyArgumentsError = function (fn) {
                 // console.log(fn, ([]).slice.call(arguments, 1)[0]);
-                return new Error("Too many arguments passed into ." + fn + "() :: " + ([]).slice.call(arguments, 1)[0].toString());
+                return new Error("Too many arguments passed into ." + fn + "() :: " + arguments);
             }
 
             ,validateInputNumber = function (delta) {
@@ -82,27 +84,21 @@ var Player = function (config) {
         };
 
         this.caste = function (delta) {
-            if (delta === "" || (delta = validateInputString.apply("caste", arguments))) {
-                _caste = delta;
+            if (arguments.length === 1) {
+                delta = delta || "";
+                if (delta === "" || 
+                    (delta && delta.getType && /\[object Caste/.test(delta.getType())) ||
+                    (Util.isString(delta) && (delta = Castes.is(delta)))
+                ) {
+                    _caste = delta;
+                } else {
+                    throw invalidArgumentsError("caste");
+                }
+            } else if (arguments.length > 1) {
+                throw tooManyArgumentsError("job");
             }
 
             return _caste;
-        };
-
-        this.designation = function (delta) {
-            if (arguments.length === 1) {
-                if (delta && delta.getType && /dnd\._Class/.test(delta.getType()) ||
-                    Util.isString(delta) && (delta = Classes[delta])
-                ) {
-                    _designation = delta;
-                } else {
-                    throw invalidArgumentsError("designation");
-                }
-            } else if (arguments.length > 1) {
-                throw tooManyArgumentsError("designation");
-            }
-
-            return _designation;
         };
 
         this.height = function (delta) {
@@ -111,6 +107,22 @@ var Player = function (config) {
             }
 
             return _height;
+        };
+
+        this.job = function (delta) {
+            if (arguments.length === 1) {
+                if ((delta && delta.getType && /\[object job-/.test(delta.getType())) ||
+                    (Util.isString(delta) && (delta = Classes.is(delta)))
+                ) {
+                    _job = delta;
+                } else {
+                    throw invalidArgumentsError("job");
+                }
+            } else if (arguments.length > 1) {
+                throw tooManyArgumentsError("job");
+            }
+
+            return _job;
         };
 
         this.level = function (delta) {
@@ -172,11 +184,11 @@ var Player = function (config) {
             return _gender;
         };
 
-        this.heritage = function () {
+        this.lineage = function () {
             if (arguments.length > 0) {
                 throw tooManyArgumentsError("heritage");
             }
-            return _heritage;
+            return _lineage;
         };
 
         this.race = function () {
@@ -186,43 +198,23 @@ var Player = function (config) {
             return _race;
         };
 
-        for (var m in initializationMethods) {
-            this[initializationMethods[m]](config[initializationMethods[m]]);
+        for (var m in initMethods) {
+            this[initMethods[m]](config[initMethods[m]]);
         }
 
         // immutable properties need to be initialized here as they do not have public set methods
-        _background = _designation;
+        _background = _job;
         
         if (config.gender) {
             _gender = config.gender;
         }
-        
-        _heritage = _caste;
+
+        _lineage = _caste;
 
         if (config.race && (Races[config.race] || config.race.title)) {
             _race = Races[config.race] || config.race;
         }
     };
-
-// Player.default_config = {
-//         age: 32,
-//         caste: "Hero",
-//         designation: Classes.Fighter,
-//         height: 1,
-//         level: 8,
-//         name: "Joshua",
-//         stats: [1,1,1,1,1,1,1],
-//         title: "Sir",
-//         weight: 290,
-
-//         ignoredProperty: "not initiailized in object",
-
-//         background: Classes.Fighter,
-//         gender: "male",
-//         heritage: "Hero",
-//         race: Races[0]
-//     };
-// Player.sample = Player(Player.default_config);
 
 Player.getType = function (obj) {
     return Player.prototype.getType.call(obj);
@@ -238,7 +230,7 @@ Player.prototype.isValid = function () {
 
         // Util.isNumeric(this.age()) && this.age()) > 0 &&
         // Util.isString(this.caste()) &&
-        this.designation() &&
+        this.job() &&
         // Util.isNumeric(this.height()) && this.height() > 0 &&
         this.level() &&
         // this.name() &&

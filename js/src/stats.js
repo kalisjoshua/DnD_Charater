@@ -25,7 +25,7 @@ var stats = (function (table) {
         }
 
         ,range = function (e) {
-            return [50,75,90,99].filter(function (n) {
+            return [50, 75, 90, 99].filter(function (n) {
                 return n < e;
             }).length;
         }
@@ -83,6 +83,10 @@ var stats = (function (table) {
         }
 
         return e;
+    };
+
+    obj.fn.getType = function () {
+        return "[object Stats]";
     };
 
     obj.fn.details = function (ability) {

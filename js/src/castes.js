@@ -37,12 +37,19 @@ var Castes = (function () {
         }
 
         ,list = [
-             {name: "Champion", column: all, dice: 6, one: single, min: 7}
-            ,{name: "Hero",     column: all, dice: 4, one: single, min: 4}
-            ,{name: "npc",      column: all, dice: 3, one: single, min: 4}
-            ,{name: "Player",   column: all, dice: 3, one: single, min: 7}
-            ,{name: "Pleb",     column: all, dice: 3, one: single, min: 0}
+             {name: "Champion", dice: 6, min: 7}
+            ,{name: "Hero",     dice: 4, min: 4}
+            ,{name: "npc",      dice: 3, min: 4}
+            ,{name: "Player",   dice: 3, min: 7}
+            ,{name: "Pleb",     dice: 3, min: 0}
         ]
 
-    return augment(list);
+    return augment(list).
+        each(function (node) {
+            node.column = all;
+            node.one = single;
+            node.getType = function () {
+                return "[object Caste" + this.name + "]";
+            }
+        });
 }());

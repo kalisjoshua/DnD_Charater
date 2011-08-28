@@ -2,30 +2,23 @@ module("player.js");
 
 (function () {
     var _= {
-            age: 32,
-            caste: "Hero",
-            designation: Classes.is("Fighter"),
-            height: 1,
-            level: 8,
-            name: "Joshua",
-            stats: [1,1,1,1,1,1,1],
-            title: "",
-            weight: 290,
-
-            ignoredProperty: "not initiailized in object",
-
-            background: Classes.is("Fighter"),
-            gender: "male",
-            heritage: "Hero",
-            race: Races[0]
-        },
-        a =     Player(_),
-        b =     Player(_),
-        c = new Player(_),
-        d = new Player(_),
-        actual,
-        invalidArgsMsg = "passing invalid arg should throw an error to help with debugging",
-        temp;
+             age: 32
+            ,caste: "Hero"
+            ,job: Classes.is("Fighter")
+            ,height: 1
+            ,level: 8
+            ,name: "Joshua"
+            ,stats: Castes.is("Champion").column()
+            ,title: "Sir"
+            ,weight: 290
+        }
+        ,a =     Player(_)
+        ,b =     Player(_)
+        ,c = new Player(_)
+        ,d = new Player(_)
+        ,actual
+        ,invalidArgsMsg = "passing invalid arg should throw an error to help with debugging"
+        ,temp;
     
     test("Player object initialization", function () {
         ok(Player, "Player object is available");
@@ -54,27 +47,25 @@ module("player.js");
                 }, Error, invalidArgsMsg);
 
             //* caste
-                temp = "Duke";
+                temp = Castes.is("Pleb");
                 equal(temp, o.caste(temp), "caste set to " + temp);
 
-                temp = "";
+                temp = Castes.is("") || "";
                 equal(temp, o.caste(temp), "caste set to " + temp);
-
-                raises(function () {
-                    o.caste(10);
-                }, Error, invalidArgsMsg);
                 
-            //* designation
-                temp = Classes.Fighter;
-                equal(temp, o.designation(temp), "designation set to " + temp);
+            //* job
+                temp = Classes.is("Fighter");
+                equal(temp, o.job(temp), "job set to " + temp);
 
-                equal(Classes.Cleric, o.designation("Cleric"), "setting designation using string name of class works");
+                temp = "Fighter";
+                equal(Classes.is(temp), o.job(temp), "setting job using string name of job works");
+
                 raises(function () {
-                    o.designation("Hello");
+                    o.job("Hello");
                 }, Error, invalidArgsMsg);
 
                 raises(function () {
-                    o.designation(Classes.Hello);
+                    o.job(Classes.Hello);
                 }, Error, invalidArgsMsg);
             
             //* height
@@ -165,12 +156,12 @@ module("player.js");
                 }, Error, invalidArgsMsg);
 
             //* background
-                temp = _.designation;
-                equal(temp, o.background(), "background retrieves " + temp + ", initial designation");
+                temp = _.job;
+                equal(temp, o.background(), "background retrieves " + temp + ", initial job");
 
-            //* heritage
-                temp = _.caste;
-                equal(temp, o.heritage(), "heritage retrieves " + temp + ", initial caste");
+            //* lineage
+                temp = Castes.is(_.caste);
+                equal(temp, o.lineage(), "lineage retrieves " + temp + ", initial caste");
 
             //* gender
                 equal(_.gender, o.gender(), "gender retrieves " + o.gender());
@@ -179,24 +170,6 @@ module("player.js");
                 equal(_.race, o.race(), "race retrieves " + o.race());
 
             }(actual[temp]));
-        }
-    });
-
-    test("instance methods return values passed into the constructor", function () {
-        ok(Player, "Player object defined");
-        equal(Player.getType(), a.getType(), a.name() + ".getType() return correct string value");
-
-        actual = b;
-        for (temp in actual) {
-            if (b.hasOwnProperty(temp)) {
-                (function (o, m) {
-                    equal(_[m], o[m](), m);
-                
-                    raises(function () {
-                        o[m]("too", "many", "arguments", "for", "any", "instance", "methods");
-                    }, Error, "too many args passed to ." + m + "() should throw an error to help with debugging");
-                }(actual, temp));
-            }
         }
     });
 }());

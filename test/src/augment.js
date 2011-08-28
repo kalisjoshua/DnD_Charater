@@ -25,7 +25,7 @@ module("augment.js");
         // activeList methods
             ,"add"
             ,"each"
-            ,"find"
+            // ,"find"
         ];
         
         for (temp in actual) {

@@ -22,20 +22,21 @@ var augment = (function (extend) {
         };
 
         act.fn.each = function (fn) {
-            this.forEach(function (node) {
-                fn.call(node);
+            this.forEach(function (node, indx, orig) {
+                fn(node, indx, orig);
             });
 
             return this;
         };
 
-        act.fn.find = function (fn) {
-            var result = this.filter(function (node, indx) {
-                return fn.call(node);
-            });
+        // unutested
+        // act.fn.find = function (fn) {
+        //     var result = this.filter(function (node, indx) {
+        //         return fn.call(node);
+        //     });
 
-            return create(result);
-        };
+        //     return create(result);
+        // };
 
         act.fn.is = function (key) {
             return this.filter(function (node) {

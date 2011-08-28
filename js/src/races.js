@@ -141,5 +141,9 @@ var Races = (function () {
             }
         ];
         
-    return augment(list);
+    return augment(list, {
+        getType: function () {
+            return "[object Race]";
+        }
+    });
 }());
