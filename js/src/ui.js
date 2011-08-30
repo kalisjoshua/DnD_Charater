@@ -32,7 +32,20 @@ dnd.ui = (function () {
 
         // add the values to the select-lists and add behaviors for updating
         ,setup: function () {
-            var selectList = function (node) {
+            var rollAgain = function () {
+                    ui.caste.
+                        next("span").
+                            css("visibility", "hidden");
+
+                    if (ui.caste.val()) {
+                        ui.caste.
+                            next().
+                                css("visibility", "visible");
+                        console.log(Castes.is(ui.caste.val()).column());
+                    }
+                }
+
+                ,selectList = function (node) {
                     return $("<option/>", {
                          text: node
                         ,value: node
@@ -65,10 +78,8 @@ dnd.ui = (function () {
 
             this.alpha = $("#alpha");
             this.beta = $("#beta");
-            this.builder = $("#builder");
             this.caste = $("#caste").parent().hide().end();
             this.detail = $("#detail");
-            this.generated_stats = $("#generated_stats").parent().hide().end();
             this.level = $("#level");
             this.name = $("#name");
             this.race = $("#race");
@@ -100,9 +111,13 @@ dnd.ui = (function () {
 
             this.caste.
                 append(Castes.names().map(selectList)).
-                change(function () {
-                    console.log(Castes.is(ui.caste.val()).column());
-                });
+                change(rollAgain).
+                after($("<span/>", {
+                         click: rollAgain
+                        ,id: "rollAgain"
+                        ,text: "roll again"
+                    }).
+                        css("visibility", "hidden"));
 
             this.race.
                 append(Races.names().map(selectList));
