@@ -2,21 +2,67 @@
 
 dnd.ui = (function () {
     var ui = {
+         // check to see what fields are complete before attempting to render a player to the page
          changed: function (event) {
-            $(this).trigger("updateField");
+            var entered_stats;
 
-            var pc = Player({
-                // alpha: Reference.Designations[ui.alpha.val()],
-                // beta: Reference.Designations[ui.beta.val()],
-                // level: ui.level.val(),
-                // name: ui.name.val(),
-                // Race: Reference.Races[ui.race.val()]
-            });
+            if (ui.race.val() && ui.alpha.val() && ui.level.val()) {
+                ui.caste.
+                    parent().
+                        show();
 
-            pc.valid && ui.update(pc);
+                entered_stats = ui.stats.serialize().match(/\d+/g);
+
+                if (entered_stats && entered_stats.length === 7) {
+                    ui.update(Player({
+                         age    : 1
+                        ,caste  : Castes.is(ui.caste.val())
+                        ,height : 1
+                        ,job    : Classes.merge(ui.alpha.val(), ui.beta.val())
+                        ,level  : ui.level.val()
+                        ,name   : ui.name.val()
+                        ,race   : Races.is(ui.race.val())
+                        ,stats  : stats(entered_stats, true)
+                        ,title  : ""
+                        ,weight : 1
+                    }));
+                }
+            }
         }
 
+        // add the values to the select-lists and add behaviors for updating
         ,setup: function () {
+            var selectList = function (node) {
+                    return $("<option/>", {
+                         text: node
+                        ,value: node
+                    })[0];
+                }
+
+                updateBeta = function () {
+                    var a = ui.alpha.val()
+                        ,selected = ui.beta.val()
+                        ,subs = ui.strict.is(":checked") ? Classes.is(ui.alpha.val()).dual : Classes.names();
+
+                    if (!ui.strict.is(":checked") || (ui.strict.is(":checked") && Classes.is(ui.alpha.val()).dual.length)) {
+                        subs = subs.
+                            filter(function (node) {
+                                return node !== a;
+                            });
+
+                        ui.beta.
+                            empty().
+                            append("<option value=\"\"></option>").
+                            append(subs.map(selectList)).
+                            val(selected).
+                            show();
+                    } else {
+                        ui.beta.
+                            hide().
+                            val("");
+                    }
+                };
+
             this.alpha = $("#alpha");
             this.beta = $("#beta");
             this.builder = $("#builder");
@@ -33,91 +79,49 @@ dnd.ui = (function () {
                 addClass("disabled");
 
             $().
-                add(ui.alpha).
-                add(ui.beta).
-                add(ui.caste).
-                add(ui.race).
-                add(ui.stats).
-                add(ui.strict).
-                change(ui.changed);
+                add(this.alpha).
+                add(this.beta).
+                add(this.caste).
+                add(this.race).
+                add(this.stats).
+                add(this.strict).
+                change(this.changed);
 
             $().
-                add(ui.level).
-                keyup(ui.changed);
+                add(this.level).
+                keyup(this.changed);
 
-            // this.alpha.
-            //     append(ui.Designations.all).
-            //     bind("updateField", function () {
-            //         // hide/show secondary class select list based on primary class selection
-            //         if ((ui.strict.is(":checked") && Reference.Designations[this.value].dual) || (!ui.strict.is(":checked") && this.value !== "")) {
-            //             ui.beta.
-            //                 show();
-            //         } else {
-            //             ui.beta.
-            //                 hide().
-            //                 val("");
-            //         }
+            this.alpha.
+                append(Classes.names().map(selectList)).
+                change(updateBeta);
 
-            //         if(ui.alpha.val() === ui.beta.val()) {
-            //             ui.beta.val("");
-            //         }
-            //     });
-            
-            // add null option from beta select box to designations lists since the alpha list is static
-            // Array.prototype.unshift.call(ui.Designations.dual, ui.beta.children().first().clone()[0]);
-            // Array.prototype.unshift.call(ui.Designations.all, ui.beta.children().first().clone()[0]);
+            this.beta.
+                hide();
 
-            // ui.beta.
-            //     bind("updateField", function () {
-            //         if (ui.alpha.val() === ui.beta.val()) {
-            //             ui.beta.val("");
-            //         }
-            //     }).
-            //     children().
-            //         remove().
-            //         end().
-            //     append(ui.strict.is(":checked") ? ui.Designations.dual.clone() : ui.Designations.all.clone()).
-            //     hide();
+            this.caste.
+                append(Castes.names().map(selectList)).
+                change(function () {
+                    console.log(Castes.is(ui.caste.val()).column());
+                });
 
-            // ui.caste.
-            //     append(ui.Caste.clone());
+            this.race.
+                append(Races.names().map(selectList));
 
-            // ui.race.
-            //     append(ui.Races.clone());
-
-            // ui.strict.
-            //     bind("updateField", function () {
-            //         var selected = ui.beta.val(),
-            //             strict = ui.strict.is(":checked");
-
-            //         ui.beta.
-            //             empty().
-            //             append(strict ? ui.Designations.dual.clone() : ui.Designations.all.clone());
-                    
-            //         if (!strict && !ui.alpha.val() || 
-            //             strict && !(Reference.Designations[ui.alpha.val()] || {}).dual
-            //         ) {
-            //             ui.beta.
-            //                 hide();
-            //         } else {
-            //             ui.beta.
-            //                 show();
-            //         }
-                    
-            //         ui.beta.val(selected);
-            //     });
+            this.strict.
+                change(updateBeta);
         }
 
+        // valid player information is in the form show the results to the user
         ,update: function (pc) {
             console.clear();
             console.log(pc);
 
-            $("#thaco").val(pc.Designation.thaco[pc.level]);
-            $("#move").val(pc.Race.move);
+            // $("#thaco").val(pc.Designation.thaco[pc.level]);
+            // $("#move").val(pc.Race.move);
 
-            $.each($("#saves").find("input"), function (indx, obj) {
-                obj.value = pc.Designation.saves[pc.level][indx] + pc.Race.statModifiers[indx];
-            });
+            // $.each($("#saves").find("input"), function (indx, obj) {
+            //     obj.value = pc.Designation.saves[pc.level][indx] + pc.Race.statModifiers[indx];
+            // });
         }
     };
 

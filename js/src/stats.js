@@ -8,9 +8,21 @@ var stats = (function (table) {
 
         ,Exceptional
 
-        ,create = function (ar) {
+        ,create = function (ar, resequence) {
             if (!ar || !Util.isArray(ar) || ar.length !== 7 || !ar.every(isValid) || ar.join(",").split(",").length !== ar.length) {
                 throw new Error("Invalid array passed into skills constructor: " + ar);
+            }
+
+            if (resequence) {
+                ar = [
+                     ar[5] // Charisma
+                    ,ar[6] // Comeliess
+                    ,ar[4] // Constitution
+                    ,ar[3] // Dexterity
+                    ,ar[1] // Intelligence
+                    ,ar[0] // Strength
+                    ,ar[2] // Wisdom
+                ];
             }
 
             return new obj(ar);

@@ -522,13 +522,16 @@ var Classes = (function () {
 
     return augment(list, {
             dual: function () {
-                return this.filter(function (node) {
+                return augment(this.filter(function (node) {
                     return node.dual.length > 1;
-                });
+                }));
             }
 
             ,merge: function (_a, _b) {
-                if (_a === _b || _b === undefined || _a === undefined || !Classes.is(_a) || !Classes.is(_b)) {
+                if ((_b === undefined || _b === "") && !!Classes.is(_a)) {
+                    return Classes.is(_a);
+                }
+                if (_a === _b || _a === undefined || !Classes.is(_a) || !Classes.is(_b)) {
                     throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
                 }
                 _a = Classes.is(_a);

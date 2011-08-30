@@ -111,7 +111,7 @@ var Player = function (config) {
 
         this.job = function (delta) {
             if (arguments.length === 1) {
-                if ((delta && delta.getType && /\[object job-/.test(delta.getType())) ||
+                if ((delta && delta.getType && /\[object Class-/.test(delta.getType())) ||
                     (Util.isString(delta) && (delta = Classes.is(delta)))
                 ) {
                     _job = delta;
