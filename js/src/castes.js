@@ -8,7 +8,9 @@ var Castes = (function () {
                 result.push(this.one());
             }
 
-            return result;
+            return result.sort(function (a, b) {
+                return a - b;
+            });
         }
 
         ,roll = function (num, faces) {
@@ -42,7 +44,7 @@ var Castes = (function () {
             ,{name: "npc",      dice: 3, min: 4}
             ,{name: "Player",   dice: 3, min: 7}
             ,{name: "Pleb",     dice: 3, min: 0}
-        ]
+        ];
 
     return augment(list).
         each(function (node) {

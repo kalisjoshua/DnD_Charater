@@ -10,27 +10,15 @@ var stats = (function (table) {
 
         ,create = function (ar, resequence) {
             if (!ar || !Util.isArray(ar) || ar.length !== 7 || !ar.every(isValid) || ar.join(",").split(",").length !== ar.length) {
-                throw new Error("Invalid array passed into skills constructor: " + ar);
+                throw new Error("Invalid array passed into stats constructor: " + ar);
             }
 
-            if (resequence) {
-                ar = [
-                     ar[5] // Charisma
-                    ,ar[6] // Comeliess
-                    ,ar[4] // Constitution
-                    ,ar[3] // Dexterity
-                    ,ar[1] // Intelligence
-                    ,ar[0] // Strength
-                    ,ar[2] // Wisdom
-                ];
-            }
-
-            return new obj(ar);
+            return resequence && Util.isArray(resequence) ? obj.fn.resequence(ar, resequence) : new obj(ar);
         }
 
         isValid = function (v, a) {
             if (v !== parseInt(v, 10) || v < 3 || v > 24) {
-                throw new Error("Invalid value passed to skills.set(" + a + "): " + v);
+                throw new Error("Invalid value passed to stats.set(" + a + "): " + v);
             }
 
             return true;
@@ -54,6 +42,23 @@ var stats = (function (table) {
     
     obj.fn = obj.prototype = new Array();
 
+    obj.fn.details = function (ability) {
+        var result = [],
+            self = this;
+
+        ability = !ability ? skillNames : Util.isArray(ability) ? ability : [ability];
+
+        ability.forEach(function (node, indx, orig) {
+            result.push(render(obj.fn.matrix[skillNames.indexOf(node)].detail, table[node][self[indx]]));
+        });
+
+        if (ability.indexOf("Strength") >= 0 && self[5] === 18 && self.getExceptional()) {
+            result[ability.indexOf("Strength")] = render(obj.fn.matrix[5].detail, table.Exceptional[range(self.getExceptional())]);
+        }
+
+        return result;
+    };
+
     obj.fn.matrix = [
          {name: "Charisma"      ,detail: "Max Henchment: {0}, Base Loyalty: {1}, Reaction Adjustment: {2}"}
         ,{name: "Comeliness"    ,detail: "Response: {0}, Charisma Bonus: {1}"}
@@ -66,6 +71,26 @@ var stats = (function (table) {
     skillNames = obj.fn.matrix.map(function (n) {
         return n.name;
     });
+
+    obj.fn.resequence = function (orig, pref) {
+        if (!pref && this.getType && this.getType() === "stats") {
+            pref = orig;
+            orig = ([]).slice.call(this);
+        }
+
+        orig.sort(function (a, b) {return a - b});
+        orig = orig.reverse();
+        
+        return create([
+             orig[pref[0]]
+            ,orig[pref[1]]
+            ,orig[pref[2]]
+            ,orig[pref[3]]
+            ,orig[pref[4]]
+            ,orig[pref[5]]
+            ,orig[pref[6]]
+        ]);
+    };
 
     obj.fn.get = function (ability) {
         return this[skillNames.indexOf(ability)];
@@ -98,24 +123,11 @@ var stats = (function (table) {
     };
 
     obj.fn.getType = function () {
-        return "[object Stats]";
+        return "stats";
     };
 
-    obj.fn.details = function (ability) {
-        var result = [],
-            self = this;
-
-        ability = !ability ? skillNames : Util.isArray(ability) ? ability : [ability];
-
-        ability.forEach(function (node, indx, orig) {
-            result.push(render(obj.fn.matrix[skillNames.indexOf(node)].detail, table[node][self[indx]]));
-        });
-
-        if (ability.indexOf("Strength") >= 0 && self[5] === 18 && self.getExceptional()) {
-            result[ability.indexOf("Strength")] = render(obj.fn.matrix[5].detail, table.Exceptional[range(self.getExceptional())]);
-        }
-
-        return result;
+    obj.fn.toString = function () {
+        return "[object Stats]";
     };
     
     return create;

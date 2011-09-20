@@ -4,27 +4,33 @@ dnd.ui = (function () {
     var ui = {
          // check to see what fields are complete before attempting to render a player to the page
          changed: function (event) {
-            var entered_stats;
+            var character_stats;
 
             if (ui.race.val() && ui.alpha.val() && ui.level.val()) {
                 ui.caste.
-                    parent().
-                        show();
+                    show();
 
-                entered_stats = ui.stats.serialize().match(/\d+/g);
+                character_stats = ui.stats
+                    .serialize()
+                    .match(/\d+/g);
 
-                if (entered_stats && entered_stats.length === 7) {
+                if (character_stats && character_stats.length === 7) {
+                    character_stats = character_stats
+                        .map(function (node, indx) {
+                            return ~~node;
+                        });
+
                     ui.update(Player({
-                         age    : 1
-                        ,caste  : Castes.is(ui.caste.val())
-                        ,height : 1
-                        ,job    : Classes.merge(ui.alpha.val(), ui.beta.val())
-                        ,level  : ui.level.val()
-                        ,name   : ui.name.val()
-                        ,race   : Races.is(ui.race.val())
-                        ,stats  : stats(entered_stats, true)
-                        ,title  : ""
-                        ,weight : 1
+                        "age"     : 1
+                        ,"caste"  : Castes.is(ui.caste.find(":checked").val()) || "Player"
+                        ,"height" : 1
+                        ,"job"    : Classes.merge(ui.alpha.val(), ui.beta.val())
+                        ,"level"  : ui.level.val() || 1
+                        ,"name"   : ui.name.val()
+                        ,"race"   : Races.is(ui.race.val())
+                        ,"stats"  : stats(character_stats)
+                        ,"title"  : ""
+                        ,"weight" : 1
                     }));
                 }
             }
@@ -32,20 +38,7 @@ dnd.ui = (function () {
 
         // add the values to the select-lists and add behaviors for updating
         ,setup: function () {
-            var rollAgain = function () {
-                    ui.caste.
-                        next("span").
-                            css("visibility", "hidden");
-
-                    if (ui.caste.val()) {
-                        ui.caste.
-                            next().
-                                css("visibility", "visible");
-                        console.log(Castes.is(ui.caste.val()).column());
-                    }
-                }
-
-                ,selectList = function (node) {
+            var selectList = function (node) {
                     return $("<option/>", {
                          text: node
                         ,value: node
@@ -76,67 +69,83 @@ dnd.ui = (function () {
                     }
                 };
 
-            this.alpha = $("#alpha");
-            this.beta = $("#beta");
-            this.caste = $("#caste").parent().hide().end();
+            this.alpha  = $("#alpha");
+            this.beta   = $("#beta");
+            this.caste  = $("#caste")//.hide();
             this.detail = $("#detail");
-            this.level = $("#level");
-            this.name = $("#name");
-            this.race = $("#race");
-            this.stats = $("#abilities").find("input");
+            this.level  = $("#level");
+            this.name   = $("#name");
+            this.race   = $("#race");
+            this.stats  = $("#abilities").find("input");
             this.strict = $("#strictDual");
 
-            $("input[disabled]").
-                addClass("disabled");
+            $("input[disabled]")
+                .addClass("disabled");
 
-            $().
-                add(this.alpha).
-                add(this.beta).
-                add(this.caste).
-                add(this.race).
-                add(this.stats).
-                add(this.strict).
-                change(this.changed);
+            $()
+                .add(this.alpha)
+                .add(this.beta)
+                .add(this.caste)
+                .add(this.race)
+                .add(this.stats)
+                .add(this.strict)
+                .change(this.changed);
 
-            $().
-                add(this.level).
-                keyup(this.changed);
+            $()
+                .add(this.level)
+                .keyup(this.changed);
 
-            this.alpha.
-                append(Classes.names().map(selectList)).
-                change(updateBeta);
+            this.alpha
+                .append(Classes.names().map(selectList))
+                .change(updateBeta)
+                .val("Fighter");
 
-            this.beta.
-                hide();
+            this.beta
+                .hide();
 
-            this.caste.
-                append(Castes.names().map(selectList)).
-                change(rollAgain).
-                after($("<span/>", {
-                         click: rollAgain
-                        ,id: "rollAgain"
-                        ,text: "roll again"
-                    }).
-                        css("visibility", "hidden"));
+            this.caste
+                .append(Castes.names().map(function (node) {
+                    return $("<div/>")
+                        .append($("<input/>", {
+                            "id": "caste-" + node
+                            ,"name": "caste"
+                            ,"type": "radio"
+                            ,"value": node
+                        }))
+                        .append($("<label/>", {
+                            "for": "caste-" + node
+                            ,"class": "labels"
+                            ,"text": node
+                        }))
+                        .click(function (event) {
+                            var caste = $(event.target)
+                                ,gen;
 
-            this.race.
-                append(Races.names().map(selectList));
+                            if (caste.attr("name") === "caste"
+                                && ui.race.val()
+                                && ui.alpha.val()
+                                && ui.level.val()
+                            ) {
+                                gen = stats(Castes.is(caste.val()).column(), Classes.merge(ui.alpha.val(), ui.beta.val()).prefs);
+                                ui.stats
+                                    .each(function (indx, node) {
+                                        this.value = gen[indx];
+                                    })
+                            }
+                        })[0];
+                }));
 
-            this.strict.
-                change(updateBeta);
+            this.race
+                .append(Races.names().map(selectList))
+                .val("Human");
+
+            this.strict
+                .change(updateBeta);
         }
 
         // valid player information is in the form show the results to the user
         ,update: function (pc) {
-            console.clear();
-            console.log(pc);
-
-            // $("#thaco").val(pc.Designation.thaco[pc.level]);
-            // $("#move").val(pc.Race.move);
-
-            // $.each($("#saves").find("input"), function (indx, obj) {
-            //     obj.value = pc.Designation.saves[pc.level][indx] + pc.Race.statModifiers[indx];
-            // });
+            pc.hp();
         }
     };
 

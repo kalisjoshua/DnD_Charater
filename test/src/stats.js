@@ -60,4 +60,12 @@ module("stats.js");
         actual = stats([7,7,7,7,7,7,7]);
         notEqual(temp, actual.details("Strength")[0], "18/100 strength should be different than 7");
     });
+
+    test("resequencing", function () {
+        temp = stats([18,17,16,15,14,13,12], Classes.merge("Cleric", "Fighter").prefs);
+        equal(temp.join(), [16,18,14,13,12,15,17].join());
+
+        temp = temp.resequence(Classes.is("Fighter").prefs);
+        equal(temp.join(), [18,13,12,16,17,15,14].join());
+    });
 }());

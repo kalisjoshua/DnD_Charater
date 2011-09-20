@@ -29,7 +29,7 @@ var augment = (function (extend) {
             return this;
         };
 
-        // unutested
+        // untested
         // act.fn.find = function (fn) {
         //     var result = this.filter(function (node, indx) {
         //         return fn.call(node);
@@ -48,6 +48,17 @@ var augment = (function (extend) {
             return this.map(function (node) {
                 return node.name;
             });
+        };
+
+        // untested
+        // act.fn.numericSort = function () {
+        //     return this.sort(function (a, b) {
+        //         return a - b;
+        //     });
+        // };
+
+        act.fn.toString = function () {
+            return "[augmented list]";
         };
 
         return create;

@@ -8,7 +8,8 @@ module("player.js");
             ,height: 1
             ,level: 8
             ,name: "Joshua"
-            ,stats: Castes.is("Champion").column()
+            ,race: Races.is("Human")
+            ,stats: stats(Castes.is("Champion").column())
             ,title: "Sir"
             ,weight: 290
         }
@@ -19,19 +20,18 @@ module("player.js");
         ,actual
         ,invalidArgsMsg = "passing invalid arg should throw an error to help with debugging"
         ,temp;
-    
+
     test("Player object initialization", function () {
         ok(Player, "Player object is available");
         ok(a.isValid, ".isValid() method is available to Player instances");
-        equal("[object Player]", Player.getType(), "getType() return the correct string value");
+        equal("Player", a.getType(), "getType() return the correct string value");
+        equal("" + a, a.toString(), "toString() should be the same as when the inferred string value is returned");
     });
 
-    test("instance methods", function () {
+    test("instance methods - age", function () {
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-            
-            //* age
                 temp = 1;
                 equal(temp, o.age(temp), "age set to " + temp);
 
@@ -45,15 +45,27 @@ module("player.js");
                 raises(function () {
                     o.age(-1);
                 }, Error, invalidArgsMsg);
+            }(actual[temp]));
+        }
+    });
 
-            //* caste
+    test("instance methods - caste", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = Castes.is("Pleb");
                 equal(temp, o.caste(temp), "caste set to " + temp);
 
                 temp = Castes.is("") || "";
                 equal(temp, o.caste(temp), "caste set to " + temp);
-                
-            //* job
+            }(actual[temp]));
+        }
+    });
+
+    test("instance methods - job", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = Classes.is("Fighter");
                 equal(temp, o.job(temp), "job set to " + temp);
 
@@ -67,8 +79,14 @@ module("player.js");
                 raises(function () {
                     o.job(Classes.Hello);
                 }, Error, invalidArgsMsg);
-            
-            //* height
+            }(actual[temp]));
+        }
+    });
+
+    test("instance methods - height", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = 123;
                 equal(temp, o.height(temp), "height set to " + temp);
 
@@ -82,8 +100,14 @@ module("player.js");
                 raises(function () {
                     o.height("abc");
                 }, Error, invalidArgsMsg);
+            }(actual[temp]));
+        }
+    });
 
-            //* level
+    test("instance methods - level", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = 123;
                 equal(temp, o.level(temp), "level set to " + temp);
 
@@ -97,8 +121,14 @@ module("player.js");
                 raises(function () {
                     o.level("abc");
                 }, Error, invalidArgsMsg);
+            }(actual[temp]));
+        }
+    });
 
-            //* name
+    test("instance methods - name", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = "Duke";
                 equal(temp, o.name(temp), "name set to " + temp);
 
@@ -108,9 +138,15 @@ module("player.js");
                 raises(function () {
                     o.name(10);
                 }, Error, invalidArgsMsg);
+            }(actual[temp]));
+        }
+    });
 
-            //* stats
-                temp = [1,2,3,4,5,6,7];
+    test("instance methods - stats", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
+                temp = stats([3,3,3,3,3,3,3]);
                 equal(temp, o.stats(temp), "stats set to [" + temp + "]");
 
                 raises(function () {
@@ -128,8 +164,14 @@ module("player.js");
                 raises(function () {
                     o.stats("invalid stats arg");
                 }, Error, invalidArgsMsg);
+            }(actual[temp]));
+        }
+    });
 
-            //* title
+    test("instance methods - title", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = "Duke";
                 equal(temp, o.title(temp), "title set to " + temp);
 
@@ -139,8 +181,14 @@ module("player.js");
                 raises(function () {
                     o.title(10);
                 }, Error, invalidArgsMsg);
+            }(actual[temp]));
+        }
+    });
 
-            //* weight
+    test("instance methods - weight", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
                 temp = 123;
                 equal(temp, o.weight(temp), "weight set to " + temp);
 
@@ -154,22 +202,54 @@ module("player.js");
                 raises(function () {
                     o.weight("abc");
                 }, Error, invalidArgsMsg);
-
-            //* background
-                temp = _.job;
-                equal(temp, o.background(), "background retrieves " + temp + ", initial job");
-
-            //* lineage
-                temp = Castes.is(_.caste);
-                equal(temp, o.lineage(), "lineage retrieves " + temp + ", initial caste");
-
-            //* gender
-                equal(_.gender, o.gender(), "gender retrieves " + o.gender());
-
-            //* race
-                equal(_.race, o.race(), "race retrieves " + o.race());
-
             }(actual[temp]));
         }
     });
+
+    test("instance methods - background", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
+                temp = _.job;
+                equal(temp, o.background(), "background retrieves " + temp + ", initial job");
+            }(actual[temp]));
+        }
+    });
+
+    test("instance methods - lineage", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
+                temp = Castes.is(_.caste);
+                equal(temp, o.lineage(), "lineage retrieves " + temp + ", initial caste");
+            }(actual[temp]));
+        }
+    });
+
+    test("instance methods - gender", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
+                equal(_.gender, o.gender(), "gender retrieves " + o.gender());
+            }(actual[temp]));
+        }
+    });
+
+    test("instance methods - race", function () {
+        actual = [a, d];
+        for (temp in actual) {
+            (function (o, temp) {
+                equal(_.race, o.race(), "race retrieves " + o.race());
+            }(actual[temp]));
+        }
+
+        _.job = "Fighter";
+        _.race = "Human";
+        a = new Player(_);
+        equal(Races.is(_.race), a.race(), "");
+    });
+
+    test("lookup methdos", function () {
+        ok(a.hp());
+    })
 }());

@@ -312,7 +312,7 @@ var Classes = (function () {
                     "Thief"
                 ],
                 HDT: 10,
-                prefs: [0,4,3,5,6,1,2],
+                prefs: [0,5,6,2,1,3,4],
                 saves: saves.Fighter,
                 thaco: thacos.Fighter
             },
@@ -539,6 +539,10 @@ var Classes = (function () {
 
                 return {
                          name: _a.name + "/" + _b.name
+
+                        ,getType: function () {
+                            return "[object Class-" + this.name + "]";
+                        }
 
                         ,HDT: (_a.HDT + _b.HDT) / 2
 
