@@ -9,7 +9,6 @@ RHINO_ENV ?= java -jar $(DIR_UTIL)/Rhino.jar
 CLOSURE_COMPILER ?= java -jar $(DIR_UTIL)/google-compiler-20100917.jar
 
 FILES=$(DIR_SRC)/_intro.js\
-	$(DIR_SRC)/augment.js\
 	$(DIR_SRC)/castes.js\
 	$(DIR_SRC)/classes.js\
 	$(DIR_SRC)/core.js\
