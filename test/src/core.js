@@ -149,3 +149,47 @@ test(".clone()", function () {
         TODO();
     });
 }());
+
+module("Table");
+
+(function () {
+    var actual
+        ,temp;
+        
+    test("initialization", function () {
+        ok(Table, "Table is defined");
+        
+        for (var i = 0, list = "add each getNames named numericSort".split(" "), fn = list[i]; i < list.length; fn = list[++i]) {
+            ok(Table.prototype[fn], "Table." + fn + "() defined");
+        }
+    });
+
+    test("methods", function () {
+        actual = [1,2,3,4];
+        temp = new Table;
+
+        temp.add(actual);
+        equal(actual.join(), temp.join(), "output matches expected");
+        equal(4, temp.length, ".add() performs correctly; adding each item, not the the whole as a single item.");
+
+        temp = new Table;
+        temp.push(actual);
+        notEqual(4, temp.length, ".push() is not the same as .add()");
+
+        actual = (new Table).add([
+             {name: "Champion", dice: 6, min: 7}
+            ,{name: "Hero",     dice: 4, min: 4}
+            ,{name: "npc",      dice: 3, min: 4}
+            ,{name: "Player",   dice: 3, min: 7}
+            ,{name: "Pleb",     dice: 3, min: 3}
+            ]);
+        deepEqual(actual.getNames(), ["Champion", "Hero", "npc", "Player", "Pleb"], "getNames() returns correct list.");
+
+        deepEqual(actual.named("Champion"), {name: "Champion", dice: 6, min: 7}, "named() returns correct object from table.");
+        notDeepEqual(actual.named("Hero"), {name: "Champion", dice: 6, min: 7}, "named() returns correct object from table.");
+        
+        actual = (new Table).add([18,12,10,13,17,9,1]);
+        equal(actual.numericSort().join(), [1,9,10,12,13,17,18].join(), ".numericSort() ascending.");
+        equal(actual.numericSort(true).join(), [18,17,13,12,10,9,1].join(), ".numericSort() descending.");
+    });
+}());

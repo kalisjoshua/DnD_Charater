@@ -1,136 +1,160 @@
 //// stats.js
 
-var stats = (function (table) {
-    var 
-        obj = function (a) {
-            this.push.apply(this, a);
+var Stats = (function (tables, formats) {
+    var Ability = function (s, m, e) {
+            this.exceptional = e || 0;
+            this.matrix = m || [];
+            this.score = s || 0;
         }
 
-        ,Exceptional
-
-        ,create = function (ar, resequence) {
-            if (!ar || !Util.isArray(ar) || ar.length !== 7 || !ar.every(isValid) || ar.join(",").split(",").length !== ar.length) {
-                throw new Error("Invalid array passed into stats constructor: " + ar);
-            }
-
-            return resequence && Util.isArray(resequence) ? obj.fn.resequence(ar, resequence) : new obj(ar);
-        }
-
-        isValid = function (v, a) {
-            if (v !== parseInt(v, 10) || v < 3 || v > 24) {
-                throw new Error("Invalid value passed to stats.set(" + a + "): " + v);
+        ,isValid = function (v, a) {
+            if (v && v !== parseInt(v, 10) || v < 3 || v > 24) {
+                throw new Error("Invalid value passed to Stats.set(" + a + "): " + v);
             }
 
             return true;
         }
 
-        ,range = function (e) {
-            return [50, 75, 90, 99].filter(function (n) {
-                return n < e;
-            }).length;
-        }
+        ,labels = [
+            "Strength"
+            ,"Intelligence"
+            ,"Wisdom"
+            ,"Dexterity"
+            ,"Constitution"
+            ,"Charisma"
+            ,"Comeliness" ]
 
-        ,render = function (template, data){
-            for(var property in data) {
-                template = template.replace(new RegExp("{[" + property + "]}", "g"), data[property]);
+        ,Stats = function (ar, sequence) {
+            var self = this;
+
+            if (sequence) {
+                ar = ar.sort(function (a, b) { return a - b; }).reverse();
+            }
+
+            labels
+                .forEach(function (node, indx) {
+                    // self.set(node, ar[sequence && /^\d+$/.test(sequence[indx]) ? sequence[indx] : indx]);
+                    self.set(node, ar[sequence && Util.isNumeric(sequence[indx]) ? sequence[indx] : indx]);
+                });
+        };
+
+    Ability.prototype = {
+        format: function (template) {
+            for(var prop in this.matrix) {
+                template = template.replace(new RegExp("{[" + prop + "]}", "g"), this.matrix[prop]);
             }
 
             return template;
         }
 
-        ,skillNames = [];
-    
-    obj.fn = obj.prototype = new Array();
+        ,toString: function () {
 
-    obj.fn.details = function (ability) {
-        var result = [],
-            self = this;
-
-        ability = !ability ? skillNames : Util.isArray(ability) ? ability : [ability];
-
-        ability.forEach(function (node, indx, orig) {
-            result.push(render(obj.fn.matrix[skillNames.indexOf(node)].detail, table[node][self[indx]]));
-        });
-
-        if (ability.indexOf("Strength") >= 0 && self[5] === 18 && self.getExceptional()) {
-            result[ability.indexOf("Strength")] = render(obj.fn.matrix[5].detail, table.Exceptional[range(self.getExceptional())]);
+            return this.score;
         }
 
-        return result;
+        ,valueOf: function () {
+
+            return this.score;
+        }
     };
 
-    obj.fn.matrix = [
-         {name: "Charisma"      ,detail: "Max Henchment: {0}, Base Loyalty: {1}, Reaction Adjustment: {2}"}
-        ,{name: "Comeliness"    ,detail: "Response: {0}, Charisma Bonus: {1}"}
-        ,{name: "Constitution"  ,detail: "HP Adjustment: {0}, System Shock: {1}, Raise Survival: {2}, Number of times Raised: {3}"}
-        ,{name: "Dexterity"     ,detail: "Reaction Adjustment: {0}, Missile Adjustment: {1}, Defensive Adjustment: {2}"}
-        ,{name: "Intelligence"  ,detail: "Additional Languages: {0}, Know Spell: {1}, Minimum Spells: {2}, Maximum Spells: {3}"}
-        ,{name: "Strength"      ,detail: "THAC0 Adjustment: {0}, Damage Adjustment: {1}, Weight Adjustment: {2}, Open Doors: {3}, Bend Bars: {4}"}
-        ,{name: "Wisdom"        ,detail: "Magic Adjustment: {0}, Spell Failure: {1}, Bonus Spells: {2}"}
-    ];
-    skillNames = obj.fn.matrix.map(function (n) {
-        return n.name;
-    });
+    Stats.prototype = {
+        get: function (ability, format) {
 
-    obj.fn.resequence = function (orig, pref) {
-        if (!pref && this.getType && this.getType() === "stats") {
-            pref = orig;
-            orig = ([]).slice.call(this);
+            return format
+                ? (ability === "Strength" && this.Strength.score > 17
+                    ? this.Strength.exceptional + " "
+                    : "")
+                    + this[ability].format(formats[ability])
+                : +this[ability];
         }
 
-        orig.sort(function (a, b) {return a - b});
-        orig = orig.reverse();
-        
-        return create([
-             orig[pref[0]]
-            ,orig[pref[1]]
-            ,orig[pref[2]]
-            ,orig[pref[3]]
-            ,orig[pref[4]]
-            ,orig[pref[5]]
-            ,orig[pref[6]]
-        ]);
-    };
+        ,set: function (ability, value, extra) {
+            var table;
 
-    obj.fn.get = function (ability) {
-        return this[skillNames.indexOf(ability)];
-    };
+            value = parseInt(value, 10);
+            
+            if (isValid(value, ability)) {
+                if (ability === "Strength" && value === 18) {
+                    if (extra === undefined) {
+                        extra = roll(1, 101);
+                    }
+                    
+                    table = tables.Exceptional[[50, 75, 90, 99].filter(function (n) { return n < extra; }).length];
+                } else {
+                    extra = 0;
+                    table = tables[ability][value];
+                }
 
-    obj.fn.set = function (ability, v) {
-        if (v && isValid(v, ability)) {
-            this[skillNames.indexOf(ability)] = v;
-        }
-
-        return v;
-    };
-
-    obj.fn.getExceptional = function (e) {
-        return Exceptional;
-    };
-
-    obj.fn.setExceptional = function (e) {
-        if (e && e === parseInt(e, 10) && e >= 0) {
-            if (this[5] === 18) {
-                Exceptional = e;
+                this[ability] = new Ability(value, table, extra);
             } else {
-                throw new Error("Attempting to set Exceptional Strength when base strength is not 18");
+                throw new Error("Invalid value passed to Stats.set(" + ability + ", " + value + ")");
             }
-        } else {
-            throw new Error("Invalid value passed to skills.setExceptional(): " + e);
+
+            return this[ability];
         }
 
-        return e;
+        ,adjustHP: function () {
+
+            return this.Strength.matrix[0];
+        }
+
+        ,adjustTHAC0: function () {
+
+            return this.Constitution.matrix[0];
+        }
+
+        ,getType:function () {
+            
+            return "[object Stats]";
+        }
+
+        ,join: function (str) {
+            var result = []
+                ,self = this;
+
+            labels
+                .forEach(function (node, indx) {
+                    result.push(self[node]);
+                });
+
+            return result.join(str);
+        }
+
+        ,getLabels: function () {
+
+            return labels;
+        }
+
+        ,resequence: function (seq) {
+
+            return new Stats(this.join(",").split(","), seq);
+        }
+
+        ,toString: function () {
+
+            return "[object Stats]";
+        }
     };
 
-    obj.fn.getType = function () {
-        return "stats";
-    };
+    return function (ar, sequence) {
+        if (!ar
+        || !Util.isArray(ar)
+        || ar.length !== 7
+        || !ar.every(isValid)
+        || ar.join(",").split(",").length !== ar.length) {
+            throw new Error("Invalid array passed into Stats constructor: " + ar);
+        }
 
-    obj.fn.toString = function () {
-        return "[object Stats]";
+        if (sequence
+        && (!Util.isArray(sequence)
+        || sequence.length !== 7
+        || sequence.join(",").split(",").length !== sequence.length)) {
+            throw new Error("Invalid sequence passed into Stats constructor: " + sequence);
+        }
+
+        return new Stats(ar, sequence);
     };
-    
-    return create;
 }({
     Charisma: [
          [],[],[] // tables start at ability score 3
@@ -321,4 +345,13 @@ var stats = (function (table) {
         ,[ 6,   0, "1,1,1,1,2,2,2,2,3,3,3,4,4,5,6"] // 23
         ,[ 6,   0, "1,1,1,1,2,2,2,2,3,3,3,4,4,4,5,6,7"] // 24
     ]
+}
+,{
+    Strength:       "THAC0 Adjustment: {0}, Damage Adjustment: {1}, Weight Adjustment: {2}, Open Doors: {3}, Bend Bars: {4}"
+    ,Intelligence:  "Additional Languages: {0}, Know Spell: {1}, Minimum Spells: {2}, Maximum Spells: {3}"
+    ,Wisdom:        "Magic Adjustment: {0}, Spell Failure: {1}, Bonus Spells: {2}"
+    ,Dexterity:     "Reaction Adjustment: {0}, Missile Adjustment: {1}, Defensive Adjustment: {2}"
+    ,Constitution:  "HP Adjustment: {0}, System Shock: {1}, Raise Survival: {2}, Number of times Raised: {3}"
+    ,Charisma:      "Max Henchment: {0}, Base Loyalty: {1}, Reaction Adjustment: {2}"
+    ,Comeliness:     "Response: {0}, Charisma Bonus: {1}"
 }));

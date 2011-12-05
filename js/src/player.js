@@ -31,7 +31,7 @@ var Player = function (config) {
             ,"job"
             ,"level"
             ,"name"
-            // ,"race" // not a setter method
+            // ,"race" // not a setter method, cannot change race
             ,"stats"
             ,"title"
             ,"weight"
@@ -85,19 +85,19 @@ var Player = function (config) {
 
     this.caste = function (delta) {
         if (arguments.length === 1) {
-            delta = delta || "";
-            if (delta === "" || 
-                (delta && delta.getType && /\[object Caste/.test(delta.getType())) ||
-                (Util.isString(delta) && (delta = Castes.is(delta)))
-            ) {
+            if (Util.isString(delta)) {
+                delta = Castes.named(delta);
+            }
+
+            if (!!delta && delta.getType && "[object Caste]" === delta.getType()) {
                 _caste = delta;
             } else {
-                throw invalidArgumentsError("caste");
+                throw invalidArgumentsError("caste", arguments);
             }
         } else if (arguments.length > 1) {
-            throw tooManyArgumentsError("job");
+            throw tooManyArgumentsError("job", arguments);
         }
-
+        
         return _caste;
     };
 
@@ -111,15 +111,15 @@ var Player = function (config) {
 
     this.job = function (delta) {
         if (arguments.length === 1) {
-            if (delta && (delta.getType && /\[object Class-/.test(delta.getType())) ||
-                (Util.isString(delta) && (delta = Classes.is(delta)))
+            if (delta && (delta.getType && "[object Role]" === delta.getType()) ||
+                (Util.isString(delta) && (delta = Classes.named(delta)))
             ) {
                 _job = delta;
             } else {
-                throw invalidArgumentsError("job");
+                throw invalidArgumentsError("job", arguments);
             }
         } else if (arguments.length > 1) {
-            throw tooManyArgumentsError("job");
+            throw tooManyArgumentsError("job", arguments);
         }
 
         return _job;
@@ -143,13 +143,13 @@ var Player = function (config) {
 
     this.stats = function (delta) {
         if (arguments.length === 1) {
-            if (delta.getType && delta.getType() === "stats" && delta.length === 7) {
+            if (delta.getType && delta.getType() === "[object Stats]") {
                 _stats = delta;
             } else {
-                throw invalidArgumentsError("stats");
+                throw invalidArgumentsError("stats", arguments);
             }
         } else if (arguments.length > 1) {
-            throw tooManyArgumentsError("stats");
+            throw tooManyArgumentsError("stats", arguments);
         }
 
         return _stats;
@@ -216,21 +216,24 @@ var Player = function (config) {
 
     _lineage = _caste;
 
-    if (config.race && (Races.is(config.race) || config.race.name)) {
-        _race = Races.is(config.race) || config.race;
+    if (config.race && (Races.named(config.race) || config.race.name)) {
+        _race = Races.named(config.race) || config.race;
     }
 };
 
 Player.prototype = {
     getType: function () {
+
         return "Player";
     }
 
     ,hp: function () {
-        return this.caste().dice * this.level();
+
+        return (this.stats().adjustHP() + this.caste().dice) * this.level();
     }
 
     ,isValid: function () {
+
         return this.job() &&
             this.level() &&
             this.stats() &&
@@ -242,10 +245,12 @@ Player.prototype = {
     }
 
     ,thaco: function () {
-        
+
+        return this.job().thaco[this.level()] + this.stats().adjustTHAC0();
     }
 
     ,toString: function () {
+
         return "[object Player]";
     }
 };

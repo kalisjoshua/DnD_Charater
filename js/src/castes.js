@@ -1,57 +1,79 @@
 //// castes.js
 
 var Castes = (function () {
-    var all = function () {
-            var result = [];
+    var Caste = function (config) {
+            if (config.name) {
+                this.name = config.name;
+                this.dice = config.dice || this.dice;
+                this.min = config.min || this.min;
+            } else {
+                throw Error("Name not specified in Caste constructor.")
+            }
+        };
 
-            while (result.length < 7) {
-                result.push(this.one());
+    Caste.prototype = {
+        dice: 3
+
+        ,min: 4
+
+        ,column: function (num) {
+            var indx = 0
+                ,result = [];
+
+            num = num || 1;
+
+            while (num > indx) {
+                result[indx] = [];
+
+                while (result[indx].length < 7) {
+                    result[indx].push(this.roll());
+                }
+
+                result[indx] = result[indx]
+                    .sort(function (a, b) { return a - b; })
+                        .reverse();
+
+                indx++;
             }
 
-            return result.sort(function (a, b) {
-                return a - b;
-            });
+            return num === 1 ? result[0] : result;
         }
 
-        ,roll = function (num, faces) {
-            var result = [];
-
-            do {
-                result.push(parseInt(Math.random() * faces, 10) + 1);
-            } while (num--);
-
-            return result;
+        ,getType: function () {
+            
+            return "[object Caste]";
         }
 
-        ,single = function () {
+        ,roll: function () {
             var result;
 
             do {
-                result = roll(this.dice, 6).
-                    sort().
-                    slice(-3).
-                    reduce(function (sum, cur) {
+                result = roll(this.dice, 6)
+                    .sort()
+                    .slice(-3)
+                    .reduce(function (sum, cur) {
                         return sum + cur;
                     });
-            } while (result <= this.min);
+            } while (result < this.min);
 
             return result;
         }
 
-        ,list = [
-             {name: "Champion", dice: 6, min: 7}
-            ,{name: "Hero",     dice: 4, min: 4}
-            ,{name: "npc",      dice: 3, min: 4}
-            ,{name: "Player",   dice: 3, min: 7}
-            ,{name: "Pleb",     dice: 3, min: 0}
-        ];
+        ,toString: function () {
+            return "[object Caste]";
+        }
 
-    return augment(list).
-        each(function (node) {
-            node.column = all;
-            node.one = single;
-            node.getType = function () {
-                return "[object Caste" + this.name + "]";
-            }
-        });
+        ,valueOf: function () {
+            return "{name: '" + this.name + "'}";
+        }
+    };
+
+    return (new Table)
+        .add([
+             new Caste({name: "Champion", dice: 6, min: 7})
+            ,new Caste({name: "Hero",     dice: 4, min: 4})
+            ,new Caste({name: "npc",      dice: 3, min: 4})
+            ,new Caste({name: "Player",   dice: 3, min: 7})
+            ,new Caste({name: "Pleb",     dice: 3, min: 3})
+        ]);
 }());

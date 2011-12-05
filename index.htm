@@ -10,6 +10,7 @@
 <title>Character</title>
 <script src="js/libs/modernizr-1.6.min.js"></script>
 
+<link rel="stylesheet" href="h5bp.css" type="text/css" />
 <link rel="stylesheet" href="all.css" type="text/css" />
 </head>
 
@@ -30,6 +31,8 @@
 * acrobat abilities
 
 * comeliness/surprise matrix
+
+* serialize/deserialize player object as JSON
 -->
 
 <div id="builder">
@@ -78,7 +81,7 @@
             <input id="Strength" name="Strength" />
             <span></span>
         </div>
-        
+
         <div class="row">
             <label for="Intelligence">int</label>
             <input id="Intelligence" name="Intelligence" />
@@ -138,7 +141,7 @@
         </div>
         
         <div class="row">
-            <label for="mr">Magic Resistance</label>
+            <label for="mr"><abbr title="Magic Resistance">MR</abbr></label>
             <input disabled="true" id="mr" name="mr" />
         </div>
     </div>
@@ -213,7 +216,7 @@
     </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.4.2.min.js"><\/script>')</script>
 
 <script type="text/javascript" src="js/src/augment.js"></script>

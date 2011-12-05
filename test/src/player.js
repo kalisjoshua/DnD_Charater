@@ -4,12 +4,12 @@ module("player.js");
     var _= {
              age: 32
             ,caste: "Hero"
-            ,job: Classes.is("Fighter")
+            ,job: Classes.named("Fighter")
             ,height: 1
             ,level: 8
             ,name: "Joshua"
-            ,race: Races.is("Human")
-            ,stats: stats(Castes.is("Champion").column())
+            ,race: Races.named("Human")
+            ,stats: Stats(Castes.named("Champion").column())
             ,title: "Sir"
             ,weight: 290
         }
@@ -53,11 +53,15 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = Castes.is("Pleb");
+                temp = Castes.named("Pleb");
                 equal(temp, o.caste(temp), "caste set to " + temp);
 
-                temp = Castes.is("") || "";
-                equal(temp, o.caste(temp), "caste set to " + temp);
+                temp = "Hero";
+                equal(Castes.named(temp), o.caste(temp), "caste set to " + temp);
+
+                raises(function () {
+                    o.caste("");
+                }, Error, "empty string passed to .caste() throws an error.");
             }(actual[temp]));
         }
     });
@@ -66,11 +70,11 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = Classes.is("Fighter");
+                temp = Classes.named("Fighter");
                 equal(temp, o.job(temp), "job set to " + temp);
 
                 temp = "Fighter";
-                equal(Classes.is(temp), o.job(temp), "setting job using string name of job works");
+                equal(Classes.named(temp), o.job(temp), "setting job using string name of job works");
 
                 raises(function () {
                     o.job("Hello");
@@ -146,7 +150,7 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = stats([3,3,3,3,3,3,3]);
+                temp = Stats([3,3,3,3,3,3,3]);
                 equal(temp, o.stats(temp), "stats set to [" + temp + "]");
 
                 raises(function () {
@@ -154,15 +158,15 @@ module("player.js");
                 }, Error, invalidArgsMsg);
 
                 raises(function () {
-                    o.stats([1,2,3,4,5,6,7,8]);
+                    o.Stats([1,2,3,4,5,6,7,8]);
                 }, Error, invalidArgsMsg);
 
                 raises(function () {
-                    o.stats("");
+                    o.Stats("");
                 }, Error, invalidArgsMsg);
 
                 raises(function () {
-                    o.stats("invalid stats arg");
+                    o.Stats("invalid stats arg");
                 }, Error, invalidArgsMsg);
             }(actual[temp]));
         }
@@ -220,8 +224,8 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = Castes.is(_.caste);
-                equal(temp, o.lineage(), "lineage retrieves " + temp + ", initial caste");
+                temp = Castes.named(_.caste);
+                equal(temp.name, o.lineage().name, "lineage retrieves " + temp + ", initial caste");
             }(actual[temp]));
         }
     });
@@ -246,10 +250,10 @@ module("player.js");
         _.job = "Fighter";
         _.race = "Human";
         a = new Player(_);
-        equal(Races.is(_.race), a.race(), "");
+        equal(Races.named(_.race), a.race(), "");
     });
 
     test("lookup methdos", function () {
-        ok(a.hp());
+        ok(a.hp(), ".hp() should return something.");
     })
 }());
