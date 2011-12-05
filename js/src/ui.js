@@ -107,7 +107,7 @@ dnd.ui = (function () {
             $()
                 .add(this.alpha)
                 .add(this.beta)
-                // .add(this.caste)
+                // .add(this.caste) // handled by click event on each Caste
                 .add(this.race)
                 .add(this.stats)
                 .add(this.strict)

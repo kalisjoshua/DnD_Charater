@@ -353,5 +353,5 @@ var Stats = (function (tables, formats) {
     ,Dexterity:     "Reaction Adjustment: {0}, Missile Adjustment: {1}, Defensive Adjustment: {2}"
     ,Constitution:  "HP Adjustment: {0}, System Shock: {1}, Raise Survival: {2}, Number of times Raised: {3}"
     ,Charisma:      "Max Henchment: {0}, Base Loyalty: {1}, Reaction Adjustment: {2}"
-    ,Comeliness:     "Response: {0}, Charisma Bonus: {1}"
+    ,Comeliness:    "Response: {0}, Charisma Bonus: {1}"
 }));
