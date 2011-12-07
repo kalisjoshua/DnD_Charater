@@ -18,18 +18,19 @@
 
 <!--
 = To Do List
-# * saves modification in racial descriptions
-  * base languages
-  * spells matrix
-  * thief/acrobat abilities
-  * racial modifiers on saves and abilities
-  * Class restrictions on abilities and experience bonuses
-# * magic resistance matrix
-  * see invisibility matrix
-  * comeliness/surprise matrix
-# * serialize/deserialize player object as JSON
-# * XP
-  * money
+ # * dual-value-input for exceptional strength
+   * racial modifiers on saves and abilities
+   * saves modification in racial descriptions
+   * thief/acrobat abilities
+   * Class abilities restrictions and experience bonuses
+   * base languages
+ # * magic resistance matrix
+   * see invisibility matrix
+   * comeliness/surprise matrix
+   * spells matrix
+ # * serialize/deserialize player object as JSON
+ # * XP
+   * money
 -->
 
 <div id="builder">
@@ -46,13 +47,10 @@
     </div>
     
     <div class="row">
-        <label></label>
-        <input id="strictDual" name="strictDual" type="checkbox" />
-        <label class="labels" for="strictDual">Strict dual-classing?</label>
-    </div>
-    
-    <div class="row">
         <label for="alpha beta">Class</label>
+        <input id="strictDual" name="strictDual" type="checkbox" />
+        <label class="labels" for="strictDual">Strict dual-classing? <em>(But where's the fun in that?)</em></label>
+        <br />
         <select id="alpha" name="alpha">
             <option value="">-- select one --</option>
         </select>

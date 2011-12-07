@@ -16,12 +16,15 @@ html {
 label {
     float: left;
     margin-right: 10px;
+    margin-bottom: .4em;
     padding-top: 2px;
     text-align: right;
     width: 120px;
     }
     label.labels {
+        cursor: pointer !important;
         float: none;
+        line-height: 1.8em;
         margin: 0px;
         padding: 3px 0px 0px 10px;
         width: auto;
@@ -31,6 +34,7 @@ div.column {
     float: left;
     }
 div.row {
+    overflow: hidden;
     padding: .5em 0px;
     }
 
