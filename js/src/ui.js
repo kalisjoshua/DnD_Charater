@@ -5,24 +5,18 @@ dnd.ui = (function () {
          // check to see what fields are complete before attempting to render a player to the page
          changed: function (event) {
             var _alpha
-                ,_caste
+                ,_caste = ui.caste.find("input:checked").val()
                 ,_job
                 ,_level
                 ,_race
                 ,_stats;
             
             // detect if a Caste was clicked so update is only executed once
-            if (/label/i.test(event.target.nodeName)) {
+            if (event && /label/i.test(event.target.nodeName)) {
                 return;
             }
 
-            if (event.target.name === "level" && (event.keyCode === 38 || event.keyCode == 40)) {
-                event.target.value = ~~event.target.value - ~~(event.keyCode - 39);
-                event.target.value = event.target.value < 0 ? 0 : event.target.value;
-            }
-
             if ((_alpha = ui.alpha.val())
-            && (_caste  = ui.caste.find("input:checked").val() || "Player")
             && (_job    = Classes.merge(_alpha, ui.beta.val()))
             && (_level  = ui.level.val())
             && (_race   = ui.race.val())) {
@@ -32,26 +26,34 @@ dnd.ui = (function () {
                 // Detect the source of the changes:
                 // - if the event was from the Castes then generate new stats
                 // - else use the stats in the input fields
-                _stats = event.target.type === "radio" && event.target.name === "caste"
-                    ? ui.stats.val("") && Castes.named(_caste).column()
-                    : ui.stats
+                if (event && event.target.type === "radio" && event.target.name === "caste") {
+                    _stats = Stats(Castes.named(_caste).column(), _job.prefs);
+                } else {
+                    _stats = ui.stats
                         .toArray()
-                            .map(function (node, indx) { return ~~node.value; })
-                            .filter(function (node, indx) { return node; });
+                            .map(function (node) { return ~~node.value; })
+                            .filter(function (node) { return node > 2; });
+                    
+                    _stats = _stats.length === 7
+                        ? dnd.player.stats() || Stats(_stats)
+                        : undefined;
+                }
 
-                if (_stats && _stats.length === 7) {
-                    ui.update(Player({
-                        "age"     : 1
-                        ,"caste"  : _caste
-                        ,"height" : 1
-                        ,"job"    : _job
-                        ,"level"  : _level
-                        ,"name"   : ui.name.val()
-                        ,"race"   : _race
-                        ,"stats"  : Stats(_stats, _job.prefs)
-                        ,"title"  : ""
-                        ,"weight" : 1
-                    }));
+                if (_stats) {
+                    dnd.player = Player({
+                            "age"     : 1
+                            ,"caste"  : _caste
+                            ,"height" : 1
+                            ,"job"    : _job
+                            ,"level"  : _level
+                            ,"name"   : ui.name.val()
+                            ,"race"   : _race
+                            ,"stats"  : _stats
+                            ,"title"  : ""
+                            ,"weight" : 1
+                        });
+                    
+                    ui.update(dnd.player);
                 }
             }
         }
@@ -93,11 +95,12 @@ dnd.ui = (function () {
 
             this.alpha  = $("#alpha");
             this.beta   = $("#beta");
-            this.caste  = $("#caste")//.hide();
+            this.caste  = $("#caste").hide();
             this.detail = $("#detail");
             this.level  = $("#level");
             this.name   = $("#name");
             this.race   = $("#race");
+            this.skills = $("#skills").find("input");
             this.stats  = $("#abilities").find("input");
             this.strict = $("#strictDual");
 
@@ -114,13 +117,19 @@ dnd.ui = (function () {
                 .change(this.changed);
 
             $()
+                .add(this.stats)
                 .add(this.level)
-                .keyup(this.changed);
+                .keyup(function (event) {
+                    // using arrow keys to decrement/increment values
+                    if (event.target.name === "level" && (event.keyCode === 38 || event.keyCode == 40)) {
+                        event.target.value = ~~event.target.value - ~~(event.keyCode - 39);
+                        event.target.value = event.target.value < 0 ? 0 : event.target.value;
+                    }
+                });
 
             this.alpha
                 .append(Classes.getNames().map(selectList))
-                .change(updateBetaOptions)
-                .val("Fighter");
+                .change(updateBetaOptions);
 
             this.beta
                 .hide();
@@ -143,11 +152,27 @@ dnd.ui = (function () {
                 }));
 
             this.race
-                .append(Races.getNames().map(selectList))
-                .val("Human");
+                .append(Races.getNames().map(selectList));
 
             this.strict
                 .change(updateBetaOptions);
+            
+            ui.test();
+        }
+
+        ,test: function () {
+            ui.race
+                .val("Human");
+            
+            ui.alpha
+                .val("Fighter");
+            
+            ui.level
+                .val(3);
+
+            ui.caste
+                .show();
+            // ui.changed();
         }
 
         // valid player information is in the form show the results to the user
@@ -156,6 +181,7 @@ dnd.ui = (function () {
 
             $("#HP").val(pc.hp());
             $("#thaco").val(pc.thaco());
+            $("#move").val(pc.move());
 
             ui.stats
                 .each(function (indx, node) {
@@ -164,7 +190,10 @@ dnd.ui = (function () {
                             .next()
                             .html(stats.get(node.name, true));
                         
-                })
+                });
+            
+            ui.skills
+                .val(0);
         }
     };
 

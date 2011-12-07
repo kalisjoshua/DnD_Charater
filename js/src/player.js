@@ -241,7 +241,13 @@ Player.prototype = {
     }
 
     ,move: function () {
+
+        return this.race().move;
+    }
+
+    ,skills: function () {
         
+        return ;
     }
 
     ,thaco: function () {

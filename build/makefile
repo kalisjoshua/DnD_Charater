@@ -1,9 +1,8 @@
 NAME=DnD_1E_lib
 
-REL=./
-DIR_SRC=$(REL)src
-DIR_DIST=.
-DIR_UTIL=$(REL)util
+DIR_SRC=../js/src
+DIR_DIST=../js
+DIR_UTIL=./util
 
 RHINO_ENV ?= java -jar $(DIR_UTIL)/Rhino.jar
 CLOSURE_COMPILER ?= java -jar $(DIR_UTIL)/google-compiler-20100917.jar
@@ -18,31 +17,31 @@ FILES=$(DIR_SRC)/_intro.js\
 	$(DIR_SRC)/ui.js\
 	$(DIR_SRC)/_outro.js
 
-SRC_DBG=$(DIR_DIST)/$(NAME).js
-SRC_MIN=$(DIR_DIST)/$(NAME).min.js
+SRC=$(DIR_DIST)/$(NAME).src.js
+MIN=$(DIR_DIST)/$(NAME).js
 
-all: $(SRC_DBG) lint min
+all: $(SRC) lint min
 	@@echo $(NAME) " build complete."
 
-lint: $(SRC_DBG)
-	@@echo "lint'ing " $(SRC_DBG)
+lint: $(SRC)
+	@@echo "lint'ing " $(SRC)
 	@@${RHINO_ENV} $(DIR_UTIL)/jslint-check.js
 
-min: $(SRC_MIN)
-$(SRC_MIN): $(SRC_DBG)
-	@@echo "minify'ing " $(SRC_DBG)
-	@@$(CLOSURE_COMPILER) --js $(SRC_DBG) --warning_level QUIET --js_output_file $(SRC_MIN)
+min: $(MIN)
+$(MIN): $(SRC)
+	@@echo "minify'ing " $(SRC)
+	@@$(CLOSURE_COMPILER) --js $(SRC) --warning_level QUIET --js_output_file $(MIN)
 
-$(SRC_DBG): $(FILES) $(DIR_DIST)
+$(SRC): $(FILES) $(DIR_DIST)
 	@@echo "building " $(NAME)
-	@@cat $(FILES) > $(SRC_DBG)
+	@@cat $(FILES) > $(SRC)
 
-dbg: $(SRC_DBG)
+dbg: $(SRC)
 
 clean:
-	@@echo "deleting files: " $(SRC_DBG) ", " $(SRC_MIN)
-	@@rm -f $(SRC_DBG)
-	@@rm -f $(SRC_MIN)
+	@@echo "deleting files: " $(SRC) ", " $(MIN)
+	@@rm -f $(SRC)
+	@@rm -f $(MIN)
 
 # identify the targets as phony so if there ever is a file named the same it wont cause problems
 .PHONY: all lint min $(NAME) clean
