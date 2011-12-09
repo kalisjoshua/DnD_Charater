@@ -14,6 +14,6 @@ module("races.js");
         temp = "Dragon";
         notEqual(temp, Races.named(temp), temp + " is NOT defined in Races");
 
-        equal("common", Races.filter(function (n) {return n.name === "Human"})[0].languages[0], "");
+        equal("common", Races.named("Human").languages[0], "");
     });
 }());

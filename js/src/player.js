@@ -1,262 +1,190 @@
 //// player.js
 
-var Player = function (config) {
-    if (this === (function () {return this;}())) {
-        return new Player(config);
+var Player = (function () {
+    var execute = function (config, attr, tests, args) {
+            var result = true;
+
+            // shortcut to returning the requested value because the rest of the validations don't need to be executed
+            if (args[0] === undefined && args.length === 0) {
+                return config[attr];
+            }
+
+            // throw an error if too many arguments were passed into the validate functino
+            arguments.length !== 4 && dndError({
+                args: arguments
+                ,fn: "execute"
+            });
+
+            // make the arguments, passed into the original function, into an actual array
+            args = ([]).slice.call(args, 0);
+
+            // throw an error if too many arguments were passed into the original function
+            args.length > 1 && dndError({
+                args: args
+                ,fn: attr
+            });
+
+            args = args[0];
+            if (args || args === 0 || args === "") {
+                // run all the specified tests on the first value passed into the original function
+                while (tests.length && (result = (tests.shift())(args)));
+
+                // throw an error if the input fails any of the validations specified
+                !result && dndError({
+                    args: args
+                    ,fn: attr
+                });
+
+                config[attr] = args;
+            }
+
+            // return the object to allow chaining
+            return this;
+        }
+
+        ,fixObject = function (str, collection) {
+            var result;
+
+            if (str) {
+                if (str.getType) {
+                    result = str;
+                } else if (Util.isString(str) && collection.named(str)) {
+                    result = collection.named(str);
+                } else {
+                    dndError({
+                        args: str
+                        ,fn: "fixObject - " + collection
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        ,Player = function (config) {
+            config = Util.clone(config);
+
+            this.age = function (delta) {
+
+                return execute.call(this, config, "age", [Util.isNumeric, function (d) { return ~~d > 0; }], arguments);
+            };
+
+            this.background = function () {
+                
+                return config.background || "This character's background is unknown.";
+            };
+
+            this.caste = function (delta) {
+                arguments[0] = fixObject(delta, Castes);
+
+                return execute.call(this, config, "caste", [function (d) { return Util.isType(d, "Caste") }], arguments);
+            };
+
+            this.height = function (delta) {
+
+                return execute.call(this, config, "height", [Util.isNumeric, function (d) { return ~~d > 0; }], arguments);
+            };
+
+            this.job = function (delta) {
+                arguments[0] = fixObject(delta, Classes);
+
+                return execute.call(this, config, "job", [function (d) { return Util.isType(d, "Role") }], arguments);
+            };
+
+            this.level = function (delta) {
+
+                return execute.call(this, config, "level", [Util.isNumeric, function (d) { return ~~d > -3; }], arguments);
+            };
+
+            this.lineage = function () {
+                
+                return config.lineage || "No one knows where this character comes from."
+            };
+
+            this.name = function (delta) {
+
+                return execute.call(this, config, "name", [Util.isString], arguments);
+            };
+
+            this.race = function (delta) {
+                arguments[0] = fixObject(delta, Races);
+
+                return execute.call(this, config, "race", [function (d) { return Util.isType(d, "Race") }], arguments);
+            };
+
+            this.stats = function (delta) {
+                arguments[0] = fixObject(delta, Stats);
+
+                return execute.call(this, config, "stats", [function (d) { return Util.isType(d, "Stats") }], arguments);
+            };
+
+            this.title = function (delta) {
+
+                return execute.call(this, config, "title", [Util.isString], arguments);
+            };
+
+            this.weight = function (delta) {
+
+                return execute.call(this, config, "weight", [Util.isNumeric, function (d) { return ~~d > 0; }], arguments);
+            };
+
+            // for the values passed in to run through their setters so that they can be massaged into the correct form(s)
+            for (var i in config) {
+                this[i](config[i]);
+            }
+
+            !this.isValid() && dndError({
+                args: config
+                ,fn: "Player constructor"
+                ,level: "warn"
+            });
+
+            config.background = this.job();
+            config.lineage = this.caste();
+        };
+    
+    Player.prototype = {
+        getType: function () {
+
+            return "[object Player]";
+        }
+
+        ,hp: function () {
+
+            return (this.stats().adjustHP() + this.caste().dice) * this.level();
+        }
+
+        ,isValid: function () {
+
+            return Util.isType(this.job(), "Role")
+                && this.level() >= 0
+                && Util.isType(this.race(), "Race")
+                && Util.isType(this.stats(), "Stats");
+        }
+
+        ,move: function () {
+
+            return this.race().move;
+        }
+
+        ,skills: function () {
+            
+            return this.job().skills();
+        }
+
+        ,thaco: function () {
+
+            return this.job().thaco[this.level()] + this.stats().adjustTHAC0();
+        }
+
+        ,toString: function () {
+
+            return "Player" + (this.name() ? " - " + this.name() : "");
+        }
     }
     
-    var 
-    // mutable properties
-         _age
-        ,_caste         // current Caste
-        ,_height
-        ,_job           // Fighter, Cleric, Mage/Thief, etc.
-        ,_level
-        ,_name
-        ,_race
-        ,_stats
-        ,_title         // eg. Sir, Count, Lady, etc.
-        ,_weight
+    return function (c) {
 
-    // immutable properties
-        ,_background    // initial job
-        ,_gender
-        ,_lineage       // begining Caste
-        ,_race
-
-        ,initMethods = [
-             "age"
-            ,"caste"
-            ,"height"
-            ,"job"
-            ,"level"
-            ,"name"
-            // ,"race" // not a setter method, cannot change race
-            ,"stats"
-            ,"title"
-            ,"weight"
-        ]
-
-    // private methods
-        ,invalidArgumentsError = function (fn) {
-            return new Error("Invalid argument(s) passed into ." + fn + "() :: " + arguments[1]);
-        }
-
-        ,tooManyArgumentsError = function (fn) {
-            return new Error("Too many arguments passed into ." + fn + "() :: " + arguments);
-        }
-
-        ,validateInputNumber = function (delta) {
-            if (arguments.length === 1) {
-                if (Util.isNumeric(delta) && (delta = parseInt(delta, 10)) > 0 && delta) {
-                    return delta;
-                } else {
-                    throw invalidArgumentsError(this, arguments);
-                }
-            } else if (arguments.length > 1) {
-                throw tooManyArgumentsError(this, arguments);
-            }
-
-            return false; // fallthrough fail-safe
-        }
-
-        ,validateInputString = function (delta) {
-            if (arguments.length === 1) {
-                if (Util.isString(delta)) {
-                    return delta;
-                } else {
-                    throw invalidArgumentsError(this, arguments);
-                }
-            } else if (arguments.length > 1) {
-                throw tooManyArgumentsError(this, arguments);
-            }
-
-            return false; // fallthrough fail-safe
-        }
-    ;
-
-    this.age = function (delta) {
-        if (delta = validateInputNumber.apply("age", arguments)) {
-            _age = delta;
-        }
-
-        return _age;
-    };
-
-    this.caste = function (delta) {
-        if (arguments.length === 1) {
-            if (Util.isString(delta)) {
-                delta = Castes.named(delta);
-            }
-
-            if (!!delta && delta.getType && "[object Caste]" === delta.getType()) {
-                _caste = delta;
-            } else {
-                throw invalidArgumentsError("caste", arguments);
-            }
-        } else if (arguments.length > 1) {
-            throw tooManyArgumentsError("job", arguments);
-        }
-        
-        return _caste;
-    };
-
-    this.height = function (delta) {
-        if (delta = validateInputNumber.apply("height", arguments)) {
-            _height = delta;
-        }
-
-        return _height;
-    };
-
-    this.job = function (delta) {
-        if (arguments.length === 1) {
-            if (delta && (delta.getType && "[object Role]" === delta.getType()) ||
-                (Util.isString(delta) && (delta = Classes.named(delta)))
-            ) {
-                _job = delta;
-            } else {
-                throw invalidArgumentsError("job", arguments);
-            }
-        } else if (arguments.length > 1) {
-            throw tooManyArgumentsError("job", arguments);
-        }
-
-        return _job;
-    };
-
-    this.level = function (delta) {
-        if (delta = validateInputNumber.apply("level", arguments)) {
-            _level = delta;
-        }
-
-        return _level;
-    };
-
-    this.name = function (delta) {
-        if (delta === "" || (delta = validateInputString.apply("name", arguments))) {
-            _name = delta;
-        }
-
-        return _name;
-    };
-
-    this.stats = function (delta) {
-        if (arguments.length === 1) {
-            if (delta.getType && delta.getType() === "[object Stats]") {
-                _stats = delta;
-            } else {
-                throw invalidArgumentsError("stats", arguments);
-            }
-        } else if (arguments.length > 1) {
-            throw tooManyArgumentsError("stats", arguments);
-        }
-
-        return _stats;
-    };
-
-    this.title = function (delta) {
-        if (delta === "" || (delta = validateInputString.apply("title", arguments))) {
-            _title = delta;
-        }
-        
-        return _title;
-    };
-
-    this.weight = function (delta) {
-        if (delta = validateInputNumber.apply("weight", arguments)) {
-            _weight = delta;
-        }
-
-        return _weight;
-    };
-
-    this.background = function () {
-        if (arguments.length > 0) {
-            throw tooManyArgumentsError("background");
-        }
-
-        return _background;
-    };
-
-    this.gender = function () {
-        if (arguments.length > 0) {
-            throw tooManyArgumentsError("gender");
-        }
-
-        return _gender;
-    };
-
-    this.lineage = function () {
-        if (arguments.length > 0) {
-            throw tooManyArgumentsError("heritage");
-        }
-
-        return _lineage;
-    };
-
-    this.race = function () {
-        if (arguments.length > 0) {
-            throw tooManyArgumentsError("race");
-        }
-
-        return _race;
-    };
-
-    for (var m in initMethods) {
-        this[initMethods[m]](config[initMethods[m]]);
+        return new Player(c || {});
     }
-
-    // immutable properties need to be initialized here as they do not have public set methods
-    _background = _job;
-    
-    if (config.gender) {
-        _gender = config.gender;
-    }
-
-    _lineage = _caste;
-
-    if (config.race && (Races.named(config.race) || config.race.name)) {
-        _race = Races.named(config.race) || config.race;
-    }
-};
-
-Player.prototype = {
-    getType: function () {
-
-        return "Player";
-    }
-
-    ,hp: function () {
-
-        return (this.stats().adjustHP() + this.caste().dice) * this.level();
-    }
-
-    ,isValid: function () {
-
-        return this.job() &&
-            this.level() &&
-            this.stats() &&
-            this.race();
-    }
-
-    ,move: function () {
-
-        return this.race().move;
-    }
-
-    ,skills: function () {
-        
-        return ;
-    }
-
-    ,thaco: function () {
-
-        return this.job().thaco[this.level()] + this.stats().adjustTHAC0();
-    }
-
-    ,toString: function () {
-
-        return "[object Player]";
-    }
-};
+}());

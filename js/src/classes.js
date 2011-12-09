@@ -10,7 +10,10 @@ var Classes = (function (saves, thacos) {
             || config.prefs.length !== 7
             || config.saves.length !== 23
             || config.thaco.length !== 23) {
-                throw Error("Invalid configuration passed into Role");
+                dndError({
+                    args: arguments
+                    ,fn: "Role constructor"
+                });
             } else {
                 for (var attr in config) {
                     this[attr] = config[attr];

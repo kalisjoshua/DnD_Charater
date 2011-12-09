@@ -24,7 +24,7 @@ module("player.js");
     test("Player object initialization", function () {
         ok(Player, "Player object is available");
         ok(a.isValid, ".isValid() method is available to Player instances");
-        equal("Player", a.getType(), "getType() return the correct string value");
+        equal("[object Player]", a.getType(), "getType() return the correct string value");
         equal("" + a, a.toString(), "toString() should be the same as when the inferred string value is returned");
     });
 
@@ -33,10 +33,12 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = 1;
-                equal(temp, o.age(temp), "age set to " + temp);
+                o.age(temp);
+                equal(temp, o.age(), "age set to " + temp);
 
                 temp = 10;
-                equal(temp, o.age(temp), "age set to " + temp);
+                o.age(temp);
+                equal(temp, o.age(), "age set to " + temp);
 
                 raises(function () {
                     o.age(0);
@@ -54,14 +56,16 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = Castes.named("Pleb");
-                equal(temp, o.caste(temp), "caste set to " + temp);
+                o.caste(temp);
+                equal(temp, o.caste(), "caste set to " + temp);
 
                 temp = "Hero";
-                equal(Castes.named(temp), o.caste(temp), "caste set to " + temp);
+                o.caste(temp);
+                equal(Castes.named(temp), o.caste(), "caste set to " + temp);
 
                 raises(function () {
-                    o.caste("");
-                }, Error, "empty string passed to .caste() throws an error.");
+                    o.caste("Couch");
+                }, Error, "invalid string passed to .caste() throws an error.");
             }(actual[temp]));
         }
     });
@@ -71,18 +75,20 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = Classes.named("Fighter");
-                equal(temp, o.job(temp), "job set to " + temp);
+                o.job(temp)
+                equal(temp, o.job(), "job set to " + temp);
 
                 temp = "Fighter";
-                equal(Classes.named(temp), o.job(temp), "setting job using string name of job works");
+                o.job(temp);
+                equal(Classes.named(temp), o.job(), "setting job using string name of job works");
 
                 raises(function () {
                     o.job("Hello");
                 }, Error, invalidArgsMsg);
 
-                raises(function () {
-                    o.job(Classes.Hello);
-                }, Error, invalidArgsMsg);
+                // raises(function () {
+                //     o.job(Classes.named("Couch"));
+                // }, Error, invalidArgsMsg);
             }(actual[temp]));
         }
     });
@@ -92,10 +98,12 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = 123;
-                equal(temp, o.height(temp), "height set to " + temp);
+                o.height(temp);
+                equal(temp, o.height(), "height set to " + temp);
 
                 temp = "321";
-                equal(temp, o.height(temp), "height set to " + temp);
+                o.height(temp);
+                equal(temp, o.height(), "height set to " + temp);
 
                 raises(function () {
                     o.height(0);
@@ -113,13 +121,15 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = 123;
-                equal(temp, o.level(temp), "level set to " + temp);
+                o.level(temp);
+                equal(temp, o.level(), "level set to " + temp);
 
                 temp = "321";
-                equal(temp, o.level(temp), "level set to " + temp);
+                o.level(temp)
+                equal(temp, o.level(), "level set to " + temp);
 
                 raises(function () {
-                    o.level(0);
+                    o.level(-3);
                 }, Error, invalidArgsMsg);
 
                 raises(function () {
@@ -133,11 +143,13 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = "Duke";
-                equal(temp, o.name(temp), "name set to " + temp);
+                temp = "Duk of Earl";
+                o.name(temp);
+                equal(temp, o.name(), "name set to " + temp);
 
                 temp = "";
-                equal(temp, o.name(temp), "name set to " + temp);
+                o.name(temp);
+                equal(temp, o.name(), "name set to " + temp);
 
                 raises(function () {
                     o.name(10);
@@ -151,7 +163,8 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = Stats([3,3,3,3,3,3,3]);
-                equal(temp, o.stats(temp), "stats set to [" + temp + "]");
+                o.stats(temp);
+                equal(temp, o.stats(), "stats set to [" + temp + "]");
 
                 raises(function () {
                     o.stats([]);
@@ -176,11 +189,13 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = "Duke";
-                equal(temp, o.title(temp), "title set to " + temp);
+                temp = "Duke of Earl";
+                o.title(temp);
+                equal(temp, o.title(), "title set to " + temp);
 
                 temp = "";
-                equal(temp, o.title(temp), "title set to " + temp);
+                o.title(temp)
+                equal(temp, o.title(), "title set to " + temp);
 
                 raises(function () {
                     o.title(10);
@@ -194,10 +209,12 @@ module("player.js");
         for (temp in actual) {
             (function (o, temp) {
                 temp = 123;
-                equal(temp, o.weight(temp), "weight set to " + temp);
+                o.weight(temp);
+                equal(temp, o.weight(), "weight set to " + temp);
 
                 temp = "321";
-                equal(temp, o.weight(temp), "weight set to " + temp);
+                o.weight(temp)
+                equal(temp, o.weight(), "weight set to " + temp);
 
                 raises(function () {
                     o.weight(0);
@@ -224,33 +241,33 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                temp = Castes.named(_.caste);
-                equal(temp.name, o.lineage().name, "lineage retrieves " + temp + ", initial caste");
+                equal(o.caste().name, o.lineage().name, "lineage retrieves " + temp + ", initial caste");
             }(actual[temp]));
         }
     });
 
-    test("instance methods - gender", function () {
-        actual = [a, d];
-        for (temp in actual) {
-            (function (o, temp) {
-                equal(_.gender, o.gender(), "gender retrieves " + o.gender());
-            }(actual[temp]));
-        }
-    });
+    // test("instance methods - gender", function () {
+    //     actual = [a, d];
+    //     for (temp in actual) {
+    //         (function (o, temp) {
+    //             equal(_.gender, o.gender(), "gender retrieves " + o.gender());
+    //         }(actual[temp]));
+    //     }
+    // });
 
     test("instance methods - race", function () {
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                equal(_.race, o.race(), "race retrieves " + o.race());
+                equal(_.race.name, o.race().name, "race retrieves " + o.race());
             }(actual[temp]));
         }
 
         _.job = "Fighter";
         _.race = "Human";
         a = new Player(_);
-        equal(Races.named(_.race), a.race(), "");
+        console.log("-----------------", _.race)
+        equal(_.race, a.race().name, "");
     });
 
     test("lookup methdos", function () {

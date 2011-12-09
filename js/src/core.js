@@ -2,6 +2,14 @@
 
 var dnd = {}
 
+    ,dndError = function (settings) {
+        console && console[settings.level || "error"](settings.args);
+
+        if (settings.level !== "warn") {
+            throw new Error("dnd Error - " + settings.fn + "(" + settings.args + ")");
+        }
+    }
+
     ,roll = function (num, faces) {
         var result = [];
 
@@ -52,7 +60,9 @@ var dnd = {}
 
         ,isType: function (obj, type) {
             
-            return Object.prototype.toString.call(obj) === "[object " + type + "]";
+            return (obj && obj.getType
+                ? obj.getType()
+                : Object.prototype.toString.call(obj)) === "[object " + type + "]";
         }
     };
 

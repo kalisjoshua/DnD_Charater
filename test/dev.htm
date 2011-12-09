@@ -17,11 +17,17 @@
 <script type="text/javascript" src="../js/src/races.js"></script>
 <script type="text/javascript" src="../js/src/player.js"></script>
 <script>
-$.fn.ready(function ($) {
-    var s = Stats([18,17,16,15,14,13,12])
 
-    console.log(s.get("Strength"), s.get("Strength", true))
-})
+var p = new Player({
+    caste: "Champion"
+    ,job: "Fighter"
+    ,level: 1
+    ,name: "Joshua"
+    ,race: "Human"
+    ,stats: Stats([3,3,3,3,3,3,4])
+});
+console.log(p.lineage())
+
 </script>
 
 </body>
