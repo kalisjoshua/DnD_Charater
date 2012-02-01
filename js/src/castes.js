@@ -2,25 +2,24 @@
 
 var Castes = (function () {
     var Caste = function (config) {
-            if (config.name) {
-                this.name = config.name;
-                this.dice = config.dice || this.dice;
-                this.min = config.min || this.min;
-            } else {
-                throw Error("Name not specified in Caste constructor.")
+            if (!config.name) {
+                dndError({
+                    args: arguments
+                    ,fn: "Caste constructor"
+                });
+            }
+            
+            for (var attr in config) {
+                this[attr] = config[attr];
             }
         };
 
     Caste.prototype = {
-        dice: 3
-
-        ,min: 4
-
-        ,column: function (num) {
+        column: function (num) {
             var indx = 0
                 ,result = [];
 
-            num = num || 1;
+            num |= 1;
 
             while (num > indx) {
                 result[indx] = [];
@@ -60,10 +59,12 @@ var Castes = (function () {
         }
 
         ,toString: function () {
-            return "[object Caste]";
+
+            return this.name;
         }
 
         ,valueOf: function () {
+
             return "{name: '" + this.name + "'}";
         }
     };

@@ -3,21 +3,26 @@
 var dnd = {}
 
     ,dndError = function (settings) {
-        console && console[settings.level || "error"](settings.args);
+        console && console[settings.level || "error"]("---- dndError Log ----", settings.args, "passed to", settings.fn);
 
         if (settings.level !== "warn") {
             throw new Error("dnd Error - " + settings.fn + "(" + settings.args + ")");
         }
     }
 
-    ,roll = function (num, faces) {
+    ,roll = function (num, faces, sum) {
         var result = [];
+
+        if (!faces) {
+            faces = num;
+            num = 1;
+        }
 
         while (num > result.length) {
             result.push(parseInt(Math.random() * faces, 10) + 1);
         }
 
-        return num === 1 ? result[0] : result;
+        return num === 1 ? result[0] : (sum ? result.reduce(function (a, b) { return a + b; }) : result);
     }
 
     ,Table = function () {}

@@ -4,11 +4,11 @@ module("player.js");
     var _= {
              age: 32
             ,caste: "Hero"
-            ,job: Classes.named("Fighter")
+            ,job: "Fighter"
             ,height: 1
             ,level: 8
             ,name: "Joshua"
-            ,race: Races.named("Human")
+            ,race: "Human"
             ,stats: Stats(Castes.named("Champion").column())
             ,title: "Sir"
             ,weight: 290
@@ -259,14 +259,13 @@ module("player.js");
         actual = [a, d];
         for (temp in actual) {
             (function (o, temp) {
-                equal(_.race.name, o.race().name, "race retrieves " + o.race());
+                equal(_.race, o.race().name, "race retrieves " + o.race());
             }(actual[temp]));
         }
 
         _.job = "Fighter";
         _.race = "Human";
         a = new Player(_);
-        console.log("-----------------", _.race)
         equal(_.race, a.race().name, "");
     });
 

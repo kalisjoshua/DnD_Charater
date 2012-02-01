@@ -4,7 +4,7 @@ module("races.js");
     var actual,
         temp;
     
-    test("just an array of object literals", function () {
+    test("Table of Race objects", function () {
         ok(Races, "Races is defined");
         ok(8 === Races.length, "8 Races defined");
 

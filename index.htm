@@ -22,6 +22,7 @@
    * racial modifiers on saves and abilities
    * saves modification in racial descriptions
    * thief/acrobat abilities
+     * racial bonuses to skills
    * Class abilities restrictions and experience bonuses
    * base languages
  # * magic resistance matrix
@@ -73,43 +74,43 @@
     <div class="column" id="abilities">
         <div class="row">
             <label for="Strength">str</label>
-            <input id="Strength" name="Strength" />
+            <input class="stat" id="Strength" name="Strength" />
             <span></span>
         </div>
 
         <div class="row">
             <label for="Intelligence">int</label>
-            <input id="Intelligence" name="Intelligence" />
+            <input class="stat" id="Intelligence" name="Intelligence" />
             <span></span>
         </div>
         
         <div class="row">
             <label for="Wisdom">wis</label>
-            <input id="Wisdom" name="Wisdom" />
+            <input class="stat" id="Wisdom" name="Wisdom" />
             <span></span>
         </div>
         
         <div class="row">
             <label for="Dexterity">dex</label>
-            <input id="Dexterity" name="Dexterity" />
+            <input class="stat" id="Dexterity" name="Dexterity" />
             <span></span>
         </div>
         
         <div class="row">
             <label for="Constitution">con</label>
-            <input id="Constitution" name="Constitution" />
+            <input class="stat" id="Constitution" name="Constitution" />
             <span></span>
         </div>
         
         <div class="row">
             <label for="Charisma">cha</label>
-            <input id="Charisma" name="Charisma" />
+            <input class="stat" id="Charisma" name="Charisma" />
             <span></span>
         </div>
         
         <div class="row">
             <label for="Comeliness">com</label>
-            <input id="Comeliness" name="Comeliness" />
+            <input class="stat" id="Comeliness" name="Comeliness" />
             <span></span>
         </div>
     </div>
@@ -143,27 +144,27 @@
     
     <div class="column" id="saves">
         <div class="row">
-            <label for="ppd" title="Paralyze, Poison, Death">ppd</label>
+            <label for="ppd"><abbr title="Paralyze, Poison, Death">ppd</abbr></label>
             <input disabled="true" id="ppd" name="ppd" />
         </div>
 
         <div class="row">
-            <label for="pp" title="Petrify, Polymorph">pp</label>
+            <label for="pp"><abbr title="Petrify, Polymorph">pp</abbr></label>
             <input disabled="true" id="pp" name="pp" />
         </div>
 
         <div class="row">
-            <label for="rsw" title="Rods, Staves, Wands">rsw</label>
+            <label for="rsw"><abbr title="Rods, Staves, Wands">rsw</abbr></label>
             <input disabled="true" id="rsw" name="rsw" />
         </div>
 
         <div class="row">
-            <label for="bw" title="Breath Weapon">bw</label>
+            <label for="bw"><abbr title="Breath Weapon">bw</abbr></label>
             <input disabled="true" id="bw" name="bw" />
         </div>
 
         <div class="row">
-            <label for="sp" title="Spells">sp</label>
+            <label for="sp"><abbr title="Spells">sp</abbr></label>
             <input disabled="true" id="sp" name="sp" />
         </div>
     </div>

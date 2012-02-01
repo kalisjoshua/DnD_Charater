@@ -24,15 +24,14 @@ dnd.ui = (function () {
                     .show();
 
                 // Detect the source of the changes:
-                // - if the event was from the Castes then generate new stats
-                // - else use the stats in the input fields
-                if (event && event.target.type === "radio" && event.target.name === "caste") {
+                if (event && event.target.name === "caste") {
+                    // - if the event was from the Castes then generate new stats
                     _stats = Stats(Castes.named(_caste).column(), _job.prefs);
                 } else {
+                    // - else use the stats in the input fields
                     _stats = ui.stats
-                        .toArray()
-                            .map(function (node) { return ~~node.value; })
-                            .filter(function (node) { return node > 2; });
+                        .map(function (indx, node) { return ~~node.value; })
+                        .filter(function (indx, node) { return node > 2; });
                     
                     _stats = _stats.length === 7
                         ? dnd.player.stats() || Stats(_stats)
@@ -121,9 +120,24 @@ dnd.ui = (function () {
                 .add(this.level)
                 .keyup(function (event) {
                     // using arrow keys to decrement/increment values
-                    if (event.target.name === "level" && (event.keyCode === 38 || event.keyCode == 40)) {
-                        event.target.value = ~~event.target.value - ~~(event.keyCode - 39);
-                        event.target.value = event.target.value < 0 ? 0 : event.target.value;
+                    if ((event.target.name === "level" || /stat/i.test(event.target.className)) && (event.keyCode === 38 || event.keyCode == 40)) {
+                        try {
+                            event.target.value = ~~event.target.value - ~~(event.keyCode - 39);
+                            event.target.value = event.target.value < 0 ? 0 : event.target.value;
+
+                            // adjust the value of the stats free from racial bonus/penelty
+                            if (/stat/i.test(event.target.className) && dnd.player && dnd.player.isValid()) {
+                                dnd.player.stats().set(event.target.name, dnd.player.stats().get(event.target.name) - ~~(event.keyCode - 39));
+                            }
+                        } catch (e) {
+                            dndError({
+                                args: "<invalid_value>"
+                                ,fn: "[level,stat].keyup()"
+                                ,level: "warn"
+                            });
+                        }
+
+                        ui.changed();
                     }
                 });
 
@@ -180,20 +194,25 @@ dnd.ui = (function () {
             var stats = pc.stats();
 
             $("#HP").val(pc.hp());
-            $("#thaco").val(pc.thaco());
             $("#move").val(pc.move());
+            $("#thaco").val(pc.thaco());
 
-            ui.stats
+            $("input", "#saves")
                 .each(function (indx, node) {
-                    $(node)
-                        .val(stats.get(node.name))
-                            .next()
-                            .html(stats.get(node.name, true));
-                        
+                    node.value = pc.saves()[indx];
                 });
             
             ui.skills
                 .val(0);
+
+            ui.stats
+                .each(function (indx, node) {
+                    $(node)
+                        .val(+stats.get(node.name))
+                            .next()
+                            .html(stats.get(node.name, true));
+                        
+                });
         }
     };
 

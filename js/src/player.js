@@ -1,5 +1,6 @@
 //// player.js
 
+// Player Factory
 var Player = (function () {
     var execute = function (config, attr, tests, args) {
             var result = true;
@@ -88,7 +89,7 @@ var Player = (function () {
             this.job = function (delta) {
                 arguments[0] = fixObject(delta, Classes);
 
-                return execute.call(this, config, "job", [function (d) { return Util.isType(d, "Role") }], arguments);
+                return execute.call(this, config, "job", [function (d) { return Util.isType(d, "Class") }], arguments);
             };
 
             this.level = function (delta) {
@@ -130,7 +131,7 @@ var Player = (function () {
 
             // for the values passed in to run through their setters so that they can be massaged into the correct form(s)
             for (var i in config) {
-                this[i](config[i]);
+                this[i] && this[i](config[i]);
             }
 
             !this.isValid() && dndError({
@@ -150,13 +151,27 @@ var Player = (function () {
         }
 
         ,hp: function () {
+            var adjust  = this.stats().adjustHP()
+                ,dice   = this.caste().dice
+                ,level  = this.level()
+                ,result = []
+                ,temp   = 0;
 
-            return (this.stats().adjustHP() + this.caste().dice) * this.level();
+            while (level > 0) {
+                temp = adjust + roll(dice);
+
+                temp > 1 && result.push(temp) && level--;
+            }
+
+            return result
+                .reduce(function (a, b) {
+                    return a + b;
+                });
         }
 
         ,isValid: function () {
 
-            return Util.isType(this.job(), "Role")
+            return Util.isType(this.job(), "Class")
                 && this.level() >= 0
                 && Util.isType(this.race(), "Race")
                 && Util.isType(this.stats(), "Stats");
@@ -167,9 +182,18 @@ var Player = (function () {
             return this.race().move;
         }
 
+        ,optimize: function () {
+            
+        }
+
+        ,saves: function () {
+            
+            return this.job().saves[this.level()];
+        }
+
         ,skills: function () {
             
-            return this.job().skills();
+            return ;
         }
 
         ,thaco: function () {
@@ -181,8 +205,9 @@ var Player = (function () {
 
             return "Player" + (this.name() ? " - " + this.name() : "");
         }
-    }
+    };
     
+    // factory pattern constructor
     return function (c) {
 
         return new Player(c || {});

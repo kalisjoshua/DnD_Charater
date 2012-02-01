@@ -1,5 +1,3 @@
-var TODO = function () {0 ? ok(false, "TODO: add more tests!") : null;};
-
 module("Util");
 
 var actual = 11,
@@ -8,24 +6,31 @@ var actual = 11,
 test(".clone()", function () {
     ok(Util.clone, "Util.clone defined");
 
-    actual = test_obj = [1,2,[3,4],"hello world!",{"name":"Joshua"}];
+    actual = test_obj = [1,2,[3,4],"hello world!",{"name":"Person"}];
     strictEqual(actual, test_obj, "Two variables pointing to the same memory space should be the same");
 
     deepEqual(actual, Util.clone(actual), "clone should work");
 
     actual = test_obj = {
-        "name": "Josh",
-        "hobbies": {
-            "JS": [
-                "CSS",
-                "HTML",
-                "JS"
-            ],
-            "Photog": [
-                "10-22mm",
-                "18-55mm",
-                "24-105mm",
-                "50mm"
+        "name": "Person"
+        ,"echo": function () {
+            var args = ([]).slice.call(arguments);
+
+            args.forEach(function (node) {
+                console && console.log(node);
+            });
+        }
+        ,"hobbies": {
+            "Web": [
+                "CSS"
+                ,"HTML"
+                ,"JS"
+            ]
+            ,"Photog": [
+                "10-22mm"
+                ,"18-55mm"
+                ,"24-105mm"
+                ,"50mm"
             ]
         }
     };
@@ -33,8 +38,6 @@ test(".clone()", function () {
 
     deepEqual(actual, Util.clone(actual), "Cloned object should be the 'same' as its source object");
     notStrictEqual(actual, Util.clone(actual), "Cloned objects should not point to the same object in memory");
-
-    TODO();
 });
 
 (function () {
@@ -58,6 +61,7 @@ test(".clone()", function () {
             ,new String("abc")                  // 15 string
             ,"Hello"                            // 16
             ,(function (u) {return u;}())       // 17 undefined
+            ,new RegExp
         ],
         temp;
 
@@ -125,8 +129,6 @@ test(".clone()", function () {
                 ok(!Util.isObject(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") fail");
             }
         }
-
-        TODO();
     });
 
     test(".isString()", function () {
@@ -139,14 +141,10 @@ test(".clone()", function () {
                 ok(!Util.isString(actual[temp]), actual[temp] + " (" + ({}).toString.call(actual[temp]) + ") fail");
             }
         }
-
-        TODO();
     });
 
     test(".isType()", function () {
         ok(Util.isType, "Util.isType defined");
-        
-        TODO();
     });
 }());
 

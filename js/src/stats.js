@@ -1,108 +1,119 @@
 //// stats.js
 
+// Stats factory
 var Stats = (function (tables, formats) {
-    var Ability = function (s, m, e) {
-            this.exceptional = e || 0;
-            this.matrix = m || [];
-            this.score = s || 0;
+    var Ability = function (attr, score, exceptional) {
+            !attr && !score && dndError({
+                args: arguments
+                ,fn: "Ability constructor"
+            });
+
+            this.score = ~~score;
+
+            if (attr === "Strength" && this.score === 18) {
+                this.exceptional = !Util.isNumeric(exceptional)
+                    ? roll(101)
+                    : ~~exceptional;
+            }
+            
+            this.table = function () {
+
+                return tables[attr][this.score];
+            };
+
+            this.toString = function () {
+                var result = "" + formats[attr]
+                    ,table = attr === "Strength" && score === 18 && exceptional > 0
+                        ? tables.Exceptional[[50, 75, 90, 99].filter(function (n) { return n < exceptional; }).length]
+                        : tables[attr][score];
+
+                for (var field in table) {
+                    result = result.replace(new RegExp("{[" + field + "]}", "g"), table[field]);
+                }
+
+                if (this.exceptional) {
+                    result = this.exceptional + " " + result;
+                }
+
+                return result;
+            };
+
+            this.valueOf = function () {
+                
+                return score;
+            };
         }
 
+        ,indexes = (function (m) {
+            Object.keys(formats)
+                .forEach(function (node, indx) {
+                    m[node] = indx;
+                });
+            
+            return m;
+        }({}))
+
         ,isValid = function (v, a) {
-            if (v && v !== parseInt(v, 10) || v < 3 || v > 24) {
-                throw new Error("Invalid value passed to Stats.set(" + a + "): " + v);
+            if (v && v !== ~~v || v < 3 || v > 24) {
+                dndError({
+                    args: arguments
+                    ,fn: "Ability.isValid()"
+                });
             }
 
             return true;
         }
 
-        ,labels = [
-            "Strength"
-            ,"Intelligence"
-            ,"Wisdom"
-            ,"Dexterity"
-            ,"Constitution"
-            ,"Charisma"
-            ,"Comeliness" ]
+        ,keys = Object.keys(formats)
 
-        ,Stats = function (ar, sequence) {
+        ,Stats = function (ar) {
             var self = this;
 
-            if (sequence) {
-                ar = ar.sort(function (a, b) { return a - b; }).reverse();
-            }
+            this.get = function (ability, format) {
+                
+                return format
+                    ? ar[indexes[ability]].toString()
+                    : ar[indexes[ability]];
+            };
 
-            labels
-                .forEach(function (node, indx) {
-                    // self.set(node, ar[sequence && /^\d+$/.test(sequence[indx]) ? sequence[indx] : indx]);
-                    self.set(node, ar[sequence && Util.isNumeric(sequence[indx]) ? sequence[indx] : indx]);
-                });
-        };
-
-    Ability.prototype = {
-        format: function (template) {
-            for(var prop in this.matrix) {
-                template = template.replace(new RegExp("{[" + prop + "]}", "g"), this.matrix[prop]);
-            }
-
-            return template;
-        }
-
-        ,toString: function () {
-
-            return this.score;
-        }
-
-        ,valueOf: function () {
-
-            return this.score;
-        }
-    };
-
-    Stats.prototype = {
-        get: function (ability, format) {
-
-            return format
-                ? (ability === "Strength" && this.Strength.score > 17
-                    ? this.Strength.exceptional + " "
-                    : "")
-                    + this[ability].format(formats[ability])
-                : +this[ability];
-        }
-
-        ,set: function (ability, value, extra) {
-            var table;
-
-            value = parseInt(value, 10);
-            
-            if (isValid(value, ability)) {
-                if (ability === "Strength" && value === 18) {
-                    if (extra === undefined) {
-                        extra = roll(1, 101);
-                    }
-                    
-                    table = tables.Exceptional[[50, 75, 90, 99].filter(function (n) { return n < extra; }).length];
-                } else {
-                    extra = 0;
-                    table = tables[ability][value];
+            this.set = function (ability, value, extra) {
+                if (isValid(value = ~~value, ability)) {
+                    ar[indexes[ability]] = new Ability(ability, value, extra);
                 }
 
-                this[ability] = new Ability(value, table, extra);
-            } else {
-                throw new Error("Invalid value passed to Stats.set(" + ability + ", " + value + ")");
-            }
+                return this;
+            };
 
-            return this[ability];
-        }
+            this.table = function (ability) {
+                if (keys.indexOf(ability) < 0) {
+                    dndError({
+                        args: arguments
+                        ,fn: "table lookup"
+                    });
+                }
 
-        ,adjustHP: function () {
+                return ar[indexes[ability]].table();
+            };
 
-            return this.Strength.matrix[0];
+            ar.forEach(function (node, indx) {
+                self.set(keys[indx], node);
+            });
+        };
+
+    Stats.prototype = {
+        adjustHP: function () {
+
+            return this.get("Constitution").table()[0];
         }
 
         ,adjustTHAC0: function () {
 
-            return this.Constitution.matrix[0];
+            return this.get("Strength").table()[0];
         }
+
+        // ,each: function (fn) {
+            
+        // }
 
         ,getType:function () {
             
@@ -113,47 +124,37 @@ var Stats = (function (tables, formats) {
             var result = []
                 ,self = this;
 
-            labels
-                .forEach(function (node, indx) {
-                    result.push(self[node]);
-                });
+            keys.forEach(function (node, indx) {
+                result.push(+self.get(node));
+            });
 
             return result.join(str);
         }
 
         ,getLabels: function () {
 
-            return labels;
-        }
-
-        ,resequence: function (seq) {
-
-            return new Stats(this.join(",").split(","), seq);
+            return keys;
         }
 
         ,toString: function () {
 
-            return "[object Stats]";
+            return "Stats [" + this.join() + "]";
         }
     };
 
-    return function (ar, sequence) {
+    return function (ar) {
         if (!ar
         || !Util.isArray(ar)
         || ar.length !== 7
         || !ar.every(isValid)
         || ar.join(",").split(",").length !== ar.length) {
-            throw new Error("Invalid array passed into Stats constructor: " + ar);
+            dndError({
+                args: arguments
+                ,fn: "Stats constructor"
+            });
         }
 
-        if (sequence
-        && (!Util.isArray(sequence)
-        || sequence.length !== 7
-        || sequence.join(",").split(",").length !== sequence.length)) {
-            throw new Error("Invalid sequence passed into Stats constructor: " + sequence);
-        }
-
-        return new Stats(ar, sequence);
+        return new Stats(ar);
     };
 }({
     Charisma: [
@@ -208,7 +209,7 @@ var Stats = (function (tables, formats) {
         ,[10, 100, 100,  0] // 24
     ]
 
-    ,Comeliness: [
+    ,Comeliness: [                                                     // page 6 in UA - look it up
          [],[],[] // tables start at ability score 3
         ,['', '', ''] //  3
         ,['', '', ''] //  4
@@ -346,6 +347,7 @@ var Stats = (function (tables, formats) {
         ,[ 6,   0, "1,1,1,1,2,2,2,2,3,3,3,4,4,4,5,6,7"] // 24
     ]
 }
+
 ,{
     Strength:       "THAC0 Adjustment: {0}, Damage Adjustment: {1}, Weight Adjustment: {2}, Open Doors: {3}, Bend Bars: {4}"
     ,Intelligence:  "Additional Languages: {0}, Know Spell: {1}, Minimum Spells: {2}, Maximum Spells: {3}"

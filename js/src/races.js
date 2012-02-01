@@ -12,6 +12,7 @@ var Races = (function () {
 
                 return result;
             };
+        //--0------------------1---------2--------3-------4-------5--------6----------7-----------8--------9--------10------//
         }(["burrowing mammal","dwarven","elvish","gnoll","gnome","goblin","halfling","hobgoblin","kobold","orcish","common"]))
 
         ,Race = function (config) {
@@ -26,11 +27,10 @@ var Races = (function () {
                     args: arguments
                     ,fn: "Race constructor"
                 });
-            } else {
-                for (var attr in config) {
-                    //this[attr] = (function (v) { return function () { return v; }; }(config[attr]));
-                    this[attr] = config[attr];
-                }
+            }
+
+            for (var attr in config) {
+                this[attr] = config[attr];
             }
         };
 
@@ -54,7 +54,7 @@ var Races = (function () {
                 ,languages    : languages([4, 5, 8, 9])
                 ,move         : 6
                 ,notes        : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
-                ,saves        : [0, 0, 0, 0, 0]
+                ,saves        : [1, 0, 1, 0, 1]
                 ,stats        : [0, 0, 0, 0, 1, -1, 0]
                 ,thieving     : [0, 10, 15, 0, 0, 0, -10, -5]
             })
@@ -76,7 +76,7 @@ var Races = (function () {
                 ,languages    : languages([0, 1, 6, 5, 8])
                 ,move         : 6
                 ,notes        : "+1 on saves(rsw, sp) for each 3 1/2 of con"
-                ,saves        : [0, 0, 0, 0, 0]
+                ,saves        : [0, 0, 1, 0, 1]
                 ,stats        : [-1, 0, 0, 1, 0, 0, 0]
                 ,thieving     : [0, 5, 10, 5, 5, 10, 15, 0]
             })
@@ -120,7 +120,7 @@ var Races = (function () {
                 ,languages    : languages([1, 2, 4, 5, 9])
                 ,move         : 6
                 ,notes        : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
-                ,saves        : [0, 0, 0, 0, 0]
+                ,saves        : [1, 0, 1, 0, 1]
                 ,stats        : [-1, 0, 0, 1, 0, 0, 0]
                 ,thieving     : [ 5, 5, 5, 10, 15, 5, -15, -5]
             })
