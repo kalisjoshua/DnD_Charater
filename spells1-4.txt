@@ -1,0 +1,879 @@
+cleric
+Articulate
+
+0
+0
+vs
+Touch
+1 segment
+1 turn
+none
+Caster
+Source: Footprints
+The Articuate prayer allows a cleric to speak more clearly and with a slight increase in normal volume. There is no magical influence brought to the words he or she says but they should be easier to understand. 
+cleric
+Aspiration
+Invocation
+0
+0
+vs
+0
+1 Segment
+6 Turns
+none
+caster
+Dragon
+An aspiration is a quick prayer on the order of, "Give me strength!" or "Don't let me goof up!" In game terms, it permits a nervous player to pre-roll a dice roll. The player-caster rolls a d20 out of the player's own sight for the DM, who records it. At any time during the next game hour the caster may appeal to have a bad die roll replaced by the hidden roll. The d20 can be applied as a "to hit" roll, a saving throw, or, by multiplying it by five, a percentile dice roll. Upon the caster's request, whatever was rolled in casting the aspiration is revealed, and becomes the official dice roll. There is no guarantee that the previous roll will be better, but it will be a second chance. The somatic component is the caster's ritual sign. 
+cleric
+Benediction
+Conjuration/Summoning
+0
+0
+vs
+1"
+2 Segments
+2 Rounds
+none
+1" x 1" square
+Dragon
+A benediction is a minor form of bless, raising morale of friendly creatures by +1, and their hit probability by +1. It will not affect those already engaged in combat. It requires no material component. 
+cleric
+Benison
+
+0
+0
+vs
+Touch
+3 segments
+1 turn
+none
+Caster
+Footprints
+Benison magnifies the cleric's aura. A cleric using this minor prayer gains 1-4 points of Charisma (with a top of 18 in any case). Influence, but not control, will be enhanced by this small prayer.
+cleric
+Candle
+Alteration
+0
+0
+vsm
+Touch
+1 Segment
+2 Turns
+none
+1 candle
+Dragon
+When casting this cantrip, the caster causes the candle held in his hand to light. Throughout the duration of the spell, the candle cannot be put out as long as the caster continues to hold it. The candle will be consumed normally, but drafts, gusts of wind, and so on cannot extinguish the flame. Drowning or smothering the flame will extinguish it however. 
+cleric
+Canticle
+Alteration
+0
+0
+v
+0
+Special
+Special
+none
+Caster
+Dragon
+A canticle is a minor form of sanctuary, and casting it requires the chanting of portions of the cleric's sacred literature. As long as the chanting continues, opponents must make a saving throw at +2 in order to strike or otherwise attack the caster. The caster cannot engage in any other activity than slow movement (6" rate) during this time. For other effects, see the description of the sanctuary spell. 
+cleric
+Ceremony: Oath
+Conjuration/Summoning
+0
+0
+vsm
+Touch
+3 Segments
+Special
+none
+1 person of the caster's religion
+Dragon
+A person taking an oath in the presence of a cleric pledges his honor to do some minor task. The cleric proffers his holy symbol for both parties involved in the oath to touch, and ratifies the oath with his ritual sign and some formula such as "so be it." The oath stands until the pledge is fulfilled or broken. If broken, the oathtaker (whether the cleric himself or some other person of the cleric's religion) will lose – 5% on his loyalty base until satisfactory reparations are made (if ever). Note that a third party of the caster's religion can pledge his honor for the oath of a non-believer. In this case, both join in touching the cleric's holy symbol while the cantrip is cast. The cleric can pledge his own honor for a non-believer, but this is an extremely rare circumstance. The penalty to loyalty base simulates the loss of honor to the oathtaker.
+cleric
+Cure Minor Wounds
+Necromantic
+0
+0
+vs (plus M for druids)
+Touch
+2 Segments
+Permanent
+none
+Character touched
+Dragon
+A minor cure, similar to all other cure spells, this cantrip will heal 1-4 hit points of damage. Note that this spell is not reversible. See the cure light wounds description for more information.
+cleric
+Draw
+
+0
+0
+vsm
+10'
+1 round max
+1 turn
+none
+200 square inches of material
+Footprints
+The Draw Little Prayer is used to scribe a symbol, small drawing, series of words, etc. The cleric "writes" upon a surface of some type such as a wall, door, or piece of parchment. Soil, sand or like granular material will not work. Skin may be used if done on the cleric's own body or upon the skin of a willing subject. The drawing or writing will vanish ten minutes after the first mark is made. Note that pen and ink are not required. The color of the drawing may be either black or white, one or the other.
+cleric
+Drops of Water
+
+0
+0
+vs
+3'
+1 segment
+1 turn
+none
+A point
+Footprints
+The cleric points at a point in the air. From that point a drop of water forms and eventually (within 10 seconds) falls. This produces a maximum of 60 drops of water, a small mouthful of water. It can moisten lips or cause a small puddle to form. It can be used to demonstrate that the person is in fact a cleric since the drops appear to come from ‘nowhere'. The drops are affected by wind. If the point is touched by an object or being no more drops will appear.
+cleric
+Glow
+
+0
+0
+vs
+10'
+1 segment
+1 turn
+none
+A point
+Footprints
+The Glow little prayer produces a glowing point of light in the air. This point can be attached to a non-magical object using the index finger. The glow is not bright and certainly not bright enough to read by or do any detailed work. It is about half the intensity of a small candle. In darkness there is enough illumination to see ahead about five feet. It is mobile if attached to something otherwise it stays in the air where it was placed originally. The Glow prayer can be repeated up to three times in the same 24-hour period.
+cleric
+Lift
+
+0
+0
+vsm
+10'
+5 segments
+5 segments
+none
+One small object
+Footprints
+The cleric points at a small object ("small object" being defined by something that weighs one pound or less and is not more than seven inches long in any one dimension) and can move that object in any direction, provided the item is not held in some way or too heavy. Through this prayer, the cleric may lift a piece of paper, a pen, a small candle, a single small key, etc. The rate of movement cannot exceed 3' per segment. It can be used to pull, push or lift a small item. It is usually not strong enough to open even a small box and could not move a door, open a window or raise a bar.
+cleric
+Malediction
+Conjuration/Summoning
+0
+0
+vs
+1"
+2 Segments
+2 Rounds
+none
+1" x 1" square
+Dragon
+The reverse of the benediction, malediction will lower the morale of opponents by a -1 penalty and lower their "to hit" scores by -1. It does not affect those already engaged in combat. No material components are required.
+cleric
+Meditation
+Conjuration/Summoning
+0
+0
+vs
+Touch
+3 Segments
+1 Turn
+none
+Caster
+Dragon
+A minor (and non-reversible) form of the remove fear, a meditation is a cantrip for personal encouragement that gives the caster (and only the caster) a +2 on all saving throws vs. the various sorts of magical fear attacks for 1 turn.
+cleric
+Petition
+Conjuration/Summoning
+0
+0
+vs
+Special
+1 Segment
+1 Day
+none
+Caster's patron
+Dragon
+Petitions are a staple of all prayers, in all religions. Most favors asked of one's deity are answered in terms of lucky dice rolls and other game mechanics. This cantrip constitutes a direct appeal of a very limited nature to the caster's deity or other patron. If the deity or patron fails his or her saving throw (2 for gods and demigods, 3 for heroes in the Legends & Lore book), the request will be heard, and if it's not too much trouble, some minion or servant of the deity might act upon it. Examples of such minor petitions are to find something minor, meet someone, remember something forgotten, make a favorable impression, and so on. A petition is only good for one that day, or if no opportunity for its granting comes up, it is wasted, and another petition must be made the next day. Any attempt to abuse this cantrip with powerful requests, "Oh, please let me find a ring of three wished!", will be met with divine punishment if it is heard. Punishment may consist of a loss of spell-casting power, hit points, or other power or ability, as desired by the DM. However, punishments are rarely severe or last long – unless the caster is guilty of multiple abuses.
+cleric
+Repeat
+
+0
+0
+vsm
+Touch
+1 segment
+1 turn
+none
+One small object
+Footprints
+The Repeat spell is cast upon a small object (see above) like a rag, spoon or ball. The cleric makes a motion while holding the object; like stirring a liquid with a spoon, spinning a ball, flipping a coin, etc. The same action will then occur over and over for the full ten minutes unless interrupted in some way. It could be used to demonstrate that someone has just been there or it can be used to repeat some minor task. It certainly does not have the power to throw any object.
+cleric
+Sustain
+
+0
+0
+vs
+Touch
+3 segments
+6 turns
+none
+Caster
+Footprints
+The Sustain little prayer banishes minor fatigue and quiets hunger. While it provides no real substance, it makes the cleric more relaxed at the end of a long day or a complex task. Both fatigue and hunger will return at the end of the hour. It can be used once per day.
+cleric
+Warding
+Abjuration
+0
+0
+vsm
+Touch
+2 Segments
+2 Rounds
+none
+Creature touched
+Dragon
+This cantrip is a very minor form of protection from evil. For two rounds, it will prevent enchanted, conjured, or summoned creatures from making bodily contact with the recipient, by encircling him or her with magical protection at a distance of one foot. However, it gives no penalty to any attacks that do not involve such contact, and adds no bonuses to one's saving throws. To complete the spell, the caster sprinkles holy water on the recipient.
+cleric
+Well-Being
+
+0
+0
+vs
+Touch
+3 segments
+Permanent
+none
+Caster
+Footprints
+The Well-Being prayer causes the cleric to become more centered and calm. It quiets nerves and produces relaxation. There is a 50% chance that the spell will cure one point of real damage. The curing effect, if it occurs, cannot be repeated for 24 hours. It cannot be used to calm or cure another being.
+cleric
+Bless
+Conjuration/Summoning
+1
+1
+vsm
+6"
+1 Round
+6 Round
+none
+5" x 5"
+Player's Handbook
+Upon uttering the bless spell, the caster raises the morale of friendly creatures by +1. Furthermore, it raises their "to hit" dice rolls by +1. A blessing, however, will affect only those not already engaged in melee combat. This spell can be reversed by the cleric to a curse upon enemies which lowers morale and "to hit" by -1. The caster determines at what range (up to 6") he or she will cast the spell, and it then affects all creatures in an area 5" square centered on the point the spell was cast upon. In addition to the verbal and somatic gesture components, the Bless requires holy water, while the curse requires the sprinkling of specially polluted water. 
+cleric
+Ceremony
+Invocation
+0
+1
+vsm
+Touch
+1 Hour
+Special
+Special
+See Below
+Unearthed Arcana
+Ceremony has a number of applications in the religious organization, depending on the level of the cleric. The effect of a ceremony spell does not leave behind an aura of magic, although in some cases an aura of good or evil might be present (and thus detectable). The specific ceremony spells can vary from religion to religion, but usually encompass these:
+1st-level cleric: coming of age, burial, and marriage
+3rd-level cleric: dedication, investiture, consecrate item
+5th-level cleric: ordination, special vows
+7th-level cleric: consecrate ground
+9th-level cleric: anathematize
+Each of these varieties of the ceremony spell requires a cleric of the indicated level or a higher one, with additional restrictions as described below. For all ceremony spells except anathematize (see below), no saving throw is called for, since the recipient is either inanimate or presumed to be willing to be affected by the magic; any version of the spell except for anathematize will simply fail if it is cast on a person who (for some reason) is unwilling to receive the benefit. Briefly, the ceremonies listed do the following things:
+Coming of age is a limited form of bless spell which is cast upon a young man (and in some cultures a young woman) at some point relatively early in life, often the age of 12. A young person who receives this spell gets a +1 bonus to any single saving throw, which can be taken at any time after the coming of age ceremony is completed. In some cultures, the corning of age ceremony has a symbolic significance, such that an adolescent must receive this blessing before he or she can enjoy the rights and privileges of adulthood.
+Burial magically protects a corpse, and bestows it with the blessing of the religious organization. The body is shielded for one week as if by a protection from evil spell, and anyone trying to disinter the corpse within that time must make a saving throw versus spell or stop and flee in fear for one turn.
+Marriage has no tangible after-effect (i.e. it does not guarantee happiness or harmony), but it usually carries a moral or legal significance, not dissimilar in nature to the various rites of marriage which are performed in our real world.
+Dedication allows the recipient of the spell to be taken into the ranks of the casting cleric's religion, making that person a sanctioned worshiper of the cleric's deity. The effect of a dedication is permanent, unless the worshiper demonstrates a desire to change allegiance to a different deity. In such a case, the earlier dedication can be overridden by a new dedication cast by a cleric of a higher level than the one who performed the previous dedication.
+The rite of Investiture must be performed on any aspiring cleric before that character can achieve the status of a first-level cleric.
+Consecrate item must be performed on any object to be placed on an altar or in some other location within a religious edifice. To prevent it from losing its potency, holy (or unholy) water must be kept in a properly consecrated container.
+Ordination must be performed on a cleric before the character can become the priest of a congregation or assume similar sorts of duties, and even an adventuring cleric must be ordained before he or she can gain followers and establish a following or other sort of group. In all cases, the cleric performing the ordination must be of higher level than the recipient; this ceremony is often conducted as part of the training a cleric receives in order to advance from second to third level.
+Special vows can be received by a would-be cavalier or paladin before that character embarks upon a career in the desired profession. The effects of this spell persist for as long as it takes the character to accumulate enough experience points to rise to the upper limit of his or her current level. The special vows can then be renewed as part of the character's training between levels, or at any time during advancement through the next higher level. A cavalier or paladin who has received special vows is immune to the effects of bestow curse spells (but not cursed items) for as long as the special vows remain in effect. Additionally, this ceremony renders the subject more susceptible (-4 on saving throw) to any quest spell cast upon him or her by a cleric of the same alignment as the caster of the special vows.
+Consecrate ground should be performed upon an area before any holy (unholy) structure is built on the site. A religious edifice constructed on ground that has not been consecrated will slowly and irrevocably fall into a state of disrepair and has a 1% chance per year, cumulative, of actually collapsing as a result of this oversight. This spell must be cast before the area in question is altered in any way (e.g. landscaping) and before any construction materials are brought to the site; it will have no effect if it is done as an afterthought. Consecrate ground can also be used on a plot of land destined for use as a graveyard, and in such a case the graveyard itself automatically turns undead each round with the same effectiveness as a 3rd-level cleric. Or, if the consecration of a would-be graveyard is performed by an evil cleric, any undead creatures occupying the area are treated as if they were being protected and controlled by an evil cleric of 3rd level.
+Anathematize is a form of excommunication by means of which the offender is literally branded on the cheek, forehead, arm, or hand with a symbol, sigil, or sign that identifies the subject (to those who understand the symbol) as someone who has committed a serious offense in the eyes of his or her deity. An unwilling subject of this spell is allowed a saving throw versus spell, at -4, to escape its effects. If the recipient is not truly deserving of the telling brand, the spell fails when cast. A successful atonement causes the brand to fade, and possibly vanish. If the offending actions were caused magically or by some other external force, the brand utterly disappears. If the offending actions were natural, the brand cannot be completely removed.
+The components for the various ceremony spells vary from religion to religion, but the material component always involves the use of the cleric's holy symbol in one way or another. Standard costs for the casting of these spells are as follows: coming of age, 5-15 sp; burial, 5-50 gp; marriage, 1-20 gp; dedication, 1-10 sp (or sometimes free); investiture, 1-100 gp (or sometimes free); item consecration, usually free; ordination, usually free but possibly as much as 200 gp; special vows, 1-100 gp (or sometimes free); consecrate ground, 100-600 gp depending on the size of the area to be affected and the level of the cleric performing the spell; and anathematize is always performed at no charge, since the casting of this spell is always deemed to be in the best interests of the cleric's religion. 
+cleric
+Combine
+Evocation
+0
+Level: 1Components: V, S
+Range: TouchCasting Time: 1 Round
+Duration: SpecialSaving Throw: None
+Area of Effect: Circle of Clerics
+Source: Unearthed Arcana
+This spell enables three to five clerics to combine their abilities and thereby empower one of their number to cast a spell or turn undead with greater efficacy. The highest-level cleric of the group (or one of such, as applicable) stands, while the other clerics join hands in a surrounding circle. All the participating clerics then cast the combine spell together.
+The central cleric temporarily functions as if of higher level, gaining one level for each encircling cleric. The maximum gain is four levels, and the maximum duration is 3 turns. The increase applies to the cleric's effective level for determining the results of attempts to turn undead, and to spell details which vary by the level of the caster. The encircling clerics must concentrate on maintaining the combine effect. They gain no armor class bonuses from shield or dexterity, and their attackers gain a + 4 bonus on all "to hit" rolls. The central cleric gains no additional spells, but may cast any previously memorized spells, often with bonus effects. 
+Command (Enchantment/charm)
+Level: 1Components: V
+Range: 1"Casting Time: 1 Round
+Duration: 1 RoundSaving Throw: Special
+Area of Effect: One Creature
+Source: Player's Handbook
+This spell enables the cleric to issue a command of a single word. The command must be uttered in a language which the spell recipient is able to understand. The individual will obey to the best of his/her/its ability only so long as the command is absolutely clear and unequivocal, i.e. "Suicide!" could be a noun, and so the creature would ignore the command. A command to "Die!" would cause the recipient to fall in a faint or cataleptic state for 1 round, but thereafter the creature would be alive and well. Typical command words are: back, halt, flee, run, stop, fall, fly, go, leave, surrender, sleep, rest, etc. Undead are not affected by a command. Creatures with intelligence of 13 or more, and creatures with 6 or more hit dice (or experience levels) are entitled to a saving throw versus magic. (Creatures with 13 or higher intelligence and 6 hit dice/levels do not get 2 saving throws!) 
+Create Water (Alteration) Reversible 
+Level: 1Components: V, S, M
+Range: 1"Casting Time: 1 Round
+Duration: PermanentSaving Throw: None
+Area of Effect: Up to 27 cubic Feet
+Source: Player's Handbook
+When the cleric casts a create water spell, four gallons of water are generated for every level of experience of the caster, i.e. a 2nd level cleric creates eight gallons of water, a 3rd level twelve gallons, a 4th level sixteen gallons, etc. The water is clean and drinkable (it is just like rain water). Reversing the spell, destroy water, obliterates without trace (such as vapor, mist, fog or steam) a like quantity of water.
+Created water will last until normally used or evaporated, spilled, etc. Water can be created or destroyed in an area as small as will actually contain the liquid or in an area as large as 27 cubic feet (one cubic yard). The spell requires at least a drop of water to create, or a pinch of dust to destroy, water. Note that water cannot be created within a living thing. 
+Cure light Wounds (Necromantic) Reversible 
+Level: 1Components: V, S
+Range: TouchCasting Time: 5 Segments
+Duration: PermanentSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+Upon laying his or her hand upon a creature, the cleric causes from 1 to 8 hit points of wound or other injury damage to the creature's body to be healed. This healing will not affect creatures without corporeal bodies, nor will it cure wounds of creatures not living or those which can be harmed only by iron, silver, and for magical weapons. Its reverse, cause light wounds, operates in the same manner; and if a person is avoiding this touch, a melee combat "to hit" die is rolled to determine if the cleric's hand strikes the opponent and causes such a wound. Note that cured wounds are permanent only insofar as the creature does not sustain further damage, and that caused wounds will heal - or can be cured - just as any normal injury will. Caused light wounds are 1 to 8 hit points of damage. 
+Detect Evil (Divination) Reversible 
+Level: 1Components: V, S, M
+Range: 12"Casting Time: 1 Round
+Duration: 1 Turn + ½ Turn/LvSaving Throw: None
+Area of Effect: 1" Path
+Source: Player's Handbook
+This is a spell, which discovers emanations of evil, or of good in the case of the reverse spell, from any creature or object For example, evil alignment or an evilly cursed object will radiate evil, but a hidden trap or an unintelligent viper will not. The duration of a detect evil (or detect good) spell is 1 turn + 1/2 turn (5 rounds, or 5 minutes) per level of the cleric. Thus a cleric of 1st level of experience can cast a spell with a 1 1/2 turn duration, at 2nd level a 2 turn duration, 2 1/2 at 3rd, etc. The spell has a path of detection 1" wide in the direction in which the cleric is facing. It requires the use of the cleric's holy (or unholy) symbol as its material component, with the cleric holding it before him or her. 
+Detect Magic (Divination) 
+Level: 1Components: V, S, M
+Range: 3"Casting Time: 1 Round
+Duration: 1 TurnSaving Throw: None
+Area of Effect: 1" Path, 3" ling
+Source: Player's Handbook
+When the Detect Magic spell is cast, the cleric detects magical radiations in a path 1" wide, and up to 3" long, in the direction he or she is facing. The caster can turn 60° per round. Note that stonewalls of 1' or more thickness, solid metal of but 1/12' thickness, or 3' or more of solid wood will block the spell. The spell requires the use of the cleric's holy (or unholy) symbol. 
+Endure Cold/Heat (Alteration) Reversible 
+Level: 1Components: V, S
+Range: TouchCasting Time: 1 Round
+Duration: 9 Turns/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Unearthed Arcana
+The recipient of this spell is provided with protection from normal extremes of cold or heat (depending on which application is used). He or she can stand unclothed in temperatures as low as -30° F or as high as 130° F (depending on application) with no ill effect. A temperature extreme beyond either of those limits will cause 1 hit point of exposure damage per hour for every degree above or below those limits. (Without the benefit of protection such as this, exposure damage is 1 hit point per turn for each degree of temperature.) The spell will last for the prescribed duration, or until the recipient is affected by any form of magical cold (including white dragon breath) or magical heat. The cancellation of the spell will occur regardless of which application was used and regardless of which type of magical effect hits the character (e.g. endure cold will be cancelled by magical heat or fire as well as by magical cold). The recipient of the spell will not suffer damage from the magical heat or cold during the round in which the spell is broken, but will be vulnerable to all such attacks starting on the following round. The spell will be cancelled instantly if either resist fire or resist cold is cast upon the recipient. 
+Invisibility to Undead (Illusion/Phantasm) 
+Level: 1Components: V, S, M
+Range: TouchCasting Time: 4 Segments
+Duration: 6 RoundsSaving Throw: None
+Area of Effect: Character Touched
+Source: Unearthed Arcana
+This spell is quite similar to sanctuary, but only affects undead of 4 or fewer hit dice. A saving throw versus spell is made for each type of undead within 30 feet of the caster, and if failed, all undead of that type will ignore the caster completely for the duration of the spell. (Note that this negates subsequent attempts by the caster to turn those undead.) However, if the saving throw succeeds, all undead of that type will attack the spell caster in preference to any other possible targets.
+The effect of this spell ends if the caster attacks or attempts to cast any other spell. If the caster is of neutral morals (with respect to good and evil) the undead save at -2. The material component is the cleric's holy symbol. 
+Light (Alteration) Reversible 
+Level: 1Components: V, S
+Range: 12 TurnsCasting Time: 4 Segments
+Duration: 6 Turns + 1 Turn/LvSaving Throw: None
+Area of Effect: 2" Radius Globe
+Source: Player's Handbook
+This spell causes excitation of molecules so as to make them brightly luminous. The light thus caused is equal to torch light in brightness, but its sphere is limited to 4" in diameter. It lasts for the duration indicated (7 turns at 1st experience level, 8 at 2nd, 9 at 3rd. etc.) or until the caster utters a word to extinguish the light. The Light spell is reversible; causing darkness in the same area and under the same conditions, except the blackness persists for only one-half the duration that light would last. If this spell is cast upon a creature, the applicable magic resistance and saving throw dice rolls must be made. Success indicates that the spell affects the area immediately behind the creature, rather than the creature itself. In all other cases, the spell takes effect where the caster directs as long as he or she has a line of sight or unobstructed path for the spell; light can spring from air, rock, metal, wood, or almost any similar substance. 
+Magic Stone (Alteration) 
+Level: 1Components: V, S
+Range: 2"Casting Time: 1 Round
+Duration: 6 Rounds or until usedSaving Throw: None
+Area of Effect: 1 small stone or pebble
+Source: Unearthed Arcana
+To use this spell, the cleric picks up a small stone or pebble and then (via the casting process) places a magical aura on it. The spell cannot affect stones that are already magical. The magic stone can be thrown at a target up to 4" distant (assuming no intervening obstacles and sufficient head room). It will act as a +1 weapon for "to hit" determination, and if a hit is scored the stone will do 1 point of damage. Ranges are 2"/3"/4", with standard modifications. If the stone travels more than 4" from the thrower or if it does not score a hit, the missile loses its dweomer and falls harmlessly to the ground. A magic stone must be thrown within 6 rounds after the casting of the spell is completed, or it turns back into an ordinary item. A hit from the stone will break the concentration of a spell caster only if the victim fails a saving throw versus spell. Any target with innate magic resistance cannot be affected by the stone. A shield spell will protect a target from a magic stone, as will a brooch of shielding, a protection from normal missiles spell, a minor globe of invulnerability, or any similar (more powerful) magic. A cleric of 6th through 10th level can enchant 2 stones with this spell, one of 11th through 15th level can use it on 3 stones, and an additional stone is allowed for every five levels of experience the caster has gained beyond the 11th (i.e. 4 stones at 16th level, 5 stones at 21st level, etc.). It is possible for a cleric to give the enchanted stone(s) to another character to throw. Note that some religious organizations may forbid their clerics from using this spell, since it enables the cleric to use a missile weapon (of sorts). 
+Penetrate Disguise (Divination) 
+Level: 1Components: V, S
+Range: 12"Casting Time: 2 Rounds
+Duration: 1 RoundSaving Throw: None
+Area of Effect: 1 Individual
+Source: Unearthed Arcana
+By means of this spell, the cleric is empowered to see through a disguise composed solely of makeup or altered clothing (i.e. non-magical in nature). The cleric cannot identify what class or profession the disguised figure actually belongs to, nor the true appearance of the figure; the spell merely points out that the target figure is posing as someone or something else. The spell does not detect actual rank or status and cannot reveal an illusion for what it is, but it can detect whether a figure is the object of a friends spell. The spell cannot detect any deception involving alignment. The target of the spell is allowed a saving throw versus spell, and if this saving throw is made, the disguise will be enhanced in the eyes of the cleric, so that the caster becomes convinced that the target figure actually is what he claims to be. Being under the effect of a bless spell, wearing magic armor, or using a magic item of protection (such as a cloak or ring) will give the target an appropriate bonus to the saving throw. 
+Portent (Divination) 
+Level: 1Components: V, S, M
+Range: TouchCasting Time: 1 Turn
+Duration: SpecialSaving Throw: None
+Area of Effect: Character Touched
+Source: Unearthed Arcana
+This spell enables the cleric to tell something of his or another figure's future "luck." This "luck" takes the form of an improvement or reduction in a "to hit" roll or a saving throw at some point in the future unknown to the character who is the object of the portent. After this spell is cast, the Dungeon Master makes two die rolls in secret: First, 1d12, to determine at what point in the future the portent takes effect; second, 1d6 to determine the exact effect (roll of 1 = -3; 2 = -2; 3 = -1; 4 = +1; 5 = +2; 6 = +3). Based upon the result of the 1d6 roll, the DM should indicate to the player of the cleric character whether the portent is good, fair (which can be moderately good or moderately bad), or poor. The recipient of the spell will usually also be given this information. The result of the d12 roll represents the number of "to hit" rolls or saving throws that the target character must make before the roll to be affected by the portent occurs; e.g., if a 12 is rolled, then the 12th such roll thereafter will be the one to which the portent is applied. Die rolls only apply toward this count if they are taken in life-or-death (i.e., combat or peril) situations; the count is suspended if the character contrives to perform (for instance) saving throws against non-harmful effects in an effort to "sidestep" the portent. Die rolls that do apply toward this count include: Saving throws made in combat or against magical effects, "to hit" rolls made by the character, and "to hit" rolls made by an opponent against the character. When the die roll designated by the portent is made, the result will be adjusted upward or downward as indicated by the result of the d6 roll; thus, the character will be either more or less likely to score a hit, more or less likely to be hit, or more or less likely to succeed on a saving throw. The material component for this spell is either a numbered wheel or tea leaves. 
+Precipitation (Alteration) 
+Level: 1Components: V, S, M
+Range: 1"/LvCasting Time: 3 Segments
+Duration: 1 Segment/LvSaving Throw: None
+Area of Effect: 3" Diameter cylinder up to 12" high
+Source: Unearthed Arcana
+When this spell is cast, all water vapor in the atmosphere within the area of effect is precipitated in the form of a light rain. (Note that low-level spell casters will certainly be within the area of effect of the spell.) The rain will continue for only as many segments of time as the spell caster has levels of experience. Since only some 1/100 of an inch of precipitation falls during the course of a segment, the spell will have only the following general effects:
+Thin, light material will become damp in 1 segment and thoroughly wet thereafter.
+Twigs and heavy material such as canvas will be damp in 2 segments and wet thereafter.
+Flat, relatively non-porous surfaces, such as stone floors, rock, painted wood, etc., will be damp in 1 segment and filmed with water thereafter.
+Semi-porous surfaces and materials will become damp on the surface in 2 segments, and thereafter the damp area will progress downward/inward, until after 5 segments the surface or material will be thoroughly wet.
+Porous surfaces and materials will simply absorb the rain up to the limit of their capacity - which probably extends well beyond the duration of the spell.
+Small flames, such as those of candles, will be extinguished by 1 segment of precipitation. Small fires will slow and become smoky for 1 round after precipitation has ceased. Large fires will not be materially affected by the spell.
+Note that if the temperature is above 90° F, the duration of the spell will be extended to double normal except in arid regions. Also, where the temperature ranges between 33° and 31° F, the precipitation will fall in the form of sleet. At 30° F and below, the precipitation will fall as rather thick snow, and most dampness/wetness effects will be negated or postponed until the snow melts. If magical heat of large area (i.e. a wall of fire, fireball, flame strike, etc.) is applied to precipitation, a cloud of warm fog of double the area of the precipitation effect will be formed. If magical cold is applied to the spell or the water, which remains thereafter, normal ice will be formed. The material component of the spell is a pinch of silver dust.
+Protection from Evil (Abjuration) Reversible 
+Level: 1Components: V, S, M
+Range: TouchCasting Time: 4 Segments
+Duration: 3 Rounds/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+When this spell is cast, it acts as if it were a magical armor upon the recipient. The protection encircles the recipient at a one foot distance, thus preventing bodily contact by creatures of an enchanted or conjured nature such as aerial servants, demons, devils, djinn efreet, elementals, imps, invisible stalkers, night hags, quasits, salamanders, water weirds, wind walkers, and xorn. Summoned animals or monsters are similarly hedged from the protected creature. Furthermore, any and all attacks launched by evil creatures incur a penalty of -2 from dice rolls "to hit" the protected creature, and any saving throws caused by such attacks are made at +2 on the protected creature‘s dice. This spell can be reversed to become protection from good, although it still keeps out enchanted evil creatures as well. To complete this spell, the cleric must trace a 3' diameter circle upon the floor (or ground) with holy water for protection from evil, with blood for protection from good - or in the air using burning incense or smoldering dung with respect to evil/good. 
+Purify Food or Drink (Alteration) Reversible 
+Level: 1Components: V, S
+Range: 3"Casting Time: 1 Round
+Duration: PermanentSaving Throw: None
+Area of Effect: 1 Cubic Foot/Lv, 1" Square Area
+Source: Player's Handbook
+When cast, the spell will make spoiled, rotten, poisonous or otherwise contaminated food and/or water pure and suitable for eating and/or drinking. Up to 1 cubic foot of food and/or drink can be thus made suitable for consumption. The reverse of the spell putrefies food and drink, even spoiling holy water. Unholy water is spoiled by purify water. 
+Remove Fear (Abjuration) Reversible 
+Level: 1Components: V, S
+Range: TouchCasting Time: 4 Segments
+Duration: SpecialSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+By touch, the cleric instills courage in the spell recipient, raising the creature's saving throw against magical fear attacks by +4 on dice rolls for 1 turn. If the recipient has already been affected by fear, and failed the appropriate saving throw, the touch allows another saving throw to be made, with a bonus of +1 on the dice for every level of experience of the caster, i.e. a 2nd level cleric gives a +2 bonus, a 3rd level +3, etc. A "to hit" dice roll must be made to touch an unwilling recipient. The reverse of the spell, cause fear, causes the victim to flee in panic at maximum movement speed away from the caster for 1 round per level of the cleric causing such fear. Of course, cause fear can be countered by remove fear and vice versa.
+Resist Cold (Alteration) 
+Level: 1Components: V, S, M
+Range: TouchCasting Time: 1 Round
+Duration: 1 Turn/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+When this spell is placed on a creature by a cleric, the creature's body is inured to cold. The recipient can stand zero degrees Fahrenheit without discomfort, even totally nude. Greater cold, such as that produced by a sword of cold, ice storm, cold wand, or white dragon's breath, must be saved against. All saving throws against cold are made with a bonus of +3, and damage sustained is one-half (if the saving throw is not made) or one-quarter (if the saving throw is made) of damage normal from that attack form. The resistance lasts for 1 turn per level of experience of the caster. A pinch of sulphur is necessary to complete this spell. 
+Sanctuary (Abjuration) 
+Level: 1Components: V, S, M
+Range: TouchCasting Time: 4 Segments
+Duration: 2 Rounds + 1 Round/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+When the cleric casts a sanctuary spell, any opponent must make a saving throw versus magic in order to strike or otherwise attack him or her. If the saving throw is not made, the creature will attack another and totally ignore the cleric protected by the spell. If the saving throw is made, the cleric is subject to normal attack process including dicing for weapons to hit, saving throws, damage. Note that this spell does not prevent the operation of area attacks (fireball, ice storm, etc.). During the period of protection afforded by this spell, the cleric cannot take offensive action, but he or she may use non-attack spells or otherwise act in any way which does not violate the prohibition against offensive action. This allows the cleric to heal wounds, for example, or to bless, perform an augury, chant, cast a light in the area (not upon an opponent!), and so on. The components of the spell include the cleric's holy/unholy symbol and a small silver mirror. 
+Cleric Level 2
+Aid (Necromantic - Conjuration) 
+Level: 2Components: V, S, M
+Range: TouchCasting Time: 4 Segments
+Duration: 1 Round + 1 Round/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Unearthed Arcana
+The recipient of this spell gains the benefit of a bless spell and a special benison of 1-8 additional hit points. The bless lasts as long as the aid spell, as do the hit points thus gained. The aid allows a character to actually have more hit points than the character's full normal total. The added hit points last only for the duration of the aid spell. Any damage taken by the recipient while the aid spell is in effect is taken off the 1-8 additional hit points before regular ones are lost. Hit points bestowed by an aid spell and then lost cannot be regained by curative magic. Example: A 1st-level fighter has 8 hit points, takes 2 points of damage, and then receives an aid spell, which gives 6 additional hit points. The fighter now has 12 hit points, 6 of which are temporary. If he is then hit for 7 points of damage, 1 regular point and all 6 of the temporary points are lost. The material components of this spell are a tiny strip of white cloth with a sticky substance (such as tree sap) on the ends, plus the cleric's holy symbol.
+Augury (Divination) 
+Level: 2Components: V, S, M
+Range: 0Casting Time: 2 Rounds
+Duration: SpecialSaving Throw: None
+Area of Effect: None
+Source: Player's Handbook
+The cleric casting an augury spell seeks to divine whether an action in the immediate future (within 3 turns) will be for the benefit of, or harmful to, the party. The base chance for correctly divining the augury is 70%. Plus 1 % for each level of the cleric casting the spell, i.e. 71% at 1st level, 72% at 2nd, etc. Your referee will determine any adjustments due for the particular conditions of each augury. For example, assume that a party is considering the destruction of a weird seal, which closes a portal. Augury is used to find if weal or woe will be the ultimate result to the party. The material component for augury is a set of gem-inlaid sticks, dragon bones, or similar tokens, or the wet leaves of an infusion, which remains in the container after the infused brew is consumed. If the last method is used, a crushed pearl of at least 100gp value must be added to the concoction before it is consumed.
+Chant (Conjuration/Summoning) 
+Level: 2Components: V, S
+Range: 0Casting Time: 1 Turn
+Duration: Time of ChantingSaving Throw: None
+Area of Effect: 3" Radius
+Source: Player's Handbook
+By means of the chant, the cleric brings into being a special favor upon himself or herself and his or her party, and causes harm to his or her enemies. Once the chant spell is completed, all attacks, damage and saving throws made by those in the area of effect who are friendly to the cleric are at +1, while those of the cleric's enemies are at -1. This bonus/penalty continues as long as the cleric continues to chant the mystic syllables and is stationary. An interruption, however, such as an attack, which succeeds and causes damage, grappling the chanter, or a magical silence, will break the spell.
+Detect Charm (Divination) Reversible 
+Level: 2Components: V, S
+Range: 3"Casting Time: 1 Round
+Duration: 1 TurnSaving Throw: None
+Area of Effect: One Character
+Source: Player's Handbook
+When used by a cleric, this spell will detect whether or not a person or monster is under the influence of a charm spell. Up to 10 creatures can be thus checked before the spell wanes. The reverse of the spell protects from such detection, but only a single creature can be so shielded.
+Detect Life (Divination) 
+Level: 2Components: V, S, M
+Range: 10'/LvCasting Time: 1 Round
+Duration: 5 RoundsSaving Throw: None
+Area of Effect: One Character
+Source: Unearthed Arcana
+By the use of this spell, a cleric can tell if a target creature is alive. The magic will detect life in the recipient of a feign death spell, or someone in a coma, deathlike trance, or state of suspended animation. If cast upon the body of a creature that is engaged in astral travel, it will reveal that the creature is alive. The spell works on plants and plant creatures as well as animals. The spell's range is diminished if more than a one-inch thickness of wood or stone lies between the cleric and the subject. Each inch of thickness of a wood or stone barrier is treated as 10 feet of open space. A barrier of metal of any thickness will cause the spell to fail and be ruined. Any form of mental protection, including those of psionic or magical nature, will likewise ruin the spell without anything being detected. The spell will detect the first living creature that lies along the cleric's line of sight (and within range), or else the first creature that crosses the line-of-sight path before the duration expires.
+Dust Devil (Conjuration/Summoning) 
+Level: 2Components: V, S
+Range: 3"Casting Time: 3 Rounds
+Duration: 1 Round/LvSaving Throw: None
+Area of Effect: Special
+Source: Unearthed Arcana
+This spell enables a cleric to conjure up a weak air elemental - a dust devil of AC 4,2 HD, MV 18", 1 attack for 1-4 points of damage, which can be hit by normal weapons. Magic weapons of any type cause it double damage. The dust devil appears as a small whirlwind 5 feet in diameter at its base, 15 feet tall, and 10 feet across at the top. It will move as directed by the cleric, but will be dispelled if ordered to go farther than 3" away from the spell caster. The winds of the dust devil can hold a gas cloud or a creature in gaseous form at bay or push it away from the caster (though it cannot damage or dispel such a cloud). Its winds are sufficient to put out torches, small campfires, exposed lanterns, and other small, open flames of non-magical origin. If skimming along the ground in an area of loose dust, sand or ash, the dust devil will pick up those particles and disperse them in a cloud 30 feet in diameter centered around the dust devil. Normal vision is not possible through the cloud, and creatures caught in the cloud will be effectively blinded until one round after they are free of it. Spell casting is virtually impossible for someone caught inside such a cloud or inside the dust devil itself; even if the creature fails to score damage on the victim from the buffeting of its winds, a spell caster must make a saving throw versus spell to keep his or her concentration (and the spell) from being ruined. Any creature native to the Elemental Plane of Air - even another creature of the same sort - can dismiss a dust devil at will from a distance of 3" or less. Creatures not native to the plane occupied by the spell caster are not affected by the dust devil. It is automatically dispelled if it contacts any creature with innate magic resistance - but not until after it gets a chance to hit and do damage.
+Enthrall (Enchantment/Charm) 
+Level: 2Components: V, S
+Range: 3"Casting Time: 1 Round
+Duration: SpecialSaving Throw: None
+Area of Effect: 90' Radius
+Source: Unearthed Arcana
+A cleric who uses this spell can bind and enthrall an audience that can fully understand his or her language. Listeners of the same race as the cleric are allowed a saving throw versus spell; those of a different race which is generally unfriendly to the cleric's race save at +4. It is impossible to enthrall a character or creature with more than 4 levels or hit dice, or one with a wisdom score greater than 15.
+To effect the spell, the caster must speak without interruption for a full round. Thereafter, the enchantment lasts for as long as the cleric keeps speaking, to a maximum of 6 turns. Those who fail their saving throw will view the cleric as if he or she had a charisma of 21 (loyalty base +70%, reaction adjustment +50%). They will stand and listen to the cleric's words, but will not act on them as if a suggestion had been cast. When the cleric stops talking, the spell is broken and the listeners regain control of their own minds. Any form of attack (i.e. a successful hit or the casting of a spell) against the cleric will instantly cancel the enthrall spell, as will any attempt by the cleric to cast a different spell or perform some other action. Members of the audience who make a successful saving throw will view the cleric as having a charisma of 3; they may (50% chance) hoot and jeer, allowing a new saving throw for others listening. If the cleric tries to take undue advantage of the spell by preaching about a religion or alignment opposed to that to which the members of the audience subscribe, each "offended" listener is allowed a new saving throw at +5.
+Find Traps (Divination) 
+Level: 2Components: V, S
+Range: 3"Casting Time: 5 Segments
+Duration: 3 TurnsSaving Throw: None
+Area of Effect: 1" Path
+Source: Player's Handbook
+When a cleric casts a find traps spell, all traps - concealed normally or magically - of magical or mechanical nature become visible to him or her. Note that this spell is directional, and the caster must face the desired direction in order to determine if a trap is laid in that particular direction.
+Hold Person (Enchantment/Charm) 
+Level: 2Components: V, S, M
+Range: 6"Casting Time: 5 Segments
+Duration: 4 Rounds + 1 Round/LvSaving Throw: None
+Area of Effect: 1 to 3 Creatures
+Source: Player's Handbook
+This spell holds immobile, and freezes in places, from 1-3 humans or humanoid creatures (see below) for 5 or more melee rounds. The level of the cleric casting the hold person spell dictates the length of time the effect will last. The basic duration is 5 melee rounds at 1st level, 6 rounds at 2nd level, 7 rounds at 3rd level, etc. If the spell is cast at three persons, each gets a saving throw at the normal score; if only two persons are being enspelled, each makes their saving throw at -1 on their die; if the spell is cast at but one person, the saving throw die is at -2. Persons making their saving throws are totally unaffected by the spell. Creatures affected by a hold person spell are: brownies, dryads, dwarves, elves, gnolls, gnomes, goblins, half-elves, halflings, half-orcs, hobgoblins, humans, kobolds, lizard-men, nixies, orcs, pixies, sprites, and troglodytes. The spell caster needs a small, straight piece of iron as the material component of this spell.
+Holy Symbol (Conjuration/Summoning) 
+Level: 2Components: V, S, M
+Range: TouchCasting Time: 1 Turn
+Duration: PermanentSaving Throw: None
+Area of Effect: One Object
+Source: Unearthed Arcana
+This spell is used to prepare a cleric's holy symbol, or to create a new symbol to replace a lost or damaged one. The new symbol-to-be, which is the spell's material component (and obviously is not consumed in the casting), must be crafted of appropriate material depending on the religion/deity in question, and must be of the proper shape and design - a cleric cannot pick up just any item and make it into a holy symbol. A cleric may possess two holy symbols at one time, and this spell can be used to create a second one as a spare. No cleric can create a holy symbol related to a religion or deity other than the one that he or she worships. The holy symbol of a good or evil cleric will radiate a faint aura of good or evil, but is not a magical object per se. The holy symbol of a cleric who is of neutral morals (with respect to good and evil) will have no such aura.
+Know Alignment (Divination) Reversible 
+Level: 2Components: V, S
+Range: 1"Casting Time: 1 Round
+Duration: 1 TurnSaving Throw: None
+Area of Effect: One Character/Round
+Source: Player's Handbook
+A know alignment spell enables the cleric to exactly read the aura of a person - human, semi-human, or non-human. This will reveal the exact alignment of the person. Up to 10 persons can be examined with this spell. The reverse totally obscures alignment, even from this spell, of a single person for 1 turn, two persons for 5 rounds, etc. Certain magical devices will negate the ability to know alignment.
+Messenger (Enchantment/Charm) 
+Level: 2Components: V, S. M
+Range: 2"/LvCasting Time: 1 Round
+Duration: 1 Hour/LvSaving Throw: None
+Area of Effect: One Character
+Source: Unearthed Arcana
+This spell enables the cleric to call upon a small (size S) creature of at least animal intelligence to act as his or her messenger. The spell does not affect creatures that are "giant" types, and it will not work on creatures with an intelligence score of 4 or higher, or with a rating of low intelligence or better (whichever applies). If the creature is already within range, the cleric, using some type of food desirable to the animal as a lure, can call the animal to come. The animal is allowed a saving throw versus spell, and if this succeeds the spell fails. If the saving throw is failed, the animal will advance toward the cleric and await his or her bidding. The cleric can communicate with the animal in a crude fashion, telling it to go to a certain place, but directions must be simple. The spell caster can attach some small item or note to the animal. If so instructed, the animal will then wait at that location until the duration of the spell expires. (Note that unless the intended recipient of a message is expecting a messenger in the form of a small animal or bird, the carrier may be ignored.) When the spell's duration expires, the animal or bird will return to its normal activities. The intended receiver of a message gains no communication ability.
+Resist Fire (Alteration) 
+Level: 2Components: V, S, M
+Range: TouchCasting Time: 5 Segments
+Duration: 1 Turn/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+When this spell is placed upon a creature by a cleric, the creature's body is toughened to withstand heat, and boiling temperature is comfortable. The recipient of the resist fire spell can even stand in the midst of very hot or magical fires such as those produced by red-hot charcoal, a large amount of burning oil, flaming swords, fire storms, fire balls, meteor swarms, or red dragon's breath - but these will affect the creature, to some extent. The recipient of the spell gains a bonus of +3 on saving throws against such attack forms, and all damage sustained is reduced by 50%; therefore, if the saving throw is not made, the creature sustains one-half damage, and if the saving throw is made only one-quarter damage is sustained. Resistance to fire lasts for 1 turn for each level of experience of the cleric placing the spell. The caster needs a drop of mercury as the material component of this spell.
+Silence, 15' Radius (Alteration) 
+Level: 2Components: V, S
+Range: 12"Casting Time: 5 Segments
+Duration: 2 Rounds/LvSaving Throw: None
+Area of Effect: 30' Diameter Sphere
+Source: Player's Handbook
+Upon casting this spell, complete silence prevails in the area of its effect. All sound is stopped, so all conversation is impossible, spells cannot be cast, and no noise whatsoever issues forth.
+The spell can be cast into the air or upon an object. The spell of silence lasts for 2 rounds for each level of experience of the cleric, i.e. 2 rounds at 1st level, 4 at 2nd, 6 at 3rd, 8 at 4th and so forth. The spell can be cast upon a creature, and the effect will then radiate from the creature and move as it moves. If the creature is unwilling, it saves against the spell, and if the saving throw is made, the spell effect locates about one foot behind the target creature.
+Slow Poison (Necromantic) 
+Level: 2Components: V, S, M
+Range: TouchCasting Time: 1 Segment
+Duration: 1 Hour/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+When this spell is placed upon a poisoned individual it greatly slows the effects of any venom, even causing a supposedly dead individual to have life restored if it is cast upon the victim within a number of turns less than or equal to the level of experience of the cleric after the poisoning was suffered, i.e. a victim poisoned up to 10 turns previously could be temporarily saved by a 10th or higher level cleric who cast slow poison upon the victim. While this spell does not neutralize the venom, it does prevent it from substantially harming the individual for the duration of its magic, but each turn the poisoned creature will lose 1 hit point from the effect of the venom (although the victim will never go below 1 hit point while the slow poison spell's duration lasts). Thus, in the example above, the victim poisoned 10 turns previously has only 10 hit points, so when the 10th level cleric casts the spell, the victim remains with 1 hit point until the spell duration expires, and hopefully during that period a full cure can be accomplished. The material components of this spell are the cleric's holy/unholy symbol and a bud of garlic, which must be crushed and smeared on the victim's bare feet.
+Snake Charm (Enchantment/Charm) 
+Level: 2Components: V, S
+Range: 3"Casting Time: 5 Segments
+Duration: SpecialSaving Throw: None
+Area of Effect: Special
+Source: Player's Handbook
+When this spell is cast, a hypnotic pattern is set up which causes one or more snakes to cease all activity except a semi-erect postured swaying movement. If the snakes are charmed while in a torpor, the duration of the spell is 3 to 6 turns (d4+2); if the snakes are not torpid, but are not aroused and angry, the charm lasts 1 to 3 turns; if the snakes are angry and/or attacking, the snake charm spell will last from 5 to 8 melee rounds (d4+4). The cleric casting the spell can charm snakes whose hit points are less than or equal to those of the cleric. On the average, a 1st level cleric could charm snakes with a total of 4 or 5 hit points; a 2nd level cleric 9 hit points, a 3rd level 13 or 14 hit points, etc. The hit points can represent a single snake or several of the reptiles, but the total hit points cannot exceed those of the cleric casting the spell.
+Speak With Animals (Alteration) 
+Level: 2Components: V, S
+Range: 0Casting Time: 5 Segments
+Duration: 2 Rounds/LvSaving Throw: None
+Area of Effect: One Animal w/in 3" Radius of Cleric
+Source: Player's Handbook
+By employing this spell, the cleric is empowered to comprehend and communicate with any warm or cold-blooded animal, which is not mindless (such as an amoeba). The cleric is able to ask questions, receive answers, and generally be on amicable terms with the animal. This ability lasts for 2 melee rounds for each level of experience of the cleric employing the spell. Even if the bent of the animal is opposite to that of the cleric evil/good, good/evil), it and any others of the same kind with it will not attack while the spell lasts. If the animal is neutral or of the same general bent as the cleric (evil/evil, good/good), there is a possibility that the animal, and its like associates, will do some favor or service for the cleric. This possibility will be determined by the referee by consulting a special reaction chart, using the charisma of the cleric and his actions as the major determinants. Note that this spell differs from speak with monsters (q.v.), for it allows conversation only with basically normal, non-fantastic creatures such as apes, bears, cats, dogs, elephants, and so on.
+Spiritual Hammer (Invocation) 
+Level: 2Components: V, S, M
+Range: 3"Casting Time: 5 Segments
+Duration: 1 Round/LvSaving Throw: Special
+Area of Effect: One Opponent
+Source: Player's Handbook
+By calling upon his or her deity, the cleric casting a spiritual hammer spell brings into existence a field of force, which is shaped vaguely like a hammer. This area of force is hammer-sized, and as long as the cleric who invoked it concentrates upon the hammer, it will strike at any opponent within its range as desired by the cleric. The force area strikes as a magical weapon equal to one plus per 3 levels of experience of the spell caster for purposes of being able to strike creatures, although it has no magical plusses whatsoever "to hit", and the damage it causes when it scores a hit is exactly the same as a normal war hammer, i.e. 1-6 versus opponents of man-size or smaller, 1-4 upon larger opponents. Furthermore, the hammer strikes at exactly the same level as the cleric controlling it, just as if the cleric was personally wielding the weapon. As soon as the cleric ceases concentration, the spiritual hammer is dispelled. Note: If the cleric is behind an opponent, the force can strike from this position, thus gaining all bonuses for such an attack and negating defensive protections such as shield and dexterity. The material component of this spell is a normal war hammer, which the cleric must hurl towards opponents whilst uttering a plea to his or her deity. The hammer disappears when the spell is cast.
+Withdraw (Alteration) 
+Level: 2Components: V, S, M
+Range: 0Casting Time: 3 Segments
+Duration: SpecialSaving Throw: None
+Area of Effect: The Cleric
+Source: Unearthed Arcana
+By means of a withdraw spell, the cleric effectively alters the flow of time with regard to himself or herself. While but 1 segment of time passes for those not affected by the spell, the cleric is able to spend 1 round of time in contemplation. The base spell duration is 2 segments (2 rounds, from the cleric's point of view), and the cleric adds 1 additional increment of time for each level of experience he or she possesses. Thus, at the 5th level of experience, the spell caster could spend up to 6 rounds cogitating on some matter while but 6 segments of time passed for all others. (The DM must allow the spell caster 1 minute of real time per segment to ponder some problem or question. No discussion with non-affected characters is permitted.) Note that while affected by the withdraw spell, the cleric can perform only these particular acts: the casting of an augury spell, any curing or healing spells, or any informational spells - and all such spells can only be cast upon the cleric himself or herself. The casting of any of these spells in a different fashion (e.g. a cure light wounds bestowed upon a companion) will cause the magic of the withdraw spell to cease. Similarly, the cleric who is affected by the withdraw spell cannot walk or run, become invisible, or otherwise engage in actions other than thinking, reading, and the like. The withdrawn cleric can be affected by the actions of others while under the influence of this spell, and any attack upon the cleric, which succeeds, will break the spell.
+Wyvern Watch (Evocation) 
+Level: 2Components: V, S, M
+Range: 3"Casting Time: 5 Segments
+Duration: 8 Hours or until strikeSaving Throw: None
+Area of Effect: 1' Diameter Sphere
+Source: Unearthed Arcana
+This spell is known as wyvern watch because of the insubstantial haze brought forth by its casting, which vaguely resembles a wyvern. It is typically used to guard some area against intrusion. Any creature that approaches within 1" of the area in question is subject to attack from the spell force. The "wyvern" will strike, and any creature so attacked must make its saving throw versus spell or else stand paralyzed for 1 round per level of the caster, or until freed by the spell caster, by a dispel magic spell, or by a remove paralysis spell. A successful saving throw indicates that the target creature was missed by the attack of the wyvern-form, and the spell remains in place. As soon as a target creature is successfully struck by the wyvern-form, the paralysis takes effect and the force of  the spell itself is dissipated. The spell force will likewise dissipate if no intruder is struck by the wyvern-form for 8 hours after the spell is cast. Any creature approaching the space being guarded by the wyvern form may be able to detect its presence before coming close enough to be attacked; this chance of detection is 90% in bright light, 30% in twilight conditions, and 0% in darkness. The material component is the cleric's holy/unholy symbol.
+Cleric Level 3
+Animate Dead (Necromantic) 
+Level: 3Components: V, S, M
+Range: 1"Casting Time: 1 Round
+Duration: PermanentSaving Throw: None
+Area of Effect: Special
+Source: Player's Handbook
+This spell creates the lowest of the undead monsters, skeletons or zombies, from the bones or bodies of dead humans. The effect is to cause these remains to become animated and obey the commands of the cleric casting the spell. The skeletons or zombies will follow, remain in an area and attack any creature (or just a specific type of creature) entering the place, etc. The spell will animate the monsters until they are destroyed or until the magic is dispelled. (See dispel magic spell). The cleric is able to animate 1 skeleton or 1 zombie for each level of experience he or she has attained. Thus, a 2nd level cleric can animate 2 of these monsters, a 3rd level 3, etc. The act of animating dead is not basically a good one, and it must be used with careful consideration and good reason by clerics of good alignment. It requires a drop of blood, a piece of human flesh, and a pinch of bone powder or a bone shard to complete the spell.
+Cloudburst (Alteration) 
+Level: 3Components: V, S, M
+Range: 1"/LvCasting Time: 5 Segments
+Duration: 1 RoundSaving Throw: None/Special
+Area of Effect: 3" Diameter Cylinder up to 6" High
+Source: Unearthed Arcana
+By means of this spell the caster causes the atmosphere to instantly precipitate all of its water vapor in the form of huge drops of rain, the resulting condensation not only causing a true downburst of rain but also sucking more vapor into the area to likewise be precipitated. The cloudburst will effectively drench everything in its area of effect within 1 segment, for its rain will fall at the rate of 1 inch per segment, or 1 inch of rainfall in 1 round. All normal fires within the area of effect will be extinguished by a cloudburst - small ones instantly, medium-sized ones in 3-5 segments, and large sized ones in 8-10 segments. Magical fires will also be extinguished by a cloudburst, with the following general rules applying:
+Permanent magical fires will re-light in 1-2 rounds. Small, re-kindle-able magical fires such as that of a flame tongue sword will be affected only during the actual cloudburst.
+Spells such as produce fire and burning hands will be negated. Large-area spells such as fireball, flame strike, wall of fire, etc., will, in the course of being extinguished, vaporize the rain into a cloud of steam covering an area four times as large as the spell's area of effect (i.e. a cylinder of up to 12" in diameter and as much as 24" high). This steam will inflict 1-3 points of damage per round on normal creatures within its area, and will do twice that damage to cold-dwelling or cold-using creatures. The cloud of steam will persist for 2-5 rounds, half that if a breeze is blowing, or only 1 round if a strong wind is blowing.
+In arid regions, the cloudburst will act only as a double-strength precipitation spell. In hot and humid areas, the duration of the spell will be extended to 2 rounds. In areas with a temperature between 33° and 31° F inclusive, sleet rather than rain will fall, with ice and slush being formed when it accumulates. In temperatures of 30° F and lower, the cloudburst becomes a snow burst, with one inch of snow per segment falling. The material components for the spell are powdered silver and powdered iodine crystals, plus the cleric's holy symbol.
+Continual Light (Alteration) Reversible 
+Level: 3Components: V, S
+Range: 12"Casting Time: 6 Segments
+Duration: PermanentSaving Throw: None
+Area of Effect: 6" Radius Globe
+Source: Player's Handbook
+This spell is similar to a light spell, except that it lasts until negated (by a continual darkness or dispel magic spell) and its brightness is very great, being nearly as illuminating as full daylight. It can be cast into air, onto an object, or at a creature. In the third case, the continual light affects the space about one foot behind the creature if the latter makes its saving throw. Note that this spell will blind a creature if it is successfully cast upon the visual organs, for example. Its reverse causes complete absence of light.
+Create Food & Water (Alteration) 
+Level: 3Components: V, S
+Range: 1"Casting Time: 1 Turn
+Duration: PermanentSaving Throw: None
+Area of Effect: 1 Cubic Foot/Lv
+Source: Player's Handbook
+When this spell is cast, the cleric causes food and/or water to appear. The food thus created is highly nourishing, and each cubic foot of the material will sustain three human-sized creatures or one horse-sized creature for a full day. For each level of experience the cleric has attained, 1 cubic foot of food and/or water is created by the spell, i.e. 2 cubic feet of food are created by a 2nd level cleric, 3 by a 3rd, 4 by a 4th, and so on; or the 2nd level cleric could create 1 cubic foot of food and 1 cubic foot of water, etc.
+Cure Blindness (Abjuration) Reversible 
+Level: 3Components: V, S
+Range: TouchCasting Time: 1 Round
+Duration: PermanentSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+By touching the creature afflicted, the cleric employing the spell can permanently cure most forms of blindness. Its reverse, cause blindness, requires a successful touch upon the victim, and if the victim then makes the saving throw, the effect is negated.
+Cure Disease (Abjuration) Reversible 
+Level: 3Components: V, S
+Range: TouchCasting Time: 1 Turn
+Duration: PermanentSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+The cleric cures most diseases - including those of a parasitic, bacterial, or viral nature - by placing his or her hand upon the diseased creature. The affliction rapidly disappears thereafter, making the cured creature whole and well in from 1 turn to 1 week, depending on the kind of disease and the state of its advancement when the cure took place. The reverse of the cure disease spell is cause disease. To be effective, the cleric must touch the intended victim, and the victim must fail the saving throw. The disease caused will begin to affect the victim in 1-6 turns, causing the afflicted creature to lose 1 hit point per turn, and 1 point of strength per hour, until the creature is at 10% of original hit points and strength, at which time the afflicted is weak and virtually helpless.
+
+Death's Door (Necromantic) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 5 Segments
+Duration: 1 Hour/LvSaving Throw: None
+Area of Effect: Character Touched (Human or Demi-Human)
+Source: Unearthed Arcana
+When a cleric employs this spell, he or she touches a human or demi-human who is unconscious and "at death's door" (-1 to  -9 hit points). The spell immediately brings the individual to 0 hit points. While the individual remains unconscious, bleeding and deterioration are stopped for the duration of the death's door spell. The subject, because of being treated by the spell and now being at 0 hit points, can be brought to consciousness, and have hit points restored, by means of cure light wounds, cure serious wounds, etc., potions such as healing or extra-healing, or clerical or other items which magically restore lost hit points. The material components of the spell are the cleric's holy/unholy symbol, a bit of white linen, and any form of unguent.
+Dispel Magic (Abjuration) 
+Level: 3Components: V, S
+Range: 6"Casting Time: 6 Segments
+Duration: PermanentSaving Throw: None
+Area of Effect: 3" Cube
+Source: Player's Handbook
+When a cleric casts this spell, it neutralizes or negates the magic it comes in contact with as follows: A dispel magic will not affect a specially enchanted item such as a scroll, magic ring, wand, rod, staff, miscellaneous magic item, magic weapon, magic shield, or magic armor. It will destroy magic potions (they are treated as 12th level for purposes of this spell), remove spells cast upon persons or objects, or counter the casting of spells in the area of effect. The base chance for success of a dispel magic spell is 50%. For every level of experience of the character casting the dispel magic above that of the creature whose magic is to be dispelled (or above the efficiency level of the object from, which the magic is issuing), the base chance increases by 5%, so that if there are 10 levels of difference, there is a 100% chance. For every level below the experience/efficiency level of the creature/object, the base chance is reduced by 2%. Note that this spell can be very effective when used upon charmed and similarly beguiled creatures. It is automatic in negating the spell caster's own magic.
+Feign Death (Necromantic) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 2 Segments
+Duration: 1 Turn + 1 Round/LvSaving Throw: None
+Area of Effect: 1 Person
+Source: Player's Handbook
+Except as noted above, this spell is the same as the third level magic-user spell feign death (q.v.). Note that a character of any level may be affected by the cleric casting this spell, and that the material components are a pinch of graveyard dirt and the cleric's holy/unholy symbol.
+Flame Walk (Alteration) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 5 Segments
+Duration: 1 Turn + 1 Turn/LvSaving Throw: None
+Area of Effect: Special
+Source: Unearthed Arcana
+By means of this spell the caster is able to empower himself or herself, or another creature of man-size and comparable mass, to withstand non-magical fires up to temperatures of 2,000° F. It also confers a +2 bonus to saving throws against magical fires. For every level of experience above the minimum required to create the dweomer (5th), the caster can affect an additional man sized creature. This growing power enables multiple individuals, or one or more of greater than man-size and mass, to be affected by the flame walk spell. For instance, an 11th-level caster could empower both himself or herself and a steed such as a horse to move in molten lava. (Consider a horse to be equivalent to 6 humans for purposes of this spell; conversely, halfling-sized creatures count as 1/2 human apiece, and pixie-sized creatures are considered equivalent to 1/4 human each.) The material components of the spell are at least 500gp of powdered ruby and the cleric's holy/unholy symbol.
+Glyph of Warding (Abjuration-Evocation) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: Special
+Duration: Permanent until dischargedSaving Throw: Special
+Area of Effect: 25 Square Feet/Lv
+Source: Player's Handbook
+A glyph of warding is a powerful inscription magically drawn to prevent unauthorized or hostile creatures from passing, entering, or opening. It can be used to guard a small bridge, ward an entry, or as a trap on a chest or box. When the spell is cast, the cleric weaves a tracery of faintly glowing lines around the warding sigil. For every square foot of area to be protected, 1 segment of time is required to trace the warding lines from the glyph, plus the initial segment during which the sigil itself is traced. A maximum of a 5' x 5' area per level can be warded. When the spell is completed, the glyph and tracery become invisible, but any creature touching the protected area without first speaking the name of the glyph the cleric has used to serve as a ward will be subject to the magic it stores. Saving throws apply, and will either reduce effects by one-half or negate them according to the glyph employed. The cleric must use incense to trace this spell, and then sprinkle the area with powdered diamond (at least 2,000gp worth) if it exceeds 50 square feet. Typical glyphs shock for 2 points of electrical damage per level of the spell caster, explode for a like amount of fire damage, paralyze, blind, or even drain a life energy level (if the cleric is of high enough level to cast this glyph).
+Locate Object (Divination) Reversible 
+Level: 3Components: V, S, M
+Range: 6" + 1"/LvCasting Time: 1 Turn
+Duration: 1 Round/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+This spell aids in location of unknown or familiar object. The cleric casts the Spell, slowly turns, and knows when he or she is facing in the direction of the object to be located, provided the object is within range, i.e. 7" for 1st level clerics, 8" for 2nd, 9" for 3rd, etc. The casting requires the use of a piece of lodestone. The spell will locate such objects as apparel, jewelry, furniture, tools, weapons, or even a ladder or stairway. By reversal (obscure object), the cleric is able to hide an object from location by spell, crystal ball, or similar means. Neither application of the spell will affect a living creature.
+
+Magical Vestment (Conjuration/Alteration) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 1 Round
+Duration: 6 Rounds/LvSaving Throw: None
+Area of Effect: The Cleric
+Source: Unearthed Arcana
+This spell enchants the caster's vestment, providing protection equivalent to armor. It will only function while the cleric is on ground consecrated to his or her deity (cf. 1st-level ceremony spell). If any armor or protective device is worn during the spell duration, the vestment protects as if normal chain mail armor. If no other protection is worn, the vestment also gains a + 1 enchantment for each four levels of the cleric, to a maximum effect of chain mail + 4 (base AC 1). The magic lasts for 6 rounds per level of the caster, or until the caster loses consciousness or leaves the consecrated area. The material components are the vestment to be enchanted and the cleric's holy/unholy symbol.
+Meld Into Stone (Alteration) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 7 Segments
+Duration: 8 Rounds + 1d8Saving Throw: None
+Area of Effect: Special
+Source: Unearthed Arcana
+The magic of this spell, when properly cast, allows the cleric to meld his or her body and possessions worn or carried into a large stone. To effect the spell, the cleric stands next to the stone to be melded into (which must be large enough to accommodate the cleric's body in all three dimensions) while holding a small sample of the same type of stone. When casting is complete, the cleric and up to 100 pounds of his or her non-living gear blend into the stone. Magical artifacts and relics are not affected by the spell. If the dimensions of the stone are not sufficient, or if the cleric is wearing and carrying more than 100 pounds of gear, the spell will fail and be wasted. The magic lasts for 9-16 (1d8+8) rounds, the variable part of the duration rolled secretly by the DM. At any time before the duration expires, the cleric can step out of the stone along the same surface that he or she used to enter it (i.e. the spell does not allow movement through the stone such as would a pass wall or phase door spell). If the duration runs out before the cleric exits the stone, then he or she will be expelled from the stone and take 4-32 (4d8) points of damage - and each piece of gear affected must save versus prettification or turn to stone. While in the stone, the cleric is aware of the passage of time; however, he or she cannot see or hear anything that may be going on around the stone. The following spells will harm the cleric if cast upon the stone that he or she is occupying: Stone to flesh will expel the cleric and inflict 4-32 points of damage, but items carried need not save. Stone shape will cause 4-16 (4d4) points of damage, but will not expel the cleric. Transmute rock to mud expels the cleric and will slay the victim instantly unless he or she makes a successful saving throw versus spell.
+Negative Plane Protection (Abjuration) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 1 Round
+Duration: 1 Turns/LvSaving Throw: None
+Area of Effect: One Prime Material Plane Creature
+Source: Unearthed Arcana
+This spell enables the caster or any other eligible creature touched to be partially protected from an undead monster that has an existence on the Negative Material Plane (such as a shadow, wight, wraith, spectre, or vampire). The dweomer of the spell opens a channel to the Positive Material Plane, the energy from which helps to offset the effect of the undead creature's attack. The recipient is allowed a saving throw versus death magic if he or she is touched (attacked) by an undead creature. Success indicates that the recipient takes normal hit-point damage from the attack, but does not suffer the drain of experience that would otherwise take place. In addition, the undead creature takes 2-12 (2d6) hit points of damage from the Positive Plane energy. The magic is only proof against one such attack, and dissipates after that attack whether or not the saving throw is successful. If the saving throw versus death magic is failed, the recipient of the spell takes double the usual physical damage in addition to the loss of experience that normally occurs. The spell will also protect the recipient from the effect of a magic-user's energy drain spell, but in such a case the magic-user is not affected. The contact between the Positive and Negative Planes that this spell brings about will cause a bright flash of light and a sound like that of a thunderclap, but these phenomena do not cause damage in any event. The protection will last for 1 turn per level of the cleric casting the spell, or until the recipient is successfully attacked by an undead monster. This spell cannot be cast on the Negative Material Plane.
+Prayer (Conjuration/Summoning) 
+Level: 3Components: V, S, M
+Range: 0Casting Time: 6 Segments
+Duration: 1 Round/LvSaving Throw: None
+Area of Effect: 6" Radius
+Source: Player's Handbook
+This spell exactly duplicates the effects of a chant with regard to bonuses of +1 for friendly attacks and saving throws and –1 on like enemy dice. However, once the prayer is uttered, the cleric can do other things, unlike a chant, which he or she must continue to make the spell effective. The cleric needs a silver holy symbol, prayer beads, or a similar device as the material component of this spell.
+Remove Curse (Abjuration) Reversible 
+Level: 3Components: V, S
+Range: TouchCasting Time: 6 Segments
+Duration: PermanentSaving Throw: Special
+Area of Effect: Special
+Source: Player's Handbook
+Upon casting this spell, the cleric is usually able to remove a curse - whether it be on an object, a person, or in the form of some undesired sending or evil presence. Note that the remove curse spell will not affect a cursed shield, weapon or suit of armor, for example, although the spell will typically enable the person afflicted with any such cursed item to be rid of it. The reverse of the spell is not permanent; the bestow curse lasts for 1 turn for every level of experience of the cleric using the spell. It will lower one ability of the victim to 3 (your DM will determine which by random selection) 50% of the time; reduce the victim's "to hit" and saving throw probabilities by -4 25% of the time; or make the victim 50% likely per turn to drop whatever he, she, or it is holding (or simply do nothing in the case of creatures not using tools) 25% of the time. It is possible for a cleric to devise his/her own curse, and it should be similar in power to those shown. Consult your referee. The target of a bestow curse spell must be touched. If the victim is touched, a saving throw is still applicable and if it is successful, the effect is negated.
+Remove Paralysis (Abjuration) Reversible 
+Level: 3Components: V, S
+Range: 1"/LvCasting Time: 6 Segments
+Duration: PermanentSaving Throw: None
+Area of Effect: 1-4 Creatures in a 2" x 2" Area
+Source: Unearthed Arcana
+By the use of this spell, the cleric can free the subject creature(s) from the effects of paralyzation or similar forces (such as a hold spell). By casting this spell and then pointing his or her finger in the proper direction, the cleric can remove paralysis from as many as 4 creatures that are within range and within the area of effect. There must be no physical or magical barrier between the caster and the creature(s) to be affected, or else the spell will fail and be wasted. Each target of the spell obtains a new saving throw versus paralyzation, at a +3 bonus if only one creature is involved, +2 if two creatures are to be affected, and +1 if three or four creatures are the target.
+The reverse of the spell, cause paralysis, can affect only one target, which must be touched by the cleric (successful roll "to hit") using his or her holy/unholy symbol. If the victim fails a saving throw versus spell, paralyzation will set in for a duration of 1-6 rounds plus 1 round per level of the caster. Clerics of good alignment should be very discerning in their use of cause paralysis, and this spell might actually be prohibited to clerics belonging to certain good-aligned orders.
+Speak With The Dead (Necromantic) 
+Level: 3Components: V, S, M
+Range: 1Casting Time: 1 Turn
+Duration: SpecialSaving Throw: None
+Area of Effect: One Character
+Source: Player's Handbook
+Upon casting-a speak with the dead spell, the cleric is able to ask several questions of a dead creature in a set period of time and receive answers according to the knowledge of that creature. Of course, the cleric must be able to converse in the language, which the dead creature once used. The length of time the creature has been dead is a factor, since only higher-level clerics can converse with the long dead. Likewise, the number of questions which can be answered and the length of time in which the questions can be asked are dependent upon the level of experience of the cleric. The cleric needs a holy symbol and burning incense in order to cast this spell upon the body, remains, or portion thereof.
+ 
+Level of Experience	Length of Time Dead	Time Questioned	Number of Questions
+up to 7th
+7th - 8th
+9th - 12th
+13th- 15th
+16th - 20th
+21st and up	1 week
+1 month
+1 year
+10 years
+100 years
+1000 years	1 round
+3 rounds
+1 turn
+2 turns
+3 turns
+6 turns	2
+3
+4
+5
+6
+7
+
+
+
+Water Walk (Alteration) 
+Level: 3Components: V, S, M
+Range: TouchCasting Time: 7 Segments
+Duration: 1 Turn + 1 Turn/LvSaving Throw: None
+Area of Effect: Special
+Source: Unearthed Arcana
+By means of this spell, the caster is able to empower himself or herself or another creature of man-size and comparable mass to tread upon water as if it were firm, grassy ground (cf. ring of water walking). For every level of the caster above the minimum required to create the dweomer (5th level), he or she can affect an additional man-sized creature. This growing power enables multiple individuals, or one or more of greater size and mass, to be affected by the water walk spell. For instance, an 11th-level caster could additionally affect a horse, so that he or she could move atop the waves while mounted. (Consider a horse to be equivalent to 6 humans for purposes of this spell.) The material components for this spell are a piece of cork and the cleric's holy/unholy symbol.
+Cleric Level 4
+Abjure (Abjuration/Conjuration/Summoning) Reversible 
+Level: 4Components: V, S, M
+Range: 1"Casting Time: 1 Round
+Duration: PermanentSaving Throw: None
+Area of Effect: One Character
+Source: Unearthed Arcana
+When a cleric employs a spell of this sort, he or she is attempting to return a creature from another plane of existence to its own plane. The exact name of the type of creature to be affected by the abjure spell must be known. If the creature also has a specific (proper) name, then that too must be known and used. The naming cleric then compares his or her level against the level or hit dice of the creature under abjuration, in the same way that the success of a dispel magic spell is determined (base 50% chance of success, plus or minus the level/HD difference between the caster and the creature to be affected). The percent chance for success is then compared to a percentile dice roll. If the roll is equal to or less than the chance to abjure, the creature is instantly sent back to its own plane. In all other cases the spell fails. (The creature might not wish to remain on the caster's plane, and in such a case it could be appreciative of the cleric's attempt to return it to its home.)
+The reverse of this spell, implore, entreats some like-aligned creature from another plane to come to the cleric casting the spell. Success must be determined just as if abjure had been cast. In like vein, the spell caster must know the exact name of the type of creature as well as its given name, if any. If the implore spell succeeds, the cleric has absolutely no guarantee that the creature summoned from another plane will be favorably disposed to him or her. Neither version of the spell will function upon deities, but might affect servants or minions thereof.
+The material components for an abjure spell are a holy/unholy symbol, holy or unholy water, and often some material inimical to the creature. In reversed form, the material components are the same except for the last, which must be something that the implored creature craves or respects.
+Cloak of Fear (Illusion/Phantasm) Reversible 
+Level: 4Components: V, S, M
+Range: 0Casting Time: 6 Segments
+Duration: 1 Turn/LvSaving Throw: None
+Area of Effect: The Cleric
+Source: Unearthed Arcana
+The casting of this spell empowers the cleric to radiate a personal aura of fear out to a 3' radius. Any character or creature that intrudes upon this aura must save versus spell or run away in fear for 6 rounds (cf. 3rd-level magic-user spell fear). The spell will only remain in effect until one creature fails to save, whereupon the dweomer of the spell is dissipated. The spell has no effect upon creatures that themselves radiate fear or upon undead creatures of any sort, and it is not dissipated upon contact by such creatures. It likewise remains in effect if an intruder makes a successful saving throw, but will expire after a duration of 1 turn per level of the cleric if not brought down earlier. Note that members of the cleric's party are not immune to the effects of the spell. The cleric may cancel the aura at any time before the duration ends if desired.
+The reverse of the spell, cloak of bravery can be cast upon the cleric or upon another creature which is a willing recipient. A character or creature protected by a cloak of bravery gains a +3 bonus to the saving throw against any form of magical fear encountered. The magic of the cloak of bravery works only once and only upon a single figure, and is dispelled whether or not the recipient succeeds on his or her saving throw. The magic does not negate or otherwise affect the innate ability of a creature (such as a devil) to radiate fear, so that the creature can still affect others in the vicinity.
+The material components for a cloak of fear are a miniature quiver and a chicken feather; for a cloak of bravery, the necessary items are a drop of alcohol and the brain of a newt.
+Cure Serious Wounds (Necromantic) Reversible 
+Level: 4Components: V, S
+Range: TouchCasting Time: 7 Segments
+Duration: PermanentSaving Throw: None
+Area of Effect: Character Touched
+Source: Player's Handbook
+This spell is a more potent version of the cure light wounds spell (q.v.). Upon laying his or her hand upon a creature, the cleric causes from 3 to 17 (2d8+1) hit points of wound or other injury damage to the creature's body to be healed. This healing will affect only those creatures listed in the cure light wounds spell explanation. Cause serious wounds, the reverse of the spell, operates similarly to the cause light wounds spell, the victim having to be touched first, and if the touch is successful, it will inflict 3 to 17 hit points.
+Detect Lie (Divination) Reversible 
+Level: 4Components: V, S, M
+Range: 3"Casting Time: 7 Segments
+Duration: 1 Round/LvSaving Throw: None
+Area of Effect: One Character
+Source: Player's Handbook
+When the cleric employs this spell, the recipient is immediately able to determine if truth is being spoken. The spell lasts one round for each level of experience of the cleric casting the detect lie. Gold dust is necessary for this spell. Its reverse, undetectable lie, makes bald-face untruths seem reasonable, or simply counters the detect lie spell powers. The reverse spell requires brass dust as its material component.
+Divination (Divination) 
+Level: 4Components: V, S, M
+Range: 0Casting Time: 1 Turn
+Duration: SpecialSaving Throw: None
+Area of Effect: Special
+Source: Player's Handbook
+Similar to an augury spell, a divination spell is used to determine information regarding an area. The area can be a small woods, large building, or section of a dungeon level. In any case, its location must be known. The spell gives information regarding the relative strength of creatures in the area; whether a rich, moderate or poor treasure is there; and the relative chances for incurring the wrath of evil or good supernatural, super powerful beings if the area is invaded and attacked. The base chance for correct divination is 60%, plus 1 % for each level of experience of the cleric casting the spell, i.e. 65% at 5th level, 66% at 6th, etc. The Dungeon Master will make adjustments to this base chance considering the facts regarding actual area being divined. If the result is not correct, inaccurate information will be obtained. The material components of the divination are a sacrificial creature, incense, and the holy symbol of the cleric. If an unusually potent divination is attempted, sacrifice of particularly valuable gems or jewelry and/or magic items may be required.
+Exorcise (Abjuration) 
+Level: 4Components: V, S, M
+Range: 1Casting Time: 1-100+ Turns
+Duration: 1 Turn + 1 Turn/LvSaving Throw: None
+Area of Effect: One Character or Object
+Source: Player's Handbook
+The spell of exorcism will negate possession of a creature or an object by any outside or supernatural force. This includes control of a creature by some force in an object, possession by magic jar (q.v.) spell, demonic possession, curse, and even charm, for the exorcise spell is similar to a dispel magic spell. Furthermore, it will affect a magical item if such is the object of the exorcism. Thus a soul object of any sort which comes under successful exorcism will make the life force of the creature concerned wholly inhabit its nearest material body, wholly and completely. (cf. ADVANCED DUNGEONS & DRAGONS, MONSTER MANUAL, Demon.) The exorcise spell, once begun, cannot be interrupted, or else it is spoiled and useless. The base chance for success is a random 1% to 100%. Each turn of exorcism the dice are rolled, and if the base chance number, or less, is rolled, the spell is successful. Base chance of success is modified by -1% for each level of difference between the cleric's level of experience and the level of the possessor or possessing magic, where the smaller number is the cleric's level. In the obverse, a +1% cumulative is added. The referee can determine base chance according to the existing circumstances if he or she so desires. Material components for this spell are the holy object of the cleric and holy water (or unholy, in the case-of evil clerics, with respect to object and water). A religious artifact or relic can increase the chance of success by from 1% to 50%, according to the power of the artifact or relic.
+Faith's Armor (Divination/Enchantment)
+Level: 4Components: V, S, M
+Range: TouchCasting Time: 8 segments
+Duration: 1 rounds/LvSaving Throw: none
+Area of Effect: 1 individual
+Source: Aldengard Campaign
+The Ministration spell will give the recipient additional damage reduction equal to half the level of the caster dropping fractions (i.e. a 7th level cleric will bestow 3hp damage reduction). The material component of this spell is the holy symbol of the cleric.
+Giant Insect (Alteration) Reversible 
+Level: 4Components: V, S, M
+Range: 2"Casting Time: Special
+Duration: 2 Rounds/LvSaving Throw: None
+Area of Effect: One or More Insects
+Source: Unearthed Arcana
+By means of this spell, the cleric can turn one or more normal-sized insects into larger forms which resemble the "giant" forms of such creatures as described in the Monster Manual books or the FIEND FOLIO Tome. The number of insects that can be affected is dependent upon the cleric's level: one at 7th-9th level, two at 10th or 11th level, three at 12th or 13th level, and four at 14th or higher level. The total hit dice of all giant insects created is 3 HD at 7th -9th level, 4 HD at 10th or 11th, 5 HD at 12th or 13th, and 6 HD at 14th or higher level. The magic only works upon one type of insect at one time; i.e. a cleric cannot use the same casting of the spell to affect both an ant and a fly. The casting time for a giant insect spell is one round per hit die of the resulting giant creature(s); if the casting is interrupted for any reason, the subject insect(s) will die and the spell will be ruined. A monster created by this spell will have as many attacks per round as its namesake, but will not do full damage unless the created form has as many hit dice as the usual giant version of the same insect. Although it may have more hit dice than a standard giant form, the created insect can never exceed the damage figures given in the books. Example: A cleric of 14th level can use the giant insect spell to enlarge a normal wasp to one having 6 HD (instead of the usual 4 HD for a giant wasp; see Monster Manual), but the creature would still do damage of 2-8/1-4. Conversely, a 7th-level cleric can use this spell to create a giant wasp of 3 HD, and such a creature would have reduced damage figures of 2-6/1-3 - three-fourths of the damage potential of a "real" giant wasp, since it only has three fourths of the usual number of hit dice for such a creature.
+The spell will only work on actual insects. Arachnids, crustaceans, and other types of small creatures are not affected. The giant insects created will not have any special attacks or defenses possessed by the standard giant forms; however, armor class, movement rate, and other physical characteristics are as described in the creature's book listing. Any giant insects created by this spell will not attempt to harm the cleric, but the cleric's control of such creatures is limited. He or she could give them simple commands such as "attack," "defend," "guard," and so forth, but could not instruct them to attack a certain creature or guard against a particular occurrence. Unless commanded to do otherwise, the giant insects will attempt to attack whomever or whatever is near them.
+The reverse of the spell, shrink insect, will reduce the size of standard giant insects as well as those created by the unreversed form of the spell. The shrinking will be at a rate of 1 HD for every 4 levels of the casting cleric, with a maximum of 6 HD of reduction (to a minimum of 1/2 HD, or 1 hp). Special attacks possessed by a standard giant insect will be retained, but at a weaker level which allows a bonus to the saving throw versus the attack. For instance, a 9th-level cleric could cast shrink insect upon a standard giant wasp to reduce it from 4 HD to 1 HD. The resulting insect would still be able to use its poison sting, but the saving throw against such an attack would be at a +3 bonus (or perhaps higher), and the hit-point damage from its normal attacks would be reduced to 1-2 for a bite and 1 point for a sting - one-fourth of the usual amounts, since the creature is only one-fourth of its original size. The material component for either version of the spell is the cleric's holy/unholy symbol.
+Greater Bless (Conjuration/Summoning)
+Level: 4Components: V, S, M
+Range: TouchCasting Time: 1 Turn
+Duration: SpecialSaving Throw: none
+Area of Effect: 2 individuals
+Source: Aldengard Campaign
+This spell must be cast upon 2 willing creatures, which will be instilled with bravery, confidence, and an amount of skill. Recipients of this spell gain a bonus to their "to hit" die rolls; +1, plus an additional +1 for every 6 levels of the caster. Additionally the recipients gain mental fortitude; an additional roll may be made to negate a failing roll for attacks against the mind: fear, suggestion, etc. The duration of this spell is 1 hour per level of the caster. This spell can only be cast once in any 24 hour period, casting a second Greater Bless spell cancels the first. This spell will not affect individuals already under the effects of a Bless spell; furthermore casting this spell on someone with Blessing, or casting the Bless spell on someone with a Greater Blessing will negate both spells. The material component of this spell is the holy symbol of the cleric.
+Imbue with Spell Ability (Enchantment-Alteration) 
+Level: 4Components: V, S, M
+Range: TouchCasting Time: 1 Turn
+Duration: SpecialSaving Throw: None
+Area of Effect: Character Touched
+Source: Unearthed Arcana
+By the use of this spell, the cleric can bestow the ability to cast a particular spell upon a character normally unable to cast spells. The magic is only effective on thieves, fighters, cavaliers, assassins, monks, rangers (of under 8th level), and paladins (of under 9th level) - it will not work on a member of any other character class or sub-class, nor will it function upon a monster or any individual with less than one full hit die. The spell or spells to be imbued in the subject must be ones that the cleric presently carries (i.e. has prayed for), and they can only be spells of an informational or defensive nature, or a cure light wounds spell. An attempt to transfer any other sort of spell will cause the magic to fail, and then no spells will be imbued in the recipient even if other allowable spells were also chosen. As many as three separate spells can be imbued, including one 2nd-level spell and one or two 1st-level spells. In order to receive any spell, the subject character must have a wisdom score of 9 or higher. A single 1st-level spell can be imbued in any eligible recipient, but the recipient must be at least 3rd level to receive two 1st-level spells, and must be at least 5th level to receive a 2nd-level spell. If a transferred spell's characteristics (range, duration, area of effect, etc.) are variable according to the level of the caster, then the recipient will cast them at his or her own level. All other spell details (e.g. casting time, components, etc.) apply normally.
+When a cleric casts imbue with spell ability upon another character, the cleric loses that particular spell from his or her repertoire and cannot memorize more spells until the recipient uses all of the spells that were transferred. The material components for this spell are the cleric's holy/unholy symbol, plus some minor item "borrowed" from the intended recipient which is symbolic of his or her profession (a lock pick for a thief, a dagger for an assassin, etc.). The "borrowed" item is consumed in the casting of the spell.
+Lower Water (Alteration) Reversible 
+Level: 4Components: V, S, M
+Range: 12"Casting Time: 1 Turn
+Duration: 1 Turn/LvSaving Throw: None
+Area of Effect: 1" x 1" Square/Lv Area
+Source: Player's Handbook
+The cleric casting a lower water spell causes water or similar fluid in the area of effect to sink away. Lowering is 5% of original effect for every level of experience of the cleric, i.e. 40% of 8th level, 45% at 9th, 50% at 10th, etc. The effect of the spell lasts for 1 turn for each level of experience of the cleric casting it. Likewise, the area of effect increases by level of experience, an 8th-level cleric affecting an area of 8" x 8", a 9th level an area of 9" x 9", and so forth. Material components of this spell are the cleric's religious symbol and a pinch of dust. The reverse of the spell causes the water or similar fluid to return to its normal highest level, plus one foot for every level of experience of the cleric casting it.
+Neutralize Poison (Alteration) Reversible 
+Level: 4Components: V, S
+Range: TouchCasting Time: 7 Segments
+Duration: PermanentSaving Throw: None
+Area of Effect: Character Touched or 1 Cubic Foot/2Lv
+Source: Player's Handbook
+By means of a Neutralize Poison spell, the cleric detoxifies any sort of venom in the creature or substance touched. Note that an opponent, such as a poisonous reptile or snake (or even an envenomed weapon of an opponent) unwilling to be so touched requires the cleric to score a hit in melee combat. Effects of the spell are permanent only with respect to poison existing in the touched creature at the time of the touch, i.e. creatures (or objects) which generate new poison will not be permanently detoxified. The reversed spell, poison, likewise requires an attack (a "to hit" touch which succeeds), and the victim is allowed a saving throw versus poison. If the latter is unsuccessful, the victim is killed by the poison.
+Protection from Evil, 10' Radius (Abjuration) Reversible 
+Level: 4Components: V, S, M
+Range: TouchCasting Time: 7 Segments
+Duration: 1 Turn/LvSaving Throw: None
+Area of Effect: 20' Diameter Sphere
+Source: Player's Handbook
+The globe of protection of this spell is identical in all respects to a protection from evil (q.v.) spell, except that it encompasses a much larger area and the duration of the protection from evil, 10' radius spell is greater. To complete this spell, the cleric must trace a circle 20' in diameter using holy water or blood, incense or smoldering dung as according to the protection from evil spell.
+Speak with Plants (Alteration) 
+Level: 4Components: V, S, M
+Range: 0Casting Time: 1 Turn
+Duration: 1 Round/LvSaving Throw: None
+Area of Effect: 6" Diameter Circle
+Source: Player's Handbook
+When cast, a Speak with Plants spell enables the cleric to converse, in very rudimentary terms, with all sorts of living vegetables. Thus, the cleric can question plants as to whether or not creatures have passed through them, cause thickets to part to enable easy passage, require vines to entangle pursuers, and similar things. The spell does not enable the cleric to animate non-ambulatory vegetation. The power of the spell lasts for 1 melee round for each level of experience of the cleric who cast it. All vegetation within the area of effect is under command of the spell. The material components for this spell are a drop of water, a pinch of dung, and a flame.
+Spell Immunity (Abjuration) 
+Level: 4Components: V, S, M
+Range: TouchCasting Time: 1 Round
+Duration: 1 Turn/LvSaving Throw: None
+Area of Effect: Character Touched
+Source: Unearthed Arcana
+By means of this spell, the cleric or any creature touched is made immune to the effects of a specified spell of 4th level or lower that the cleric has directly experienced. For instance, if the cleric has been hit by a fireball spell at some time, then this spell can be used to protect someone from the effect of a fireball. This spell cannot affect an intended recipient who is already magically protected by a spell or other temporary effect. The magic of this spell will only protect against actual cast spells, not against effects of magic items or a creature's innate spell-like abilities, but immunity lasts for the full duration of the spell. Only one spell immunity can be in effect upon a single creature at one time; any applications subsequent to the first have no effect until the first duration ends. The spell immunity does not extend to items carried by the recipient, which must still make saving throws (if applicable) to avoid damage. Only a particular spell can be protected against, not a certain class of spells or a group of spells which are similar in effect; thus, someone given immunity from lightning bolt spells would still be vulnerable to a shocking grasp. The material component for spell immunity is the same (if any) as for the spell to be protected against.
+Spike Growth (Alteration/Enchantment) 
+Level: 4Components: V, S, M
+Range: 6"Casting Time: 7 Segments
+Duration: 1-6 Turns/Lv + 1 Turn/LvSaving Throw: None
+Area of Effect: 10' Square/Lv
+Source: Unearthed Arcana
+Wherever any sort of plant growth of moderate size or density is found, this spell is of service. It enables the caster to cause ground-covering vegetation and/or roots and rootlets to become very hard and sharply pointed. In effect the ground cover, while appearing to be unchanged, acts as if they area were strewn with caltrops. In areas of bare ground or earthen pits, roots and rootlets will act in the same way. Without the use of a spell such as true seeing, similar magical aids, or some other special means of detection (such as detect traps), an area affected by spike growth is absolutely undetectable as such until a victim enters the area and takes damage. Even then, the creature will not be able to determine the extent of the perilous area unless some means of magical detection is used. For each 1" of movement through the area, a victim will incur 2 "attacks" from the spike growth. Hit probability is as if the caster of the spell were making an attack, and any successful hit causes 1-4 points of damage. Spells which control or harm vegetation, or a Dispel Magic spell, will negate the area of the dweomer. The components for this spell are the cleric's holy symbol plus either seven sharp thorns or seven small twigs, each sharpened to a point.
+Sticks to Snakes (Alteration) Reversible 
+Level: 4Components: V, S, M
+Range: 3"Casting Time: 7 Segments
+Duration: 2 Rounds/LvSaving Throw: None
+Area of Effect: 1" Cube
+Source: Player's Handbook
+By means of this spell the cleric is able to change 1 stick to a snake for each level of experience he or she has attained, i.e. a 9th level cleric can change 9 sticks into 9 snakes. These snakes will attack as commanded by the cleric. There must, of course, be sticks or similar pieces of wood (such as torches, spears, etc.) to turn into snakes. Note that magical items such as staves and spears which are enchanted are not affected by the spell. Only sticks within the area of effect will be changed. The probability of a snake thus changed being venomous is 5% per level of experience of the spell caster, so that there is a 55% probability of any given snake created by the spell being poisonous when sticks are turned to snakes by an 11th  level cleric, 60% at 12th level, etc. The effect lasts for 2 melee rounds for each level of experience of the spell caster. The material components of the spell are a small piece of bark and several snake scales the reverse changes snakes to sticks for the duration appropriate, or it negates the sticks to snakes spell according to the level of the cleric countering the spell, i.e. a 10th level cleric casting the reverse spell can turn only 10 snakes back to sticks.
+Tongues (Alteration) Reversible 
+Level: 4Components: V, S
+Range: 0Casting Time: 7 Segments
+Duration: 1 TurnSaving Throw: None
+Area of Effect: 6" Diameter Circle
+Source: Player's Handbook
+This spell enables the cleric to speak the language of any creature inside the spell area, whether it is a racial tongue or an alignment language. The reverse of the spell cancels the effect of the tongues spell or confuses verbal communication of any sort within the area of effect.

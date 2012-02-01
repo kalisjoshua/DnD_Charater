@@ -1,0 +1,390 @@
+
+Atonement
+Abjuration
+0
+5
+vsm
+Touch
+1 turn
+Permanent
+None
+1 Person
+Player's Handbook
+Explanation/Description: This spell is used by the cleric to remove the onus of unwilling or unknown deeds from the person who is the subject of the atonement. The spell will remove the effects of magical alignment change as well. The person for whom atonement is being made must be either truly repentant or not in command of his or her own will so as to be able to be repentant. Your referee will judge this spell in this regard, noting any past instances of its use upon the person. Deliberate misdeeds and acts of knowing and willful nature cannot be atoned for with this spell. The material components of this spell are the cleric's religious symbol, prayer beads or wheel or book, and burning incense.
+
+Commune
+Divination
+1
+5
+vsm
+0
+1 turn
+special
+None
+Special
+Player's Handbook
+Explanation/Description: By use of a commune spell the cleric is able to contact his or her divinity - or agents thereof - and request information in the form of questions which can be answered by a simple "yes" or "no". The cleric is allowed one such question for every level of experience he or she has attained. The answers given will be correct. It is probable that the referee will limit the use of commune spells to one per adventure, one per week, or even one per month, for the "gods" dislike frequent interruptions. The material components necessary to a commune spell are the cleric's religious symbol, holy/unholy water, and incense.
+
+Cure Critical Wounds
+Necromantic
+1
+5
+vs
+touch
+8 segments
+permanent
+none
+creature touched
+Player's Handbook
+Explanation/Description: The cure critical wounds spell is a very potent version of the cure light wounds spell (9.v.). The cleric lays his ar her hand upon a creature and heals from 6 to 27 (3d 8+3) hit points of damage from wounds or other damage. The spell does not affect creatures excluded in the cure light wounds spell explanation. Its reverse, cause serious wounds, operates in the same fashion as other cause wounds spells, requiring a successful touch to inflict the 6-27 hit points of damage. Caused wounds heal as do wounds of other sorts.
+
+Dispel Evil
+Abjuration
+1
+5
+vsm
+touch
+8 segments
+1 round/Lv
+Neg.
+creature touched
+Player's Handbook
+Explanation/Description: The cleric using this spell causes summoned creatures of evil nature, or monsters enchanted and caused to perform evil deeds, to return to their own plane or place. Examples of such creatures are: aerial servants, demons, devils, djinn, efreet, elementals, and invisible stalkers. Note that this spell lash for 1 melee round for each level of experience of the caster, and while the spell is in effect all creatures which could be affected by it attack at a -7 penalty on their "to hit" dice when engaging the spell caster. The reverse of the spell, dispel good, functions against summoned or enchanted creatures of good alignment or sent to aid the cause of good. The material components for this spell are the cleric's religious object and holy/unholy water.
+
+Flame Strike
+Evocation
+0
+5
+vsm
+6"
+8 segments
+1 segment
+1/2
+1" diameter by 3" high column
+Player's Handbook
+Explanation/Description: When the cleric calls down a flame strike spell, a column of fire roars downward in the exact location called for by the caster. If any creature is within the area of effect of a flame strike, it must make a saving throw. Failure to make the save means the creature has sustained 6-48 (6d8) hit points of damage; otherwise, 3-24 (3d8) hit points of damage are taken. The material component of this spell is a pinch of sulphur.
+
+Insect Plague
+Conjuration/Summoning
+0
+5
+vsm
+36"
+1 turn
+1 turn/Lv
+none
+36" diameter, 6" high cloud
+Player's Handbook
+Explanation/Description: When this spell is cast by the cleric, a horde of creeping, hopping, and flying insects swarm in a thick cloud. These insects obscure vision, limiting it to 3". Creatures within the insect plague sustain 1 hit point of damage for each melee round they remain in it due to the bites and stings of the insects, regardless of armor class. The referee will cause all creatures with fewer than five hit dice to check morale. Creatures with two or fewer hit dice will automatically move-at their fastest possible speed in a straight line in a random direction until they are not less than 24" distant from the cloud of insects. Creatures with fewer than five hit dice which fail their morale check will behave likewise. Heavy smoke will drive off insects within its bounds. Fire will also drive insects away; a wall of fire in a ring shape will keep the insect plague outside its confines, but a fire ball will simply clear insects from its blast area for 1 turn. Lightning and cold/ice act likewise. The plague lasts for 1 turn for each level of experience of the cleric casting the spell, and thereafter the insects disperse. The insects swarm in an area which centers around a summoning point determined by the spell caster, which point can be up to 36" distant from the cleric. The insect plague does not move thereafter for as long as it lasts. Note that the spell can be countered by casting a dispel magic upon the summoning point. A cube of force (a special magic item) would keep insects away from a character seeking the center of the swarm, but invisibility would afford no protection. The material components of this spell are a few grains of sugar, some kernels of grain, and a smear of fat.
+
+Plane Shift
+Alteration
+0
+5
+vsm
+touch
+8 segments
+permanent
+none
+creature touched (special)
+Player's Handbook
+Explanation/Description: When the plane shift spell is cost, the cleric moves himself or herself or some other creature to another plane of existence. The recipient of the spell will remain in the new plane until sent forth by some like means. If several persons link hands in a circle, up to seven can be affected by the plane shift at the same time. The material component of this spell is o small, forked metal rod - the exact size and metal type dictating to which plane of existence the spell will send the affected creature(s) to. (Your referee will determine specifics regarding how and what planes are reached.) An unwilling victim must be touched in order to be sent thusly; and in addition, the creature also is allowed a saving throw, and if the latter is successful the effect of the spell is negated.
+
+Quest
+Enchantment/Charm
+0
+5
+vsm
+6"
+8 segments
+until fulfilled
+neg.
+One Creature
+Player's Handbook
+Explanation/Description: The quest is a spell by means of which the cleric requires the affected creature to perform a service and return to the cleric with proof that the deed was accomplished. The quest can, for example, require the location and return of some important or valuable object, the rescue of a notable person, the release of some creature, the capture of a stronghold, the slaying of a person, the delivery of some item, and so forth. If the quest is not properly followed due to disregard, delay, or perversion, the creature affected by the spell loses 1 from its saving throw dice far each day of such action, and this penalty will not be removed until the quest is properly discharged or the cleric cancels it. (There are certain circumstances which will temporarily suspend a quest, and other which will discharge or cancel it; your Dungeon Master will give you appropriate information as h e need to know arises.) The material component of this spell is the cleric's religious symbol.
+
+Raise Dead
+Necromantic
+1
+5
+vs
+3"
+1 round
+permanent
+special
+One Person
+Player's Handbook
+Explanation/Description: When the cleric casts a raise dead spell, he or she can restore life to a dwarf, gnome, half-elf, halfling, or human. The length of time which the person has been dead is of importance, as the cleric can raise dead persons only up to a certain point, the limit being 1 day for each level of experience of the cleric, i.e. a 9th level cleric can raise a person dead for up to 9 days. Note that the body of the person must be whole, or otherwise missing parts will still be missing when the person is brought back to life. Also, the resurrected person must make a special saving throw to survive the ordeal (see CHARACTER ABILITITIES. Constitution). Furthermore, the raised person is weak and helpless in any event, and he or she will need one full day of rest in bed for each day he or she was dead. The somatic component of the spell is a pointed finger. The reverse of the spell, slay living, allows the victim a saving throw, and if it is successful, the victim sustains damage equal only to that caused by a cause serious wounds spell, i.e. 3-17 hit points. An evil cleric can freely use the reverse spell; a good cleric must exercise extreme caution in its employment, being absolutely certain that the victim of the Slay Living spell is evil and that his or her death is a matter of great necessity and for good, otherwise the alignment of the cleric will be sharply changed. Note that newly made undead, excluding skeletons, which fall within the days of being dead limit are affected by raise dead spells cast upon them. The effect of the spell is to cause them to become resurrected dead, providing the constitution permits survival; otherwise, they are simply dead.
+
+True Seeing
+Divination
+1
+5
+vsm
+Touch
+8 segments
+1 round/Lv
+None
+12" sight range
+Player's Handbook
+Explanation/Description: When the cleric employs this spell, all things within the area of the true seeing effect appear as they actually are. Secret doors become plain. The exact location of displaced things is obvious. Invisible things and those which are astral or ethereal become quite visible. Illusions and apparitions are seen through. Polymorphed, changed, or magic’ed things are apparent. Even the aura projected by creatures becomes visible, so that the cleric is able to know whether they are good or evil or between. The spell requires an ointment for the eyes. The ointment is made from very rare mushroom powder, saffron, and fat. The reverse of the spell, false seeing, causes the person to see things as they are not, rich being poor, rough smooth, beautiful ugly. The ointment for the reverse spell is concocted of oil, poppy dust, and pink orchid essence. For both spells, the ointment must be aged for 1-6 months.
+
+Aerial Servant
+Conjuration/Summoning
+0
+6
+vs
+1"
+9 segments
+1 day/Lv
+none
+special
+Player's Handbook
+Explanation/Description: This spell summons an invisible aerial servant (see ADVANCED DUNGEONS 8 DRAGONS, MONSTER MANUAL) to do the bidding of the cleric who conjured it. The creature does not fight, but it obeys the command of the cleric with respect to finding and returning with whatever object or creature that is described to it. Of course, the object or creature must be such as to allow the aerial servant to physically bring it to the cleric or his or her assign. The spell caster should keep in mind the consequences of having an aerial servant prevented, for any reason, from completion of the assigned duty. The spell lasts for a maximum of 1 day for each level of experience of the cleric who cast it. The aerial servant returns to its own plane whenever the spell lapses, its duty is fulfilled, it is dispelled, the cleric releases it, or the cleric is slain. The cleric must have a protection from evil spell, or be within a magic circle, thaumaturgic triangle, or pentagram when summoning an aerial servant unless the cleric has his or her religious symbol or a religious artifact or relic to use to control the creature. Otherwise, the creature will slay its summoner and return from whence it came. The aerial servant will always attack by complete surprise when sent on a mission, and gain the benefit of 4 free melee rounds unless the creature involved is able to detect invisible objects in which case a six-sided die is rolled, and 1 = 1 free round, 2 = 2 free rounds, 3 = 3 free rounds, 4 = 4 free rounds, and 5 or 6 = 0 free rounds (the opponent is not surprised at all). Each round the aerial servant must dice to score a hit, and when a hit is scored, it means the aerial servant has grabbed the item or creature it was sent to take and bring back to the cleric. If a creature is involved, the aerial servant's strength is compared to the strength of the creature to be brought. If the creature in question does not have a strength rating, roll the appropriate number of the correct type of hit dice for the aerial servant and for the creature it has grabbed. The higher total is the stronger.
+
+Animate object
+Alteration
+0
+6
+vs
+3"
+9 segments
+1 round/Lv
+none
+1 cubic foot/Lv
+Player's Handbook
+Explanation/Description: This powerful spell enables the cleric casting it to imbue inanimate objects with mobility and o semblance of life. The animated object, or objects, then attack whomever or whatever the cleric first designates. The object can be of any material whatsoever - wood, metal, stone, fabric, leather, ceramic, glass, etc. The speed of movement of the object is dependent upon its means of propulsion and its weight. A large wooden table would be rather heavy, but its legs would give it speed. A rug could only slither along. A jar would roll. Thus a large stone pedestal would rock forward at 1" per round, a stone statue would move at 4" per round, a wooden statue 8 ' per round, on ivory stool of light weight would move at 12". Slithering movement is about 1" to 2" per round, rolling 3" to 6" per round. The damage caused by the attack of an animated object is dependent upon its form and composition. Light, supple objects can only obscure vision, obstruct movement, bind, trip, smother, etc. Light, hard objects con fall upon or otherwise strike for 1-2 hit points of damage or possibly obstruct and trip as do light, supple objects. Hard, medium weight objects con crush or strike for 2-8 hit points of damage, those larger and heavier doing 3-12, 4-16, or even 5-20 hit points of damage. The frequency of attack of animated objects is dependent upon their method of locomotion, appendages, and method of attack. This varies from as seldom as once every five melee rounds to as frequently as once per melee round. The armor class of the object animated is basically a function of material and movement ability with regard to hitting. Damage is dependent upon the type of weapon and the object struck. A sharp cutting weapon is effective against fabric, leather, wood and like substances. Heavy smashing and crushing weapons are useful against wood, stone, and metal objects. Your referee will determine all of these factors, as well as how much damage the animated object can sustain before being destroyed. The cleric can animate 1 cubic foot of material for each level of experience he or she has attained. Thus, a 14th level cleric could animate one or more objects whose solid volume did not exceed 14 cubic feet, i.e. o large statue, two rugs, three chairs, or a dozen average crocks.
+
+Blade Barrier
+Evocation
+0
+6
+vs
+3"
+9 segments
+3 rounds/Lv
+none
+special
+Player's Handbook
+Explanation/Description: The cleric employs this spell to set up a wall of circling, razor-sharp blades. These whirl and flash in endless movement around an immobile point. Any creature which attempts to pass through the blade barrier suffers 8-64 (8d8) hit points of damage in doing SO. The barrier remains for 3 melee rounds for every level of experience of the cleric casting it. The barrier can cover any area from as small as 5' square to as large as 2 square, i.e. 20' x 20' under ground, 60' x 60' outdoors.
+
+Conjure Animals
+Conjuration/Summoning
+0
+6
+vs
+3"
+9 segments
+2 rounds/Lv
+none
+special
+Player's Handbook
+Explanation/Description: The conjure animals spell enables the cleric to summon o mammal, or several of them, to his locale in order that the creature(s) can attack the cleric's opponents. The conjured animal(s) remain in the cleric's locale for 2 melee rounds for each level of experience of the cleric conjuring it (them), or until slain. The spell caster can, by means of his incantation, call up one or more mammals with hit dice whose total does not exceed his or her level. Thus, a cleric of 12th level could conjure one mammal with 12 hit dice, two with 6 hit dice each, three with 4 hit dice each, 4 with 3 hit dice each, six with 2 hit dice each, or 12 with 1 hit die each. For every + 1 (hit point) of a creature's hit dice, count 1/4 of a hit die, i.e. a creature with 4 +3 hit dice equals a 4 3/4 hit dice creature. The creature(s) summoned by the spell will unfailingly attack the opponent(s) of the cleric by whom the spell was cast.
+
+Find the Path
+Divination
+1
+6
+vsm
+Touch
+3 rounds
+1 turn/Lv
+none
+creature touched
+Player's Handbook
+Explanation/Description: By use of this spell, the cleric is enabled to find the shortest, most direct route that he or she is seeking, be it the way to or from or out of a locale. The locale can be outdoors or underground, a trap or even a maze spell. The spell will enable the cleric to select the correct direction which will eventually lead him or her to egress, the exact path to follow (or actions to take), and this knowledge will persist as long as the spell lasts, i.e. 1 turn for each level of experience of the cleric casting find the path. The spell frees the cleric, and those with him or her from a maze spell in a single melee round and will continue to do so as long as the spell lasts. The material component of this spell is a set of divination counters of the sort favored by the cleric - bones, ivory counters, sticks, carved runes, or whatever. The reverse, lose the path, makes the creature touched totally lost and unable to find its way for the duration of the spell, although it can be led, of course.
+
+Heal
+Necromantic
+1
+6
+vs
+touch
+1 round
+permanent
+none
+creature touched
+Player's Handbook
+Explanation/Description: The very potent heal spell enables the cleric to wipe away disease and injury in the creature who receives the benefits of the spell. It will completely cure any and all diseases and/or blindness of the recipient and heal all hit points of damage suffered due to wounds or injury, save 1 to 4 (d4). It dispels o feeblemind spell. Naturally, the effects can be negated by later wounds, injuries, and diseases. The reverse, harm, infects the victim with a disease and causes loss of all hit points, as damage, save 1 to 4 (d4), if a successful touch is inflicted. For creatures not affected by the heal (or harm) spell, see cure light wounds.
+
+Part Water
+Alteration
+0
+6
+vsm
+2"/Lv
+1 turn
+1 turn/Lv
+none
+special
+Player's Handbook
+Explanation/Description: By employing a port water spell, the cleric is able to cause water or similar liquid to move apart, thus forming a trough. The depth and length of the trough created by the spell is dependent upon the level of the cleric, and a trough 3' deep by 1' by 2" (20' or 20 yards) is created per level, i.e. at 12th level the cleric would port water 36' deep by 12' wide by 24" (240' or 240 yards) long. The trough will remain as long as the spell lasts or until the cleric who cast it opts to end its effects (cf. dispel magic The material component of this spell is the cleric's religious symbol.
+
+Speak With Monsters
+Alteration
+0
+6
+vs
+3" radius
+9 segments
+1 round/Lv
+none
+caster
+Player's Handbook
+Explanation/Description: When cost, the speak with monsters spell allows the cleric to converse with any type of creature which has any form of communicative ability That is, the monster will understand the intent of what is said to it by the cleric. The creature, or creatures, thus spoken to will be checked by your referee in order to determine reaction; all creatures of the same type as that chosen by the cleric to speak to can likewise understand if they are within range. The spell lasts for 1 melee round per level of experience of the cleric casting it, and during its duration conversation can take place as the monster is able and desires.
+
+StoneTell
+Divination
+0
+6
+vsm
+touch
+1 turn
+1 turn
+none
+One cubic yard of stone
+Player's Handbook
+Explanation/Description: When the cleric costs a stone tell upon an area, the very stones will speak and relate to the caster who or what has touched them as well as telling what is covered, concealed, or simply behind the place they are. The stones will relate complete descriptions as required. The material components for this spell are a drop of mercury and a bit of clay.
+
+Word Of Recall
+Alteration
+0
+6
+v
+0
+1 segment
+special
+none
+special
+Player's Handbook
+Explanation/Description: The word of recall spell takes the cleric instantly back to his or her sanctuary when the word is uttered. The sanctuary must be specifically designated in advance by the cleric. It must be a well known place, but it can be any distance from the cleric, above or below ground. Transportation by the word of recall spell is infallibly safe. The cleric is able to transport, in addition to himself or herself, 250 gold pieces weight cumulative per level of experience. Thus, a 15th level cleric could transport his or her person and 3,750 (375 pounds) gold pieces weight in addition; this extra matter can be equipment, treasure, or living material such as another person.
+
+Astral Spell
+Alteration
+0
+7
+vs
+touch
+3 turns
+special
+none
+special
+Player's Handbook
+Explanation/Description: By means of the astral spell a cleric is able to project his or her astral body into the Astral Plane, leaving his or her physical body and material possessions behind on the Prime Material Plane, (the plane on which the entire universe and all of its parallels have existence). Only certain magic items which have multi-planed existence can be brought into the Astral Plane. As the Astral Plane touches upon all of the first levels of the Outer Planes, the cleric can travel astrally to any of these Outer Planes as he or she wills. The cleric then leaves the Astral Plane, forming a body on the plane of existence he or she .has chosen to enter. It is also possible to travel astrally anywhere in the Prime Material Plane by means of the astral spell, but a second body cannot be formed on the Prime Material Plane. As a general rule, a person astrally projected con be seen only by creatures on the Astral Plane. At all times the astral body is connected to the material by a silvery cord. If the cord is broken, the affected person is killed, astrally and materially, but generally only the psychic wind can normally cause the cord to break. When a second body is formed on a different plane, the silvery cord remains invisibly attached to the new body, and the cord simply returns to the latter where it rests on the Prime Material Plane, reviving it from its state of suspended animation. Although astrally projected persons are able to function on the Astral Plane, their actions do not affect creatures not existing on the Astral Plane. The spell lasts until the cleric desires to end it, or until it is terminated by some outside means (dispel magic or destruction of the cleric’s body on the Prime Material Plane). The cleric can take up to five other creatures with him or her by means of the astral spell, providing the creatures are linked in a circle with the cleric. These fellow travelers are dependent upon the cleric and can be stranded. Travel in the Astral Plane con be slow or fast according to the cleric‘s desire. The ultimate destination arrived at is subject to the conceptualization of the cleric. (See APPENDIX IV, THE KNOWN PLANES OF EXISTENCE, for further information on the Astral Plane and astral projection.)
+
+Control Weather
+Alteration
+0
+7
+vsm
+0
+1 turn
+4-48 hours
+none
+4-16 square miles
+Player's Handbook
+Explanation/Description: The control weather spell allows a cleric to change the weother in the area he or she is in at the time the spell is cast. The spell will affect the weather for from 4 to 48 hours (4d12) in an area of from 4 to 16 square miles (4d4). It requires 1 turn to cast the spell, and an additional 1 to 4 (d4) turns for the effects of the weather to be felt. The control weather spell will not radically change the temperature, i.e. from below zero to a 100 degree temperature heat wave. The weather control possible depends upon the prevailing conditions:<table>All three aspects of the weather (clouds/precipitation, temperature, and wind) can be controlled, but only as shown. For example, o day which is clear worm, and with light wind can be controlled to become hazy, hot, and calm. Contradictions are not possible - fog and strong wind, for example. Multiple control weather spells can be used only in succession. The material components for this spell are the cleric’s religious symbol, incense, and prayer beads or similar prayer objects Obviously, this spell functions only in areas where there are appropriate climatic conditions.
+
+Earthquake
+Alteration
+0
+7
+vsm
+12"
+1 turn
+1 round
+none
+1/2" diameter/Lv
+Player's Handbook
+Explanation/Description: When this spell is cast by a cleric, a local tremor of fairly high strength rips the ground. The shock is over in one melee round. The earthquake affects all terrain, vegetation, structures, and creatures in its locale. The area of effect of the earthquake spell is circular, the diameter being %” for every level of experience of the cleric casting it, is. o 20th level cleric casts on earthquake spell with a 10” diameter area of effect: Effects are as follows:<table>The material components for this spell are a pinch of dirt, a piece of rock, and a lump of clay.
+
+Gate
+Conjuration/Summoning
+0
+7
+vs
+3"
+5 segments
+special
+none
+special
+Player's Handbook
+Explanation/Description: The casting of a gate spell has two effects: first, it causes an ultra-dimensional connection between the plane of existence the cleric is on and that plane on which dwells a specific being of great power, the result enabling the being to merely step through the gate, or portal, from its plane to that of the cleric; second, the utterance of the spell attracts the attention of the dweller on the other plane. When casting the spell, the cleric must name the demon, devil, demi-god, god, or similar being he or she desires to make use of the gate and come to the cleric's aid. There is a 100% certainty that something will step through the gate. The actions of the being which comes through will depend on many factors, including the alignment of the cleric, the nature of those in company with him or her, and who or what opposes or threatens the cleric. Your Dungeon Master will have a sure method of dealing with the variables of the situation. The being gated in will either return immediately (very unlikely) or remain to take action.
+
+Holy (Unholy) Word
+Conjuration/Summoning
+0
+7
+v
+0
+1 segment
+special
+none
+3" radius
+Player's Handbook
+Explanation/Description: The utterance of a holy (unholy) word has tremendous power. It drives off evil (good) creatures from other planes, forcing them to return to their own plane(s) of existence. It further affects other creatures of differing alignment as follows:<table>Affected creatures must be within the 6" diameter area of effect centering on the cleric casting the spell.
+
+Regenerate
+Necromantic
+1
+7
+vsm
+touch
+3 rounds
+permanent
+none
+creature touched
+Player's Handbook
+Explanation/Description: When a regenerate spell is cast, body members (fingers, toes, hands, feet, arms, legs, tails, or even the heads of multi-headed creatures), bones, or organs will grow back. The process of regeneration requires but 1 round if the member(s) severed is (are) present and touching the creature, 2-8 turns otherwise. The reverse, wither, causes the member or organ touched to shrivel and cease functioning in 1 round, dropping off into dust in 2-8 turns. As is usual, creatures must be touched in order to have harmful effect occur. The material components of this spell are a prayer device and holy/unholy water.
+
+Restoration
+Necromantic
+1
+7
+vs
+touch
+3 rounds
+permanent
+none
+creature touched
+Player's Handbook
+Explanation/Description: When this spell is cast, the life energy level of the recipient creature is raised upwards by one. This subsumes previous life energy level drain of the creature by some force or monster. Thus, if a 10th level character had been struck by a wight and drained to 9th level, the restoration spell would bring the character up to exactly the number of experience points necessary to restore him or her to 10th level once again, and restoring additional hit dice (or hit points) and level functions accordingly. Restoration is only effective if the spell is cast within 1 day/level of experience of the cleric casting it of the recipient's loss of life energy. The reverse, energy drain, draws away a life energy level (cf. such "undead" as spectre, wight, vampire). The energy drain requires the victim to be touched. A restoration spell will restore the intelligence of a creature affected by a Feeblemind spell (q.v.).
+
+Resurrection
+Necromantic
+1
+7
+vsm
+touch
+1 turn
+permanent
+none
+person touched
+Player's Handbook
+Explanation/Description: The cleric employing this spell is able to restore life and complete strength to the person he/she bestows the resurrection upon. The person can have been dead up to 10 years cumulative per level of the cleric casting the spell, i.e. a 19th level cleric can resurrect the bones of a person dead up to 190 years. See raise dead for limitations on what persons can be raised. The reverse, destruction, causes the victim of the spell to be instantly dead and turned to dust. Destruction requires a touch, either in combat or otherwise. The material components of the spell are the cleric's religious symbol and holy/unholy water. Employment of this spell makes it impossible for the cleric to cast further spells or engage in combat until he or she has had one day of bed rest for each level of experience of the person brought back to life or destroyed.
+
+Symbol
+Conjuration/Summoning
+0
+7
+vsm
+touch
+3 segments
+1 turn/Lv
+neg.
+special
+Player's Handbook
+Explanation/Description: The cleric casting this spell inscribes a symbol in the air or upon any surface, according to his or her wish. The symbol glows for 1 turn for each level of experience of the cleric casting it. The particular symbol used can be selected by the cleric at the time of casting, selection being limited to:<table>The material components of this spell are mercury and phosphorus. (cf. eighth level magic-user symbol spell.)
+
+Wind Walk
+Alteration
+0
+7
+vsm
+touch
+1 round
+6 turns/Lv
+none
+special
+Player's Handbook
+Explanation/Description: This spell enables the cleric, and possibly one or two other persons, to alter the substance of his or her body to cloud-like vapors. A magical wind then wafts the cleric along at o speed of up to 60" per turn, or as slow as 6" per turn, as the spell caster wills. The wind walk spell lasts as long as the cleric desires, up to a maximum duration of 6 turns (one hour) per level of experience of the caster. For every 8 levels of experience the cleric has attained, up to 24, he or she is able to touch another and carry that person, or those two persons, along with the wind walk. Persons wind 'walking are not invisible but appear misty and are transparent. If fully clothed in white they are 80% likely to be mistaken for clouds, fog, vapors, etc. The material components of this spell are fire and holy/unholy water.
