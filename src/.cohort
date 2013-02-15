@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var cohort = require("cohort");
+
+cohort(
+  "js/main.js"
+  ,[
+    "src/js/main.js"
+  ])();
