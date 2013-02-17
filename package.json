@@ -11,6 +11,7 @@
     "url": ""
   },
   "dependencies": {
-    "cohort": "0.9.6"
+    "cohort": "0.9.6",
+    "sherpa": "0.1.7"
   }
 }
