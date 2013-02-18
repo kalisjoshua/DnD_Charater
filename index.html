@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width" />
   <title>DnD Character Creator</title>
+  <link rel="stylesheet" type="text/css" href="css/app.css" />
 
 <body>
   <!--[if lt IE 7]>
@@ -15,39 +16,43 @@
   <![endif]-->
 
   <section id="builder">
-    <div class="row">
-      <label for="name">Name</label>
-      <input id="name" name="name" type="text" />
-    </div>
-    
-    <div class="row">
-      <label for="race">Race</label>
-      <select id="race" name="race">
-        <option value="">-- select one --</option>
-      </select>
-    </div>
-    
-    <div class="row">
-      <label for="alpha beta">Class</label>
-      <input id="strictDual" name="strictDual" type="checkbox" />
-      <label class="labels" for="strictDual">Strict dual-classing?</label>
-      <br />
-      <select id="alpha" name="alpha">
-        <option value="">-- select one --</option>
-      </select>
-      <select id="beta" name="beta">
-        <option value=""></option>
-      </select>
-    </div>
-    
-    <div class="row">
-      <label for="level">Level</label>
-      <input id="level" max="24" min="1" name="level" type="number" value="1" />
+    <div>
+      <div class="row">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" />
+      </div>
+      
+      <div class="row">
+        <label for="race">Race</label>
+        <select id="race" name="race">
+          <option value="">-- select one --</option>
+        </select>
+      </div>
+      
+      <div class="row">
+        <label for="alpha beta">Class</label>
+        <input id="strictDual" name="strictDual" type="checkbox" />
+        <label class="labels" for="strictDual">Strict dual-classing?</label>
+        <br />
+        <select id="alpha" name="alpha">
+          <option value="">-- select one --</option>
+        </select>
+        <select id="beta" name="beta">
+          <option value=""></option>
+        </select>
+      </div>
+      
+      <div class="row">
+        <label for="level">Level</label>
+        <input id="level" max="24" min="1" name="level" type="number" value="1" />
+      </div>
     </div>
 
-    <fieldset id="caste">
-      <legend>Caste</legend>
-    </fieldset>
+    <div>
+      <fieldset id="caste">
+        <legend>Caste</legend>
+      </fieldset>
+    </div>
   </section>
 
   <section id="detail">

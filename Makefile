@@ -2,7 +2,7 @@
 dev:
 	./src/.cohort
 
-all: clean npm submodules libs dev
+all: clean submodules npm libs dev
 
 clean:
 	rm -rf css js;\
