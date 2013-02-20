@@ -33,4 +33,7 @@ reset:
 submodules:
 	git submodule update --init --recursive
 
-.PHONY: all clean dev libs npm reset submodules
+watch:
+	./src/.sherpa
+
+.PHONY: all clean dev libs npm reset submodules watch
