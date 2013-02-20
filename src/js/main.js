@@ -18,6 +18,6 @@ define(["jquery"], function ($) {
   "use strict";
   
   $.fn.ready(function () {
-    $("body").css("background", "#BADA55");
+    // $("body").css("background", "#BADA55");
   });
 });

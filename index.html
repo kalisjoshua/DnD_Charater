@@ -11,39 +11,37 @@
   <link rel="stylesheet" type="text/css" href="css/app.css" />
 
 <body>
-  <!--[if lt IE 7]>
-  <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-  <![endif]-->
 
   <section id="builder">
     <div>
-      <div class="row">
-        <label for="name">Name</label>
+      <div class="form-entry">
+        <label class="field-label" for="name">Name</label>
         <input id="name" name="name" type="text" />
       </div>
       
-      <div class="row">
-        <label for="race">Race</label>
+      <div class="form-entry">
+        <label class="field-label" for="race">Race</label>
         <select id="race" name="race">
           <option value="">-- select one --</option>
         </select>
       </div>
       
-      <div class="row">
-        <label for="alpha beta">Class</label>
+      <div class="form-entry">
+        <label class="field-label" for="alpha beta">Class</label>
         <input id="strictDual" name="strictDual" type="checkbox" />
         <label class="labels" for="strictDual">Strict dual-classing?</label>
         <br />
         <select id="alpha" name="alpha">
           <option value="">-- select one --</option>
         </select>
+
         <select id="beta" name="beta">
           <option value=""></option>
         </select>
       </div>
       
-      <div class="row">
-        <label for="level">Level</label>
+      <div class="form-entry">
+        <label class="field-label" for="level">Level</label>
         <input id="level" max="24" min="1" name="level" type="number" value="1" />
       </div>
     </div>
@@ -58,8 +56,8 @@
   <section id="detail">
     <div class="column" id="abilities">
       {#each ability}
-      <div class="row">
-        <label for="{label}">{abbr}</label>
+      <div class="form-entry">
+        <label class="field-label" for="{label}">{abbr}</label>
         <input class="stat" id="{label}" name="{label}" />
         <span></span>
       </div>
@@ -68,8 +66,8 @@
     
     <div class="column" id="vitals">
       {#each vital}
-      <div class="row">
-        <label for="{label}">{label}</label>
+      <div class="form-entry">
+        <label class="field-label" for="{label}">{label}</label>
         <input disabled="true" id="{label}" name="{label}" />
       </div>
       {/each}
@@ -77,8 +75,8 @@
     
     <div class="column" id="saves">
       {#each save}
-      <div class="row">
-        <label for="{label}"><abbr title="{desc}">{label}</abbr></label>
+      <div class="form-entry">
+        <label class="field-label" for="{label}"><abbr title="{desc}">{label}</abbr></label>
         <input disabled="true" id="{label}" name="{label}" />
       </div>
       {/each}
@@ -87,11 +85,12 @@
     <div id="skills">
       {#each skill}
       <div>
-        <label for="{prop label}">{label}</label>
+        <label class="field-label" for="{prop label}">{label}</label>
         <input disabled="true" id="{prop label}" name="{prop label}" />
       </div>
       {/each}
     </div>
   </section>
+
 
   <script data-main="js/main.js" src="js/lib/require.js"></script>

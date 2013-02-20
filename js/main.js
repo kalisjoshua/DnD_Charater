@@ -1,1 +1,1 @@
-require.config({basePath:"js",paths:{handlebars:"lib/handlebars",jquery:["//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min","lib/jquery"]},shim:{handlebars:{exports:"handlebars"}}}),define(["jquery"],function(a){"use strict";a.fn.ready(function(){a("body").css("background","#BADA55")})});
+require.config({basePath:"js",paths:{handlebars:"lib/handlebars",jquery:["//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min","lib/jquery"]},shim:{handlebars:{exports:"handlebars"}}}),define(["jquery"],function(e){"use strict";e.fn.ready(function(){})});

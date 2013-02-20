@@ -1,0 +1,53 @@
+@import "compass/css3";
+
+@mixin inputs ($height: 0em) {
+  border: 1px solid #444444;
+  @include border-radius(5px);
+  height: 1.75em + $height;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0 .25em;
+}
+
+.form-entry {
+  $indent: 10em;
+  $rowPadding: .35em;
+  padding: $rowPadding 0 $rowPadding $indent;
+
+  input {
+    @include inputs();
+
+    &[type="checkbox"] {
+      margin: 0 0 .75em;
+
+      + label {
+        display: inline-block;
+        left: 0;
+        position: relative;
+        top: -.25em;
+      }
+    }
+  }
+
+  .field-label {
+    float: left;
+    left: 0;
+    margin-left: -$indent;
+    position: relative;
+    text-align: right;
+    top: .25em;
+    width: $indent - .35em;
+
+    &:after {
+      content: ":";
+    }
+  }
+
+  select {
+    @include inputs(.5em);
+
+    + select {
+      margin-top: 1em;
+    }
+  }
+}
