@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+/*jshint laxcomma:true strict:false*/
+/*globals require*/
+var sherpa = require("sherpa");
+
+var backpack = {
+      js    : function (filename) {
+        sherpa.exec(filename, "./src/.cohort");
+      }
+      ,scss : function (filename) {
+        sherpa.exec(filename, "compass compile");
+      }
+    };
+
+sherpa("src", 300, function (filename, curr, prev) {
+  if (+curr.mtime !== +prev.mtime) {
+    try {
+      backpack[/.*\.(.*)$/.exec(filename)[1]](filename);
+    } catch (e) {
+      sherpa.exec(filename + "\n But I don't know what to do with it. :-(");
+    }
+  }
+});
