@@ -1,40 +1,303 @@
-/*jshint*/
+/*jshint laxcomma:true*/
 /*global define*/
 
 define(["Collection", "Util"], function (Collection, Util) {
   "use strict";
 
-  function Role (config) {
-    if (!config.name
-    || !config.dual
-    || (!Util.isNumeric(config.HDT) || config.HDT < 4)
-    || config.prefs.length !== 7
-    || config.saves.length !== 23
-    || config.thaco.length !== 23) {
-      throw new Error({
-        args: arguments
-        ,fn: "Role constructor"
-      });
-    }
+  var allClasses
+      ,saves = {
+        Cleric: [
+          //ppd, pp,rsw, bw, sp
+           [ 19, 19, 19, 19, 19] //  0th level charcter
+          ,[ 10, 13, 14, 16, 15] //  1
+          ,[ 10, 13, 14, 16, 15] //  2
+          ,[ 10, 13, 14, 16, 15] //  3
+          ,[  9, 12, 13, 15, 14] //  4
+          ,[  9, 12, 13, 15, 14] //  5
+          ,[  9, 12, 13, 15, 14] //  6
+          ,[  7, 10, 11, 13, 12] //  7
+          ,[  7, 10, 11, 13, 12] //  8
+          ,[  7, 10, 11, 13, 12] //  9
+          ,[  6,  9, 10, 12, 11] // 10
+          ,[  6,  9, 10, 12, 11] // 11
+          ,[  6,  9, 10, 12, 11] // 12
+          ,[  5,  8,  9, 11, 10] // 13
+          ,[  5,  8,  9, 11, 10] // 14
+          ,[  5,  8,  9, 11, 10] // 15
+          ,[  4,  7,  8, 10,  9] // 16
+          ,[  4,  7,  8, 10,  9] // 17
+          ,[  4,  7,  8, 10,  9] // 18
+          ,[  2,  5,  6,  8,  7] // 19
+          ,[  2,  5,  6,  8,  7] // 20
+          ,[  2,  5,  6,  8,  7] // 21
+          ,[  1,  3,  4,  6,  5] // 22
+        ],
+    
+        Fighter: [
+          //ppd, pp,rsw, bw, sp
+           [ 16, 17, 18, 20, 19] //  0th level charcter
+          ,[ 14, 15, 16, 17, 17] //  1
+          ,[ 14, 15, 16, 17, 17] //  2
+          ,[ 13, 14, 15, 16, 16] //  3
+          ,[ 13, 14, 15, 16, 16] //  4
+          ,[ 11, 12, 13, 13, 14] //  5
+          ,[ 11, 12, 13, 13, 14] //  6
+          ,[ 10, 11, 12, 12, 13] //  7
+          ,[ 10, 11, 12, 12, 13] //  8
+          ,[  8,  9, 10,  9, 11] //  9
+          ,[  8,  9, 10,  9, 11] // 10
+          ,[  7,  8,  9,  8, 10] // 11
+          ,[  7,  8,  9,  8, 10] // 12
+          ,[  5,  6,  7,  5,  8] // 13
+          ,[  5,  6,  7,  5,  8] // 14
+          ,[  4,  5,  6,  4,  7] // 15
+          ,[  4,  5,  6,  4,  7] // 16
+          ,[  3,  4,  5,  4,  6] // 17
+          ,[  3,  4,  5,  4,  6] // 18
+          ,[  2,  3,  4,  3,  5] // 19
+          ,[  2,  3,  4,  3,  5] // 20
+          ,[  1,  2,  3,  3,  4] // 21
+          ,[  1,  2,  3,  3,  4] // 22
+        ],
+    
+        Mage: [
+          //ppd, pp,rsw, bw, sp
+           [ 19, 19, 19, 19, 19] //  0th level charcter
+          ,[ 14, 13, 11, 15, 12] //  1
+          ,[ 14, 13, 11, 15, 12] //  2
+          ,[ 14, 13, 11, 15, 12] //  3
+          ,[ 14, 13, 11, 15, 12] //  4
+          ,[ 14, 13, 11, 15, 12] //  5
+          ,[ 13, 11,  9, 13, 10] //  6
+          ,[ 13, 11,  9, 13, 10] //  7
+          ,[ 13, 11,  9, 13, 10] //  8
+          ,[ 13, 11,  9, 13, 10] //  9
+          ,[ 13, 11,  9, 13, 10] // 10
+          ,[ 11,  9,  7, 11,  8] // 11
+          ,[ 11,  9,  7, 11,  8] // 12
+          ,[ 11,  9,  7, 11,  8] // 13
+          ,[ 11,  9,  7, 11,  8] // 14
+          ,[ 11,  9,  7, 11,  8] // 15
+          ,[ 10,  7,  5,  9,  6] // 16
+          ,[ 10,  7,  5,  9,  6] // 17
+          ,[ 10,  7,  5,  9,  6] // 18
+          ,[ 10,  7,  5,  9,  6] // 19
+          ,[ 10,  7,  5,  9,  6] // 20
+          ,[  8,  5,  3,  7,  4] // 21
+          ,[  8,  5,  3,  7,  4] // 22
+        ],
+    
+        Thief: [
+          //ppd, pp,rsw, bw, sp
+           [ 19, 19, 19, 19, 19] //  0th level charcter
+          ,[ 13, 12, 14, 16, 15] //  1
+          ,[ 13, 12, 14, 16, 15] //  2
+          ,[ 13, 12, 14, 16, 15] //  3
+          ,[ 13, 12, 14, 16, 15] //  4
+          ,[ 12, 11, 12, 15, 13] //  5
+          ,[ 12, 11, 12, 15, 13] //  6
+          ,[ 12, 11, 12, 15, 13] //  7
+          ,[ 12, 11, 12, 15, 13] //  8
+          ,[ 11, 10, 10, 14, 11] //  9
+          ,[ 11, 10, 10, 14, 11] // 10
+          ,[ 11, 10, 10, 14, 11] // 11
+          ,[ 11, 10, 10, 14, 11] // 12
+          ,[ 10,  9,  8, 13,  9] // 13
+          ,[ 10,  9,  8, 13,  9] // 14
+          ,[ 10,  9,  8, 13,  9] // 15
+          ,[ 10,  9,  8, 13,  9] // 16
+          ,[  9,  8,  6, 12,  7] // 17
+          ,[  9,  8,  6, 12,  7] // 18
+          ,[  9,  8,  6, 12,  7] // 19
+          ,[  9,  8,  6, 12,  7] // 20
+          ,[  8,  7,  4, 11,  5] // 21
+          ,[  8,  7,  4, 11,  5] // 22
+        ]
+      }
 
-    for (var attr in config) {
-      this[attr] = config[attr];
-    }
-  }
+      ,thacos = {
+       // level     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24th level character
+        Cleric  : [20,20,20,18,18,18,16,16,16,14,14,14,12,12,12,10,10,10, 9, 9, 8, 8, 7, 6, 5]
+       ,Fighter : [20,20,18,18,16,16,14,14,12,12,10,10, 8, 8, 6, 6, 4, 4, 4, 2, 2, 1, 1, 1, 1]
+       ,Mage    : [20,20,20,20,20,19,19,19,19,19,16,16,16,16,16,13,13,13,13,13,11,11, 9, 8, 7]
+       ,Thief   : [20,20,20,20,19,19,19,19,16,16,16,16,14,14,14,14,12,12,12,12,10,10, 8, 7, 6]
+      }
 
-  Role.prototype = {
-    getType: function () {
+      ,thieving = {
+        // -------------- level   1   2   3   4   5   6   7   8   9  10    11    12    13    14    15    16    17
+         "Pick Pockets"      : [ 30, 35, 40, 45, 50, 55, 60, 65, 70, 80,   90,  100,  105,  110,  115,  125,  125]
+        ,"Open Locks"        : [ 25, 29, 33, 37, 42, 47, 52, 57, 62, 67,   72,   77,   82,   87,   92,   97,   99]
+        ,"Find/Remove Traps" : [ 20, 25, 30, 35, 40, 45, 50, 55, 60, 65,   70,   75,   80,   85,   90,   95,   99]
+        ,"Move Silently"     : [ 15, 21, 27, 33, 40, 47, 55, 62, 70, 78,   86,   94,   99,   99,   99,   99,   99]
+        ,"Hide In Shadows"   : [ 10, 15, 20, 25, 31, 37, 43, 49, 56, 63,   70,   77,   85,   93,   99,   99,   99]
+        ,"Hear Noise"        : [ 10, 10, 15, 15, 20, 20, 25, 25, 30, 30,   35,   35,   40,   40,   50,   50,   55]
+        ,"Climb Walls"       : [ 85, 86, 87, 88, 90, 92, 94, 96, 98, 99, 99.1, 99.2, 99.3, 99.4, 99.5, 99.6, 99.7]
+        ,"Read Languages"    : [  0,  0,  0, 20, 25, 30, 35, 40, 45, 50,   55,   60,   65,   70,   75,   80,   80]
+      }
 
-      return "[object Class]";
-    }
+      ,acrobating = { // page 24 UA
+        "Tightrope Walking": [0,0,0,0,0,0
+          ,75  //  6
+          ,80  //  7
+          ,85  //  8
+          ,90  //  9
+          ,95  // 10
+          ,100 // 11
+          ,100 // 12
+          ,100 // 13
+          ,100 // 14
+          ,100 // 15
+          ,100 // 16
+          ,100 // 17
+          ,100 // 18
+          ,100 // 19
+          ,100 // 20
+          ,100 // 21
+          ,100 // 22
+          ,100 // 23
+        ]
+        ,"Pole Vaulting": [0,0,0,0,0,0
+          , 9   //  6
+          , 9.5 //  7
+          ,10   //  8
+          ,10.5 //  9
+          ,11   // 10
+          ,11.5 // 11
+          ,12   // 12
+          ,12.5 // 13
+          ,13   // 14
+          ,13.5 // 15
+          ,14   // 16
+          ,14.5 // 17
+          ,15   // 18
+          ,15.5 // 19
+          ,16   // 20
+          ,16.5 // 21
+          ,17   // 22
+          ,17.5 // 23
+        ]
+        ,"High Jumping": [0,0,0,0,0,0
+          ,4    //  6
+          ,4.25 //  7
+          ,4.50 //  8
+          ,4.75 //  9
+          ,5    // 10
+          ,5.25 // 11
+          ,5.50 // 12
+          ,5.75 // 13
+          ,6.25 // 14
+          ,6.50 // 15
+          ,7    // 16
+          ,7.50 // 17
+          ,8    // 18
+          ,8.50 // 19
+          ,9    // 20
+          ,9    // 21
+          ,9    // 22
+          ,9    // 23
+        ]
+        ,"Standing Long Jump": [0,0,0,0,0,0
+          , 5   //  6
+          , 5.5 //  7
+          , 6   //  8
+          , 6.5 //  9
+          , 7   // 10
+          , 7.5 // 11
+          , 8   // 12
+          , 8.5 // 13
+          , 9   // 14
+          , 9.5 // 15
+          ,10   // 16
+          ,10.5 // 17
+          ,11   // 18
+          ,11.5 // 19
+          ,12   // 20
+          ,12   // 21
+          ,12   // 22
+          ,12   // 23
+        ]
+        ,"Running Long Jump": [0,0,0,0,0,0
+          , 9   //  6
+          , 9.5 //  7
+          ,10   //  8
+          ,10.5 //  9
+          ,11   // 10
+          ,11.5 // 11
+          ,12   // 12
+          ,13   // 13
+          ,14   // 14
+          ,15   // 15
+          ,16   // 16
+          ,17   // 17
+          ,18   // 18
+          ,19   // 19
+          ,20   // 20
+          ,21   // 21
+          ,22   // 22
+          ,22   // 23
+        ]
+        ,"Tumbling Maneuvers: Attack"  : [0,0,0,0,0,0
+          , 6 //  6
+          , 7 //  7
+          , 8 //  8
+          , 9 //  9
+          ,10 // 10
+          ,11 // 11
+          ,12 // 12
+          ,13 // 13
+          ,14 // 14
+          ,15 // 15
+          ,16 // 16
+          ,17 // 17
+          ,18 // 18
+          ,19 // 19
+          ,20 // 20
+          ,20 // 21
+          ,20 // 22
+          ,20 // 23
+        ]
+        ,"Tumbling Maneuvers: Evasion" : [  0,  0,  0,  0,  0,  0
+          ,10 //  6
+          ,15 //  7
+          ,20 //  8
+          ,25 //  9
+          ,30 // 10
+          ,35 // 11
+          ,40 // 12
+          ,45 // 13
+          ,50 // 14
+          ,52 // 15
+          ,54 // 16
+          ,56 // 17
+          ,58 // 18
+          ,60 // 19
+          ,60 // 20
+          ,60 // 21
+          ,60 // 22
+          ,60 // 23
+        ]
+        ,"Tumbling Maneuvers: Falling" : [  0,  0,  0,  0,  0,  0
+          ,"25%,10'" //  6
+          ,"50%,10'" //  7
+          ,"75%,10'" //  8
+          ,"25%,20'" //  9
+          ,"50%,20'" // 10
+          ,"75%,20'" // 11
+          ,"25%,30'" // 12
+          ,"50%,30'" // 13
+          ,"75%,30'" // 14
+          ,"20%,40'" // 15
+          ,"40%,40'" // 16
+          ,"60%,40'" // 17
+          ,"80%,40'" // 18
+          ,"20%,50'" // 19
+          ,"40%,50'" // 20
+          ,"60%,50'" // 21
+          ,"80%,50'" // 22
+          ,"20%,60'" // 23
+        ]
+      }
 
-    ,toString: function () {
-
-      return this.name;
-    }
-  };
-
-  var listOfClasses
       ,classConfigs = [
         {
           name: "Acrobat"
@@ -80,7 +343,8 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [5,0,1,4,3,6,2]
           ,saves: saves.Fighter
           ,spells: [
-          //  1 2 3 4 5 6 7  Spell level
+            //TODO: fill out these values...?
+            //1 2 3 4 5 6 7  Spell level
              [0,0,0,0,0,0,0]  //  0th level character
             ,[0,0,0,0,0,0,0]  //  1
             ,[0,0,0,0,0,0,0]  //  2
@@ -111,7 +375,6 @@ define(["Collection", "Util"], function (Collection, Util) {
             ,[0,0,0,0,0,0,0]  // 27
             ,[0,0,0,0,0,0,0]  // 28
             ,[0,0,0,0,0,0,0]  // 29
-            // TODO: fill out these values...?
           ]
           ,thaco: thacos.Fighter
         }
@@ -137,7 +400,7 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [2,4,0,3,1,5,6]
           ,saves: saves.Cleric
           ,spells: [
-          //  1 2 3 4 5 6 7  Spell level
+            //1 2 3 4 5 6 7  Spell level
              [0,0,0,0,0,0,0]  //  0th level character
             ,[1,0,0,0,0,0,0]  //  1
             ,[2,0,0,0,0,0,0]  //  2
@@ -184,7 +447,7 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [2,5,3,4,1,0,6]
           ,saves: saves.Cleric
           ,spells: [
-          //  1 2 3 4 5 6 7  Spell level
+            //1 2 3 4 5 6 7  Spell level
              [0,0,0,0,0,0,0]  //  0th level character
             ,[2,0,0,0,0,0,0]  //  1
             ,[2,1,0,0,0,0,0]  //  2
@@ -246,7 +509,7 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [1,3,6,5,4,2,0]
           ,saves: saves.Mage
           ,spells: [
-          //  1 2 3 4 5 6 7  Spell level
+            //1 2 3 4 5 6 7  Spell level
              [0,0,0,0,0,0,0]  //  0th level character
             ,[1,0,0,0,0,0,0]  //  1
             ,[2,0,0,0,0,0,0]  //  2
@@ -293,7 +556,7 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [1,3,5,2,4,6,0]
           ,saves: saves.Mage
           ,spells: [
-          //  1 2 3 4 5 6 7 8 9  Spell level
+            //1 2 3 4 5 6 7 8 9  Spell level
              [0,0,0,0,0,0,0,0,0]  //  0th level character
             ,[1,0,0,0,0,0,0,0,0]  //  1
             ,[2,0,0,0,0,0,0,0,0]  //  2
@@ -344,7 +607,7 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [0,4,3,5,1,6,2]
           ,saves: saves.Fighter
           ,spells: [
-          //  1 2 3 4  Spell level
+            //1 2 3 4  Spell level
              [0,0,0,0]  //  0th level character
             ,[0,0,0,0]  //  1
             ,[0,0,0,0]  //  2
@@ -386,7 +649,7 @@ define(["Collection", "Util"], function (Collection, Util) {
           ,prefs: [0,4,3,2,5,6,1]
           ,saves: saves.Fighter
           ,spells: [
-          //  1 2 3 4 5  Spell level
+            //1 2 3 4 5  Spell level
              [0,0,0,0,0]  //  0th level character
             ,[0,0,0,0,0]  //  1
             ,[0,0,0,0,0]  //  2
@@ -438,16 +701,116 @@ define(["Collection", "Util"], function (Collection, Util) {
         }
       ];
 
-  listOfClasses = new Collection()
+  function Role (config) {
+    if (!config.name
+    || !config.dual
+    || (!Util.isNumeric(config.HDT) || config.HDT < 4)
+    || config.prefs.length !== 7
+    || config.saves.length !== 23
+    || config.thaco.length !== 23) {
+      throw new Error({
+        args: arguments
+        ,fn: "Role constructor"
+      });
+    }
+
+    for (var attr in config) {
+      this[attr] = config[attr];
+    }
+  }
+
+  Role.prototype = {
+    getType: function () {
+
+      return "[object Class]";
+    }
+
+    ,toString: function () {
+
+      return this.name;
+    }
+  };
+
+  allClasses = new Collection()
     .add(classConfigs
       .map(function (config) {
         return new Role(config);
       }));
 
-  listOfClasses.duals = function () {
-    return new Collection().add(listOfClasses.filter(function (item) {
+  allClasses.duals = function () {
+    return new Collection().add(allClasses.filter(function (item) {
       return item.dual.length > 0;
     }));
-  }.bind(listOfClasses);
+  }.bind(allClasses);
 
+  allClasses.merge = function (_a, _b) {
+    if ((_b === undefined || _b === "") && !!allClasses.named(_a)) {
+      return allClasses.named(_a);
+    }
+
+    if (_a === _b || _a === undefined || !allClasses.named(_a) || !allClasses.named(_b)) {
+      throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
+    }
+
+    _a = allClasses.named(_a);
+    _b = allClasses.named(_b);
+
+    return new Role({
+       name: _a.name + "/" + _b.name
+
+      ,dual: []
+
+      ,HDT: (_a.HDT + _b.HDT) / 2
+
+      ,prefs: (function (a, b) {
+        var  i = 0
+            ,l = a.length
+            ,result = [];
+
+        for ( ; i < l; i++) {
+          result.indexOf(a[i]) === -1 && result.push(a[i]);
+          result.indexOf(b[i]) === -1 && result.push(b[i]);
+        }
+
+        return result;
+      }(_a.prefs, _b.prefs))
+
+      ,saves: (function (a, b) {
+        var level = [],
+            result = [];
+
+        while (result.length < a.length) {
+          level = [];
+
+          while (level.length < a[0].length) {
+            level.push(a[result.length][level.length] < b[result.length][level.length] ? a[result.length][level.length] : b[result.length][level.length]);
+          }
+
+          result.push(level);
+        }
+
+        return result;
+      }(_a.saves, _b.saves))
+
+      ,spells: (function (a, b) {
+        if (a || b) {
+          return [a, b];
+        }
+      }(_a.spells, _b.spells))
+
+      ,thaco: (function (a, b) {
+        var indx = 0,
+            result = [];
+
+        while (indx < a.length) {
+          result.push(a[indx] < b[indx] ? a[indx] : b[indx]);
+          indx++;
+        }
+
+        return result;
+      }(_a.thaco, _b.thaco))
+    });
+  };
+
+  return allClasses;
 });
