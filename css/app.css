@@ -6151,11 +6151,25 @@ table.hide-for-medium {
     margin: 0;
   }
 }
-/* line 12, ../src/sass/forms.scss */
+/* line 14, ../src/sass/app/_layout.sass */
+#detail {
+  display: none;
+}
+
+/* line 2, ../src/sass/app/_forms_default.sass */
+fieldset {
+  margin: 0;
+}
+/* line 5, ../src/sass/app/_forms_default.sass */
+fieldset legend {
+  background: transparent;
+}
+
+/* line 13, ../src/sass/app/_forms.sass */
 .form-entry {
   padding: 0.35em 0 0.35em 10em;
 }
-/* line 17, ../src/sass/forms.scss */
+/* line 18, ../src/sass/app/_forms.sass */
 .form-entry input {
   border: 1px solid #444444;
   -webkit-border-radius: 5px;
@@ -6168,32 +6182,32 @@ table.hide-for-medium {
   margin: 0;
   padding: 0 0.25em;
 }
-/* line 20, ../src/sass/forms.scss */
+/* line 21, ../src/sass/app/_forms.sass */
 .form-entry input[type="checkbox"] {
   margin: 0 0 0.75em;
 }
-/* line 23, ../src/sass/forms.scss */
+/* line 24, ../src/sass/app/_forms.sass */
 .form-entry input[type="checkbox"] + label {
   display: inline-block;
   left: 0;
   position: relative;
-  top: -.25em;
+  top: -0.25em;
 }
-/* line 32, ../src/sass/forms.scss */
+/* line 30, ../src/sass/app/_forms.sass */
 .form-entry .field-label {
   float: left;
   left: 0;
   margin-left: -10em;
   position: relative;
   text-align: right;
-  top: .25em;
+  top: 0.25em;
   width: 9.65em;
 }
-/* line 41, ../src/sass/forms.scss */
+/* line 39, ../src/sass/app/_forms.sass */
 .form-entry .field-label:after {
   content: ":";
 }
-/* line 46, ../src/sass/forms.scss */
+/* line 42, ../src/sass/app/_forms.sass */
 .form-entry select {
   border: 1px solid #444444;
   -webkit-border-radius: 5px;
@@ -6206,12 +6220,12 @@ table.hide-for-medium {
   margin: 0;
   padding: 0 0.25em;
 }
-/* line 49, ../src/sass/forms.scss */
+/* line 45, ../src/sass/app/_forms.sass */
 .form-entry select + select {
   margin-top: 1em;
 }
 
-/* line 72, ../src/sass/app.scss */
-#detail {
-  display: none;
+/* line 2, ../src/sass/app/_builder.sass */
+#builder {
+  padding: 2em 0;
 }

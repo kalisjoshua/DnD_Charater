@@ -14,11 +14,37 @@ require.config({
   }
 });
 
-define(["jquery"], function ($) {
+// UI setup
+require([
+  "jquery"
+  ,"Castes"
+  ,"Classes"
+  ,"Races"
+  ], function ($, Castes, Classes, Races) {
   "use strict";
+
+  function radioItem (prefix, item, indx) {
+    return '<label for="{pre}-{name}"><input id="{pre}-{name}" name="{pre}" type="radio" value="{i}"> {name}</label>'
+      .replace(/\{i\}/g, indx)
+      .replace(/\{pre\}/g, prefix)
+      .replace(/\{name\}/g, item.name);
+  }
+
+  function selectOption (item, indx) {
+    return '<option value="{i}">{name}</option>'
+      .replace(/\{i\}/g, indx)
+      .replace(/\{name\}/g, item.name);
+  }
   
   $.fn.ready(function () {
-    // $("body").css("background", "#BADA55");
+    $("#caste")
+      .append(Castes.map(radioItem.bind(null, "caste")));
+
+    $("#race")
+      .append(Races.map(selectOption));
+
+    $("#class-alpha")
+      .append(Classes.map(selectOption));
   });
 });
 

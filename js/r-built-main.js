@@ -1,8 +1,193 @@
+
+/*jshint*/
+/*global define*/
+
+define('Util',[], function () {
+  
+
+  var Util = {
+       clone: function(obj){
+          var i, result = Util.isArray(obj) ? [] : {};
+          
+          for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+              result[i] = Util.isObject(obj[i]) ? Util.clone(obj[i]) : obj[i];
+            }
+          }
+          
+          return result;
+        }
+
+        ,isNumeric: function (q) {
+
+          return !isNaN(parseFloat(q)) && isFinite(q);
+        }
+
+        ,isType: function (type, obj) {
+            
+          return (obj && obj.getType ? obj.getType() : {}.toString.call(obj)).indexOf(type);
+        }
+      };
+
+  Util.isArray  = Util.isType.bind(null, "Array");
+  Util.isObject = Util.isType.bind(null, "Object");
+  Util.isString = Util.isType.bind(null, "String");
+
+  return Util;
+});
+/*jshint*/
+/*global define*/
+
+define('Collection',["Util"], function (Util) {
+  
+
+  function Collection (ar) {
+    if (!!ar && Util.isArray(ar) && ar.length > 0) {
+      Collection.fn.add.call(this, ar);
+    }
+  }
+
+  Collection.fn = Collection.prototype = [];
+
+  Collection.fn.add = function (ar) {
+      if (Util.isArray(ar)) {
+          this.push.apply(this, ar);
+      }
+
+      return this;
+  };
+
+  Collection.fn.each = function (fn) {
+      this.forEach(function (node, indx, orig) {
+          fn(node, indx, orig);
+      });
+
+      return this;
+  };
+
+  Collection.fn.getNames = function () {
+
+      return this.map(function (node) {
+          return node.name;
+      });
+  };
+
+  Collection.fn.named = function (key) {
+
+      return this.filter(function (node) {
+          return node.name === key;
+      })[0];
+  };
+
+  Collection.fn.numericSort = function (descending) {
+      var result = this.sort(function (a, b) { return a - b; });
+
+      return descending ? result.reverse() : result;
+  };
+
+  Collection.fn.toString = function () {
+      
+      return "[object Collection]";
+  };
+
+  return Collection;
+});
 /*jshint laxcomma:true*/
 /*global define*/
 
-define(["Collection", "Util"], function (Collection, Util) {
-  "use strict";
+define('Castes',["Collection", "roll"], function (Collection, roll) {
+  
+
+  var allCastes = new Collection();
+
+  function numericSort (a, b) {
+    return a - b;
+  }
+
+  function sum (acc, cur) {
+    return acc + cur;
+  }
+
+  function Caste (config) {
+    if (!config.name) {
+      throw new Error({
+        args: arguments
+        ,fn: "Caste constructor"
+      });
+    }
+      
+    for (var attr in config) {
+      this[attr] = config[attr];
+    }
+  }
+
+  Caste.prototype = {
+    column: function (num) {
+      var indx = 0
+          ,result = [];
+
+      num |= 1;
+
+      while (num > indx) {
+        result[indx] = [];
+
+        while (result[indx].length < 7) {
+          result[indx].push(this.roll());
+        }
+
+        result[indx] = result[indx].sort(numericSort).reverse();
+
+        indx++;
+      }
+
+      return num === 1 ? result[0] : result;
+    }
+
+    ,getType: function () {
+        
+      return "[object Caste]";
+    }
+
+    ,roll: function () {
+      var result;
+
+      do {
+        result = roll(this.dice, 6)
+          .sort()
+          .slice(-3)
+          .reduce(sum);
+      } while (result < this.min);
+
+      return result;
+    }
+
+    ,toString: function () {
+
+      return this.name;
+    }
+
+    ,valueOf: function () {
+
+      return "{name: '" + this.name + "'}";
+    }
+  };
+
+  allCastes
+    .add([
+       new Caste({name: "Champion", dice: 6, min: 7})
+      ,new Caste({name: "Hero"    , dice: 4, min: 4})
+      ,new Caste({name: "npc"     , dice: 3, min: 4})
+      ,new Caste({name: "Player"  , dice: 3, min: 7})
+      ,new Caste({name: "Pleb"    , dice: 3, min: 3})
+    ]);
+
+  return allCastes;
+});
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('Classes',["Collection", "Util"], function (Collection, Util) {
+  
 
   var allClasses
       ,saves = {
@@ -826,3 +1011,224 @@ define(["Collection", "Util"], function (Collection, Util) {
 
   return allClasses;
 });
+/*jshint laxcomma:true bitwise:false*/
+/*global define*/
+
+define('Races',["Collection", "Util"], function (Collection, Util) {
+  
+
+  var languages = [
+        "burrowing mammal"
+        ,"dwarven"
+        ,"elvish"
+        ,"gnoll"
+        ,"gnome"
+        ,"goblin"
+        ,"halfling"
+        ,"hobgoblin"
+        ,"kobold"
+        ,"orcish"
+        ,"common"
+      ]
+    , racesConfigs =  [
+        {
+          name          : "Dwarf"
+          ,infravision  : 60
+          ,languages    : [4, 5, 8, 9]
+          ,move         : 6
+          ,notes        : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+          ,saves        : [1, 0, 1, 0, 1]
+          ,stats        : [0, 0, 0, 0, 1, -1, 0]
+          ,thieving     : [0, 10, 15, 0, 0, 0, -10, -5]
+        }
+
+        ,{
+          name          : "Elf"
+          ,infravision  : 60
+          ,languages    : [3, 4, 5, 6, 7, 9]
+          ,move         : 12
+          ,notes        : ""
+          ,saves        : [0, 0, 0, 0, 0]
+          ,stats        : [0, 0, 0, 1, -1, 0, 0]
+          ,thieving     : [5, -5, 0, 5, 10, 5, 0, 0]
+        }
+
+        ,{
+          name          : "Gnome"
+          ,infravision  : 60
+          ,languages    : [0, 1, 6, 5, 8]
+          ,move         : 6
+          ,notes        : "+1 on saves(rsw, sp) for each 3 1/2 of con"
+          ,saves        : [0, 0, 1, 0, 1]
+          ,stats        : [-1, 0, 0, 1, 0, 0, 0]
+          ,thieving     : [0, 5, 10, 5, 5, 10, 15, 0]
+        }
+
+        ,{
+          name          : "Goblin"
+          ,infravision  : 30
+          ,languages    : [1, 3, 7, 8]
+          ,move         : 8
+          ,notes        : ""
+          ,saves        : [0, 0, 0, 0, 0]
+          ,stats        : [-1, 1, 0, 1, 0, -1, 0]
+          ,thieving     : [ 0, 15, 10, 0, 0, 15, 0, 15]
+        }
+
+        ,{
+          name          : "Half-Elf"
+          ,infravision  : 60
+          ,languages    : [3, 4, 5, 6, 7, 9]
+          ,move         : 12
+          ,notes        : ""
+          ,saves        : [0, 0, 0, 0, 0]
+          ,stats        : [0, 0, 0, 0, 0, 0, 0]
+          ,thieving     : [10, 0, 0, 5, 0, 0, 0, 0]
+        }
+
+        ,{
+          name          : "Half-Orc"
+          ,infravision  : 60
+          ,languages    : [9]
+          ,move         : 12
+          ,notes        : ""
+          ,saves        : [0, 0, 0, 0, 0]
+          ,stats        : [1, 0, 0, 0, 1, -1, 0]
+          ,thieving     : [ -5, 5, 5, 0, 0, 5, 5, -10]
+        }
+
+        ,{
+          name          : "Halfling"
+          ,infravision  : 30
+          ,languages    : [1, 2, 4, 5, 9]
+          ,move         : 6
+          ,notes        : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+          ,saves        : [1, 0, 1, 0, 1]
+          ,stats        : [-1, 0, 0, 1, 0, 0, 0]
+          ,thieving     : [ 5, 5, 5, 10, 15, 5, -15, -5]
+        }
+
+        ,{
+          name          : "Human"
+          ,infravision  : 0
+          ,languages    : [10]
+          ,move         : 12
+          ,notes        : ""
+          ,saves        : [0, 0, 0, 0, 0]
+          ,stats        : [0, 0, 0, 0, 0, 0, 0]
+          ,thieving     : [0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ];
+
+  function pickLanguages (languages, ar) {
+
+    return [languages[~~ar.shift()]]
+      .concat(!ar.length ? [] : pickLanguages(languages, ar));
+  }
+
+  function Race (config) {
+    if (!config.name
+    || !Util.isNumeric(config.infravision)
+    || !config.languages.length
+    || config.saves.length !== 5
+    || config.stats.length !== 7
+    || config.thieving.length !== 8
+    || !Util.isNumeric(config.move)) {
+      throw new Error({
+        args: arguments
+        ,fn: "Race constructor"
+      });
+    }
+
+    for (var attr in config) {
+      this[attr] = config[attr];
+    }
+  }
+
+  Race.prototype = {
+    getType: function () {
+        
+      return "[object Race]";
+    }
+
+    ,toString: function () {
+
+      return "Race";
+    }
+  };
+
+  return new Collection(racesConfigs
+    .map(function (config) {
+      return new Race(config);
+    }));
+});
+/*jshint laxcomma:true*/
+/*global require define*/
+
+require.config({
+  basePath: "js"
+  ,paths: {
+    handlebars: "lib/handlebars"
+    ,jquery: ["//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min", "lib/jquery"]
+  }
+  ,shim: {
+    handlebars: {
+      exports: "handlebars"
+    }
+  }
+});
+
+// UI setup
+require([
+  "jquery"
+  ,"Castes"
+  ,"Classes"
+  ,"Races"
+  ], function ($, Castes, Classes, Races) {
+  
+
+  function radioItem (prefix, item, indx) {
+    return '<label for="{pre}-{name}"><input id="{pre}-{name}" name="{pre}" type="radio" value="{i}"> {name}</label>'
+      .replace(/\{i\}/g, indx)
+      .replace(/\{pre\}/g, prefix)
+      .replace(/\{name\}/g, item.name);
+  }
+
+  function selectOption (item, indx) {
+    return '<option value="{i}">{name}</option>'
+      .replace(/\{i\}/g, indx)
+      .replace(/\{name\}/g, item.name);
+  }
+  
+  $.fn.ready(function () {
+    $("#caste")
+      .append(Castes.map(radioItem.bind(null, "caste")));
+
+    $("#race")
+      .append(Races.map(selectOption));
+
+    $("#class-alpha")
+      .append(Classes.map(selectOption));
+  });
+});
+
+define("roll", [], function () {
+  
+  
+  return function (num, faces, sum) {
+    var result = [];
+
+    if (!faces) {
+      faces = num;
+      num = 1;
+    }
+
+    while (num > result.length) {
+      result.push(parseInt(Math.random() * faces, 10) + 1);
+    }
+
+    return num === 1 ? result[0] : (sum ? result.reduce(function (a, b) { return a + b; }) : result);
+  };
+});
+
+define("js/main", function(){});

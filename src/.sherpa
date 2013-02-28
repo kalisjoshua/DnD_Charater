@@ -7,6 +7,9 @@ var backpack = {
       js    : function (filename) {
         sherpa.exec(filename, "./src/.cohort");
       }
+      ,sass : function (filename) {
+        sherpa.exec(filename, "compass compile");
+      }
       ,scss : function (filename) {
         sherpa.exec(filename, "compass compile");
       }

@@ -4,7 +4,11 @@
 define(["Util"], function (Util) {
   "use strict";
 
-  function Collection () {}
+  function Collection (ar) {
+    if (!!ar && Util.isArray(ar) && ar.length > 0) {
+      Collection.fn.add.call(this, ar);
+    }
+  }
 
   Collection.fn = Collection.prototype = [];
 

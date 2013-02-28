@@ -1,4 +1,4 @@
-/*jshint laxcomma:true*/
+/*jshint laxcomma:true bitwise:false*/
 /*global define*/
 
 define(["Collection", "Util"], function (Collection, Util) {
@@ -17,7 +17,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         ,"orcish"
         ,"common"
       ]
-      ,racesConfigs =  [
+    , racesConfigs =  [
         {
           name          : "Dwarf"
           ,infravision  : 60
@@ -107,19 +107,30 @@ define(["Collection", "Util"], function (Collection, Util) {
         }
       ];
 
-  function getLanguages (languages, ar) {
+  function pickLanguages (languages, ar) {
 
-    var result = [];
-
-    ar.forEach(function (n) {
-      result.push(languages[n]);
-    });
-
-    return result;
+    return [languages[~~ar.shift()]]
+      .concat(!ar.length ? [] : pickLanguages(languages, ar));
   }
 
-  function Race (config) {}
-  
+  function Race (config) {
+    if (!config.name
+    || !Util.isNumeric(config.infravision)
+    || !config.languages.length
+    || config.saves.length !== 5
+    || config.stats.length !== 7
+    || config.thieving.length !== 8
+    || !Util.isNumeric(config.move)) {
+      throw new Error({
+        args: arguments
+        ,fn: "Race constructor"
+      });
+    }
+
+    for (var attr in config) {
+      this[attr] = config[attr];
+    }
+  }
 
   Race.prototype = {
     getType: function () {
@@ -132,4 +143,9 @@ define(["Collection", "Util"], function (Collection, Util) {
       return "Race";
     }
   };
+
+  return new Collection(racesConfigs
+    .map(function (config) {
+      return new Race(config);
+    }));
 });

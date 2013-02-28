@@ -51,24 +51,6 @@
 // Media Queries Overrides
 // @import "foundation/components/modules/mqueries";
 
-@import "forms";
-
-section {
-  @extend .row;
-
-  > div {
-    @extend .columns;
-  }
-
-  > div:first-child {
-    @extend .eight;
-  }
-
-  > div:last-child {
-    @extend .four;
-  }
-}
-
-#detail {
-  display: none;
-}
+@import "app/layout";
+@import "app/forms";
+@import "app/builder";
