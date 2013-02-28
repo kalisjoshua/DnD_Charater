@@ -32,6 +32,39 @@ require([
     , ui_elements   = "#caste, #class-alpha, #class-beta, #level, #race, #strictDual"
     ;
 
+  function attemptPlayerCreation (event) {
+  }
+
+  function dualClassHandler (event) {
+    var class_alphaValue      = $class_alpha.find("option:selected").val()
+      , alpha_className       = $class_alpha.find("option:selected").text()
+      , isClassAlphaDualable  = !$dual.is(":checked") || $dual.is(":checked") && Classes[+class_alphaValue].dual.length
+      , isClassAlphaSelected  = class_alphaValue !== ""
+      , isClassBetaEmpty      = $("#class-beta option").length === 1
+      , isStrictDualEvent     = event.target === $dual[0]
+      , isRepaintNeeded       = isClassBetaEmpty || isStrictDualEvent
+
+      , list;
+    // !BUG: when a beta is selected and strictDual is unchecked, selection is lost
+
+    // add list of character classes to the beta dropdown
+    if (isClassAlphaSelected && isClassAlphaDualable && isRepaintNeeded) {
+      list = ($dual.is(":checked") ? Classes.duals() : Classes)
+        .filter(function (item) {
+          return item.name !== alpha_className;
+        });
+
+      $class_beta
+        .empty()
+        .append($class_alpha.children().first().clone())
+        .append(list.map(selectOption));
+    } else {
+      $class_beta
+        .empty()
+        .append("<option></option>");
+    }
+  }
+
   function radioItem (prefix, item, indx) {
     return '<label for="{pre}-{name}"><input id="{pre}-{name}" name="{pre}" type="radio" value="{i}"> {name}</label>'
       .replace(/\{i\}/g, indx)
@@ -45,27 +78,27 @@ require([
       .replace(/\{name\}/g, item.name);
   }
 
+  function statColumn (event) {
+    if (!/label/i.test(event.target.nodeName)) {
+      var column = Castes[event.target.value].column()//.join("\n")
+        , target = $(event.target);
+
+      target
+        .parentsUntil("fieldset")
+        .parent()
+        .find("span")
+        .remove();
+
+      target
+        .parent()
+        .append($("<span>").text(column));
+    }
+  }
+
   $(document)
-    .on("click", "#caste label", function () {
-      var target;
-
-      if (!/label/i.test(event.target.nodeName)) {
-        target = $(event.target);
-
-        target
-          .parentsUntil("fieldset")
-          .parent()
-          .find("span")
-          .remove();
-
-        target
-          .parent()
-          .append("<span>" + Castes[event.target.value].column() + "</span>");
-      }
-    })
-    .on("change", ui_elements, function (event) {
-      // watch for valid player config to draw the results
-    });
+    .on("click", "#caste label", statColumn)
+    .on("change", "#class-alpha, #class-alpha, #strictDual", dualClassHandler)
+    .on("change", ui_elements, attemptPlayerCreation);
   
   $.fn.ready(function () {
     $caste

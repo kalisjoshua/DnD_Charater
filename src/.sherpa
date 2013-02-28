@@ -5,7 +5,7 @@ var sherpa = require("sherpa");
 
 var backpack = {
       js    : function (filename) {
-        sherpa.exec(filename, "./src/.cohort");
+        sherpa.exec(filename, "make r");
       }
       ,sass : function (filename) {
         sherpa.exec(filename, "compass compile");
