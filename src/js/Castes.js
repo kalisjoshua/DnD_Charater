@@ -30,8 +30,9 @@ define(["Collection", "roll"], function (Collection, roll) {
   Caste.prototype = {
     column: function (num) {
       var indx = 0
-          ,result = [];
+        , result = [];
 
+      // FIXME: I do not think this is what I think it is and should probably be removed.
       num |= 1;
 
       while (num > indx) {

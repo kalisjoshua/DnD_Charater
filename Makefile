@@ -27,7 +27,7 @@ npm:
 	npm install
 
 r:
-	node node_modules/.bin/r.js -o src/build.js
+	node node_modules/.bin/r.js -o src/rjs_build
 
 reset:
 	rm -rf css js git_modules node_modules

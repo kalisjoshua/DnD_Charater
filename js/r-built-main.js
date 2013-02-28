@@ -124,8 +124,9 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
   Caste.prototype = {
     column: function (num) {
       var indx = 0
-          ,result = [];
+        , result = [];
 
+      // FIXME: I do not think this is what I think it is and should probably be removed.
       num |= 1;
 
       while (num > indx) {
@@ -1187,6 +1188,15 @@ require([
   ], function ($, Castes, Classes, Races) {
   
 
+  var $caste        = $("#caste")
+    , $class_alpha  = $("#class-alpha")
+    , $class_beta   = $("#class-beta")
+    , $dual         = $("#strictDual")
+    , $level        = $("#level")
+    , $race         = $("#race")
+    , ui_elements   = "#caste, #class-alpha, #class-beta, #level, #race, #strictDual"
+    ;
+
   function radioItem (prefix, item, indx) {
     return '<label for="{pre}-{name}"><input id="{pre}-{name}" name="{pre}" type="radio" value="{i}"> {name}</label>'
       .replace(/\{i\}/g, indx)
@@ -1199,16 +1209,38 @@ require([
       .replace(/\{i\}/g, indx)
       .replace(/\{name\}/g, item.name);
   }
+
+  $(document)
+    .on("click", "#caste label", function () {
+      var target;
+
+      if (!/label/i.test(event.target.nodeName)) {
+        target = $(event.target);
+
+        target
+          .parentsUntil("fieldset")
+          .parent()
+          .find("span")
+          .remove();
+
+        target
+          .parent()
+          .append("<span>" + Castes[event.target.value].column() + "</span>");
+      }
+    })
+    .on("change", ui_elements, function (event) {
+      // watch for valid player config to draw the results
+    });
   
   $.fn.ready(function () {
-    $("#caste")
+    $caste
       .append(Castes.map(radioItem.bind(null, "caste")));
 
-    $("#race")
-      .append(Races.map(selectOption));
-
-    $("#class-alpha")
+    $class_alpha
       .append(Classes.map(selectOption));
+
+    $race
+      .append(Races.map(selectOption));
   });
 });
 
