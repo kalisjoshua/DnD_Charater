@@ -22,17 +22,12 @@
       <div class="form-entry">
         <label class="field-label" for="race">Race</label>
         <select id="race" name="race">
-          <option value="">-- select one --</option>
         </select>
       </div>
       
       <div class="form-entry">
         <label class="field-label" for="class_alpha class_beta">Class</label>
-        <input id="strictDual" name="strictDual" type="checkbox" />
-        <label class="labels" for="strictDual">Strict dual-classing?</label>
-        <br />
         <select id="class_alpha" name="class_alpha">
-          <option value>-- select one --</option>
         </select>
 
         <select id="class_beta" name="class_beta">
@@ -43,9 +38,26 @@
         <label class="field-label" for="level">Level</label>
         <input id="level" max="24" min="1" name="level" type="number" value="1" />
       </div>
+      
+      <div class="form-entry hide">
+        <label class="field-label" for="stats_column">Stats</label>
+        <input disabled="true" id="stats_column" name="stats_column" type="text" />
+      </div>
     </div>
 
     <div>
+      <fieldset id="option">
+        <legend>Options</legend>
+
+        <label class="labels" for="strictDual">
+          <input id="strictDual" name="strictDual" type="checkbox" />
+          Strict dual-classing?</label>
+
+        <label class="labels" for="strictRace">
+          <input id="strictRace" name="strictRace" type="checkbox" />
+          Strict Race restrictions?</label>
+      </fieldset>
+
       <fieldset id="caste">
         <legend>Caste</legend>
       </fieldset>

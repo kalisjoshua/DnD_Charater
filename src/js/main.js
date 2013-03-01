@@ -30,10 +30,12 @@ require([
     , $level        = $("#level")
     , $race         = $("#race")
     , ui_elements   = "#caste, #class_alpha, #class_beta, #level, #race, #strictDual"
-    , firstoption   = $("<option>-- select one --</option>")
-    ;
+    , firstoption   = $("<option>-- select one --</option>");
 
   function attemptPlayerCreation (event) {
+    if ($class_alpha.val() && $race.val()) {
+      console.log("ready to build player");
+    } else {}
   }
 
   function dualClassHandler (event) {
@@ -56,7 +58,7 @@ require([
         })
         .map(selectOption);
 
-      list.unshift(firstoption);
+      list.unshift(firstoption.clone());
 
       $class_beta.append(list);
 
@@ -108,9 +110,11 @@ require([
       .append(Castes.map(radioItem.bind(null, "caste")));
 
     $class_alpha
+      .append(firstoption.clone())
       .append(Classes.map(selectOption));
 
     $race
+      .append(firstoption.clone())
       .append(Races.map(selectOption));
   });
 });
