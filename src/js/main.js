@@ -24,12 +24,13 @@ require([
   "use strict";
 
   var $caste        = $("#caste")
-    , $class_alpha  = $("#class-alpha")
-    , $class_beta   = $("#class-beta")
+    , $class_alpha  = $("#class_alpha")
+    , $class_beta   = $("#class_beta")
     , $dual         = $("#strictDual")
     , $level        = $("#level")
     , $race         = $("#race")
-    , ui_elements   = "#caste, #class-alpha, #class-beta, #level, #race, #strictDual"
+    , ui_elements   = "#caste, #class_alpha, #class_beta, #level, #race, #strictDual"
+    , firstoption   = $("<option>-- select one --</option>")
     ;
 
   function attemptPlayerCreation (event) {
@@ -37,31 +38,34 @@ require([
 
   function dualClassHandler (event) {
     var class_alphaValue      = $class_alpha.find("option:selected").val()
-      , alpha_className       = $class_alpha.find("option:selected").text()
-      , isClassAlphaDualable  = !$dual.is(":checked") || $dual.is(":checked") && Classes[+class_alphaValue].dual.length
-      , isClassAlphaSelected  = class_alphaValue !== ""
-      , isClassBetaEmpty      = $("#class-beta option").length === 1
-      , isStrictDualEvent     = event.target === $dual[0]
-      , isRepaintNeeded       = isClassBetaEmpty || isStrictDualEvent
+      , class_betaValue       = $class_beta.find("option:selected").val()
+      , isStrictDualSelected  = $dual.is(":checked")
+      , isClassAlphaDualable  = !isStrictDualSelected ||
+                                !!class_alphaValue && !!Classes.named(class_alphaValue).dual.length
 
       , list;
-    // !BUG: when a beta is selected and strictDual is unchecked, selection is lost
+
+    $class_beta.empty();
 
     // add list of character classes to the beta dropdown
-    if (isClassAlphaSelected && isClassAlphaDualable && isRepaintNeeded) {
-      list = ($dual.is(":checked") ? Classes.duals() : Classes)
+    if (class_alphaValue !== "" && isClassAlphaDualable) {
+      list = (isStrictDualSelected ? Classes.duals() : Classes)
+        // filter out the selected alpha from the list of possible betas
         .filter(function (item) {
-          return item.name !== alpha_className;
-        });
+          return item.name !== class_alphaValue;
+        })
+        .map(selectOption);
 
-      $class_beta
-        .empty()
-        .append($class_alpha.children().first().clone())
-        .append(list.map(selectOption));
+      list.unshift(firstoption);
+
+      $class_beta.append(list);
+
+      // ensure against dual classing the same two classes
+      if (class_alphaValue !== class_betaValue) {
+        $class_beta.val(class_betaValue);
+      }
     } else {
-      $class_beta
-        .empty()
-        .append("<option></option>");
+      $class_beta.append("<option></option>");
     }
   }
 
@@ -72,9 +76,8 @@ require([
       .replace(/\{name\}/g, item.name);
   }
 
-  function selectOption (item, indx) {
-    return '<option value="{i}">{name}</option>'
-      .replace(/\{i\}/g, indx)
+  function selectOption (item) {
+    return '<option>{name}</option>'
       .replace(/\{name\}/g, item.name);
   }
 
@@ -97,9 +100,9 @@ require([
 
   $(document)
     .on("click", "#caste label", statColumn)
-    .on("change", "#class-alpha, #class-alpha, #strictDual", dualClassHandler)
+    .on("change", "#class_alpha, #class_beta, #strictDual", dualClassHandler)
     .on("change", ui_elements, attemptPlayerCreation);
-  
+
   $.fn.ready(function () {
     $caste
       .append(Castes.map(radioItem.bind(null, "caste")));
@@ -114,7 +117,7 @@ require([
 
 define("roll", [], function () {
   "use strict";
-  
+
   return function (num, faces, sum) {
     var result = [];
 
