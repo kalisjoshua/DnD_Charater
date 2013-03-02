@@ -5,35 +5,34 @@
 define('Util',[], function () {
   
 
-  var Util = {
-       clone: function(obj){
-          var i, result = Util.isArray(obj) ? [] : {};
-          
-          for (i in obj) {
-            if (obj.hasOwnProperty(i)) {
-              result[i] = Util.isObject(obj[i]) ? Util.clone(obj[i]) : obj[i];
-            }
-          }
-          
-          return result;
-        }
+  function clone (obj) {
+    var i
+      , result = isType.call(null, "Array", obj) ? [] : {};
+    
+    for (i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        result[i] = isType.call(null, "Object", obj[i]) ? clone(obj[i]) : obj[i];
+      }
+    }
+    
+    return result;
+  }
 
-        ,isNumeric: function (q) {
+  function isNumeric (q) {
+    return !isNaN(parseFloat(q)) && isFinite(q);
+  }
 
-          return !isNaN(parseFloat(q)) && isFinite(q);
-        }
+  function isType (type, obj) {
+    return (obj && obj.getType ? obj.getType() : {}.toString.call(obj)).indexOf(type);
+  }
 
-        ,isType: function (type, obj) {
-            
-          return (obj && obj.getType ? obj.getType() : {}.toString.call(obj)).indexOf(type);
-        }
-      };
-
-  Util.isArray  = Util.isType.bind(null, "Array");
-  Util.isObject = Util.isType.bind(null, "Object");
-  Util.isString = Util.isType.bind(null, "String");
-
-  return Util;
+  return {
+        clone     : clone.bind(null)
+      , isArray   : isType.bind(null, "Array")
+      , isNumeric : isNumeric.bind(null)
+      , isObject  : isType.bind(null, "Object")
+      , isString  : isType.bind(null, "String")
+    };
 });
 /*jshint*/
 /*global define*/
@@ -193,7 +192,8 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
   var allClasses
 
     , saves = {
-      Cleric: [
+      // from DnD 1E DMG
+        Cleric: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
         , [10, 13, 14, 16, 15] //  1
@@ -218,9 +218,9 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , [ 2,  5,  6,  8,  7] // 20
         , [ 2,  5,  6,  8,  7] // 21
         , [ 1,  3,  4,  6,  5] // 22
-      ],
+      ]
   
-      Fighter: [
+      , Fighter: [
         //ppd, pp,rsw, bw, sp
           [16, 17, 18, 20, 19] //  0th level charcter
         , [14, 15, 16, 17, 17] //  1
@@ -245,9 +245,9 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , [ 2,  3,  4,  3,  5] // 20
         , [ 1,  2,  3,  3,  4] // 21
         , [ 1,  2,  3,  3,  4] // 22
-      ],
+      ]
   
-      Mage: [
+      , Mage: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
         , [14, 13, 11, 15, 12] //  1
@@ -272,9 +272,9 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , [10,  7,  5,  9,  6] // 20
         , [ 8,  5,  3,  7,  4] // 21
         , [ 8,  5,  3,  7,  4] // 22
-      ],
+      ]
   
-      Thief: [
+      , Thief: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
         , [13, 12, 14, 16, 15] //  1
@@ -364,7 +364,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Thief
       }
 
-      ,{
+      , {
           name    : "Archer"
         , dual    : []
         , HDT     : 8
@@ -373,7 +373,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Assassin"
         , dual    : []
         , HDT     : 6
@@ -382,7 +382,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Thief
       }
 
-      ,{
+      , {
           name    : "Barbarian"
         , dual    : []
         , HDT     : 12
@@ -391,7 +391,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Bard"
         , dual    : []
         , HDT     : 12
@@ -434,7 +434,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Cavalier"
         , dual    : []
         , HDT     : 10
@@ -443,7 +443,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Cleric"
         , dual    : [
             "Fighter"
@@ -490,9 +490,9 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Druid"
-        ,dual     : [
+        , dual    : [
             "Fighter"
           , "Illusionist"
           , "Mage"
@@ -537,9 +537,9 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Fighter"
-        ,dual     : [
+        , dual    : [
             "Cleric"
           , "Druid"
           , "Illusionist"
@@ -552,7 +552,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Illusionist"
         , dual    : [
             "Cleric"
@@ -599,7 +599,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Mage
       }
 
-      ,{
+      , {
           name    : "Mage"
         , dual    : [
             "Cleric"
@@ -646,7 +646,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Mage
       }
 
-      ,{
+      , {
           name    : "Monk"
         , dual    : []
         , HDT     : 4
@@ -655,7 +655,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Paladin"
         , dual    : []
         , HDT     : 10
@@ -697,7 +697,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Ranger"
         , dual    : []
         , HDT     : 10
@@ -739,7 +739,7 @@ define('Classes',["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Thief"
         , dual    : [
             "Cleric"
@@ -888,105 +888,106 @@ define('Races',["Collection", "Util"], function (Collection, Util) {
   
 
   var languages = [
-        "burrowing mammal"
-        ,"dwarven"
-        ,"elvish"
-        ,"gnoll"
-        ,"gnome"
-        ,"goblin"
-        ,"halfling"
-        ,"hobgoblin"
-        ,"kobold"
-        ,"orcish"
-        ,"common"
+          "burrowing mammal"
+        , "dwarven"
+        , "elvish"
+        , "gnoll"
+        , "gnome"
+        , "goblin"
+        , "halfling"
+        , "hobgoblin"
+        , "kobold"
+        , "orcish"
+        , "common"
       ]
+
     , racesConfigs =  [
         {
-          name          : "Dwarf"
-          ,infravision  : 60
-          ,languages    : [4, 5, 8, 9]
-          ,move         : 6
-          ,notes        : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
-          ,saves        : [1, 0, 1, 0, 1]
-          ,stats        : [0, 0, 0, 0, 1, -1, 0]
-          ,thieving     : [0, 10, 15, 0, 0, 0, -10, -5]
+            name        : "Dwarf"
+          , infravision : 60
+          , languages   : [4, 5, 8, 9]
+          , move        : 6
+          , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+          , saves       : [1, 0, 1, 0, 1]
+          , stats       : [0, 0, 0, 0, 1, -1, 0]
+          , thieving    : [0, 10, 15, 0, 0, 0, -10, -5]
         }
 
-        ,{
-          name          : "Elf"
-          ,infravision  : 60
-          ,languages    : [3, 4, 5, 6, 7, 9]
-          ,move         : 12
-          ,notes        : ""
-          ,saves        : [0, 0, 0, 0, 0]
-          ,stats        : [0, 0, 0, 1, -1, 0, 0]
-          ,thieving     : [5, -5, 0, 5, 10, 5, 0, 0]
+        , {
+            name        : "Elf"
+          , infravision : 60
+          , languages   : [3, 4, 5, 6, 7, 9]
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [0, 0, 0, 1, -1, 0, 0]
+          , thieving    : [5, -5, 0, 5, 10, 5, 0, 0]
         }
 
-        ,{
-          name          : "Gnome"
-          ,infravision  : 60
-          ,languages    : [0, 1, 6, 5, 8]
-          ,move         : 6
-          ,notes        : "+1 on saves(rsw, sp) for each 3 1/2 of con"
-          ,saves        : [0, 0, 1, 0, 1]
-          ,stats        : [-1, 0, 0, 1, 0, 0, 0]
-          ,thieving     : [0, 5, 10, 5, 5, 10, 15, 0]
+        , {
+            name        : "Gnome"
+          , infravision : 60
+          , languages   : [0, 1, 6, 5, 8]
+          , move        : 6
+          , notes       : "+1 on saves(rsw, sp) for each 3 1/2 of con"
+          , saves       : [0, 0, 1, 0, 1]
+          , stats       : [-1, 0, 0, 1, 0, 0, 0]
+          , thieving    : [0, 5, 10, 5, 5, 10, 15, 0]
         }
 
-        ,{
-          name          : "Goblin"
-          ,infravision  : 30
-          ,languages    : [1, 3, 7, 8]
-          ,move         : 8
-          ,notes        : ""
-          ,saves        : [0, 0, 0, 0, 0]
-          ,stats        : [-1, 1, 0, 1, 0, -1, 0]
-          ,thieving     : [ 0, 15, 10, 0, 0, 15, 0, 15]
+        , {
+            name        : "Goblin"
+          , infravision : 30
+          , languages   : [1, 3, 7, 8]
+          , move        : 8
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [-1, 1, 0, 1, 0, -1, 0]
+          , thieving    : [ 0, 15, 10, 0, 0, 15, 0, 15]
         }
 
-        ,{
-          name          : "Half-Elf"
-          ,infravision  : 60
-          ,languages    : [3, 4, 5, 6, 7, 9]
-          ,move         : 12
-          ,notes        : ""
-          ,saves        : [0, 0, 0, 0, 0]
-          ,stats        : [0, 0, 0, 0, 0, 0, 0]
-          ,thieving     : [10, 0, 0, 5, 0, 0, 0, 0]
+        , {
+            name        : "Half-Elf"
+          , infravision : 60
+          , languages   : [3, 4, 5, 6, 7, 9]
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [0, 0, 0, 0, 0, 0, 0]
+          , thieving    : [10, 0, 0, 5, 0, 0, 0, 0]
         }
 
-        ,{
-          name          : "Half-Orc"
-          ,infravision  : 60
-          ,languages    : [9]
-          ,move         : 12
-          ,notes        : ""
-          ,saves        : [0, 0, 0, 0, 0]
-          ,stats        : [1, 0, 0, 0, 1, -1, 0]
-          ,thieving     : [ -5, 5, 5, 0, 0, 5, 5, -10]
+        , {
+            name        : "Half-Orc"
+          , infravision : 60
+          , languages   : [9]
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [1, 0, 0, 0, 1, -1, 0]
+          , thieving    : [ -5, 5, 5, 0, 0, 5, 5, -10]
         }
 
-        ,{
-          name          : "Halfling"
-          ,infravision  : 30
-          ,languages    : [1, 2, 4, 5, 9]
-          ,move         : 6
-          ,notes        : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
-          ,saves        : [1, 0, 1, 0, 1]
-          ,stats        : [-1, 0, 0, 1, 0, 0, 0]
-          ,thieving     : [ 5, 5, 5, 10, 15, 5, -15, -5]
+        , {
+            name        : "Halfling"
+          , infravision : 30
+          , languages   : [1, 2, 4, 5, 9]
+          , move        : 6
+          , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+          , saves       : [1, 0, 1, 0, 1]
+          , stats       : [-1, 0, 0, 1, 0, 0, 0]
+          , thieving    : [ 5, 5, 5, 10, 15, 5, -15, -5]
         }
 
-        ,{
-          name          : "Human"
-          ,infravision  : 0
-          ,languages    : [10]
-          ,move         : 12
-          ,notes        : ""
-          ,saves        : [0, 0, 0, 0, 0]
-          ,stats        : [0, 0, 0, 0, 0, 0, 0]
-          ,thieving     : [0, 0, 0, 0, 0, 0, 0, 0]
+        , {
+            name        : "Human"
+          , infravision : 0
+          , languages   : [10]
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [0, 0, 0, 0, 0, 0, 0]
+          , thieving    : [0, 0, 0, 0, 0, 0, 0, 0]
         }
       ];
 
@@ -997,21 +998,36 @@ define('Races',["Collection", "Util"], function (Collection, Util) {
   }
 
   function Race (config) {
-    if (!config.name
-    || !Util.isNumeric(config.infravision)
-    || !config.languages.length
-    || config.saves.length !== 5
-    || config.stats.length !== 7
-    || config.thieving.length !== 8
-    || !Util.isNumeric(config.move)) {
-      throw new Error({
-        args: arguments
-        ,fn: "Race constructor"
-      });
+    if (!config.name) {
+      throw new Error("No '.name' property given in config passed into Race constructor.");
+    }
+
+    if (!Util.isNumeric(config.infravision)) {
+      throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
+    }
+
+    if (!config.languages.length) {
+      throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
+    }
+
+    if (config.saves.length !== 5) {
+      throw new Error("Invalid '.saves' property given in config passed into Race constructor (" + config.saves + ").");
+    }
+
+    if (config.stats.length !== 7) {
+      throw new Error("Invalid '.stats' property given in config passed into Race constructor (" + config.stats + ").");
+    }
+
+    if (config.thieving.length !== 8) {
+      throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
+    }
+
+    if (!Util.isNumeric(config.move)) {
+      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
     }
 
     for (var attr in config) {
-      this[attr] = config[attr];
+      this[attr] = attr === "languages" ? pickLanguages(languages, config[attr]) : config[attr];
     }
   }
 
@@ -1162,6 +1178,16 @@ require(["jquery", "Castes", "Classes", "Races"
     .on("change", ui_elements, attemptPlayerCreation)
     .on("ready", initUI);
 });
+
+require(["jquery"
+  ], function ($) {
+    
+
+    var _abilities    = "#abilities"
+      , _saves        = "#saves"
+      , _skills       = "#skills"
+      , _vitals       = "#vitals";
+  });
 
 define("roll", [], function () {
   
