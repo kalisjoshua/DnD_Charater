@@ -4,33 +4,32 @@
 define([], function () {
   "use strict";
 
-  var Util = {
-       clone: function(obj){
-          var i, result = Util.isArray(obj) ? [] : {};
-          
-          for (i in obj) {
-            if (obj.hasOwnProperty(i)) {
-              result[i] = Util.isObject(obj[i]) ? Util.clone(obj[i]) : obj[i];
-            }
-          }
-          
-          return result;
-        }
+  function clone (obj) {
+    var i
+      , result = isType.call(null, "Array", obj) ? [] : {};
+    
+    for (i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        result[i] = isType.call(null, "Object", obj[i]) ? clone(obj[i]) : obj[i];
+      }
+    }
+    
+    return result;
+  }
 
-        ,isNumeric: function (q) {
+  function isNumeric (q) {
+    return !isNaN(parseFloat(q)) && isFinite(q);
+  }
 
-          return !isNaN(parseFloat(q)) && isFinite(q);
-        }
+  function isType (type, obj) {
+    return (obj && obj.getType ? obj.getType() : {}.toString.call(obj)).indexOf(type);
+  }
 
-        ,isType: function (type, obj) {
-            
-          return (obj && obj.getType ? obj.getType() : {}.toString.call(obj)).indexOf(type);
-        }
-      };
-
-  Util.isArray  = Util.isType.bind(null, "Array");
-  Util.isObject = Util.isType.bind(null, "Object");
-  Util.isString = Util.isType.bind(null, "String");
-
-  return Util;
+  return {
+        clone     : clone.bind(null)
+      , isArray   : isType.bind(null, "Array")
+      , isNumeric : isNumeric.bind(null)
+      , isObject  : isType.bind(null, "Object")
+      , isString  : isType.bind(null, "String")
+    };
 });
