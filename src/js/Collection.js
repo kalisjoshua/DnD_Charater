@@ -13,44 +13,44 @@ define(["Util"], function (Util) {
   Collection.fn = Collection.prototype = [];
 
   Collection.fn.add = function (ar) {
-      if (Util.isArray(ar)) {
-          this.push.apply(this, ar);
-      }
+    if (Util.isArray(ar)) {
+      this.push.apply(this, ar);
+    }
 
-      return this;
+    return this;
   };
 
   Collection.fn.each = function (fn) {
-      this.forEach(function (node, indx, orig) {
-          fn(node, indx, orig);
-      });
+    this.forEach(function (node, indx, orig) {
+      fn(node, indx, orig);
+    });
 
-      return this;
+    return this;
   };
 
   Collection.fn.getNames = function () {
 
-      return this.map(function (node) {
-          return node.name;
-      });
+    return this.map(function (node) {
+      return node.name;
+    });
   };
 
   Collection.fn.named = function (key) {
 
-      return this.filter(function (node) {
-          return node.name === key;
-      })[0];
+    return this.filter(function (node) {
+      return node.name === key;
+    })[0];
   };
 
   Collection.fn.numericSort = function (descending) {
-      var result = this.sort(function (a, b) { return a - b; });
+    var result = this.sort(function (a, b) { return a - b; });
 
-      return descending ? result.reverse() : result;
+    return descending ? result.reverse() : result;
   };
 
   Collection.fn.toString = function () {
       
-      return "[object Collection]";
+    return "[object Collection]";
   };
 
   return Collection;

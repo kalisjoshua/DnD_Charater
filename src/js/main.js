@@ -14,23 +14,37 @@ require.config({
   }
 });
 
-// UI setup
-require([
-  "jquery"
-  ,"Castes"
-  ,"Classes"
-  ,"Races"
-  ], function ($, Castes, Classes, Races) {
+// builder UI setup
+require(["jquery", "Castes", "Classes", "Races"
+  ], function  ($,  Castes,   Classes,   Races) {
   "use strict";
 
-  var $caste        = $("#caste")
-    , $class_alpha  = $("#class_alpha")
-    , $class_beta   = $("#class_beta")
-    , $dual         = $("#strictDual")
-    , $level        = $("#level")
-    , $race         = $("#race")
-    , ui_elements   = "#caste, #class_alpha, #class_beta, #level, #race, #strictDual"
-    , firstoption   = $("<option>-- select one --</option>");
+  var empty_option  = $("<option value>-- select one --</option>")
+        .wrap("div")  // so that .clone() isn't
+        .parent()     // needed each time a new
+        .html()       // instance is apended
+
+    // DOM selectors
+    , _caste        = "#caste"
+    , _class_alpha  = "#class_alpha"
+    , _class_beta   = "#class_beta"
+    , _strict_dual  = "#strict_dual"
+    , _level        = "#level"
+    , _race         = "#race"
+    , _stats_column = "#stats_column"
+
+    // selector groups
+    , dual_elements = [_class_alpha, _class_beta, _strict_dual].join()
+    , ui_elements   = [_caste, _class_alpha, _class_beta, _strict_dual, _level, _race, _stats_column].join()
+
+    // jQuery DOM object references
+    , $caste        = $(_caste)
+    , $class_alpha  = $(_class_alpha)
+    , $class_beta   = $(_class_beta)
+    , $strict_dual  = $(_strict_dual)
+    , $level        = $(_level)
+    , $race         = $(_race)
+    , $stats_column = $(_stats_column);
 
   function attemptPlayerCreation (event) {
     if ($class_alpha.val() && $race.val()) {
@@ -41,9 +55,10 @@ require([
   function dualClassHandler (event) {
     var class_alphaValue      = $class_alpha.find("option:selected").val()
       , class_betaValue       = $class_beta.find("option:selected").val()
-      , isStrictDualSelected  = $dual.is(":checked")
+      , isStrictDualSelected  = $strict_dual.is(":checked")
       , isClassAlphaDualable  = !isStrictDualSelected ||
-                                !!class_alphaValue && !!Classes.named(class_alphaValue).dual.length
+                                !!class_alphaValue &&
+                                !!Classes.named(class_alphaValue).dual.length
 
       , list;
 
@@ -58,7 +73,7 @@ require([
         })
         .map(selectOption);
 
-      list.unshift(firstoption.clone());
+      list.unshift(empty_option);
 
       $class_beta.append(list);
 
@@ -69,6 +84,19 @@ require([
     } else {
       $class_beta.append("<option></option>");
     }
+  }
+
+  function initUI () {
+    $caste
+      .append(Castes.map(radioItem.bind(null, "caste")));
+
+    $class_alpha
+      .append(empty_option)
+      .append(Classes.map(selectOption));
+
+    $race
+      .append(empty_option)
+      .append(Races.map(selectOption));
   }
 
   function radioItem (prefix, item, indx) {
@@ -85,38 +113,20 @@ require([
 
   function statColumn (event) {
     if (!/label/i.test(event.target.nodeName)) {
-      var column = Castes[event.target.value].column()//.join("\n")
-        , target = $(event.target);
+      var column = Castes[event.target.value].column();
 
-      target
-        .parentsUntil("fieldset")
+      $stats_column
+        .val(column)
         .parent()
-        .find("span")
-        .remove();
-
-      target
-        .parent()
-        .append($("<span>").text(column));
+        .show();
     }
   }
 
   $(document)
-    .on("click", "#caste label", statColumn)
-    .on("change", "#class_alpha, #class_beta, #strictDual", dualClassHandler)
-    .on("change", ui_elements, attemptPlayerCreation);
-
-  $.fn.ready(function () {
-    $caste
-      .append(Castes.map(radioItem.bind(null, "caste")));
-
-    $class_alpha
-      .append(firstoption.clone())
-      .append(Classes.map(selectOption));
-
-    $race
-      .append(firstoption.clone())
-      .append(Races.map(selectOption));
-  });
+    .on("click", _caste + " label", statColumn)
+    .on("change", dual_elements, dualClassHandler)
+    .on("change", ui_elements, attemptPlayerCreation)
+    .on("ready", initUI);
 });
 
 define("roll", [], function () {
