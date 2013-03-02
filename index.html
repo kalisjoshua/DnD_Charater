@@ -65,43 +65,35 @@
   </section>
 
   <section id="detail">
-    <div class="column" id="abilities">
-      {#each ability}
+    <div id="abilities">
       <div class="form-entry">
         <label class="field-label" for="{label}">{abbr}</label>
         <input class="stat" id="{label}" name="{label}" />
         <span></span>
       </div>
-      {/each}
     </div>
     
-    <div class="column" id="vitals">
-      {#each vital}
+    <div id="vitals">
       <div class="form-entry">
         <label class="field-label" for="{label}">{label}</label>
         <input disabled="true" id="{label}" name="{label}" />
       </div>
-      {/each}
     </div>
     
-    <div class="column" id="saves">
-      {#each save}
+    <div id="saves">
       <div class="form-entry">
         <label class="field-label" for="{label}"><abbr title="{desc}">{label}</abbr></label>
         <input disabled="true" id="{label}" name="{label}" />
       </div>
-      {/each}
     </div>
     
     <div id="skills">
-      {#each skill}
       <div>
         <label class="field-label" for="{prop label}">{label}</label>
         <input disabled="true" id="{prop label}" name="{prop label}" />
       </div>
-      {/each}
     </div>
   </section>
 
 
-  <script data-main="js/r-built-main.js" src="js/lib/require.js"></script>
+  <script data-main="js/main.js" src="js/lib/require.js"></script>

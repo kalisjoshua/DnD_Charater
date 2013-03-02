@@ -1,7 +1,7 @@
 /*jshint laxcomma:true bitwise:false*/
 /*global define*/
 
-define(["Collection", "Util"], function (Collection, Util) {
+define(["Collection", "util"], function (Collection, util) {
   "use strict";
 
   var languages = [
@@ -119,7 +119,7 @@ define(["Collection", "Util"], function (Collection, Util) {
       throw new Error("No '.name' property given in config passed into Race constructor.");
     }
 
-    if (!Util.isNumeric(config.infravision)) {
+    if (!util.isNumeric(config.infravision)) {
       throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
     }
 
@@ -139,7 +139,7 @@ define(["Collection", "Util"], function (Collection, Util) {
       throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
     }
 
-    if (!Util.isNumeric(config.move)) {
+    if (!util.isNumeric(config.move)) {
       throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
     }
 

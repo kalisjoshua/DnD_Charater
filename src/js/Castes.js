@@ -59,7 +59,7 @@ define(["Collection", "roll"], function (Collection, roll) {
       var result;
 
       do {
-        result = roll(this.dice, 6)
+        result = roll(this.dice + "d" + 6)
           .sort()
           .slice(-3)
           .reduce(sum);

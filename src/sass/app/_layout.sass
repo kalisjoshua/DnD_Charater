@@ -5,6 +5,7 @@ section
   > div
     @extend .columns
 
+#builder
   > div:first-child
     @extend .eight
 
@@ -13,3 +14,11 @@ section
 
 #detail
   display: none
+
+  > div:first-child,
+  > div:last-child
+    @extend .eight
+
+  > div:nth-child(2),
+  > div:nth-child(3)
+    @extend .two

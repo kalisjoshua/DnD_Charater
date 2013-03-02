@@ -1,15 +1,10 @@
 ({
-  baseUrl: ".",
-  name: "js/main",
+  baseUrl: "js/",
+  name: "main",
   optimize: "none",
-  out: "../js/r-built-main.js",
+  out: "../js/main.js",
   paths: {
-    Castes: "js/Castes",
-    Classes: "js/Classes",
-    Races: "js/Races",
-    Collection: "js/Collection",
-    Util: "js/Util",
-    handlebars: "empty:",
-    jquery: "empty:"
+    handlebars  : "empty:",
+    jquery      : "empty:"
   }
 })

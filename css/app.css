@@ -945,7 +945,8 @@ form.custom .custom.disabled {
 }
 
 /* line 23, ../../../../.rvm/gems/ruby-1.9.3-p194/gems/zurb-foundation-3.2.5/scss/foundation/components/_grid.scss */
-.two, .row .two, section .two {
+.two, .row .two, section .two, #detail > div:nth-child(2),
+#detail > div:nth-child(3) {
   width: 16.66667%;
 }
 
@@ -955,7 +956,7 @@ form.custom .custom.disabled {
 }
 
 /* line 23, ../../../../.rvm/gems/ruby-1.9.3-p194/gems/zurb-foundation-3.2.5/scss/foundation/components/_grid.scss */
-.four, .row .four, section .four, section > div:last-child {
+.four, .row .four, section .four, #builder > div:last-child {
   width: 33.33333%;
 }
 
@@ -975,7 +976,8 @@ form.custom .custom.disabled {
 }
 
 /* line 23, ../../../../.rvm/gems/ruby-1.9.3-p194/gems/zurb-foundation-3.2.5/scss/foundation/components/_grid.scss */
-.eight, .row .eight, section .eight, section > div:first-child {
+.eight, .row .eight, section .eight, #builder > div:first-child, #detail > div:first-child,
+#detail > div:last-child {
   width: 66.66667%;
 }
 
@@ -6151,9 +6153,16 @@ table.hide-for-medium {
     margin: 0;
   }
 }
-/* line 14, ../src/sass/app/_layout.sass */
+/* line 15, ../src/sass/app/_layout.sass */
 #detail {
   display: none;
+}
+
+/* line 1, ../src/sass/app/_colors.sass */
+body,
+html {
+  background: #2e0001;
+  color: oldlace;
 }
 
 /* line 2, ../src/sass/app/_forms_default.sass */
@@ -6163,6 +6172,11 @@ fieldset {
 /* line 5, ../src/sass/app/_forms_default.sass */
 fieldset legend {
   background: transparent;
+}
+
+/* line 8, ../src/sass/app/_forms_default.sass */
+label {
+  color: inherit;
 }
 
 /* line 13, ../src/sass/app/_forms.sass */

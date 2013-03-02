@@ -1,11 +1,11 @@
 /*jshint*/
 /*global define*/
 
-define(["Util"], function (Util) {
+define(["util"], function (util) {
   "use strict";
 
   function Collection (ar) {
-    if (!!ar && Util.isArray(ar) && ar.length > 0) {
+    if (!!ar && util.isArray(ar) && ar.length > 0) {
       Collection.fn.add.call(this, ar);
     }
   }
@@ -13,7 +13,7 @@ define(["Util"], function (Util) {
   Collection.fn = Collection.prototype = [];
 
   Collection.fn.add = function (ar) {
-    if (Util.isArray(ar)) {
+    if (util.isArray(ar)) {
       this.push.apply(this, ar);
     }
 

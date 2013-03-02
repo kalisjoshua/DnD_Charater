@@ -1,7 +1,7 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define(["Collection", "Util"], function (Collection, Util) {
+define(["Collection", "util"], function (Collection, util) {
   "use strict";
 
   var allClasses
@@ -580,7 +580,7 @@ define(["Collection", "Util"], function (Collection, Util) {
       throw new Error("No '.dual' property given in config passed into Role constructor.");
     }
 
-    if (!Util.isNumeric(config.HDT) || config.HDT < 4) {
+    if (!util.isNumeric(config.HDT) || config.HDT < 4) {
       throw new Error("Invalid '.HDT' property given in config passed into Role constructor (" + config.HDT + ").");
     }
 

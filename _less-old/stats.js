@@ -1,3 +1,4 @@
+/*jshint passfail:true laxcomma:true*/
 //// stats.js
 
 // Stats factory

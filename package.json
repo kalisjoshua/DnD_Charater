@@ -11,7 +11,9 @@
     "url": ""
   },
   "dependencies": {
+    "chai"        : "1.5.0",
     "cohort"      : "0.9.6",
+    "mocha"       : "1.8.1",
     "requirejs"   : "2.1.4",
     "sherpa"      : "0.1.7"
   }

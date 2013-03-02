@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+/*jshint laxcomma:true strict:false*/
+/*globals require*/
+var sherpa = require("sherpa");
+
+var backpack = {
+      js    : function (filename) {
+        sherpa.exec(filename, "make tests");
+      }
+    };
+
+sherpa("test/js", 300, function (filename, curr, prev) {
+  if (+curr.mtime !== +prev.mtime) {
+    try {
+      backpack[/.*\.(.*)$/.exec(filename)[1]](filename);
+    } catch (e) {
+      sherpa.exec(filename + "\n But I don't know what to do with it. :-(");
+    }
+  }
+});
+
+sherpa("src/js", 300, function (filename, curr, prev) {
+  if (+curr.mtime !== +prev.mtime) {
+    try {
+      backpack[/.*\.(.*)$/.exec(filename)[1]](filename);
+    } catch (e) {
+      sherpa.exec(filename + "\n But I don't know what to do with it. :-(");
+    }
+  }
+});

@@ -36,6 +36,12 @@ reset:
 submodules:
 	git submodule update --init --recursive
 
+tdd: tests
+	./test/.sherpa
+
+tests:
+	node node_modules/.bin/r.js -o test/js/rjs.js
+
 watch:
 	./src/.sherpa
 
