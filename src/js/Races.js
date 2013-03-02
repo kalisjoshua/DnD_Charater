@@ -115,17 +115,32 @@ define(["Collection", "Util"], function (Collection, Util) {
   }
 
   function Race (config) {
-    if (!config.name
-    || !Util.isNumeric(config.infravision)
-    || !config.languages.length
-    || config.saves.length !== 5
-    || config.stats.length !== 7
-    || config.thieving.length !== 8
-    || !Util.isNumeric(config.move)) {
-      throw new Error({
-        args: arguments
-        ,fn: "Race constructor"
-      });
+    if (!config.name) {
+      throw new Error("No '.name' property given in config passed into Race constructor.");
+    }
+
+    if (!Util.isNumeric(config.infravision)) {
+      throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
+    }
+
+    if (!config.languages.length) {
+      throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
+    }
+
+    if (config.saves.length !== 5) {
+      throw new Error("Invalid '.saves' property given in config passed into Race constructor (" + config.saves + ").");
+    }
+
+    if (config.stats.length !== 7) {
+      throw new Error("Invalid '.stats' property given in config passed into Race constructor (" + config.stats + ").");
+    }
+
+    if (config.thieving.length !== 8) {
+      throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
+    }
+
+    if (!Util.isNumeric(config.move)) {
+      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
     }
 
     for (var attr in config) {
