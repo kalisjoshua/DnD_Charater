@@ -144,7 +144,7 @@ define(["Collection", "Util"], function (Collection, Util) {
     }
 
     for (var attr in config) {
-      this[attr] = config[attr];
+      this[attr] = attr === "languages" ? pickLanguages(languages, config[attr]) : config[attr];
     }
   }
 
