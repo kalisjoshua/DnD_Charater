@@ -7,7 +7,8 @@ define(["Collection", "Util"], function (Collection, Util) {
   var allClasses
 
     , saves = {
-      Cleric: [
+      // from DnD 1E DMG
+        Cleric: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
         , [10, 13, 14, 16, 15] //  1
@@ -32,9 +33,9 @@ define(["Collection", "Util"], function (Collection, Util) {
         , [ 2,  5,  6,  8,  7] // 20
         , [ 2,  5,  6,  8,  7] // 21
         , [ 1,  3,  4,  6,  5] // 22
-      ],
+      ]
   
-      Fighter: [
+      , Fighter: [
         //ppd, pp,rsw, bw, sp
           [16, 17, 18, 20, 19] //  0th level charcter
         , [14, 15, 16, 17, 17] //  1
@@ -59,9 +60,9 @@ define(["Collection", "Util"], function (Collection, Util) {
         , [ 2,  3,  4,  3,  5] // 20
         , [ 1,  2,  3,  3,  4] // 21
         , [ 1,  2,  3,  3,  4] // 22
-      ],
+      ]
   
-      Mage: [
+      , Mage: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
         , [14, 13, 11, 15, 12] //  1
@@ -86,9 +87,9 @@ define(["Collection", "Util"], function (Collection, Util) {
         , [10,  7,  5,  9,  6] // 20
         , [ 8,  5,  3,  7,  4] // 21
         , [ 8,  5,  3,  7,  4] // 22
-      ],
+      ]
   
-      Thief: [
+      , Thief: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
         , [13, 12, 14, 16, 15] //  1
@@ -178,7 +179,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Thief
       }
 
-      ,{
+      , {
           name    : "Archer"
         , dual    : []
         , HDT     : 8
@@ -187,7 +188,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Assassin"
         , dual    : []
         , HDT     : 6
@@ -196,7 +197,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Thief
       }
 
-      ,{
+      , {
           name    : "Barbarian"
         , dual    : []
         , HDT     : 12
@@ -205,7 +206,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Bard"
         , dual    : []
         , HDT     : 12
@@ -248,7 +249,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Cavalier"
         , dual    : []
         , HDT     : 10
@@ -257,7 +258,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Cleric"
         , dual    : [
             "Fighter"
@@ -304,9 +305,9 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Druid"
-        ,dual     : [
+        , dual    : [
             "Fighter"
           , "Illusionist"
           , "Mage"
@@ -351,9 +352,9 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Fighter"
-        ,dual     : [
+        , dual    : [
             "Cleric"
           , "Druid"
           , "Illusionist"
@@ -366,7 +367,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Illusionist"
         , dual    : [
             "Cleric"
@@ -413,7 +414,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Mage
       }
 
-      ,{
+      , {
           name    : "Mage"
         , dual    : [
             "Cleric"
@@ -460,7 +461,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Mage
       }
 
-      ,{
+      , {
           name    : "Monk"
         , dual    : []
         , HDT     : 4
@@ -469,7 +470,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Cleric
       }
 
-      ,{
+      , {
           name    : "Paladin"
         , dual    : []
         , HDT     : 10
@@ -511,7 +512,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Ranger"
         , dual    : []
         , HDT     : 10
@@ -553,7 +554,7 @@ define(["Collection", "Util"], function (Collection, Util) {
         , thaco   : thacos.Fighter
       }
 
-      ,{
+      , {
           name    : "Thief"
         , dual    : [
             "Cleric"
