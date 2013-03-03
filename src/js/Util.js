@@ -1,4 +1,4 @@
-/*jshint*/
+/*jshint laxcomma: true*/
 /*global define*/
 
 define([], function () {
@@ -6,11 +6,11 @@ define([], function () {
 
   function clone (obj) {
     var i
-      , result = isType.call(null, "Array", obj) ? [] : {};
+      , result = util.isArray(obj) ? [] : {};
     
     for (i in obj) {
       if (obj.hasOwnProperty(i)) {
-        result[i] = isType.call(null, "Object", obj[i]) ? clone(obj[i]) : obj[i];
+        result[i] = util.isObject(obj[i]) ? clone(obj[i]) : obj[i];
       }
     }
     
@@ -22,14 +22,19 @@ define([], function () {
   }
 
   function isType (type, obj) {
-    return (obj && obj.getType ? obj.getType() : {}.toString.call(obj)).indexOf(type);
+    return (!!obj && type.test(obj.getType ? obj.getType() : {}.toString.call(obj)));
   }
 
-  return {
-        clone     : clone.bind(null)
-      , isArray   : isType.bind(null, "Array")
-      , isNumeric : isNumeric.bind(null)
-      , isObject  : isType.bind(null, "Object")
-      , isString  : isType.bind(null, "String")
-    };
+  var util = {
+          clone: clone
+        , isNumeric: isNumeric
+        , isType: isType
+      };
+
+  return "Array Function Object String"
+    .split(" ")
+    .reduce(function (acc, item) {
+      acc["is" + item] = util.isType.bind(null, new RegExp(item.toLowerCase(), "i"));
+      return acc;
+    }, util);
 });

@@ -30,30 +30,291 @@ define('roll',[], function () {
       return roll[combo]();
     };
 });
+/*jshint laxcomma: true*/
+/*global define*/
+
+define('util',[], function () {
+  
+
+  function clone (obj) {
+    var i
+      , result = util.isArray(obj) ? [] : {};
+    
+    for (i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        result[i] = util.isObject(obj[i]) ? clone(obj[i]) : obj[i];
+      }
+    }
+    
+    return result;
+  }
+
+  function isNumeric (q) {
+    return !isNaN(parseFloat(q)) && isFinite(q);
+  }
+
+  function isType (type, obj) {
+    return (!!obj && type.test(obj.getType ? obj.getType() : {}.toString.call(obj)));
+  }
+
+  var util = {
+          clone: clone
+        , isNumeric: isNumeric
+        , isType: isType
+      };
+
+  return "Array Function Object String"
+    .split(" ")
+    .reduce(function (acc, item) {
+      acc["is" + item] = util.isType.bind(null, new RegExp(item.toLowerCase(), "i"));
+      return acc;
+    }, util);
+});
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('roll.test',["roll"], function (roll) {
+define('roll.test',["roll", "util"], function (roll, util) {
   module("roll");
 
-  test("roll object", function () {
-    ok(roll, "defined");
-  });
+  var max_test_iterations = 100000;
 
-  test("roll a d6", function () {
-    var limit = 1000000
-      , results = [6, 0] // start min/max out inverted to make sure they are being set
+  test("functionality", function () {
+    ok(roll, "'roll' is defined");
+    ok(util.isFunction(roll), "'roll' is defined as a function");
+
+    var faces   = 6
+      , num     = ""
+      , limit   = max_test_iterations
+      , min     = num || 1
+      , max     = faces * min
+      , minmax  = [max, min] // start min/max inverted to make sure they are being set
       , temp;
 
+    oned6:
     while (limit--) {
-      temp = roll("d6");
+      temp = roll(num + "d" + faces);
 
-      results[0] = temp < results[0] ? temp : results[0];
-      results[1] = temp > results[1] ? temp : results[1];
+      minmax[0] = temp < minmax[0] ? temp : minmax[0];
+      minmax[1] = temp > minmax[1] ? temp : minmax[1];
+    }
+    ok(minmax[0] === min, "min roll of " + (num || " a ") + "d" + faces + " is one: " + minmax[0]);
+    ok(minmax[1] === max, "max roll of " + (num || " a ") + "d" + faces + " is six: " + minmax[1]);
+
+
+    num     = 6;
+    limit   = max_test_iterations;
+    min     = num || 1;
+    max     = faces * min;
+    minmax  = [max, min]; // start min/max inverted to make sure they are being set
+
+    sixd6:
+    while (limit--) {
+      temp = roll("6d6");
+
+      minmax[0] = temp < minmax[0] ? temp : minmax[0];
+      minmax[1] = temp > minmax[1] ? temp : minmax[1];
+
+      if (temp < max / 6 || temp > max) {
+        temp = false;
+        break sixd6;
+      }
+    }
+    ok(temp, "Min/max values: " + minmax);
+  });
+});
+
+/*jshint*/
+/*global define*/
+
+define('Collection',["util"], function (util) {
+  
+
+  function Collection (ar) {
+    if (!!ar && util.isArray(ar) && ar.length > 0) {
+      Collection.fn.add.call(this, ar);
+    }
+  }
+
+  Collection.fn = Collection.prototype = [];
+
+  Collection.fn.add = function (ar) {
+    if (util.isArray(ar)) {
+      this.push.apply(this, ar);
     }
 
-    ok(results[0] === 1, "min roll of a d6 is one: " + results[0]);
-    ok(results[1] === 6, "max roll of a d6 is six: " + results[1]);
+    return this;
+  };
+
+  Collection.fn.each = function (fn) {
+    this.forEach(function (node, indx, orig) {
+      fn(node, indx, orig);
+    });
+
+    return this;
+  };
+
+  Collection.fn.getNames = function () {
+
+    return this.map(function (node) {
+      return node.name;
+    });
+  };
+
+  Collection.fn.named = function (key) {
+
+    return this.filter(function (node) {
+      return node.name === key;
+    })[0];
+  };
+
+  Collection.fn.numericSort = function (descending) {
+    var result = this.sort(function (a, b) { return a - b; });
+
+    return descending ? result.reverse() : result;
+  };
+
+  Collection.fn.toString = function () {
+      
+    return "[object Collection]";
+  };
+
+  return Collection;
+});
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('Castes',["Collection", "roll"], function (Collection, roll) {
+  
+
+  var allCastes = new Collection();
+
+  function numericSort (a, b) {
+    return a - b;
+  }
+
+  function sum (acc, cur) {
+    return acc + cur;
+  }
+
+  function Caste (config) {
+    // this is actually not necessary since it is a "privete" class
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor
+      return new Caste(config);
+    }
+
+    if (!config.dice) {
+      throw new Error("No 'dice' property passed into Caste constructor.");
+    }
+
+    if (!config.name) {
+      throw new Error("No 'name' property passed into Caste constructor.");
+    }
+
+    if (!config.min) {
+      throw new Error("No 'min' property passed into Caste constructor.");
+    }
+      
+    for (var attr in config) {
+      this[attr] = config[attr];
+    }
+  }
+
+  Caste.prototype = {
+    column: function (num) {
+      var indx = 0
+        , result = [];
+
+      if (num < 0 || num != +num || num != ~~num) {
+        num = 1;
+      }
+
+      num = ~~num;
+
+      do {
+        result[indx] = [];
+
+        while (result[indx].length < 7) {
+          result[indx].push(this.roll());
+        }
+
+        result[indx] = result[indx].sort(numericSort).reverse();
+      } while (num > ++indx);
+
+      return num === 1 ? result[0] : result;
+    }
+
+    ,getType: function () {
+        
+      return "[object Caste]";
+    }
+
+    ,roll: function () {
+      var result;
+
+      do {
+        result = Array.apply(null, Array(this.dice))
+          .map(roll.bind(null, "d6"))
+          .sort()
+          .slice(-3)
+          .reduce(sum);
+      } while (result < this.min);
+
+      return result;
+    }
+
+    ,toString: function () {
+
+      return this.name;
+    }
+
+    ,valueOf: function () {
+
+      return "{name: '" + this.name + "'}";
+    }
+  };
+
+  allCastes
+    .add([
+       new Caste({name: "Champion", dice: 6, min: 7})
+      ,new Caste({name: "Hero"    , dice: 4, min: 4})
+      ,new Caste({name: "npc"     , dice: 3, min: 4})
+      ,new Caste({name: "Player"  , dice: 3, min: 7})
+      ,new Caste({name: "Pleb"    , dice: 3, min: 3})
+    ]);
+
+  return allCastes;
+});
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('Castes.test',["Castes", "util"], function (Castes, util) {
+  module("Castes");
+
+  // var max_test_iterations = function () {return 1000000;};
+
+  test("Collection", function Castes_test () {
+    ok(Castes, "Castes is defined.");
+    equal("[object Collection]", Castes.toString(), "Castes is a Collection.");
+    equal(5, Castes.length, "Castes has the right number of Caste instances.");
+  });
+
+  test("Instance properties", function () {
+    var caste = "Hero"
+      , sample = Castes.named(caste)
+      , temp;
+
+    ok(sample.name === caste, "Sample instance has a name and it matches what was searched for in the Collection.");
+
+    ok(sample.column, "Sample instance has 'column' property.");
+    ok(util.isFunction(sample.column), "Sample instance '.column' is a function.");
+    ok(sample.column().every(util.isNumeric), "Call to '.column' returns an array of numbers.");
+
+    // test("column", function () {});
+    // test("getType", function () {});
+    // test("roll", function () {});
+    // test("toString", function () {});
+    // test("valueOf", function () {});
   });
 });
 
@@ -61,5 +322,7 @@ define('roll.test',["roll"], function (roll) {
 /*global require*/
 
 require(["roll.test"]);
+// require(["Abilities.test"]);
+require(["Castes.test"]);
 
 define("../../test/js/main-tests", function(){});

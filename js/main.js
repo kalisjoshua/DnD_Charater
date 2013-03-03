@@ -139,11 +139,23 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
   }
 
   function Caste (config) {
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor
+      return new Caste(config);
+    }
+
+    if (!config.dice) {
+      throw new Error("No 'dice' property passed into Caste constructor.");
+    }
+
     if (!config.name) {
-      throw new Error({
-        args: arguments
-        ,fn: "Caste constructor"
-      });
+      throw new Error("No 'name' property passed into Caste constructor.");
+    }
+
+    if (!config.hasOwnProperty("min")) {
+    // if (!config.min) {
+      console.log("error")
+      throw new Error("No 'min' property passed into Caste constructor.");
     }
       
     for (var attr in config) {
@@ -211,6 +223,10 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
       ,new Caste({name: "Player"  , dice: 3, min: 7})
       ,new Caste({name: "Pleb"    , dice: 3, min: 3})
     ]);
+
+  allCastes.create = function (config) {
+    return new Caste(config);
+  };
 
   return allCastes;
 });

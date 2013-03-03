@@ -15,11 +15,22 @@ define(["Collection", "roll"], function (Collection, roll) {
   }
 
   function Caste (config) {
+    // this is actually not necessary since it is a "privete" class
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor
+      return new Caste(config);
+    }
+
+    if (!config.dice) {
+      throw new Error("No 'dice' property passed into Caste constructor.");
+    }
+
     if (!config.name) {
-      throw new Error({
-        args: arguments
-        ,fn: "Caste constructor"
-      });
+      throw new Error("No 'name' property passed into Caste constructor.");
+    }
+
+    if (!config.min) {
+      throw new Error("No 'min' property passed into Caste constructor.");
     }
       
     for (var attr in config) {
@@ -32,10 +43,13 @@ define(["Collection", "roll"], function (Collection, roll) {
       var indx = 0
         , result = [];
 
-      // FIXME: I do not think this is what I think it is and should probably be removed.
-      num |= 1;
+      if (num < 0 || num != +num || num != ~~num) {
+        num = 1;
+      }
 
-      while (num > indx) {
+      num = ~~num;
+
+      do {
         result[indx] = [];
 
         while (result[indx].length < 7) {
@@ -43,9 +57,7 @@ define(["Collection", "roll"], function (Collection, roll) {
         }
 
         result[indx] = result[indx].sort(numericSort).reverse();
-
-        indx++;
-      }
+      } while (num > ++indx);
 
       return num === 1 ? result[0] : result;
     }
@@ -59,7 +71,8 @@ define(["Collection", "roll"], function (Collection, roll) {
       var result;
 
       do {
-        result = roll(this.dice + "d" + 6)
+        result = Array.apply(null, Array(this.dice))
+          .map(roll.bind(null, "d6"))
           .sort()
           .slice(-3)
           .reduce(sum);

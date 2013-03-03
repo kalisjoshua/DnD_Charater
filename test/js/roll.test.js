@@ -1,26 +1,52 @@
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define(["roll"], function (roll) {
+define(["roll", "util"], function (roll, util) {
   module("roll");
 
-  test("roll object", function () {
-    ok(roll, "defined");
-  });
+  var max_test_iterations = 100000;
 
-  test("roll a d6", function () {
-    var limit = 1000000
-      , results = [6, 0] // start min/max out inverted to make sure they are being set
+  test("functionality", function () {
+    ok(roll, "'roll' is defined");
+    ok(util.isFunction(roll), "'roll' is defined as a function");
+
+    var faces   = 6
+      , num     = ""
+      , limit   = max_test_iterations
+      , min     = num || 1
+      , max     = faces * min
+      , minmax  = [max, min] // start min/max inverted to make sure they are being set
       , temp;
 
+    oned6:
     while (limit--) {
-      temp = roll("d6");
+      temp = roll(num + "d" + faces);
 
-      results[0] = temp < results[0] ? temp : results[0];
-      results[1] = temp > results[1] ? temp : results[1];
+      minmax[0] = temp < minmax[0] ? temp : minmax[0];
+      minmax[1] = temp > minmax[1] ? temp : minmax[1];
     }
+    ok(minmax[0] === min, "min roll of " + (num || " a ") + "d" + faces + " is one: " + minmax[0]);
+    ok(minmax[1] === max, "max roll of " + (num || " a ") + "d" + faces + " is six: " + minmax[1]);
 
-    ok(results[0] === 1, "min roll of a d6 is one: " + results[0]);
-    ok(results[1] === 6, "max roll of a d6 is six: " + results[1]);
+
+    num     = 6;
+    limit   = max_test_iterations;
+    min     = num || 1;
+    max     = faces * min;
+    minmax  = [max, min]; // start min/max inverted to make sure they are being set
+
+    sixd6:
+    while (limit--) {
+      temp = roll("6d6");
+
+      minmax[0] = temp < minmax[0] ? temp : minmax[0];
+      minmax[1] = temp > minmax[1] ? temp : minmax[1];
+
+      if (temp < max / 6 || temp > max) {
+        temp = false;
+        break sixd6;
+      }
+    }
+    ok(temp, "Min/max values: " + minmax);
   });
 });
