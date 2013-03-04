@@ -10,8 +10,7 @@
     "Races.test"      : "../../test/js/Races.test",
 
     "Collection.test" : "../../test/js/Collection.test",
-    "roll.test"       : "../../test/js/roll.test",
-    "util.test"       : "../../test/js/util.test",
+    "misc.test"       : "../../test/js/misc.test",
 
     handlebars  : "empty:",
     jquery      : "empty:"

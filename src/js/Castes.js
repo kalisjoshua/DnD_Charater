@@ -10,6 +10,20 @@ define(["Collection", "roll"], function (Collection, roll) {
     return a - b;
   }
 
+  function roll_stat (obj) {
+    var result;
+
+    do {
+      result = Array.apply(null, Array(obj.dice))
+        .map(roll.bind(null, "d6"))
+        .sort()
+        .slice(-3)
+        .reduce(sum);
+    } while (result < obj.min);
+
+    return result;
+  }
+
   function sum (acc, cur) {
     return acc + cur;
   }
@@ -32,7 +46,7 @@ define(["Collection", "roll"], function (Collection, roll) {
     if (!config.min) {
       throw new Error("No 'min' property passed into Caste constructor.");
     }
-      
+
     for (var attr in config) {
       this[attr] = config[attr];
     }
@@ -53,7 +67,7 @@ define(["Collection", "roll"], function (Collection, roll) {
         result[indx] = [];
 
         while (result[indx].length < 7) {
-          result[indx].push(this.roll());
+          result[indx].push(roll_stat(this));
         }
 
         result[indx] = result[indx].sort(numericSort).reverse();
@@ -63,22 +77,8 @@ define(["Collection", "roll"], function (Collection, roll) {
     }
 
     ,getType: function () {
-        
+
       return "[object Caste]";
-    }
-
-    ,roll: function () {
-      var result;
-
-      do {
-        result = Array.apply(null, Array(this.dice))
-          .map(roll.bind(null, "d6"))
-          .sort()
-          .slice(-3)
-          .reduce(sum);
-      } while (result < this.min);
-
-      return result;
     }
 
     ,toString: function () {
@@ -88,7 +88,7 @@ define(["Collection", "roll"], function (Collection, roll) {
 
     ,valueOf: function () {
 
-      return "{name: '" + this.name + "'}";
+      return JSON.stringify(this);
     }
   };
 

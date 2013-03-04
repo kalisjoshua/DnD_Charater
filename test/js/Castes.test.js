@@ -19,10 +19,18 @@ define(["Castes", "util"], function (Castes, util) {
     ok(util.isFunction(sample.column), "Sample instance '.column' is a function.");
     ok(sample.column().every(util.isNumeric), "Call to '.column' returns an array of numbers.");
 
-    // test("column", function () {});
-    // test("getType", function () {});
-    // test("roll", function () {});
-    // test("toString", function () {});
-    // test("valueOf", function () {});
+    ok(sample.getType, "Sample instance has '.getType' property.");
+    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+
+    ok(sample.toString, "Sample instance has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+    ok(sample.toString() === caste, "Call to '.toString' returns the correct String.");
+
+    ok(sample.valueOf, "Sample instance has '.valueOf' property.");
+    ok(util.isFunction(sample.valueOf), "Sample instance has '.valueOf' is a function.");
+    ok(util.isString(sample.valueOf()), "Call to '.valueOf' returns a String.");
+    ok(sample.valueOf() === '{"name":"Hero","dice":4,"min":4}', "Call to '.valueOf' returns the correct String.");
   });
 });

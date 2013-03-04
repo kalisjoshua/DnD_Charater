@@ -75,14 +75,13 @@ define(["roll", "util"], function (roll, util) {
         Math                                , // builtin
         NaN                                 , // not a number
         null                                , // the elusive null
-        new Number()                        , // number wrapper
         (function () {return this;}())      , // object, global
         new Object()                        , //
         {}                                  , //
         /a-z/                               , // regular expression
         /a-z/gim                            , //
         new RegExp()                        , //
-        (function (u) {return u;}())        , // undefined
+        (function (u) {return u;}())          // undefined
       ]
 
     , strings = [
@@ -95,44 +94,44 @@ define(["roll", "util"], function (roll, util) {
         new String()
       ];
 
-  test("util", function () {
+  function fail (fn, list) {
+    list.forEach(function (item, indx) {
+      ok(!fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
+    });
+  }
+  function pass (fn, list) {
+    list.forEach(function (item, indx) {
+      ok(fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
+    });
+  }
 
-    function fail (fn, list) {
-      list.forEach(function (item, indx) {
-        ok(!fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
-      });
-    }
-    function pass (fn, list) {
-      list.forEach(function (item, indx) {
-        ok(fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
-      });
-    }
-
+  test("util.isArray", function () {
     ok(util.isArray([]), ".isArray()");
     ok(!util.isArray((function () {return arguments;}())), ".isArray()");
     fail(util.isArray, functions);
     fail(util.isArray, numbers);
     fail(util.isArray, objects);
     fail(util.isArray, strings);
+  });
 
+  test("util.isFunction", function () {
     ok(util.isFunction(window.alert), ".isFunction()");
     pass(util.isFunction, functions);
     fail(util.isFunction, numbers);
     fail(util.isFunction, objects);
     fail(util.isFunction, strings);
+  });
 
+  test("util.isNumeric", function () {
     fail(util.isNumeric, functions);
     pass(util.isNumeric, numbers);
-    // fail(util.isNumeric, objects); // not wokring yet
+    fail(util.isNumeric, objects);
     fail(util.isNumeric, strings);
+  });
 
-    fail(util.isObject, functions);
-    fail(util.isObject, numbers);
-    // pass(util.isObject, objects); // not wokring yet
-    fail(util.isObject, strings);
-
+  test("util.isString", function () {
     fail(util.isString, functions);
-    // fail(util.isString, numbers); // not wokring yet
+    fail(util.isString, numbers.slice(0, 21)); // 21 and over ARE strings
     fail(util.isString, objects);
     pass(util.isString, strings);
   });

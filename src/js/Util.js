@@ -7,20 +7,37 @@ define([], function () {
   function clone (obj) {
     var i
       , result = util.isArray(obj) ? [] : {};
-    
+
     for (i in obj) {
       if (obj.hasOwnProperty(i)) {
         result[i] = util.isObject(obj[i]) ? clone(obj[i]) : obj[i];
       }
     }
-    
+
     return result;
   }
 
   function isNumeric (q) {
-    if ("" === "".replace.call(q, /^\s+|\s+$/g, "") || q === true) {
+    if (q == null) {
       return false;
     }
+
+    if (q === true) {
+      return false;
+    }
+
+    if (q instanceof Date) {
+      return false;
+    }
+
+    if (q instanceof Boolean) {
+      return false;
+    }
+
+    if ("" === "".replace.call(q, /^\s+|\s+$/g, "")) {
+      return false;
+    }
+
     return (!isNaN(parseFloat(q)) || !isNaN(Number(q))) && isFinite(q);
   }
 
@@ -34,7 +51,7 @@ define([], function () {
         , isType: isType
       };
 
-  return "Array Function Object String"
+  return "Array Function String"
     .split(" ")
     .reduce(function (acc, item) {
       acc["is" + item] = util.isType.bind(null, new RegExp(item));

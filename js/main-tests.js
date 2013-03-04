@@ -39,20 +39,37 @@ define('util',[], function () {
   function clone (obj) {
     var i
       , result = util.isArray(obj) ? [] : {};
-    
+
     for (i in obj) {
       if (obj.hasOwnProperty(i)) {
         result[i] = util.isObject(obj[i]) ? clone(obj[i]) : obj[i];
       }
     }
-    
+
     return result;
   }
 
   function isNumeric (q) {
-    if ("" === "".replace.call(q, /^\s+|\s+$/g, "") || q === true) {
+    if (q == null) {
       return false;
     }
+
+    if (q === true) {
+      return false;
+    }
+
+    if (q instanceof Date) {
+      return false;
+    }
+
+    if (q instanceof Boolean) {
+      return false;
+    }
+
+    if ("" === "".replace.call(q, /^\s+|\s+$/g, "")) {
+      return false;
+    }
+
     return (!isNaN(parseFloat(q)) || !isNaN(Number(q))) && isFinite(q);
   }
 
@@ -66,7 +83,7 @@ define('util',[], function () {
         , isType: isType
       };
 
-  return "Array Function Object String"
+  return "Array Function String"
     .split(" ")
     .reduce(function (acc, item) {
       acc["is" + item] = util.isType.bind(null, new RegExp(item));
@@ -76,7 +93,7 @@ define('util',[], function () {
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('roll.test',["roll", "util"], function (roll, util) {
+define('misc.test',["roll", "util"], function (roll, util) {
   module("misc");
 
   var max_test_iterations = 100000
@@ -150,14 +167,13 @@ define('roll.test',["roll", "util"], function (roll, util) {
         Math                                , // builtin
         NaN                                 , // not a number
         null                                , // the elusive null
-        new Number()                        , // number wrapper
         (function () {return this;}())      , // object, global
         new Object()                        , //
         {}                                  , //
         /a-z/                               , // regular expression
         /a-z/gim                            , //
         new RegExp()                        , //
-        (function (u) {return u;}())        , // undefined
+        (function (u) {return u;}())          // undefined
       ]
 
     , strings = [
@@ -170,44 +186,44 @@ define('roll.test',["roll", "util"], function (roll, util) {
         new String()
       ];
 
-  test("util", function () {
+  function fail (fn, list) {
+    list.forEach(function (item, indx) {
+      ok(!fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
+    });
+  }
+  function pass (fn, list) {
+    list.forEach(function (item, indx) {
+      ok(fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
+    });
+  }
 
-    function fail (fn, list) {
-      list.forEach(function (item, indx) {
-        ok(!fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
-      });
-    }
-    function pass (fn, list) {
-      list.forEach(function (item, indx) {
-        ok(fn(item), "Testing: (" + indx + ") '" + item + "' != " + ({}).toString.call(item));
-      });
-    }
-
+  test("util.isArray", function () {
     ok(util.isArray([]), ".isArray()");
     ok(!util.isArray((function () {return arguments;}())), ".isArray()");
     fail(util.isArray, functions);
     fail(util.isArray, numbers);
     fail(util.isArray, objects);
     fail(util.isArray, strings);
+  });
 
+  test("util.isFunction", function () {
     ok(util.isFunction(window.alert), ".isFunction()");
     pass(util.isFunction, functions);
     fail(util.isFunction, numbers);
     fail(util.isFunction, objects);
     fail(util.isFunction, strings);
+  });
 
+  test("util.isNumeric", function () {
     fail(util.isNumeric, functions);
     pass(util.isNumeric, numbers);
-    // fail(util.isNumeric, objects); // not wokring yet
+    fail(util.isNumeric, objects);
     fail(util.isNumeric, strings);
+  });
 
-    fail(util.isObject, functions);
-    fail(util.isObject, numbers);
-    // pass(util.isObject, objects); // not wokring yet
-    fail(util.isObject, strings);
-
+  test("util.isString", function () {
     fail(util.isString, functions);
-    // fail(util.isString, numbers); // not wokring yet
+    fail(util.isString, numbers.slice(0, 21)); // 21 and over ARE strings
     fail(util.isString, objects);
     pass(util.isString, strings);
   });
@@ -326,6 +342,20 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
     return a - b;
   }
 
+  function roll_stat (obj) {
+    var result;
+
+    do {
+      result = Array.apply(null, Array(obj.dice))
+        .map(roll.bind(null, "d6"))
+        .sort()
+        .slice(-3)
+        .reduce(sum);
+    } while (result < obj.min);
+
+    return result;
+  }
+
   function sum (acc, cur) {
     return acc + cur;
   }
@@ -348,7 +378,7 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
     if (!config.min) {
       throw new Error("No 'min' property passed into Caste constructor.");
     }
-      
+
     for (var attr in config) {
       this[attr] = config[attr];
     }
@@ -369,7 +399,7 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
         result[indx] = [];
 
         while (result[indx].length < 7) {
-          result[indx].push(this.roll());
+          result[indx].push(roll_stat(this));
         }
 
         result[indx] = result[indx].sort(numericSort).reverse();
@@ -379,22 +409,8 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
     }
 
     ,getType: function () {
-        
+
       return "[object Caste]";
-    }
-
-    ,roll: function () {
-      var result;
-
-      do {
-        result = Array.apply(null, Array(this.dice))
-          .map(roll.bind(null, "d6"))
-          .sort()
-          .slice(-3)
-          .reduce(sum);
-      } while (result < this.min);
-
-      return result;
     }
 
     ,toString: function () {
@@ -404,7 +420,7 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
 
     ,valueOf: function () {
 
-      return "{name: '" + this.name + "'}";
+      return JSON.stringify(this);
     }
   };
 
@@ -440,18 +456,26 @@ define('Castes.test',["Castes", "util"], function (Castes, util) {
     ok(util.isFunction(sample.column), "Sample instance '.column' is a function.");
     ok(sample.column().every(util.isNumeric), "Call to '.column' returns an array of numbers.");
 
-    // test("column", function () {});
-    // test("getType", function () {});
-    // test("roll", function () {});
-    // test("toString", function () {});
-    // test("valueOf", function () {});
+    ok(sample.getType, "Sample instance has '.getType' property.");
+    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+
+    ok(sample.toString, "Sample instance has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+    ok(sample.toString() === caste, "Call to '.toString' returns the correct String.");
+
+    ok(sample.valueOf, "Sample instance has '.valueOf' property.");
+    ok(util.isFunction(sample.valueOf), "Sample instance has '.valueOf' is a function.");
+    ok(util.isString(sample.valueOf()), "Call to '.valueOf' returns a String.");
+    ok(sample.valueOf() === '{"name":"Hero","dice":4,"min":4}', "Call to '.valueOf' returns the correct String.");
   });
 });
 
 /*jshint laxcomma:true*/
 /*global require*/
 
-require(["roll.test"]);
+require(["misc.test"]);
 // require(["Abilities.test"]);
 require(["Castes.test"]);
 
