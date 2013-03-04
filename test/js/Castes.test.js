@@ -4,15 +4,11 @@
 define(["Castes", "util"], function (Castes, util) {
   module("Castes");
 
-  // var max_test_iterations = function () {return 1000000;};
-
-  test("Collection", function Castes_test () {
+  test("API", function Castes_test () {
     ok(Castes, "Castes is defined.");
     equal("[object Collection]", Castes.toString(), "Castes is a Collection.");
     equal(5, Castes.length, "Castes has the right number of Caste instances.");
-  });
 
-  test("Instance properties", function () {
     var caste = "Hero"
       , sample = Castes.named(caste)
       , temp;
