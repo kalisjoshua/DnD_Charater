@@ -1,8 +1,8 @@
 /*jshint laxcomma:true*/
 /*global require define*/
 
-define(["jquery", "Castes", "Classes", "Races"
-  ], function ($,  Castes,   Classes,   Races) {
+define([ "jquery", "castes", "races", "ranks"
+  ], function ($,   castes,   races,   ranks) {
     "use strict";
 
     var empty_option  = $("<option value>-- select one --</option>")
@@ -11,22 +11,22 @@ define(["jquery", "Castes", "Classes", "Races"
           .html()       // instance is apended
 
       // DOM selectors
-      , _caste        = "#caste"
-      , _class_alpha  = "#class_alpha"
-      , _class_beta   = "#class_beta"
+      , _rank         = "#rank"
+      , _caste_alpha  = "#caste_alpha"
+      , _caste_beta   = "#caste_beta"
       , _strict_dual  = "#strict_dual"
       , _level        = "#level"
       , _race         = "#race"
       , _stats_column = "#stats_column"
 
       // selector groups
-      , dual_elements = [_class_alpha, _class_beta, _strict_dual].join()
-      , ui_elements   = [_caste, _class_alpha, _class_beta, _strict_dual, _level, _race, _stats_column].join()
+      , dual_elements = [_caste_alpha, _caste_beta, _strict_dual].join()
+      , ui_elements   = [_rank, _caste_alpha, _caste_beta, _strict_dual, _level, _race, _stats_column].join()
 
       // jQuery DOM object references
-      , $caste        = $(_caste)
-      , $class_alpha  = $(_class_alpha)
-      , $class_beta   = $(_class_beta)
+      , $rank         = $(_rank)
+      , $caste_alpha  = $(_caste_alpha)
+      , $caste_beta   = $(_caste_beta)
       , $document     = $(document)
       , $strict_dual  = $(_strict_dual)
       , $level        = $(_level)
@@ -34,57 +34,56 @@ define(["jquery", "Castes", "Classes", "Races"
       , $stats_column = $(_stats_column);
 
     function attemptPlayerCreation (event) {
-      if ($class_alpha.val() && $race.val()) {
+      if ($caste_alpha.val() && $race.val()) {
         $document
           .trigger("showGrid", 9);
       }
     }
 
-    function dualClassHandler (event) {
-      var class_alphaValue      = $class_alpha.find("option:selected").val()
-        , class_betaValue       = $class_beta.find("option:selected").val()
+    function dualCasteHandler (event) {
+      var list
+        , caste_alphaValue      = $caste_alpha.find("option:selected").val()
+        , caste_betaValue       = $caste_beta.find("option:selected").val()
         , isStrictDualSelected  = $strict_dual.is(":checked")
-        , isClassAlphaDualable  = !isStrictDualSelected ||
-                                  !!class_alphaValue &&
-                                  !!Classes.named(class_alphaValue).dual.length
+        , isCasteAlphaDualable  = !isStrictDualSelected ||
+                                  !!caste_alphaValue &&
+                                  !!castes.named(caste_alphaValue).dual.length;
 
-        , list;
+      $caste_beta.empty();
 
-      $class_beta.empty();
-
-      // add list of character classes to the beta dropdown
-      if (class_alphaValue !== "" && isClassAlphaDualable) {
-        list = (isStrictDualSelected ? Classes.duals() : Classes)
+      // add list of character castes to the beta dropdown
+      if (caste_alphaValue !== "" && isCasteAlphaDualable) {
+        list = (isStrictDualSelected ? castes.duals() : castes)
           // filter out the selected alpha from the list of possible betas
           .filter(function (item) {
-            return item.name !== class_alphaValue;
+            return item.name !== caste_alphaValue;
           })
           .map(selectOption);
 
         list.unshift(empty_option);
 
-        $class_beta.append(list);
+        $caste_beta.append(list);
 
-        // ensure against dual classing the same two classes
-        if (class_alphaValue !== class_betaValue) {
-          $class_beta.val(class_betaValue);
+        // ensure against dual Casteing the same two castes
+        if (caste_alphaValue !== caste_betaValue) {
+          $caste_beta.val(caste_betaValue);
         }
       } else {
-        $class_beta.append("<option></option>");
+        $caste_beta.append("<option></option>");
       }
     }
 
     function initUI () {
-      $caste
-        .append(Castes.map(radioItem.bind(null, "caste")));
+      $rank
+        .append(ranks.map(radioItem.bind(null, "rank")));
 
-      $class_alpha
+      $caste_alpha
         .append(empty_option)
-        .append(Classes.map(selectOption));
+        .append(castes.map(selectOption));
 
       $race
         .append(empty_option)
-        .append(Races.map(selectOption));
+        .append(races.map(selectOption));
     }
 
     function radioItem (prefix, item, indx) {
@@ -101,7 +100,7 @@ define(["jquery", "Castes", "Classes", "Races"
 
     function statColumn (event) {
       if (!/label/i.test(event.target.nodeName)) {
-        var column = Castes[event.target.value].column();
+        var column = ranks[event.target.value].column();
 
         $stats_column
           .val(column)
@@ -111,8 +110,8 @@ define(["jquery", "Castes", "Classes", "Races"
     }
 
     $document
-      .on("click", _caste + " label", statColumn)
-      .on("change", dual_elements, dualClassHandler)
+      .on("click", _rank + " label", statColumn)
+      .on("change", dual_elements, dualCasteHandler)
       .on("change", ui_elements, attemptPlayerCreation)
       .on("ready", initUI);
 });

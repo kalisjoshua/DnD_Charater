@@ -1,16 +1,17 @@
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define(["Castes", "util"], function (Castes, util) {
-  module("Castes");
+define([      "Ranks", "util"
+  ], function (Ranks,   util) {
+  module("Ranks");
 
-  test("API", function Castes_test () {
-    ok(Castes, "Castes is defined.");
-    equal("[object Collection]", Castes.toString(), "Castes is a Collection.");
-    equal(5, Castes.length, "Castes has the right number of Caste instances.");
+  test("API", function Ranks_test () {
+    ok(Ranks, "Ranks is defined.");
+    equal("[object Collection]", Ranks.toString(), "Ranks is a Collection.");
+    equal(5, Ranks.length, "Ranks has the right number of Caste instances.");
 
     var caste = "Hero"
-      , sample = Castes.named(caste)
+      , sample = Ranks.named(caste)
       , temp;
 
     ok(sample.name === caste, "Sample instance has a name and it matches what was searched for in the Collection.");

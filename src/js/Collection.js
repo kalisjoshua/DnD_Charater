@@ -1,7 +1,8 @@
 /*jshint*/
 /*global define*/
 
-define(["util"], function (util) {
+define([      "util"
+  ], function (util) {
   "use strict";
 
   function Collection (ar) {

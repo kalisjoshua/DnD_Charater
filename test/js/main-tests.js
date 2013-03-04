@@ -3,4 +3,4 @@
 
 require(["misc.test"]);
 // require(["Abilities.test"]);
-require(["Castes.test"]);
+require(["Ranks.test"]);

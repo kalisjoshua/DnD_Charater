@@ -4,8 +4,8 @@
 require.config({
   basePath: "js"
   ,paths: {
-    handlebars: "lib/handlebars"
-    ,jquery: ["//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min", "lib/jquery"]
+    jquery        : ["//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min", "lib/jquery"]
+    // ,handlebars   : "lib/handlebars"
   }
   // ,shim: {
   //   handlebars: {

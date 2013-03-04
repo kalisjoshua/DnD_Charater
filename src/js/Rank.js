@@ -1,10 +1,9 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define(["Collection", "roll"], function (Collection, roll) {
+define([      "roll"
+  ], function (roll) {
   "use strict";
-
-  var allCastes = new Collection();
 
   function numericSort (a, b) {
     return a - b;
@@ -28,23 +27,22 @@ define(["Collection", "roll"], function (Collection, roll) {
     return acc + cur;
   }
 
-  function Caste (config) {
-    // this is actually not necessary since it is a "privete" class
+  function Rank (config) {
     if (this === (function () {return this;}())) {
       // called as a function instead of a constructor
-      return new Caste(config);
+      return new Rank(config);
     }
 
     if (!config.dice) {
-      throw new Error("No 'dice' property passed into Caste constructor.");
+      throw new Error("No 'dice' property passed into Rank constructor.");
     }
 
     if (!config.name) {
-      throw new Error("No 'name' property passed into Caste constructor.");
+      throw new Error("No 'name' property passed into Rank constructor.");
     }
 
     if (!config.min) {
-      throw new Error("No 'min' property passed into Caste constructor.");
+      throw new Error("No 'min' property passed into Rank constructor.");
     }
 
     for (var attr in config) {
@@ -52,7 +50,7 @@ define(["Collection", "roll"], function (Collection, roll) {
     }
   }
 
-  Caste.prototype = {
+  Rank.prototype = {
     column: function (num) {
       var indx = 0
         , result = [];
@@ -78,7 +76,7 @@ define(["Collection", "roll"], function (Collection, roll) {
 
     ,getType: function () {
 
-      return "[object Caste]";
+      return "[object Rank]";
     }
 
     ,toString: function () {
@@ -92,14 +90,5 @@ define(["Collection", "roll"], function (Collection, roll) {
     }
   };
 
-  allCastes
-    .add([
-       new Caste({name: "Champion", dice: 6, min: 7})
-      ,new Caste({name: "Hero"    , dice: 4, min: 4})
-      ,new Caste({name: "npc"     , dice: 3, min: 4})
-      ,new Caste({name: "Player"  , dice: 3, min: 7})
-      ,new Caste({name: "Pleb"    , dice: 3, min: 3})
-    ]);
-
-  return allCastes;
+  return Rank;
 });

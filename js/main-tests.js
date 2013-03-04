@@ -276,7 +276,7 @@ define('misc.test',["roll", "util"], function (roll, util) {
 /*jshint*/
 /*global define*/
 
-define('Collection',["util"], function (util) {
+define('dnd/Collection',["util"], function (util) {
   
 
   function Collection (ar) {
@@ -333,10 +333,8 @@ define('Collection',["util"], function (util) {
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('Castes',["Collection", "roll"], function (Collection, roll) {
+define('dnd/Rank',["roll"], function (roll) {
   
-
-  var allCastes = new Collection();
 
   function numericSort (a, b) {
     return a - b;
@@ -360,23 +358,22 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
     return acc + cur;
   }
 
-  function Caste (config) {
-    // this is actually not necessary since it is a "privete" class
+  function Rank (config) {
     if (this === (function () {return this;}())) {
       // called as a function instead of a constructor
-      return new Caste(config);
+      return new Rank(config);
     }
 
     if (!config.dice) {
-      throw new Error("No 'dice' property passed into Caste constructor.");
+      throw new Error("No 'dice' property passed into Rank constructor.");
     }
 
     if (!config.name) {
-      throw new Error("No 'name' property passed into Caste constructor.");
+      throw new Error("No 'name' property passed into Rank constructor.");
     }
 
     if (!config.min) {
-      throw new Error("No 'min' property passed into Caste constructor.");
+      throw new Error("No 'min' property passed into Rank constructor.");
     }
 
     for (var attr in config) {
@@ -384,7 +381,7 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
     }
   }
 
-  Caste.prototype = {
+  Rank.prototype = {
     column: function (num) {
       var indx = 0
         , result = [];
@@ -410,7 +407,7 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
 
     ,getType: function () {
 
-      return "[object Caste]";
+      return "[object Rank]";
     }
 
     ,toString: function () {
@@ -424,30 +421,37 @@ define('Castes',["Collection", "roll"], function (Collection, roll) {
     }
   };
 
-  allCastes
-    .add([
-       new Caste({name: "Champion", dice: 6, min: 7})
-      ,new Caste({name: "Hero"    , dice: 4, min: 4})
-      ,new Caste({name: "npc"     , dice: 3, min: 4})
-      ,new Caste({name: "Player"  , dice: 3, min: 7})
-      ,new Caste({name: "Pleb"    , dice: 3, min: 3})
-    ]);
+  return Rank;
+});
+/*jshint laxcomma:true*/
+/*global define*/
 
-  return allCastes;
+define('Ranks',[      "dnd/Collection", "dnd/Rank"
+  ], function (    Collection,       Rank) {
+  
+
+  return new Collection([
+       new Rank({name: "Champion", dice: 6, min: 7})
+      ,new Rank({name: "Hero"    , dice: 4, min: 4})
+      ,new Rank({name: "npc"     , dice: 3, min: 4})
+      ,new Rank({name: "Player"  , dice: 3, min: 7})
+      ,new Rank({name: "Pleb"    , dice: 3, min: 3})
+    ]);
 });
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('Castes.test',["Castes", "util"], function (Castes, util) {
-  module("Castes");
+define('Ranks.test',[      "Ranks", "util"
+  ], function (Ranks,   util) {
+  module("Ranks");
 
-  test("API", function Castes_test () {
-    ok(Castes, "Castes is defined.");
-    equal("[object Collection]", Castes.toString(), "Castes is a Collection.");
-    equal(5, Castes.length, "Castes has the right number of Caste instances.");
+  test("API", function Ranks_test () {
+    ok(Ranks, "Ranks is defined.");
+    equal("[object Collection]", Ranks.toString(), "Ranks is a Collection.");
+    equal(5, Ranks.length, "Ranks has the right number of Caste instances.");
 
     var caste = "Hero"
-      , sample = Castes.named(caste)
+      , sample = Ranks.named(caste)
       , temp;
 
     ok(sample.name === caste, "Sample instance has a name and it matches what was searched for in the Collection.");
@@ -477,6 +481,6 @@ define('Castes.test',["Castes", "util"], function (Castes, util) {
 
 require(["misc.test"]);
 // require(["Abilities.test"]);
-require(["Castes.test"]);
+require(["Ranks.test"]);
 
 define("../../test/js/main-tests", function(){});

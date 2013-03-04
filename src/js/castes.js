@@ -1,11 +1,11 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define(["Collection", "util"], function (Collection, util) {
+define([      "Collection", "Caste"
+  ], function (Collection,   Caste) {
   "use strict";
 
-  var allClasses
-
+  var allCastes
     , saves = {
       // from DnD 1E DMG
         Cleric: [
@@ -34,7 +34,7 @@ define(["Collection", "util"], function (Collection, util) {
         , [ 2,  5,  6,  8,  7] // 21
         , [ 1,  3,  4,  6,  5] // 22
       ]
-  
+
       , Fighter: [
         //ppd, pp,rsw, bw, sp
           [16, 17, 18, 20, 19] //  0th level charcter
@@ -61,7 +61,7 @@ define(["Collection", "util"], function (Collection, util) {
         , [ 1,  2,  3,  3,  4] // 21
         , [ 1,  2,  3,  3,  4] // 22
       ]
-  
+
       , Mage: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
@@ -88,7 +88,7 @@ define(["Collection", "util"], function (Collection, util) {
         , [ 8,  5,  3,  7,  4] // 21
         , [ 8,  5,  3,  7,  4] // 22
       ]
-  
+
       , Thief: [
         //ppd, pp,rsw, bw, sp
           [19, 19, 19, 19, 19] //  0th level charcter
@@ -571,128 +571,16 @@ define(["Collection", "util"], function (Collection, util) {
       }
     ];
 
-  function Role (config) {
-    if (!config.name) {
-      throw new Error("No '.name' property given in config passed into Role constructor.");
-    }
-
-    if (!config.dual) {
-      throw new Error("No '.dual' property given in config passed into Role constructor.");
-    }
-
-    if (!util.isNumeric(config.HDT) || config.HDT < 4) {
-      throw new Error("Invalid '.HDT' property given in config passed into Role constructor (" + config.HDT + ").");
-    }
-
-    if (config.prefs.length !== 7) {
-      throw new Error("Invalid '.prefs' property given in config passed into Role constructor (" + config.prefs + ").");
-    }
-
-    if (config.saves.length !== 23) {
-      throw new Error("Invalid '.saves' table-property given in config passed into Role constructor (" + config.saves + ").");
-    }
-
-    if (config.thaco.length !== 25) {
-      throw new Error("Invalid '.thaco' table-property given in config passed into Role constructor (" + config.thaco + ").");
-    }
-
-    for (var attr in config) {
-      this[attr] = config[attr];
-    }
-  }
-
-  Role.prototype = {
-    getType: function () {
-
-      return "[object Class]";
-    }
-
-    ,toString: function () {
-
-      return this.name;
-    }
-  };
-
-  allClasses = new Collection()
-    .add(classConfigs
-      .map(function (config) {
-        return new Role(config);
-      }));
-
-  allClasses.duals = function () {
-    return new Collection().add(allClasses.filter(function (item) {
-      return item.dual.length > 0;
+  allCastes = new Collection(classConfigs
+    .map(function (config) {
+      return new Caste(config);
     }));
-  }.bind(allClasses);
 
-  allClasses.merge = function (_a, _b) {
-    if ((_b === undefined || _b === "") && !!allClasses.named(_a)) {
-      return allClasses.named(_a);
-    }
+  allCastes.duals = function () {
+      return new Collection().add(allCastes.filter(function (item) {
+        return item.dual.length > 0;
+      }));
+    }.bind(allCastes);
 
-    if (_a === _b || _a === undefined || !allClasses.named(_a) || !allClasses.named(_b)) {
-      throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
-    }
-
-    _a = allClasses.named(_a);
-    _b = allClasses.named(_b);
-
-    return new Role({
-       name: _a.name + "/" + _b.name
-
-      ,dual: []
-
-      ,HDT: (_a.HDT + _b.HDT) / 2
-
-      ,prefs: (function (a, b) {
-        var  i = 0
-            ,l = a.length
-            ,result = [];
-
-        for ( ; i < l; i++) {
-          result.indexOf(a[i]) === -1 && result.push(a[i]);
-          result.indexOf(b[i]) === -1 && result.push(b[i]);
-        }
-
-        return result;
-      }(_a.prefs, _b.prefs))
-
-      ,saves: (function (a, b) {
-        var level = [],
-            result = [];
-
-        while (result.length < a.length) {
-          level = [];
-
-          while (level.length < a[0].length) {
-            level.push(a[result.length][level.length] < b[result.length][level.length] ? a[result.length][level.length] : b[result.length][level.length]);
-          }
-
-          result.push(level);
-        }
-
-        return result;
-      }(_a.saves, _b.saves))
-
-      ,spells: (function (a, b) {
-        if (a || b) {
-          return [a, b];
-        }
-      }(_a.spells, _b.spells))
-
-      ,thaco: (function (a, b) {
-        var indx = 0,
-            result = [];
-
-        while (indx < a.length) {
-          result.push(a[indx] < b[indx] ? a[indx] : b[indx]);
-          indx++;
-        }
-
-        return result;
-      }(_a.thaco, _b.thaco))
-    });
-  };
-
-  return allClasses;
+  return allCastes;
 });
