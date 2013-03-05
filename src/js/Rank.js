@@ -29,7 +29,7 @@ define([      "roll"
 
   function Rank (config) {
     if (this === (function () {return this;}())) {
-      // called as a function instead of a constructor
+      // called as a function instead of a constructor - fix it!
       return new Rank(config);
     }
 
