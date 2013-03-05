@@ -5,7 +5,7 @@ define([      "Collection", "util"
   ], function (Collection,   util) {
   module("Collection");
 
-  test("defined", function collection_test () {
+  test("constructor", function collection_test () {
     ok(Collection, "Collection is defined.");
     ok(new Collection(), "Create an empty collection.");
     ok(Collection(), "Create an empty collection, without using 'new' keyword.");

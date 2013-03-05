@@ -5,8 +5,9 @@ define([      "station_list", "Station", "util"
   ], function (station_list,   Station,   util) {
   module("Station");
 
-  test("Station constructor function", function constructorOfStation_test () {
-    ok(util.isFunction(Station), "Station constructor function is defined.");
+  test("constructor", function constructorOfStation_test () {
+    ok(Station, "Station object is defined.");
+    ok(util.isFunction(Station), "Station object is a function.");
 
     throws(function () {
       var sample = new Station();
@@ -47,7 +48,9 @@ define([      "station_list", "Station", "util"
         return false;
       }
     }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
+  });
 
+  test("instance methods", function () {
     var rank_name = "Charlatan"
       , sample = Station({name: rank_name, dice: 4, min: 6});
 
@@ -74,7 +77,7 @@ define([      "station_list", "Station", "util"
     ok(sample.valueOf() === JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
   });
 
-  test("collection of Station instances", function stationList_test () {
+  test("Collection of instances", function stationList_test () {
     ok(station_list, "station_list is defined.");
     equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
     equal(5, station_list.length, "station_list has the right number of Station instances.");

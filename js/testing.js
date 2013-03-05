@@ -107,7 +107,7 @@ define('util',[], function () {
 
 define('test_misc',[      "roll", "util"
   ], function (roll,   util) {
-  module("misc");
+  module("util");
 
   var max_test_iterations = 100000
 
@@ -210,7 +210,7 @@ define('test_misc',[      "roll", "util"
     });
   }
 
-  test("util.isArray", function () {
+  test("'.isArray'", function () {
     ok(util.isArray([]), ".isArray()");
     ok(!util.isArray((function () {return arguments;}())), ".isArray()");
     fail(util.isArray, functions);
@@ -219,7 +219,7 @@ define('test_misc',[      "roll", "util"
     fail(util.isArray, strings);
   });
 
-  test("util.isFunction", function () {
+  test("'.isFunction'", function () {
     ok(util.isFunction(window.alert), ".isFunction()");
     pass(util.isFunction, functions);
     fail(util.isFunction, numbers);
@@ -227,14 +227,14 @@ define('test_misc',[      "roll", "util"
     fail(util.isFunction, strings);
   });
 
-  test("util.isNumeric", function () {
+  test("'.isNumeric'", function () {
     fail(util.isNumeric, functions);
     pass(util.isNumeric, numbers);
     fail(util.isNumeric, objects);
     fail(util.isNumeric, strings);
   });
 
-  test("util.isString", function () {
+  test("'.isString'", function () {
     fail(util.isString, functions);
     fail(util.isString, numbers.slice(0, 21)); // 21 and over ARE strings
     fail(util.isString, objects);
@@ -242,7 +242,7 @@ define('test_misc',[      "roll", "util"
   });
 
 
-  test("util.sort(ing)", function () {
+  test("'.sort'(ing)", function () {
     ok(util.sort, "Sorting defined in util.");
 
     ok(util.sort.asc, "Sorting (ascending) defined in util.");
@@ -256,6 +256,8 @@ define('test_misc',[      "roll", "util"
     equal([0,1,2,3,4,5,6,7,8,9].join(), ar.sort(util.sort.asc).join(), "Ascending sort works.");
     equal([9,8,7,6,5,4,3,2,1,0].join(), ar.sort(util.sort.desc).join(), "Ascending sort works.");
   });
+
+  module("misc");
 
   test("roll", function () {
     ok(roll, "'roll' is defined");
@@ -368,7 +370,7 @@ define('test_collections',[      "Collection", "util"
   ], function (Collection,   util) {
   module("Collection");
 
-  test("defined", function collection_test () {
+  test("constructor", function collection_test () {
     ok(Collection, "Collection is defined.");
     ok(new Collection(), "Create an empty collection.");
     ok(Collection(), "Create an empty collection, without using 'new' keyword.");
@@ -467,6 +469,293 @@ define('test_collections',[      "Collection", "util"
         , JSON.stringify(sample.named(data[0].name))
         , "Names of elements from the collection.");
   });
+});
+
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('Race',[      "util"
+  ], function (util) {
+  
+
+  function Race (config) {
+    if (!config.name || !util.isString(config.name)) {
+      throw new Error("No '.name' property given in config passed into Race constructor.");
+    }
+
+    if (!util.isNumeric(config.infravision)) {
+      throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
+    }
+
+    if (!config.languages.length || !util.isArray(config.languages)) {
+      throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
+    }
+
+    if (config.saves.length !== 5) {
+      throw new Error("Invalid '.saves' property given in config passed into Race constructor (" + config.saves + ").");
+    }
+
+    if (config.stats.length !== 7) {
+      throw new Error("Invalid '.stats' property given in config passed into Race constructor (" + config.stats + ").");
+    }
+
+    if (config.thieving.length !== 8) {
+      throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
+    }
+
+    if (!util.isNumeric(config.move)) {
+      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
+    }
+
+    for (var attr in config) {
+      this[attr] = config[attr];
+    }
+  }
+
+  Race.prototype = {
+    getType: function () {
+      return "[object Race]";
+    }
+
+    ,toString: function () {
+      return "Race: " + this.name;
+    }
+  };
+
+  return Race;
+});
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('races',[      "Collection", "Race"
+  ], function (Collection,   Race) {
+  
+
+  function pickLanguages (languages, ar) {
+
+    return [languages[~~ar.shift()]]
+      .concat(!ar.length ? [] : pickLanguages(languages, ar));
+  }
+
+  var languages = [
+        // standard languages
+          "burrowing mammal"
+        , "dwarven"
+        , "elvish"
+        , "gnoll"
+        , "gnome"
+        , "goblin"
+        , "halfling"
+        , "hobgoblin"
+        , "kobold"
+        , "orcish"
+        , "common"
+      ]
+
+    , racesConfigs =  [
+        {
+            name        : "Dwarf"
+          , infravision : 60
+          , languages   : pickLanguages(languages, [4, 5, 8, 9])
+          , move        : 6
+          , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+          , saves       : [1, 0, 1, 0, 1]
+          , stats       : [0, 0, 0, 0, 1, -1, 0]
+          , thieving    : [0, 10, 15, 0, 0, 0, -10, -5]
+        }
+
+        , {
+            name        : "Elf"
+          , infravision : 60
+          , languages   : pickLanguages(languages, [3, 4, 5, 6, 7, 9])
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [0, 0, 0, 1, -1, 0, 0]
+          , thieving    : [5, -5, 0, 5, 10, 5, 0, 0]
+        }
+
+        , {
+            name        : "Gnome"
+          , infravision : 60
+          , languages   : pickLanguages(languages, [0, 1, 6, 5, 8])
+          , move        : 6
+          , notes       : "+1 on saves(rsw, sp) for each 3 1/2 of con"
+          , saves       : [0, 0, 1, 0, 1]
+          , stats       : [-1, 0, 0, 1, 0, 0, 0]
+          , thieving    : [0, 5, 10, 5, 5, 10, 15, 0]
+        }
+
+        , {
+            name        : "Goblin"
+          , infravision : 30
+          , languages   : pickLanguages(languages, [1, 3, 7, 8])
+          , move        : 8
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [-1, 1, 0, 1, 0, -1, 0]
+          , thieving    : [ 0, 15, 10, 0, 0, 15, 0, 15]
+        }
+
+        , {
+            name        : "Half-Elf"
+          , infravision : 60
+          , languages   : pickLanguages(languages, [3, 4, 5, 6, 7, 9])
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [0, 0, 0, 0, 0, 0, 0]
+          , thieving    : [10, 0, 0, 5, 0, 0, 0, 0]
+        }
+
+        , {
+            name        : "Half-Orc"
+          , infravision : 60
+          , languages   : pickLanguages(languages, [9])
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [1, 0, 0, 0, 1, -1, 0]
+          , thieving    : [ -5, 5, 5, 0, 0, 5, 5, -10]
+        }
+
+        , {
+            name        : "Halfling"
+          , infravision : 30
+          , languages   : pickLanguages(languages, [1, 2, 4, 5, 9])
+          , move        : 6
+          , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+          , saves       : [1, 0, 1, 0, 1]
+          , stats       : [-1, 0, 0, 1, 0, 0, 0]
+          , thieving    : [ 5, 5, 5, 10, 15, 5, -15, -5]
+        }
+
+        , {
+            name        : "Human"
+          , infravision : 0
+          , languages   : pickLanguages(languages, [10])
+          , move        : 12
+          , notes       : ""
+          , saves       : [0, 0, 0, 0, 0]
+          , stats       : [0, 0, 0, 0, 0, 0, 0]
+          , thieving    : [0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ];
+
+  return new Collection(racesConfigs
+    .map(function (config) {
+      return new Race(config);
+    }));
+});
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('test_races',[      "races", "Race", "util"
+  ], function (races,   Race,   util) {
+  module("Race");
+
+  test("constructor", function () {
+    ok(Race, "Race object is defined.");
+    ok(util.isFunction(Race), "Race object is a function.");
+
+    var valid_race_config =
+        { name        : "Dwarf"
+        , infravision : 60
+        , languages   : ["gnome", "goblin", "kobol", "orcish"]
+        , move        : 6
+        , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+        , saves       : [1, 0, 1, 0, 1]
+        , stats       : [0, 0, 0, 0, 1, -1, 0]
+        , thieving    : [0, 10, 15, 0, 0, 0, -10, -5]};
+
+    throws(function () {
+      var sample = new Race();
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var sample = new Race({name: "Berzerker"});
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    todo();
+  });
+
+  //   throws(function () {
+  //     var sample = new Station();
+  //   }, "An error is thrown when an invalid config is passed into the constructor.");
+
+  //   throws(function () {
+  //     var sample = new Station({});
+  //   }, "An error is thrown when an invalid config is passed into the constructor.");
+
+  //   throws(function () {
+  //     var sample = new Station({name: "Charlatan"});
+  //   }, "An error is thrown when an invalid config is passed into the constructor.");
+
+  //   throws(function () {
+  //     var sample = new Station({name: "Charlatan", dice: 4});
+  //   }, "An error is thrown when an invalid config is passed into the constructor.");
+
+  //   throws(function () {
+  //     var sample = new Station({name: "Charlatan", min: 6});
+  //   }, "An error is thrown when an invalid config is passed into the constructor.");
+
+  //   ok((function () {
+  //     try {
+  //       var sample = new Station({name: "Charlatan", dice: 4, min: 6});
+
+  //       return true;
+  //     } catch (e) {
+  //       return false;
+  //     }
+  //   }()), "An error is NOT thrown when a valid config is passed into the constructor.");
+
+  //   ok((function () {
+  //     try {
+  //       var sample = Station({name: "Charlatan", dice: 4, min: 6});
+
+  //       return true;
+  //     } catch (e) {
+  //       return false;
+  //     }
+  //   }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
+
+  //   var rank_name = "Charlatan"
+  //     , sample = Station({name: rank_name, dice: 4, min: 6});
+
+  //   equal(rank_name, sample.name, "Constructed object has properties from config.");
+  //   equal(4, sample.dice, "Constructed object has properties from config.");
+  //   equal(6, sample.min, "Constructed object has properties from config.");
+
+  //   ok(sample.column, "Sample instance has 'column' property.");
+  //   ok(util.isFunction(sample.column), "Sample instance '.column' is a function.");
+  //   ok(sample.column().every(util.isNumeric), "Call to '.column' returns an array of numbers.");
+
+  //   ok(sample.getType, "Sample instance has '.getType' property.");
+  //   ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+  //   ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+
+  //   ok(sample.toString, "Sample instance has '.toString' property.");
+  //   ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+  //   ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+  //   ok(sample.toString() === rank_name, "Call to '.toString' returns the correct String.");
+
+  //   ok(sample.valueOf, "Sample instance has '.valueOf' property.");
+  //   ok(util.isFunction(sample.valueOf), "Sample instance has '.valueOf' is a function.");
+  //   ok(util.isString(sample.valueOf()), "Call to '.valueOf' returns a String.");
+  //   ok(sample.valueOf() === JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
+  // });
+
+  // test("collection of Station instances", function stationList_test () {
+  //   ok(station_list, "station_list is defined.");
+  //   equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
+  //   equal(5, station_list.length, "station_list has the right number of Station instances.");
+
+  //   var rank_name = "Hero"
+  //     , sample = station_list.named(rank_name)[0]
+  //     , temp;
+
+  //   ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");
+  // });
 });
 
 /*jshint laxcomma:true*/
@@ -587,8 +876,9 @@ define('test_stations',[      "station_list", "Station", "util"
   ], function (station_list,   Station,   util) {
   module("Station");
 
-  test("Station constructor function", function constructorOfStation_test () {
-    ok(util.isFunction(Station), "Station constructor function is defined.");
+  test("constructor", function constructorOfStation_test () {
+    ok(Station, "Station object is defined.");
+    ok(util.isFunction(Station), "Station object is a function.");
 
     throws(function () {
       var sample = new Station();
@@ -629,7 +919,9 @@ define('test_stations',[      "station_list", "Station", "util"
         return false;
       }
     }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
+  });
 
+  test("instance methods", function () {
     var rank_name = "Charlatan"
       , sample = Station({name: rank_name, dice: 4, min: 6});
 
@@ -656,7 +948,7 @@ define('test_stations',[      "station_list", "Station", "util"
     ok(sample.valueOf() === JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
   });
 
-  test("collection of Station instances", function stationList_test () {
+  test("Collection of instances", function stationList_test () {
     ok(station_list, "station_list is defined.");
     equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
     equal(5, station_list.length, "station_list has the right number of Station instances.");
@@ -674,6 +966,7 @@ define('test_stations',[      "station_list", "Station", "util"
 
 require(["test_misc"]);
 require(["test_collections"]);
+require(["test_races"]);
 require(["test_stations"]);
 
-define("../../test/js/main-tests", function(){});
+define("../../test/js/testing", function(){});

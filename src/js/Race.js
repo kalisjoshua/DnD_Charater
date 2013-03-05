@@ -6,7 +6,7 @@ define([      "util"
   "use strict";
 
   function Race (config) {
-    if (!config.name) {
+    if (!config.name || !util.isString(config.name)) {
       throw new Error("No '.name' property given in config passed into Race constructor.");
     }
 
@@ -14,7 +14,7 @@ define([      "util"
       throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
     }
 
-    if (!config.languages.length) {
+    if (!config.languages.length || !util.isArray(config.languages)) {
       throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
     }
 

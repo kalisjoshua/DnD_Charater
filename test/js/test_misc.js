@@ -3,7 +3,7 @@
 
 define([      "roll", "util"
   ], function (roll,   util) {
-  module("misc");
+  module("util");
 
   var max_test_iterations = 100000
 
@@ -106,7 +106,7 @@ define([      "roll", "util"
     });
   }
 
-  test("util.isArray", function () {
+  test("'.isArray'", function () {
     ok(util.isArray([]), ".isArray()");
     ok(!util.isArray((function () {return arguments;}())), ".isArray()");
     fail(util.isArray, functions);
@@ -115,7 +115,7 @@ define([      "roll", "util"
     fail(util.isArray, strings);
   });
 
-  test("util.isFunction", function () {
+  test("'.isFunction'", function () {
     ok(util.isFunction(window.alert), ".isFunction()");
     pass(util.isFunction, functions);
     fail(util.isFunction, numbers);
@@ -123,14 +123,14 @@ define([      "roll", "util"
     fail(util.isFunction, strings);
   });
 
-  test("util.isNumeric", function () {
+  test("'.isNumeric'", function () {
     fail(util.isNumeric, functions);
     pass(util.isNumeric, numbers);
     fail(util.isNumeric, objects);
     fail(util.isNumeric, strings);
   });
 
-  test("util.isString", function () {
+  test("'.isString'", function () {
     fail(util.isString, functions);
     fail(util.isString, numbers.slice(0, 21)); // 21 and over ARE strings
     fail(util.isString, objects);
@@ -138,7 +138,7 @@ define([      "roll", "util"
   });
 
 
-  test("util.sort(ing)", function () {
+  test("'.sort'(ing)", function () {
     ok(util.sort, "Sorting defined in util.");
 
     ok(util.sort.asc, "Sorting (ascending) defined in util.");
@@ -152,6 +152,8 @@ define([      "roll", "util"
     equal([0,1,2,3,4,5,6,7,8,9].join(), ar.sort(util.sort.asc).join(), "Ascending sort works.");
     equal([9,8,7,6,5,4,3,2,1,0].join(), ar.sort(util.sort.desc).join(), "Ascending sort works.");
   });
+
+  module("misc");
 
   test("roll", function () {
     ok(roll, "'roll' is defined");
