@@ -105,7 +105,7 @@ define('util',[], function () {
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('misc.test',[      "roll", "util"
+define('test_misc',[      "roll", "util"
   ], function (roll,   util) {
   module("misc");
 
@@ -364,7 +364,7 @@ define('Collection',[      "util"
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('collection.test',[      "Collection", "util"
+define('test_collections',[      "Collection", "util"
   ], function (Collection,   util) {
   module("Collection");
 
@@ -583,7 +583,7 @@ define('station_list',[      "Collection", "Station"
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('station.test',[      "station_list", "Station", "util"
+define('test_stations',[      "station_list", "Station", "util"
   ], function (station_list,   Station,   util) {
   module("Station");
 
@@ -672,8 +672,8 @@ define('station.test',[      "station_list", "Station", "util"
 /*jshint laxcomma:true*/
 /*global require*/
 
-require(["misc.test"]);
-require(["collection.test"]);
-require(["station.test"]);
+require(["test_misc"]);
+require(["test_collections"]);
+require(["test_stations"]);
 
 define("../../test/js/main-tests", function(){});

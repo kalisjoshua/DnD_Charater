@@ -7,10 +7,10 @@
     // "Abilities.test"  : "../../test/js/Abilities.test",
     // "Classes.test"    : "../../test/js/Classes.test",
     // "Races.test"      : "../../test/js/Races.test",
-    "station.test"      : "../../test/js/station.test",
+    "test_stations"      : "../../test/js/test_stations",
 
-    "collection.test" : "../../test/js/collection.test",
-    "misc.test"       : "../../test/js/misc.test",
+    "test_collections" : "../../test/js/test_collections",
+    "test_misc"       : "../../test/js/test_misc",
 
     // handlebars  : "empty:",
     jquery      : "empty:"

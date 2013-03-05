@@ -1,6 +1,6 @@
 /*jshint laxcomma:true*/
 /*global require*/
 
-require(["misc.test"]);
-require(["collection.test"]);
-require(["station.test"]);
+require(["test_misc"]);
+require(["test_collections"]);
+require(["test_stations"]);
