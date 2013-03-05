@@ -1,36 +1,36 @@
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define([            "ranks", "Rank", "util"
-  ], function (listOfRanks,   Rank,   util) {
-  module("Rank");
+define([      "station_list", "Station", "util"
+  ], function (station_list,   Station,   util) {
+  module("Station");
 
-  test("Rank constructor function", function constructorOfRank_test () {
-    ok(util.isFunction(Rank), "Rank constructor function is defined.");
+  test("Station constructor function", function constructorOfStation_test () {
+    ok(util.isFunction(Station), "Station constructor function is defined.");
 
     throws(function () {
-      var sample = new Rank();
+      var sample = new Station();
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({});
+      var sample = new Station({});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({name: "Charlatan"});
+      var sample = new Station({name: "Charlatan"});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({name: "Charlatan", dice: 4});
+      var sample = new Station({name: "Charlatan", dice: 4});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({name: "Charlatan", min: 6});
+      var sample = new Station({name: "Charlatan", min: 6});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     ok((function () {
       try {
-        var sample = new Rank({name: "Charlatan", dice: 4, min: 6});
+        var sample = new Station({name: "Charlatan", dice: 4, min: 6});
 
         return true;
       } catch (e) {
@@ -40,7 +40,7 @@ define([            "ranks", "Rank", "util"
 
     ok((function () {
       try {
-        var sample = Rank({name: "Charlatan", dice: 4, min: 6});
+        var sample = Station({name: "Charlatan", dice: 4, min: 6});
 
         return true;
       } catch (e) {
@@ -49,7 +49,7 @@ define([            "ranks", "Rank", "util"
     }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
 
     var rank_name = "Charlatan"
-      , sample = Rank({name: rank_name, dice: 4, min: 6});
+      , sample = Station({name: rank_name, dice: 4, min: 6});
 
     equal(rank_name, sample.name, "Constructed object has properties from config.");
     equal(4, sample.dice, "Constructed object has properties from config.");
@@ -74,13 +74,13 @@ define([            "ranks", "Rank", "util"
     ok(sample.valueOf() === JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
   });
 
-  test("collection of Rank instances", function listOfRanks_test () {
-    ok(listOfRanks, "listOfRanks is defined.");
-    equal("[object Collection]", listOfRanks.toString(), "listOfRanks is a Collection.");
-    equal(5, listOfRanks.length, "listOfRanks has the right number of Rank instances.");
+  test("collection of Station instances", function stationList_test () {
+    ok(station_list, "station_list is defined.");
+    equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
+    equal(5, station_list.length, "station_list has the right number of Station instances.");
 
     var rank_name = "Hero"
-      , sample = listOfRanks.named(rank_name)
+      , sample = station_list.named(rank_name)
       , temp;
 
     ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");

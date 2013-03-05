@@ -334,7 +334,7 @@ define('Collection',[      "util"
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('Rank',[      "roll"
+define('Station',[      "roll"
   ], function (roll) {
   
 
@@ -360,22 +360,22 @@ define('Rank',[      "roll"
     return acc + cur;
   }
 
-  function Rank (config) {
+  function Station (config) {
     if (this === (function () {return this;}())) {
       // called as a function instead of a constructor - fix it!
-      return new Rank(config);
+      return new Station(config);
     }
 
     if (!config.dice) {
-      throw new Error("No 'dice' property passed into Rank constructor.");
+      throw new Error("No 'dice' property passed into Station constructor.");
     }
 
     if (!config.name) {
-      throw new Error("No 'name' property passed into Rank constructor.");
+      throw new Error("No 'name' property passed into Station constructor.");
     }
 
     if (!config.min) {
-      throw new Error("No 'min' property passed into Rank constructor.");
+      throw new Error("No 'min' property passed into Station constructor.");
     }
 
     for (var attr in config) {
@@ -383,7 +383,7 @@ define('Rank',[      "roll"
     }
   }
 
-  Rank.prototype = {
+  Station.prototype = {
     column: function (num) {
       var indx = 0
         , result = [];
@@ -409,7 +409,7 @@ define('Rank',[      "roll"
 
     ,getType: function () {
 
-      return "[object Rank]";
+      return "[object Station]";
     }
 
     ,toString: function () {
@@ -423,56 +423,56 @@ define('Rank',[      "roll"
     }
   };
 
-  return Rank;
+  return Station;
 });
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('ranks',[      "Collection", "Rank"
-  ], function (Collection,   Rank) {
+define('station_list',[      "Collection", "Station"
+  ], function (Collection,   Station) {
   
 
   return new Collection([
-       new Rank({name: "Champion", dice: 6, min: 7})
-      ,new Rank({name: "Hero"    , dice: 4, min: 4})
-      ,new Rank({name: "npc"     , dice: 3, min: 4})
-      ,new Rank({name: "Player"  , dice: 3, min: 7})
-      ,new Rank({name: "Pleb"    , dice: 3, min: 3})
+       new Station({name: "Champion", dice: 6, min: 7})
+      ,new Station({name: "Hero"    , dice: 4, min: 4})
+      ,new Station({name: "npc"     , dice: 3, min: 4})
+      ,new Station({name: "Player"  , dice: 3, min: 7})
+      ,new Station({name: "Pleb"    , dice: 3, min: 3})
     ]);
 });
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('ranks.test',[            "ranks", "Rank", "util"
-  ], function (listOfRanks,   Rank,   util) {
-  module("Rank");
+define('station.test',[      "station_list", "Station", "util"
+  ], function (station_list,   Station,   util) {
+  module("Station");
 
-  test("Rank constructor function", function constructorOfRank_test () {
-    ok(util.isFunction(Rank), "Rank constructor function is defined.");
+  test("Station constructor function", function constructorOfStation_test () {
+    ok(util.isFunction(Station), "Station constructor function is defined.");
 
     throws(function () {
-      var sample = new Rank();
+      var sample = new Station();
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({});
+      var sample = new Station({});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({name: "Charlatan"});
+      var sample = new Station({name: "Charlatan"});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({name: "Charlatan", dice: 4});
+      var sample = new Station({name: "Charlatan", dice: 4});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var sample = new Rank({name: "Charlatan", min: 6});
+      var sample = new Station({name: "Charlatan", min: 6});
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     ok((function () {
       try {
-        var sample = new Rank({name: "Charlatan", dice: 4, min: 6});
+        var sample = new Station({name: "Charlatan", dice: 4, min: 6});
 
         return true;
       } catch (e) {
@@ -482,7 +482,7 @@ define('ranks.test',[            "ranks", "Rank", "util"
 
     ok((function () {
       try {
-        var sample = Rank({name: "Charlatan", dice: 4, min: 6});
+        var sample = Station({name: "Charlatan", dice: 4, min: 6});
 
         return true;
       } catch (e) {
@@ -491,7 +491,7 @@ define('ranks.test',[            "ranks", "Rank", "util"
     }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
 
     var rank_name = "Charlatan"
-      , sample = Rank({name: rank_name, dice: 4, min: 6});
+      , sample = Station({name: rank_name, dice: 4, min: 6});
 
     equal(rank_name, sample.name, "Constructed object has properties from config.");
     equal(4, sample.dice, "Constructed object has properties from config.");
@@ -516,13 +516,13 @@ define('ranks.test',[            "ranks", "Rank", "util"
     ok(sample.valueOf() === JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
   });
 
-  test("collection of Rank instances", function listOfRanks_test () {
-    ok(listOfRanks, "listOfRanks is defined.");
-    equal("[object Collection]", listOfRanks.toString(), "listOfRanks is a Collection.");
-    equal(5, listOfRanks.length, "listOfRanks has the right number of Rank instances.");
+  test("collection of Station instances", function stationList_test () {
+    ok(station_list, "station_list is defined.");
+    equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
+    equal(5, station_list.length, "station_list has the right number of Station instances.");
 
     var rank_name = "Hero"
-      , sample = listOfRanks.named(rank_name)
+      , sample = station_list.named(rank_name)
       , temp;
 
     ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");
@@ -534,6 +534,6 @@ define('ranks.test',[            "ranks", "Rank", "util"
 
 require(["misc.test"]);
 // require(["Abilities.test"]);
-require(["ranks.test"]);
+require(["station.test"]);
 
 define("../../test/js/main-tests", function(){});

@@ -62,7 +62,8 @@ define('util',[], function () {
 /*jshint*/
 /*global define*/
 
-define('dnd/Collection',["util"], function (util) {
+define('Collection',[      "util"
+  ], function (util) {
   
 
   function Collection (ar) {
@@ -119,7 +120,8 @@ define('dnd/Collection',["util"], function (util) {
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('dnd/Caste',["util"], function (util) {
+define('Caste',[      "util"
+  ], function (util) {
   
 
   function Caste (config) {
@@ -238,8 +240,8 @@ define('dnd/Caste',["util"], function (util) {
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('castes',[      "dnd/Collection", "dnd/Caste"
-  ], function (    Collection,       Caste) {
+define('castes',[      "Collection", "Caste"
+  ], function (Collection,   Caste) {
   
 
   var allCastes
@@ -824,7 +826,8 @@ define('castes',[      "dnd/Collection", "dnd/Caste"
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('dnd/Race',["util"], function (util) {
+define('Race',[      "util"
+  ], function (util) {
   
 
   function Race (config) {
@@ -876,8 +879,8 @@ define('dnd/Race',["util"], function (util) {
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('races',[      "dnd/Collection", "dnd/Race"
-  ], function (    Collection,       Race) {
+define('races',[      "Collection", "Race"
+  ], function (Collection,   Race) {
   
 
   function pickLanguages (languages, ar) {
@@ -1030,7 +1033,8 @@ define('roll',[], function () {
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('dnd/Rank',["roll"], function (roll) {
+define('Station',[      "roll"
+  ], function (roll) {
   
 
   function numericSort (a, b) {
@@ -1055,22 +1059,22 @@ define('dnd/Rank',["roll"], function (roll) {
     return acc + cur;
   }
 
-  function Rank (config) {
+  function Station (config) {
     if (this === (function () {return this;}())) {
-      // called as a function instead of a constructor
-      return new Rank(config);
+      // called as a function instead of a constructor - fix it!
+      return new Station(config);
     }
 
     if (!config.dice) {
-      throw new Error("No 'dice' property passed into Rank constructor.");
+      throw new Error("No 'dice' property passed into Station constructor.");
     }
 
     if (!config.name) {
-      throw new Error("No 'name' property passed into Rank constructor.");
+      throw new Error("No 'name' property passed into Station constructor.");
     }
 
     if (!config.min) {
-      throw new Error("No 'min' property passed into Rank constructor.");
+      throw new Error("No 'min' property passed into Station constructor.");
     }
 
     for (var attr in config) {
@@ -1078,7 +1082,7 @@ define('dnd/Rank',["roll"], function (roll) {
     }
   }
 
-  Rank.prototype = {
+  Station.prototype = {
     column: function (num) {
       var indx = 0
         , result = [];
@@ -1104,7 +1108,7 @@ define('dnd/Rank',["roll"], function (roll) {
 
     ,getType: function () {
 
-      return "[object Rank]";
+      return "[object Station]";
     }
 
     ,toString: function () {
@@ -1118,28 +1122,28 @@ define('dnd/Rank',["roll"], function (roll) {
     }
   };
 
-  return Rank;
+  return Station;
 });
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('ranks',[      "dnd/Collection", "dnd/Rank"
-  ], function (    Collection,       Rank) {
+define('station_list',[      "Collection", "Station"
+  ], function (Collection,   Station) {
   
 
   return new Collection([
-       new Rank({name: "Champion", dice: 6, min: 7})
-      ,new Rank({name: "Hero"    , dice: 4, min: 4})
-      ,new Rank({name: "npc"     , dice: 3, min: 4})
-      ,new Rank({name: "Player"  , dice: 3, min: 7})
-      ,new Rank({name: "Pleb"    , dice: 3, min: 3})
+       new Station({name: "Champion", dice: 6, min: 7})
+      ,new Station({name: "Hero"    , dice: 4, min: 4})
+      ,new Station({name: "npc"     , dice: 3, min: 4})
+      ,new Station({name: "Player"  , dice: 3, min: 7})
+      ,new Station({name: "Pleb"    , dice: 3, min: 3})
     ]);
 });
 /*jshint laxcomma:true*/
 /*global require define*/
 
-define('ui_builder',[ "jquery", "castes", "races", "ranks"
-  ], function ($,   castes,   races,   ranks) {
+define('ui_builder',[ "jquery", "castes", "races", "station_list"
+  ], function ($,   castes,   races,   station_list) {
     
 
     var empty_option  = $("<option value>-- select one --</option>")
@@ -1148,7 +1152,7 @@ define('ui_builder',[ "jquery", "castes", "races", "ranks"
           .html()       // instance is apended
 
       // DOM selectors
-      , _rank         = "#rank"
+      , _station      = "#station"
       , _caste_alpha  = "#caste_alpha"
       , _caste_beta   = "#caste_beta"
       , _strict_dual  = "#strict_dual"
@@ -1158,10 +1162,10 @@ define('ui_builder',[ "jquery", "castes", "races", "ranks"
 
       // selector groups
       , dual_elements = [_caste_alpha, _caste_beta, _strict_dual].join()
-      , ui_elements   = [_rank, _caste_alpha, _caste_beta, _strict_dual, _level, _race, _stats_column].join()
+      , ui_elements   = [_station, _caste_alpha, _caste_beta, _strict_dual, _level, _race, _stats_column].join()
 
       // jQuery DOM object references
-      , $rank        = $(_rank)
+      , $station      = $(_station)
       , $caste_alpha  = $(_caste_alpha)
       , $caste_beta   = $(_caste_beta)
       , $document     = $(document)
@@ -1178,14 +1182,13 @@ define('ui_builder',[ "jquery", "castes", "races", "ranks"
     }
 
     function dualCasteHandler (event) {
-      var caste_alphaValue      = $caste_alpha.find("option:selected").val()
+      var list
+        , caste_alphaValue      = $caste_alpha.find("option:selected").val()
         , caste_betaValue       = $caste_beta.find("option:selected").val()
         , isStrictDualSelected  = $strict_dual.is(":checked")
         , isCasteAlphaDualable  = !isStrictDualSelected ||
                                   !!caste_alphaValue &&
-                                  !!castes.named(caste_alphaValue).dual.length
-
-        , list;
+                                  !!castes.named(caste_alphaValue).dual.length;
 
       $caste_beta.empty();
 
@@ -1212,8 +1215,8 @@ define('ui_builder',[ "jquery", "castes", "races", "ranks"
     }
 
     function initUI () {
-      $rank
-        .append(ranks.map(radioItem.bind(null, "rank")));
+      $station
+        .append(station_list.map(radioItem.bind(null, "rank")));
 
       $caste_alpha
         .append(empty_option)
@@ -1238,7 +1241,7 @@ define('ui_builder',[ "jquery", "castes", "races", "ranks"
 
     function statColumn (event) {
       if (!/label/i.test(event.target.nodeName)) {
-        var column = ranks[event.target.value].column();
+        var column = station_list[event.target.value].column();
 
         $stats_column
           .val(column)
@@ -1248,7 +1251,7 @@ define('ui_builder',[ "jquery", "castes", "races", "ranks"
     }
 
     $document
-      .on("click", _rank + " label", statColumn)
+      .on("click", _station + " label", statColumn)
       .on("change", dual_elements, dualCasteHandler)
       .on("change", ui_elements, attemptPlayerCreation)
       .on("ready", initUI);

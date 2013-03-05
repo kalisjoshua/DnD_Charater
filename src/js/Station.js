@@ -27,22 +27,22 @@ define([      "roll"
     return acc + cur;
   }
 
-  function Rank (config) {
+  function Station (config) {
     if (this === (function () {return this;}())) {
       // called as a function instead of a constructor - fix it!
-      return new Rank(config);
+      return new Station(config);
     }
 
     if (!config.dice) {
-      throw new Error("No 'dice' property passed into Rank constructor.");
+      throw new Error("No 'dice' property passed into Station constructor.");
     }
 
     if (!config.name) {
-      throw new Error("No 'name' property passed into Rank constructor.");
+      throw new Error("No 'name' property passed into Station constructor.");
     }
 
     if (!config.min) {
-      throw new Error("No 'min' property passed into Rank constructor.");
+      throw new Error("No 'min' property passed into Station constructor.");
     }
 
     for (var attr in config) {
@@ -50,7 +50,7 @@ define([      "roll"
     }
   }
 
-  Rank.prototype = {
+  Station.prototype = {
     column: function (num) {
       var indx = 0
         , result = [];
@@ -76,7 +76,7 @@ define([      "roll"
 
     ,getType: function () {
 
-      return "[object Rank]";
+      return "[object Station]";
     }
 
     ,toString: function () {
@@ -90,5 +90,5 @@ define([      "roll"
     }
   };
 
-  return Rank;
+  return Station;
 });

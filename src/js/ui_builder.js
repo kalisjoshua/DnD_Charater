@@ -1,8 +1,8 @@
 /*jshint laxcomma:true*/
 /*global require define*/
 
-define([ "jquery", "castes", "races", "ranks"
-  ], function ($,   castes,   races,   ranks) {
+define([ "jquery", "castes", "races", "station_list"
+  ], function ($,   castes,   races,   station_list) {
     "use strict";
 
     var empty_option  = $("<option value>-- select one --</option>")
@@ -11,7 +11,7 @@ define([ "jquery", "castes", "races", "ranks"
           .html()       // instance is apended
 
       // DOM selectors
-      , _rank         = "#rank"
+      , _station      = "#station"
       , _caste_alpha  = "#caste_alpha"
       , _caste_beta   = "#caste_beta"
       , _strict_dual  = "#strict_dual"
@@ -21,10 +21,10 @@ define([ "jquery", "castes", "races", "ranks"
 
       // selector groups
       , dual_elements = [_caste_alpha, _caste_beta, _strict_dual].join()
-      , ui_elements   = [_rank, _caste_alpha, _caste_beta, _strict_dual, _level, _race, _stats_column].join()
+      , ui_elements   = [_station, _caste_alpha, _caste_beta, _strict_dual, _level, _race, _stats_column].join()
 
       // jQuery DOM object references
-      , $rank         = $(_rank)
+      , $station      = $(_station)
       , $caste_alpha  = $(_caste_alpha)
       , $caste_beta   = $(_caste_beta)
       , $document     = $(document)
@@ -74,8 +74,8 @@ define([ "jquery", "castes", "races", "ranks"
     }
 
     function initUI () {
-      $rank
-        .append(ranks.map(radioItem.bind(null, "rank")));
+      $station
+        .append(station_list.map(radioItem.bind(null, "rank")));
 
       $caste_alpha
         .append(empty_option)
@@ -100,7 +100,7 @@ define([ "jquery", "castes", "races", "ranks"
 
     function statColumn (event) {
       if (!/label/i.test(event.target.nodeName)) {
-        var column = ranks[event.target.value].column();
+        var column = station_list[event.target.value].column();
 
         $stats_column
           .val(column)
@@ -110,7 +110,7 @@ define([ "jquery", "castes", "races", "ranks"
     }
 
     $document
-      .on("click", _rank + " label", statColumn)
+      .on("click", _station + " label", statColumn)
       .on("change", dual_elements, dualCasteHandler)
       .on("change", ui_elements, attemptPlayerCreation)
       .on("ready", initUI);

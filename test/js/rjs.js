@@ -7,7 +7,7 @@
     // "Abilities.test"  : "../../test/js/Abilities.test",
     // "Classes.test"    : "../../test/js/Classes.test",
     // "Races.test"      : "../../test/js/Races.test",
-    "ranks.test"      : "../../test/js/ranks.test",
+    "station.test"      : "../../test/js/station.test",
 
     "Collection.test" : "../../test/js/Collection.test",
     "misc.test"       : "../../test/js/misc.test",
