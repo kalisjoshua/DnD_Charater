@@ -1,7 +1,8 @@
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define(["roll", "util"], function (roll, util) {
+define([      "roll", "util"
+  ], function (roll,   util) {
   module("misc");
 
   var max_test_iterations = 100000
@@ -134,6 +135,22 @@ define(["roll", "util"], function (roll, util) {
     fail(util.isString, numbers.slice(0, 21)); // 21 and over ARE strings
     fail(util.isString, objects);
     pass(util.isString, strings);
+  });
+
+
+  test("util.sort(ing)", function () {
+    ok(util.sort, "Sorting defined in util.");
+
+    ok(util.sort.asc, "Sorting (ascending) defined in util.");
+    ok(util.isFunction(util.sort.asc), "Sorting (ascending) is a function.");
+
+    ok(util.sort.desc, "Sorting (descending) defined in util.");
+    ok(util.isFunction(util.sort.desc), "Sorting (descending) is a function.");
+
+    var ar = [2,6,8,9,1,3,7,4,0,5];
+
+    equal([0,1,2,3,4,5,6,7,8,9].join(), ar.sort(util.sort.asc).join(), "Ascending sort works.");
+    equal([9,8,7,6,5,4,3,2,1,0].join(), ar.sort(util.sort.desc).join(), "Ascending sort works.");
   });
 
   test("roll", function () {

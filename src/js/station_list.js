@@ -6,10 +6,12 @@ define([      "Collection", "Station"
   "use strict";
 
   return new Collection([
-       new Station({name: "Champion", dice: 6, min: 7})
-      ,new Station({name: "Hero"    , dice: 4, min: 4})
-      ,new Station({name: "npc"     , dice: 3, min: 4})
-      ,new Station({name: "Player"  , dice: 3, min: 7})
-      ,new Station({name: "Pleb"    , dice: 3, min: 3})
-    ]);
+       {name: "Champion", dice: 6, min: 7}
+      ,{name: "Hero"    , dice: 4, min: 4}
+      ,{name: "npc"     , dice: 3, min: 4}
+      ,{name: "Player"  , dice: 3, min: 7}
+      ,{name: "Pleb"    , dice: 3, min: 3}
+    ].map(function (config) {
+      return new Station(config);
+    }));
 });

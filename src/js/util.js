@@ -45,10 +45,22 @@ define([], function () {
     return ((!!obj || obj === '') && type.test(obj.getType ? obj.getType() : ({}).toString.call(obj)));
   }
 
+  function sortAscending (a, b) {
+    return a - b;
+  }
+
+  function sortDescending (a, b) {
+    return b - a;
+  }
+
   var util = {
-          clone: clone
-        , isNumeric: isNumeric
-        , isType: isType
+          clone       : clone
+        , isNumeric   : isNumeric
+        , isType      : isType
+        , sort        : {
+           asc    : sortAscending
+          ,desc   : sortDescending
+        }
       };
 
   return "Array Function String"

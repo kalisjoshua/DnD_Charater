@@ -80,7 +80,7 @@ define([      "station_list", "Station", "util"
     equal(5, station_list.length, "station_list has the right number of Station instances.");
 
     var rank_name = "Hero"
-      , sample = station_list.named(rank_name)
+      , sample = station_list.named(rank_name)[0]
       , temp;
 
     ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");

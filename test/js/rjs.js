@@ -9,7 +9,7 @@
     // "Races.test"      : "../../test/js/Races.test",
     "station.test"      : "../../test/js/station.test",
 
-    "Collection.test" : "../../test/js/Collection.test",
+    "collection.test" : "../../test/js/collection.test",
     "misc.test"       : "../../test/js/misc.test",
 
     // handlebars  : "empty:",

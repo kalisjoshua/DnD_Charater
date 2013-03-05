@@ -6,6 +6,11 @@ define([      "util"
   "use strict";
 
   function Collection (ar) {
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor - fix it!
+      return new Collection(ar);
+    }
+
     if (!!ar && util.isArray(ar) && ar.length > 0) {
       Collection.fn.add.call(this, ar);
     }
@@ -16,15 +21,17 @@ define([      "util"
   Collection.fn.add = function (ar) {
     if (util.isArray(ar)) {
       this.push.apply(this, ar);
+    } else {
+      this.push.call(this, ar);
     }
 
     return this;
   };
 
-  Collection.fn.each = function (fn) {
-    this.forEach(function (node, indx, orig) {
-      fn(node, indx, orig);
-    });
+  Collection.fn.each = [].forEach;
+
+  Collection.fn.empty = function () {
+    while (this.shift());
 
     return this;
   };
@@ -40,13 +47,12 @@ define([      "util"
 
     return this.filter(function (node) {
       return node.name === key;
-    })[0];
+    });
   };
 
   Collection.fn.numericSort = function (descending) {
-    var result = this.sort(function (a, b) { return a - b; });
 
-    return descending ? result.reverse() : result;
+    return this.sort(util.sort[!!descending ? "desc" : "asc"]);
   };
 
   Collection.fn.toString = function () {

@@ -77,10 +77,22 @@ define('util',[], function () {
     return ((!!obj || obj === '') && type.test(obj.getType ? obj.getType() : ({}).toString.call(obj)));
   }
 
+  function sortAscending (a, b) {
+    return a - b;
+  }
+
+  function sortDescending (a, b) {
+    return b - a;
+  }
+
   var util = {
-          clone: clone
-        , isNumeric: isNumeric
-        , isType: isType
+          clone       : clone
+        , isNumeric   : isNumeric
+        , isType      : isType
+        , sort        : {
+           asc    : sortAscending
+          ,desc   : sortDescending
+        }
       };
 
   return "Array Function String"
@@ -93,7 +105,8 @@ define('util',[], function () {
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('misc.test',["roll", "util"], function (roll, util) {
+define('misc.test',[      "roll", "util"
+  ], function (roll,   util) {
   module("misc");
 
   var max_test_iterations = 100000
@@ -228,6 +241,22 @@ define('misc.test',["roll", "util"], function (roll, util) {
     pass(util.isString, strings);
   });
 
+
+  test("util.sort(ing)", function () {
+    ok(util.sort, "Sorting defined in util.");
+
+    ok(util.sort.asc, "Sorting (ascending) defined in util.");
+    ok(util.isFunction(util.sort.asc), "Sorting (ascending) is a function.");
+
+    ok(util.sort.desc, "Sorting (descending) defined in util.");
+    ok(util.isFunction(util.sort.desc), "Sorting (descending) is a function.");
+
+    var ar = [2,6,8,9,1,3,7,4,0,5];
+
+    equal([0,1,2,3,4,5,6,7,8,9].join(), ar.sort(util.sort.asc).join(), "Ascending sort works.");
+    equal([9,8,7,6,5,4,3,2,1,0].join(), ar.sort(util.sort.desc).join(), "Ascending sort works.");
+  });
+
   test("roll", function () {
     ok(roll, "'roll' is defined");
     ok(util.isFunction(roll), "'roll' is defined as a function");
@@ -281,6 +310,11 @@ define('Collection',[      "util"
   
 
   function Collection (ar) {
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor - fix it!
+      return new Collection(ar);
+    }
+
     if (!!ar && util.isArray(ar) && ar.length > 0) {
       Collection.fn.add.call(this, ar);
     }
@@ -291,15 +325,17 @@ define('Collection',[      "util"
   Collection.fn.add = function (ar) {
     if (util.isArray(ar)) {
       this.push.apply(this, ar);
+    } else {
+      this.push.call(this, ar);
     }
 
     return this;
   };
 
-  Collection.fn.each = function (fn) {
-    this.forEach(function (node, indx, orig) {
-      fn(node, indx, orig);
-    });
+  Collection.fn.each = [].forEach;
+
+  Collection.fn.empty = function () {
+    while (this.shift());
 
     return this;
   };
@@ -315,13 +351,12 @@ define('Collection',[      "util"
 
     return this.filter(function (node) {
       return node.name === key;
-    })[0];
+    });
   };
 
   Collection.fn.numericSort = function (descending) {
-    var result = this.sort(function (a, b) { return a - b; });
 
-    return descending ? result.reverse() : result;
+    return this.sort(util.sort[!!descending ? "desc" : "asc"]);
   };
 
   Collection.fn.toString = function () {
@@ -331,6 +366,62 @@ define('Collection',[      "util"
 
   return Collection;
 });
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('collection.test',[      "Collection", "util"
+  ], function (Collection,   util) {
+  module("Collection");
+
+  test("methods", function collection_test () {
+    ok(Collection, "Collection is defined.");
+    ok(new Collection(), "Create an empty collection.");
+    ok(Collection(), "Create an empty collection, without using 'new' keyword.");
+
+    var sample = new Collection()
+      , temp;
+
+    equal(0, sample.length, "An empty collection has no items.");
+
+    // additional Collection methods
+    [ "add"
+    , "each"
+    , "getNames"
+    , "named"
+    , "numericSort"
+    , "toString"
+    ].forEach(function (method) {
+      ok(sample[method], "Collections have '." + method + "' property defined.");
+      ok(util.isFunction(sample[method]), "Collections '." + method + "' property is a method.");
+    });
+
+    sample
+      .add("hello")
+      .add("world");
+
+    equal(2, sample.length, "Added item increases the length of the Collection.");
+
+    temp = "";
+    sample
+      .each(function (item) {
+        temp += item;
+      });
+
+    equal("helloworld", temp, "Collection.each works.");
+
+    sample.empty();
+    equal(0, sample.length, "Collection.empty ... empties the collection.");
+
+    sample
+      .add([
+          "hello"
+        , "world"
+      ]);
+
+    equal(2, sample.length, "Added item takes arrays as well as single items.");
+  });
+});
+
 /*jshint laxcomma:true*/
 /*global define*/
 
@@ -433,12 +524,14 @@ define('station_list',[      "Collection", "Station"
   
 
   return new Collection([
-       new Station({name: "Champion", dice: 6, min: 7})
-      ,new Station({name: "Hero"    , dice: 4, min: 4})
-      ,new Station({name: "npc"     , dice: 3, min: 4})
-      ,new Station({name: "Player"  , dice: 3, min: 7})
-      ,new Station({name: "Pleb"    , dice: 3, min: 3})
-    ]);
+       {name: "Champion", dice: 6, min: 7}
+      ,{name: "Hero"    , dice: 4, min: 4}
+      ,{name: "npc"     , dice: 3, min: 4}
+      ,{name: "Player"  , dice: 3, min: 7}
+      ,{name: "Pleb"    , dice: 3, min: 3}
+    ].map(function (config) {
+      return new Station(config);
+    }));
 });
 /*jshint laxcomma:true*/
 /*global define require*/
@@ -522,7 +615,7 @@ define('station.test',[      "station_list", "Station", "util"
     equal(5, station_list.length, "station_list has the right number of Station instances.");
 
     var rank_name = "Hero"
-      , sample = station_list.named(rank_name)
+      , sample = station_list.named(rank_name)[0]
       , temp;
 
     ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");
@@ -533,7 +626,7 @@ define('station.test',[      "station_list", "Station", "util"
 /*global require*/
 
 require(["misc.test"]);
-// require(["Abilities.test"]);
+require(["collection.test"]);
 require(["station.test"]);
 
 define("../../test/js/main-tests", function(){});

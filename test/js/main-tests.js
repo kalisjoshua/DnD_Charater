@@ -2,5 +2,5 @@
 /*global require*/
 
 require(["misc.test"]);
-// require(["Abilities.test"]);
+require(["collection.test"]);
 require(["station.test"]);
