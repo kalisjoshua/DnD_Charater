@@ -1,4 +1,4 @@
-/*jshint*/
+/*jshint laxcomma:true*/
 /*global define*/
 
 define([      "util"
@@ -50,13 +50,8 @@ define([      "util"
     });
   };
 
-  Collection.fn.numericSort = function (descending) {
-
-    return this.sort(util.sort[!!descending ? "desc" : "asc"]);
-  };
-
   Collection.fn.toString = function () {
-      
+
     return "[object Collection]";
   };
 
