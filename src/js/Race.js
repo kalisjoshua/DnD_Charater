@@ -18,20 +18,24 @@ define([      "util"
       throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
     }
 
-    if (config.saves.length !== 5) {
+    if (!util.isNumeric(config.move) || config.move < 0) {
+      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
+    }
+
+    if (!!config.notes && !util.isString(config.notes)) {
+      throw new Error("Invalid '.notes' property given in config passed into Race constructor (" + config.notes + ").");
+    }
+
+    if (config.saves.length !== 5 || !config.saves.every(util.isNumeric)) {
       throw new Error("Invalid '.saves' property given in config passed into Race constructor (" + config.saves + ").");
     }
 
-    if (config.stats.length !== 7) {
+    if (config.stats.length !== 7 || !config.stats.every(util.isNumeric)) {
       throw new Error("Invalid '.stats' property given in config passed into Race constructor (" + config.stats + ").");
     }
 
-    if (config.thieving.length !== 8) {
+    if (config.thieving.length !== 8 | !config.thieving.every(util.isNumeric)) {
       throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
-    }
-
-    if (!util.isNumeric(config.move)) {
-      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
     }
 
     for (var attr in config) {
