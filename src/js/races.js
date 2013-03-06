@@ -11,7 +11,8 @@ define([      "Collection", "Race"
       .concat(!ar.length ? [] : pickLanguages(languages, ar));
   }
 
-  var languages = [
+  var list
+    , languages = [
         // standard languages
           "burrowing mammal"
         , "dwarven"
@@ -116,8 +117,12 @@ define([      "Collection", "Race"
         }
       ];
 
-  return new Collection(racesConfigs
+  list = new Collection(racesConfigs
     .map(function (config) {
       return new Race(config);
     }));
+
+  list.languages = languages.slice(0);
+
+  return list;
 });

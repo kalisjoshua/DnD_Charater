@@ -49,7 +49,7 @@ define([      "util"
     }
 
     ,toString: function () {
-      return "Race: " + this.name;
+      return this.name;
     }
   };
 
