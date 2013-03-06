@@ -251,6 +251,11 @@
     background-color: #EE5757;
 }
 
+/** Todo Styles */
+#qunit-tests li li.todo {
+    border-left: 10px solid #46ADE7;
+}
+
 
 /** Result */
 

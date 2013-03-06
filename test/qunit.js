@@ -233,6 +233,7 @@ Test.prototype = {
             test = this,
             good = 0,
             bad = 0,
+            todo = 0,
             tests = id( "qunit-tests" );
 
         this.runtime = +new Date() - this.started;
@@ -247,13 +248,19 @@ Test.prototype = {
                 assertion = this.assertions[i];
 
                 li = document.createElement( "li" );
-                li.className = assertion.result ? "pass" : "fail";
+                li.className = assertion.result ? "pass" : assertion.todo ? " todo" : "fail";
                 li.innerHTML = assertion.message || ( assertion.result ? "okay" : "failed" );
                 ol.appendChild( li );
 
                 if ( assertion.result ) {
                     good++;
-                } else {
+                }
+
+                if ( assertion.todo ) {
+                    todo++;
+                }
+
+                if ( !assertion.result  && !assertion.todo ) {
                     bad++;
                     config.stats.bad++;
                     config.moduleStats.bad++;
@@ -269,7 +276,7 @@ Test.prototype = {
                 }
             }
 
-            if ( bad === 0 ) {
+            if ( bad === 0 && todo === 0 ) {
                 addClass( ol, "qunit-collapsed" );
             }
 
@@ -301,6 +308,7 @@ Test.prototype = {
             // `li` initialized at top of scope
             li = id( this.id );
             li.className = bad ? "fail" : "pass";
+            li.className += todo ? " todo" : "";
             li.removeChild( li.firstChild );
             a = li.firstChild;
             li.appendChild( b );
@@ -527,6 +535,20 @@ assert = {
         runLoggingCallbacks( "log", QUnit, details );
         config.current.assertions.push({
             result: result,
+            message: msg
+        });
+    },
+
+    todo: function ( msg ) {
+        if ( !msg ) {
+            throw new Error( "todo() assertion called without a message/note what to do." );
+        }
+
+        msg = "<span class='test-message'>" + escapeText( msg ) + "</span>";
+
+        config.current.assertions.push({
+            todo: true,
+            result: false,
             message: msg
         });
     },
