@@ -109,7 +109,7 @@ define([      "races", "Race", "util"
       }
     }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
 
-    todo();
+    todo("Continue testing!");
   });
 
   //   var rank_name = "Charlatan"
