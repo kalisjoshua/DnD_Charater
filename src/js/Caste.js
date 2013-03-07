@@ -5,45 +5,96 @@ define([      "util"
   ], function (util) {
   "use strict";
 
-  function Caste (config) {
-    if (!config.name) {
-      throw new Error("No '.name' property given in config passed into Caste constructor.");
+  var validations
+    , properties;
+
+  validations = {
+    // return true if the 'value' is valid
+      name: function (value) {
+      return util.isString(value) && value.length > 0;
     }
 
-    if (!config.dual) {
-      throw new Error("No '.dual' property given in config passed into Caste constructor.");
+    , dual: function (value) {
+      return util.isArray(value);
     }
 
-    if (!util.isNumeric(config.HDT) || config.HDT < 4) {
-      throw new Error("Invalid '.HDT' property given in config passed into Caste constructor (" + config.HDT + ").");
+    , HDT: function (value) {
+      return util.isNumeric(value) && value > 2;
     }
 
-    if (config.prefs.length !== 7) {
-      throw new Error("Invalid '.prefs' property given in config passed into Caste constructor (" + config.prefs + ").");
+    , prefs: function (value) {
+      return util.isArray(value) && value.length === 7;
     }
 
-    if (config.saves.length !== 23) {
-      throw new Error("Invalid '.saves' table-property given in config passed into Caste constructor (" + config.saves + ").");
+    , saves: function (value) {
+      return util.isArray(value) && value.length === 23;
     }
 
-    if (config.thaco.length !== 25) {
-      throw new Error("Invalid '.thaco' table-property given in config passed into Caste constructor (" + config.thaco + ").");
+    , thaco: function (value) {
+      return util.isArray(value) && value.length === 25;
+    }
+  };
+
+  properties = Object.keys(validations);
+
+  function propertyAccess (obj, config, prop, value) {
+    if (arguments.length === 3) {
+
+      // only prop is provided, the user is only asking for the value in the config
+      return config[prop];
+    } else {
+
+      // a value argument was provided, the user is attempting to set the value in config
+      if (!validations[prop](value)) {
+
+        // validation fails, throw an error
+        throw new Error("Attempting to set invalid '{p}' property [{v}] in {c}."
+          .replace("{p}", prop)
+          .replace("{v}", value)
+          .replace("{c}", Caste.fn.getType()));
+      } else {
+
+        // the value is good, set it in config object
+        config[prop] = value;
+      }
     }
 
-    for (var attr in config) {
-      this[attr] = config[attr];
-    }
+    return config;
   }
 
+  function Caste (config) {
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor - fix it!
+      return new Caste(config);
+    }
+
+    this.get = function (prop) {
+      return propertyAccess(this, config, prop);
+    };
+
+    this.set = function (prop, value) {
+      config = propertyAccess(this, config, prop, value);
+
+      return this;
+    };
+
+    properties
+      .forEach(function (prop) {
+        // setup property methods on 'this' to do get and set instead of get and set
+        propertyAccess(this, config, prop, config[prop]);
+      }.bind(this));
+  }
+
+  Caste.fn =
   Caste.prototype = {
     getType: function () {
 
-      return "[object Class]";
+      return "[object Caste]";
     }
 
     ,toString: function () {
 
-      return this.name;
+      return this.get("name");
     }
   };
 

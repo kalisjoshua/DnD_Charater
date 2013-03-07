@@ -123,7 +123,6 @@ define([      "races", "Race", "util"
     ok(sample.toString() === valid_race_config().name, "Call to '.toString' returns the correct String.");
   });
 
-
   test("collection of instances", function () {
     ok(races, "collecion is defined.");
     equal("[object Collection]", races.toString(), "collection is a Collection.");

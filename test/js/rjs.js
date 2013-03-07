@@ -5,7 +5,7 @@
   out: "../../js/testing.js",
   paths: {
     // "Abilities.test"  : "../../test/js/Abilities.test",
-    // "Classes.test"    : "../../test/js/Classes.test",
+    "test_castes"       : "../../test/js/test_castes",
     "test_races"        : "../../test/js/test_races",
     "test_stations"     : "../../test/js/test_stations",
 
