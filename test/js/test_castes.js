@@ -5,19 +5,19 @@ define([      "castes", "Caste", "util"
   ], function (castes,   Caste,   util) {
   module("Caste");
 
+  function valid_config_object () {
+    return {
+        name: "Zero",
+        dual: [],
+        HDT: 3,
+        prefs: "0000000".split(""),
+        saves: "00000000000000000000000".split(""),
+        thaco: "0000000000000000000000000".split("")
+      };
+  }
+
   test("constructor", function () {
     var sample = new Caste(valid_config_object());
-
-    function valid_config_object () {
-      return {
-          name: "Zero",
-          dual: [],
-          HDT: 3,
-          prefs: "0000000".split(""),
-          saves: "00000000000000000000000".split(""),
-          thaco: "0000000000000000000000000".split("")
-        };
-    }
 
     throws(function () {
       var invalid = new Caste();
@@ -76,20 +76,53 @@ define([      "castes", "Caste", "util"
         return false;
       }
     }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
-
-    equal(sample.get("name"), "Zero", "Name passed to constructor is what is returned by '.get' method.");
-
-    sample.set("name", "Other");
-
-    equal(sample.get("name"), "Other", "After setting new name property the change is retained in the object.");
-
-    todo("test for gaining reference to internal structure and changing that externally");
-
-    todo("test more");
   });
 
   test("instance methods", function () {
-    todo("test more");
+    var sample = new Caste(valid_config_object());
+
+    equal(sample.name(), "Zero", "Name passed to constructor is what is returned by '.get' method.");
+
+    sample.name("Other");
+    equal(sample.name(), "Zero", "Property values cannot be changed once the object is instantiated.");
+
+    "name HDT"
+      .split(" ")
+      .forEach(function (prop) {
+        var instance  = new Caste(valid_config_object())
+          , expected  = valid_config_object()[prop]
+          , propRef   = instance[prop]();
+
+        propRef += 99;
+
+        equal(instance[prop]()
+          , expected
+          , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
+      });
+
+    "dual prefs saves thaco"
+      .split(" ")
+      .forEach(function (prop) {
+        var instance  = new Caste(valid_config_object())
+          , expected  = valid_config_object()[prop].join()
+          , propRef   = instance[prop]();
+
+        propRef.shift();
+
+        equal(instance[prop]().join()
+          , expected
+          , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
+      });
+
+    ok(sample.getType, "Sample instance has '.getType' property.");
+    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+    equal(sample.getType(), "[object Caste]", "Call to '.getType' returns a String.");
+
+    ok(sample.toString, "Sample instance has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+    ok(sample.toString() === valid_config_object().name, "Call to '.toString' returns the correct String.");
   });
 
   test("collection of instances", function () {

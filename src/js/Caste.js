@@ -37,12 +37,10 @@ define([      "util"
 
   properties = Object.keys(validations);
 
-  function propertyAccess (obj, config, prop, value) {
-    if (arguments.length === 3) {
-
-      // only prop is provided, the user is only asking for the value in the config
-      return config[prop];
-    } else {
+  function propertyAccess (obj, config, prop, value, set) {
+    // set is only accessible from within the constructor function
+    // all arguments are bound in public methods so the values can't be changed
+    if (arguments.length > 3 && set) {
 
       // a value argument was provided, the user is attempting to set the value in config
       if (!validations[prop](value)) {
@@ -51,12 +49,16 @@ define([      "util"
         throw new Error("Attempting to set invalid '{p}' property [{v}] in {c}."
           .replace("{p}", prop)
           .replace("{v}", value)
-          .replace("{c}", Caste.fn.getType()));
+          .replace("{c}", Caste.prototype.getType()));
       } else {
 
         // the value is good, set it in config object
         config[prop] = value;
       }
+    } else {
+
+      // only prop is provided, the user is only asking for the value in the config
+      return util.isArray(config[prop]) ? config[prop].slice(0) : config[prop];
     }
 
     return config;
@@ -68,35 +70,30 @@ define([      "util"
       return new Caste(config);
     }
 
-    this.get = function (prop) {
-      return propertyAccess(this, config, prop);
-    };
-
-    this.set = function (prop, value) {
-      config = propertyAccess(this, config, prop, value);
-
-      return this;
-    };
-
     properties
       .forEach(function (prop) {
-        // setup property methods on 'this' to do get and set instead of get and set
-        propertyAccess(this, config, prop, config[prop]);
+        // setup property methods to do get requests
+        propertyAccess(this, config, prop, config[prop], true);
+        // using bind prevents the values from being provided and thus properties cannot be changed
+        this[prop] = propertyAccess.bind(null, this, config, prop, false, false);
       }.bind(this));
   }
 
-  Caste.fn =
   Caste.prototype = {
     getType: function () {
 
       return "[object Caste]";
     }
 
+    ,properties: properties
+
     ,toString: function () {
 
-      return this.get("name");
+      return this.name();
     }
   };
+
+  Caste.dual = function () {};
 
   // allClasses.merge = function (_a, _b) {
   //   if ((_b === undefined || _b === "") && !!allClasses.named(_a)) {

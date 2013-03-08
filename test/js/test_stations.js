@@ -5,7 +5,7 @@ define([      "station_list", "Station", "util"
   ], function (station_list,   Station,   util) {
   module("Station");
 
-  test("constructor", function constructorOfStation_test () {
+  test("constructor", function () {
     ok(Station, "Station object is defined.");
     ok(util.isFunction(Station), "Station object is a function.");
 
@@ -65,19 +65,20 @@ define([      "station_list", "Station", "util"
     ok(sample.getType, "Sample instance has '.getType' property.");
     ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
     ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+    equal(sample.getType(), "[object Station]", "Call to '.getType' returns a String.");
 
     ok(sample.toString, "Sample instance has '.toString' property.");
     ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
     ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
-    ok(sample.toString() === rank_name, "Call to '.toString' returns the correct String.");
+    equal(sample.toString(), rank_name, "Call to '.toString' returns the correct String.");
 
     ok(sample.valueOf, "Sample instance has '.valueOf' property.");
     ok(util.isFunction(sample.valueOf), "Sample instance has '.valueOf' is a function.");
     ok(util.isString(sample.valueOf()), "Call to '.valueOf' returns a String.");
-    ok(sample.valueOf() === JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
+    equal(sample.valueOf(), JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
   });
 
-  test("Collection of instances", function stationList_test () {
+  test("Collection of instances", function () {
     ok(station_list, "station_list is defined.");
     equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
     equal(5, station_list.length, "station_list has the right number of Station instances.");

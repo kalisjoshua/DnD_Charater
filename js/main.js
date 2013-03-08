@@ -46,10 +46,22 @@ define('util',[], function () {
     return ((!!obj || obj === '') && type.test(obj.getType ? obj.getType() : ({}).toString.call(obj)));
   }
 
+  function sortAscending (a, b) {
+    return a - b;
+  }
+
+  function sortDescending (a, b) {
+    return b - a;
+  }
+
   var util = {
-          clone: clone
-        , isNumeric: isNumeric
-        , isType: isType
+          clone       : clone
+        , isNumeric   : isNumeric
+        , isType      : isType
+        , sort        : {
+           asc    : sortAscending
+          ,desc   : sortDescending
+        }
       };
 
   return "Array Function String"
@@ -59,7 +71,7 @@ define('util',[], function () {
       return acc;
     }, util);
 });
-/*jshint*/
+/*jshint laxcomma:true*/
 /*global define*/
 
 define('Collection',[      "util"
@@ -67,6 +79,11 @@ define('Collection',[      "util"
   
 
   function Collection (ar) {
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor - fix it!
+      return new Collection(ar);
+    }
+
     if (!!ar && util.isArray(ar) && ar.length > 0) {
       Collection.fn.add.call(this, ar);
     }
@@ -77,15 +94,17 @@ define('Collection',[      "util"
   Collection.fn.add = function (ar) {
     if (util.isArray(ar)) {
       this.push.apply(this, ar);
+    } else {
+      this.push.call(this, ar);
     }
 
     return this;
   };
 
-  Collection.fn.each = function (fn) {
-    this.forEach(function (node, indx, orig) {
-      fn(node, indx, orig);
-    });
+  Collection.fn.each = [].forEach;
+
+  Collection.fn.empty = function () {
+    while (this.shift());
 
     return this;
   };
@@ -101,17 +120,11 @@ define('Collection',[      "util"
 
     return this.filter(function (node) {
       return node.name === key;
-    })[0];
-  };
-
-  Collection.fn.numericSort = function (descending) {
-    var result = this.sort(function (a, b) { return a - b; });
-
-    return descending ? result.reverse() : result;
+    });
   };
 
   Collection.fn.toString = function () {
-      
+
     return "[object Collection]";
   };
 
@@ -124,45 +137,89 @@ define('Caste',[      "util"
   ], function (util) {
   
 
+  var validations
+    , properties;
+
+  validations = {
+    // return true if the 'value' is valid
+      name: function (value) {
+      return util.isString(value) && value.length > 0;
+    }
+
+    , dual: function (value) {
+      return util.isArray(value);
+    }
+
+    , HDT: function (value) {
+      return util.isNumeric(value) && value > 2;
+    }
+
+    , prefs: function (value) {
+      return util.isArray(value) && value.length === 7;
+    }
+
+    , saves: function (value) {
+      return util.isArray(value) && value.length === 23;
+    }
+
+    , thaco: function (value) {
+      return util.isArray(value) && value.length === 25;
+    }
+  };
+
+  properties = Object.keys(validations);
+
+  function propertyAccess (obj, config, prop, value, set) {
+    // set is only accessible from within the constructor function
+    // all arguments are bound in public methods so the values can't be changed
+    if (arguments.length > 3 && set) {
+
+      // a value argument was provided, the user is attempting to set the value in config
+      if (!validations[prop](value)) {
+
+        // validation fails, throw an error
+        throw new Error("Attempting to set invalid '{p}' property [{v}] in {c}."
+          .replace("{p}", prop)
+          .replace("{v}", value)
+          .replace("{c}", Caste.prototype.getType()));
+      } else {
+
+        // the value is good, set it in config object
+        config[prop] = value;
+      }
+    } else {
+
+      // only prop is provided, the user is only asking for the value in the config
+      return util.isArray(config[prop]) ? config[prop].slice(0) : config[prop];
+    }
+
+    return config;
+  }
+
   function Caste (config) {
-    if (!config.name) {
-      throw new Error("No '.name' property given in config passed into Caste constructor.");
+    if (this === (function () {return this;}())) {
+      // called as a function instead of a constructor - fix it!
+      return new Caste(config);
     }
 
-    if (!config.dual) {
-      throw new Error("No '.dual' property given in config passed into Caste constructor.");
-    }
-
-    if (!util.isNumeric(config.HDT) || config.HDT < 4) {
-      throw new Error("Invalid '.HDT' property given in config passed into Caste constructor (" + config.HDT + ").");
-    }
-
-    if (config.prefs.length !== 7) {
-      throw new Error("Invalid '.prefs' property given in config passed into Caste constructor (" + config.prefs + ").");
-    }
-
-    if (config.saves.length !== 23) {
-      throw new Error("Invalid '.saves' table-property given in config passed into Caste constructor (" + config.saves + ").");
-    }
-
-    if (config.thaco.length !== 25) {
-      throw new Error("Invalid '.thaco' table-property given in config passed into Caste constructor (" + config.thaco + ").");
-    }
-
-    for (var attr in config) {
-      this[attr] = config[attr];
-    }
+    properties
+      .forEach(function (prop) {
+        // setup property methods on 'this' to do get and set instead of get and set
+        propertyAccess(this, config, prop, config[prop], true);
+        // using bind prevents the values from being provided and thus properties cannot be changed
+        this[prop] = propertyAccess.bind(null, this, config, prop, false, false);
+      }.bind(this));
   }
 
   Caste.prototype = {
     getType: function () {
 
-      return "[object Class]";
+      return "[object Caste]";
     }
 
     ,toString: function () {
 
-      return this.name;
+      return this.get("name");
     }
   };
 
@@ -831,7 +888,7 @@ define('Race',[      "util"
   
 
   function Race (config) {
-    if (!config.name) {
+    if (!config.name || !util.isString(config.name)) {
       throw new Error("No '.name' property given in config passed into Race constructor.");
     }
 
@@ -839,24 +896,28 @@ define('Race',[      "util"
       throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
     }
 
-    if (!config.languages.length) {
+    if (!config.languages.length || !util.isArray(config.languages)) {
       throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
     }
 
-    if (config.saves.length !== 5) {
+    if (!util.isNumeric(config.move) || config.move < 0) {
+      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
+    }
+
+    if (!!config.notes && !util.isString(config.notes)) {
+      throw new Error("Invalid '.notes' property given in config passed into Race constructor (" + config.notes + ").");
+    }
+
+    if (config.saves.length !== 5 || !config.saves.every(util.isNumeric)) {
       throw new Error("Invalid '.saves' property given in config passed into Race constructor (" + config.saves + ").");
     }
 
-    if (config.stats.length !== 7) {
+    if (config.stats.length !== 7 || !config.stats.every(util.isNumeric)) {
       throw new Error("Invalid '.stats' property given in config passed into Race constructor (" + config.stats + ").");
     }
 
-    if (config.thieving.length !== 8) {
+    if (config.thieving.length !== 8 | !config.thieving.every(util.isNumeric)) {
       throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
-    }
-
-    if (!util.isNumeric(config.move)) {
-      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
     }
 
     for (var attr in config) {
@@ -870,7 +931,7 @@ define('Race',[      "util"
     }
 
     ,toString: function () {
-      return "Race: " + this.name;
+      return this.name;
     }
   };
 
@@ -889,7 +950,8 @@ define('races',[      "Collection", "Race"
       .concat(!ar.length ? [] : pickLanguages(languages, ar));
   }
 
-  var languages = [
+  var list
+    , languages = [
         // standard languages
           "burrowing mammal"
         , "dwarven"
@@ -994,10 +1056,14 @@ define('races',[      "Collection", "Race"
         }
       ];
 
-  return new Collection(racesConfigs
+  list = new Collection(racesConfigs
     .map(function (config) {
       return new Race(config);
     }));
+
+  list.languages = languages.slice(0);
+
+  return list;
 });
 /*jshint laxcomma:true*/
 /*global define*/
@@ -1132,12 +1198,14 @@ define('station_list',[      "Collection", "Station"
   
 
   return new Collection([
-       new Station({name: "Champion", dice: 6, min: 7})
-      ,new Station({name: "Hero"    , dice: 4, min: 4})
-      ,new Station({name: "npc"     , dice: 3, min: 4})
-      ,new Station({name: "Player"  , dice: 3, min: 7})
-      ,new Station({name: "Pleb"    , dice: 3, min: 3})
-    ]);
+       {name: "Champion", dice: 6, min: 7}
+      ,{name: "Hero"    , dice: 4, min: 4}
+      ,{name: "npc"     , dice: 3, min: 4}
+      ,{name: "Player"  , dice: 3, min: 7}
+      ,{name: "Pleb"    , dice: 3, min: 3}
+    ].map(function (config) {
+      return new Station(config);
+    }));
 });
 /*jshint laxcomma:true*/
 /*global require define*/

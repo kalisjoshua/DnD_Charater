@@ -5,7 +5,7 @@ define([      "races", "Race", "util"
   ], function (races,   Race,   util) {
   module("Race");
 
-  function valid_race_config () {
+  function valid_config_object () {
     return {
         name        : "Dwarf"
       , infravision : 60
@@ -26,37 +26,37 @@ define([      "races", "Race", "util"
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.name = "";
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.infravision = "";
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.languages = "";
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.move = "";
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.move = -1;
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       delete invalid.move;
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
@@ -64,7 +64,7 @@ define([      "races", "Race", "util"
     ok(function () {
       // notes can be empty so there is no validation
       try {
-        var invalid = valid_race_config();
+        var invalid = valid_config_object();
         delete invalid.notes;
         var sample = new Race(invalid);
         return true;
@@ -74,26 +74,26 @@ define([      "races", "Race", "util"
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.saves.shift();
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.stats.shift();
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     throws(function () {
-      var invalid = valid_race_config();
+      var invalid = valid_config_object();
       invalid.thieving.shift();
       var sample = new Race(invalid);
     }, "An error is thrown when an invalid config is passed into the constructor.");
 
     ok((function () {
       try {
-        var sample = new Race(valid_race_config());
+        var sample = new Race(valid_config_object());
         return true;
       } catch (e) {
         return false;
@@ -102,7 +102,7 @@ define([      "races", "Race", "util"
 
     ok((function () {
       try {
-        var sample = Race(valid_race_config());
+        var sample = Race(valid_config_object());
         return true;
       } catch (e) {
         return false;
@@ -111,16 +111,17 @@ define([      "races", "Race", "util"
   });
 
   test("instance methods", function () {
-    var sample = new Race(valid_race_config());
+    var sample = new Race(valid_config_object());
 
     ok(sample.getType, "Sample instance has '.getType' property.");
     ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
     ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+    equal(sample.getType(), "[object Race]", "Call to '.getType' returns a String.");
 
     ok(sample.toString, "Sample instance has '.toString' property.");
     ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
     ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
-    ok(sample.toString() === valid_race_config().name, "Call to '.toString' returns the correct String.");
+    ok(sample.toString() === valid_config_object().name, "Call to '.toString' returns the correct String.");
   });
 
   test("collection of instances", function () {

@@ -5,7 +5,7 @@ define([      "Collection", "util"
   ], function (Collection,   util) {
   module("Collection");
 
-  test("constructor", function collection_test () {
+  test("constructor", function () {
     ok(Collection, "Collection is defined.");
     ok(new Collection(), "Create an empty collection.");
     ok(Collection(), "Create an empty collection, without using 'new' keyword.");
@@ -30,7 +30,7 @@ define([      "Collection", "util"
     equal("[object Collection]", sample.toString(), "Collection '.toString' return proper string.");
   });
 
-  test("'.add' - single item", function collection_test () {
+  test("'.add' - single item", function () {
     var sample = new Collection();
 
     sample.add("hello");
@@ -38,7 +38,7 @@ define([      "Collection", "util"
     equal(1, sample.length, "Added item increases the length of the Collection.");
   });
 
-  test("'.add' - array of items", function collection_test () {
+  test("'.add' - array of items", function () {
     var sample = new Collection();
 
     /*Collection.add - */
@@ -51,7 +51,7 @@ define([      "Collection", "util"
     equal(2, sample.length, "Added item takes arrays as well as single items.");
   });
 
-  test("'.each' - alias to Array.forEach", function collection_test () {
+  test("'.each' - alias to Array.forEach", function () {
     var sample = new Collection()
       , temp;
 
@@ -69,7 +69,7 @@ define([      "Collection", "util"
     equal("hello world", temp, "Collection.each works.");
   });
 
-  test("'.empty' - most likely only usefule for testing", function collection_test () {
+  test("'.empty' - most likely only usefule for testing", function  () {
     var sample = new Collection();
 
     sample
