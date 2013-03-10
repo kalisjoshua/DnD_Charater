@@ -1,82 +1,88 @@
-/*jshint laxcomma:true*/
+/*jshint laxcomma:true es5:true*/
 /*global define*/
 
 define([      "util"
   ], function (util) {
   "use strict";
 
-  var validations
-    , properties;
+  var global = (function () {return this;}())
+    , properties
+    , validations;
 
-  validations = {
-    // return true if the 'value' is valid
-      name: function (value) {
+  validations = [
+    // return true if valid
+      function name (value) {
       return util.isString(value) && value.length > 0;
     }
 
-    , dual: function (value) {
+    , function dual (value) {
       return util.isArray(value);
     }
 
-    , HDT: function (value) {
+    , function HDT (value) {
       return util.isNumeric(value) && value > 2;
     }
 
-    , prefs: function (value) {
+    , function prefs (value) {
       return util.isArray(value) && value.length === 7;
     }
 
-    , saves: function (value) {
+    , function saves (value) {
       return util.isArray(value) && value.length === 23;
     }
 
-    , thaco: function (value) {
+    , function thaco (value) {
       return util.isArray(value) && value.length === 25;
     }
-  };
+  ];
 
-  properties = Object.keys(validations);
+  properties = validations
+    .map(function (fn) {
+      return fn.name;
+    });
 
-  function propertyAccess (obj, config, prop, value, set) {
-    // set is only accessible from within the constructor function
-    // all arguments are bound in public methods so the values can't be changed
-    if (arguments.length > 3 && set) {
+  function _prop (o, p) {
+    return o[p];
+  }
 
-      // a value argument was provided, the user is attempting to set the value in config
-      if (!validations[prop](value)) {
+  function _prop_slice (o, p) {
+    return _prop(o, p).slice(0);
+  }
 
-        // validation fails, throw an error
-        throw new Error("Attempting to set invalid '{p}' property [{v}] in {c}."
-          .replace("{p}", prop)
-          .replace("{v}", value)
-          .replace("{c}", Caste.prototype.getType()));
-      } else {
+  function addGetter (obj, config, prop) {
+    var fn = util.isArray(config[prop]) ? _prop_slice : _prop;
+    obj.__defineGetter__(prop, fn.bind(null, config, prop));
+  }
 
-        // the value is good, set it in config object
-        config[prop] = value;
-      }
-    } else {
+  // expected to be used in Array.every for validation
+  function checkProp (type, config, fn) {
+    var prop = fn.name;
 
-      // only prop is provided, the user is only asking for the value in the config
-      return util.isArray(config[prop]) ? config[prop].slice(0) : config[prop];
+    if (!fn(config[prop])) {
+      throw new Error("Attempting to set invalid '{p}' property [{v}] in {t}."
+        .replace("{p}", prop)
+        .replace("{v}", config[prop])
+        .replace("{t}", type));
     }
 
-    return config;
+    return true; // no error thrown, all is well.
+  }
+
+  function isValid (type, config, validations) {
+
+    return validations
+      .every(checkProp.bind(null, type, config));
   }
 
   function Caste (config) {
-    if (this === (function () {return this;}())) {
+    if (this === global) {
       // called as a function instead of a constructor - fix it!
       return new Caste(config);
     }
 
-    properties
-      .forEach(function (prop) {
-        // setup property methods to do get requests
-        propertyAccess(this, config, prop, config[prop], true);
-        // using bind prevents the values from being provided and thus properties cannot be changed
-        this[prop] = propertyAccess.bind(null, this, config, prop, false, false);
-      }.bind(this));
+    if (isValid(Caste.prototype.getType(), config, validations)) {
+      properties.forEach(addGetter.bind(null, this, config));
+    }
   }
 
   Caste.prototype = {
@@ -85,11 +91,14 @@ define([      "util"
       return "[object Caste]";
     }
 
-    ,properties: properties
+    ,get properties () {
+
+      return properties;
+    }
 
     ,toString: function () {
 
-      return this.name();
+      return this.name;
     }
   };
 

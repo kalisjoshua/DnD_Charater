@@ -81,21 +81,21 @@ define([      "castes", "Caste", "util"
   test("instance methods", function () {
     var sample = new Caste(valid_config_object());
 
-    equal(sample.name(), "Zero", "Name passed to constructor is what is returned by '.get' method.");
+    equal(sample.name, "Zero", "Name passed to constructor is what is returned by '.get' method.");
 
-    sample.name("Other");
-    equal(sample.name(), "Zero", "Property values cannot be changed once the object is instantiated.");
+    sample.name = "Other";
+    equal(sample.name, "Zero", "Property values cannot be changed once the object is instantiated.");
 
     "name HDT"
       .split(" ")
       .forEach(function (prop) {
         var instance  = new Caste(valid_config_object())
           , expected  = valid_config_object()[prop]
-          , propRef   = instance[prop]();
+          , propRef   = instance[prop];
 
         propRef += 99;
 
-        equal(instance[prop]()
+        equal(instance[prop]
           , expected
           , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
       });
@@ -105,11 +105,11 @@ define([      "castes", "Caste", "util"
       .forEach(function (prop) {
         var instance  = new Caste(valid_config_object())
           , expected  = valid_config_object()[prop].join()
-          , propRef   = instance[prop]();
+          , propRef   = instance[prop];
 
         propRef.shift();
 
-        equal(instance[prop]().join()
+        equal(instance[prop].join()
           , expected
           , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
       });
@@ -126,6 +126,11 @@ define([      "castes", "Caste", "util"
   });
 
   test("collection of instances", function () {
+    ok(castes, "collecion is defined.");
+    equal("[object Collection]", castes.toString(), "collection is a Collection.");
+    equal(15, castes.length, "collection has the right number of instances.");
+
+    ok(castes[0].name === "Acrobat", "Sample instance has a name and it matches what was searched for in the Collection.");
     todo("test more");
   });
 });
