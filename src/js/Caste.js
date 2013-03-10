@@ -68,6 +68,55 @@ define([      "util"
     return true; // no error thrown, all is well.
   }
 
+  function combinePrefs (a, b) {
+    var i = 0
+      , len = a.prefs.length
+      , result = [];
+
+    while (i < len) {
+      if (!~result.indexOf(a.prefs[i])) {
+        result.push(a.prefs[i]);
+      }
+
+      if (!~result.indexOf(b.prefs[i])) {
+        result.push(b.prefs[i]);
+      }
+
+      i++;
+    }
+
+    return result;
+  }
+
+  function combineSaves (a, b) {
+
+    return a.saves
+      .map(function (_, level) {
+        return _
+          .reduce(function (acc, _, type) {
+            acc.push(Math.min(a.saves[level][type], b.saves[level][type]));
+            return acc;
+          }, []);
+      });
+  }
+
+  function combineSpells (a, b) {
+    var result = [];
+
+    result.push(a.spells ? a.spells : []);
+    result.push(b.spells ? b.spells : []);
+
+    return result;
+  }
+
+  function combineThaco (a, b) {
+    return a.thaco
+      .reduce(function (acc, _, indx) {
+        acc.push(Math.min(a.thaco[indx], b.thaco[indx]));
+        return acc;
+      }, []);
+  }
+
   function isValid (type, config, validations) {
 
     return validations
@@ -83,6 +132,9 @@ define([      "util"
     if (isValid(Caste.prototype.getType(), config, validations)) {
       properties.forEach(addGetter.bind(null, this, config));
     }
+
+    addGetter(this, config, "skills");
+    addGetter(this, config, "spells");
   }
 
   Caste.prototype = {
@@ -102,76 +154,31 @@ define([      "util"
     }
   };
 
-  Caste.dual = function () {};
+  Caste.dual = function (a, b) {
+    if (a === b || a === undefined || b === undefined) {
+      throw new Error("Cannot dual Caste '" + a + "' with '" + b + "'.");
+    }
 
-  // allClasses.merge = function (_a, _b) {
-  //   if ((_b === undefined || _b === "") && !!allClasses.named(_a)) {
-  //     return allClasses.named(_a);
-  //   }
+    if (a.getType() !== Caste.prototype.getType()) {
+      throw new Error("Caste.dual argument (alpha) is not an instance of Caste.");
+    }
 
-  //   if (_a === _b || _a === undefined || !allClasses.named(_a) || !allClasses.named(_b)) {
-  //     throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
-  //   }
+    if (b.getType() !== Caste.prototype.getType()) {
+      throw new Error("Caste.dual argument (beta) is not an instance of Caste.");
+    }
 
-  //   _a = allClasses.named(_a);
-  //   _b = allClasses.named(_b);
-
-  //   return new Caste({
-  //      name: _a.name + "/" + _b.name
-
-  //     ,dual: []
-
-  //     ,HDT: (_a.HDT + _b.HDT) / 2
-
-  //     ,prefs: (function (a, b) {
-  //       var  i = 0
-  //           ,l = a.length
-  //           ,result = [];
-
-  //       for ( ; i < l; i++) {
-  //         result.indexOf(a[i]) === -1 && result.push(a[i]);
-  //         result.indexOf(b[i]) === -1 && result.push(b[i]);
-  //       }
-
-  //       return result;
-  //     }(_a.prefs, _b.prefs))
-
-  //     ,saves: (function (a, b) {
-  //       var level = [],
-  //           result = [];
-
-  //       while (result.length < a.length) {
-  //         level = [];
-
-  //         while (level.length < a[0].length) {
-  //           level.push(a[result.length][level.length] < b[result.length][level.length] ? a[result.length][level.length] : b[result.length][level.length]);
-  //         }
-
-  //         result.push(level);
-  //       }
-
-  //       return result;
-  //     }(_a.saves, _b.saves))
-
-  //     ,spells: (function (a, b) {
-  //       if (a || b) {
-  //         return [a, b];
-  //       }
-  //     }(_a.spells, _b.spells))
-
-  //     ,thaco: (function (a, b) {
-  //       var indx = 0,
-  //           result = [];
-
-  //       while (indx < a.length) {
-  //         result.push(a[indx] < b[indx] ? a[indx] : b[indx]);
-  //         indx++;
-  //       }
-
-  //       return result;
-  //     }(_a.thaco, _b.thaco))
-  //   });
-  // };
+    return new Caste({
+        // combining the two Caste instances
+          name    : a.name + "/" + b.name
+        , dual    : []
+        , HDT     : (a.HDT + b.HDT) / 2
+        , prefs   : combinePrefs(a, b)
+        , saves   : combineSaves(a, b)
+        , skills  : a.skills || b.skills
+        , spells  : combineSpells(a, b)
+        , thaco   : combineThaco(a, b)
+      });
+  };
 
   return Caste;
 });

@@ -433,6 +433,55 @@ define('Caste',[      "util"
     return true; // no error thrown, all is well.
   }
 
+  function combinePrefs (a, b) {
+    var i = 0
+      , len = a.prefs.length
+      , result = [];
+
+    while (i < len) {
+      if (!~result.indexOf(a.prefs[i])) {
+        result.push(a.prefs[i]);
+      }
+
+      if (!~result.indexOf(b.prefs[i])) {
+        result.push(b.prefs[i]);
+      }
+
+      i++;
+    }
+
+    return result;
+  }
+
+  function combineSaves (a, b) {
+
+    return a.saves
+      .map(function (_, level) {
+        return _
+          .reduce(function (acc, _, type) {
+            acc.push(Math.min(a.saves[level][type], b.saves[level][type]));
+            return acc;
+          }, []);
+      });
+  }
+
+  function combineSpells (a, b) {
+    var result = [];
+
+    result.push(a.spells ? a.spells : []);
+    result.push(b.spells ? b.spells : []);
+
+    return result;
+  }
+
+  function combineThaco (a, b) {
+    return a.thaco
+      .reduce(function (acc, _, indx) {
+        acc.push(Math.min(a.thaco[indx], b.thaco[indx]));
+        return acc;
+      }, []);
+  }
+
   function isValid (type, config, validations) {
 
     return validations
@@ -448,6 +497,9 @@ define('Caste',[      "util"
     if (isValid(Caste.prototype.getType(), config, validations)) {
       properties.forEach(addGetter.bind(null, this, config));
     }
+
+    addGetter(this, config, "skills");
+    addGetter(this, config, "spells");
   }
 
   Caste.prototype = {
@@ -467,76 +519,31 @@ define('Caste',[      "util"
     }
   };
 
-  Caste.dual = function () {};
+  Caste.dual = function (a, b) {
+    if (a === b || a === undefined || b === undefined) {
+      throw new Error("Cannot dual Caste '" + a + "' with '" + b + "'.");
+    }
 
-  // allClasses.merge = function (_a, _b) {
-  //   if ((_b === undefined || _b === "") && !!allClasses.named(_a)) {
-  //     return allClasses.named(_a);
-  //   }
+    if (a.getType() !== Caste.prototype.getType()) {
+      throw new Error("Caste.dual argument (alpha) is not an instance of Caste.");
+    }
 
-  //   if (_a === _b || _a === undefined || !allClasses.named(_a) || !allClasses.named(_b)) {
-  //     throw new Error("Invalid arguments passed to Classes.merge(): " + [_a, _b]);
-  //   }
+    if (b.getType() !== Caste.prototype.getType()) {
+      throw new Error("Caste.dual argument (beta) is not an instance of Caste.");
+    }
 
-  //   _a = allClasses.named(_a);
-  //   _b = allClasses.named(_b);
-
-  //   return new Caste({
-  //      name: _a.name + "/" + _b.name
-
-  //     ,dual: []
-
-  //     ,HDT: (_a.HDT + _b.HDT) / 2
-
-  //     ,prefs: (function (a, b) {
-  //       var  i = 0
-  //           ,l = a.length
-  //           ,result = [];
-
-  //       for ( ; i < l; i++) {
-  //         result.indexOf(a[i]) === -1 && result.push(a[i]);
-  //         result.indexOf(b[i]) === -1 && result.push(b[i]);
-  //       }
-
-  //       return result;
-  //     }(_a.prefs, _b.prefs))
-
-  //     ,saves: (function (a, b) {
-  //       var level = [],
-  //           result = [];
-
-  //       while (result.length < a.length) {
-  //         level = [];
-
-  //         while (level.length < a[0].length) {
-  //           level.push(a[result.length][level.length] < b[result.length][level.length] ? a[result.length][level.length] : b[result.length][level.length]);
-  //         }
-
-  //         result.push(level);
-  //       }
-
-  //       return result;
-  //     }(_a.saves, _b.saves))
-
-  //     ,spells: (function (a, b) {
-  //       if (a || b) {
-  //         return [a, b];
-  //       }
-  //     }(_a.spells, _b.spells))
-
-  //     ,thaco: (function (a, b) {
-  //       var indx = 0,
-  //           result = [];
-
-  //       while (indx < a.length) {
-  //         result.push(a[indx] < b[indx] ? a[indx] : b[indx]);
-  //         indx++;
-  //       }
-
-  //       return result;
-  //     }(_a.thaco, _b.thaco))
-  //   });
-  // };
+    return new Caste({
+        // combining the two Caste instances
+          name    : a.name + "/" + b.name
+        , dual    : []
+        , HDT     : (a.HDT + b.HDT) / 2
+        , prefs   : combinePrefs(a, b)
+        , saves   : combineSaves(a, b)
+        , skills  : a.skills || b.skills
+        , spells  : combineSpells(a, b)
+        , thaco   : combineThaco(a, b)
+      });
+  };
 
   return Caste;
 });
@@ -1135,12 +1142,12 @@ define('test_castes',[      "castes", "Caste", "util"
 
   function valid_config_object () {
     return {
-        name: "Zero",
-        dual: [],
-        HDT: 3,
-        prefs: "0000000".split(""),
-        saves: "00000000000000000000000".split(""),
-        thaco: "0000000000000000000000000".split("")
+          name: "Zero"
+        , dual: []
+        , HDT: 3
+        , prefs: "0000000".split("")
+        , saves: "00000000000000000000000".split("")
+        , thaco: "0000000000000000000000000".split("")
       };
   }
 
@@ -1259,6 +1266,49 @@ define('test_castes',[      "castes", "Caste", "util"
     equal(15, castes.length, "collection has the right number of instances.");
 
     ok(castes[0].name === "Acrobat", "Sample instance has a name and it matches what was searched for in the Collection.");
+  });
+
+  test("dual Caste(ing)", function () {
+    throws(function () {
+      var dual = Caste.dual();
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("", "");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("Cleric", "Fighter");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual(castes.named("Cleric")[0], "Fighter");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("Fighter", castes.named("Cleric")[0]);
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual(castes.named("Fighter"), castes.named("Cleric"));
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    var a = castes.named("Fighter")[0]
+      , b = castes.named("Cleric")[0]
+      , dual = Caste.dual(a, b);
+
+    equal(dual.name, a.name + "/" + b.name, "Combining '" + a.name + "' and '" + b.name + "' produces '" + dual.name + "'.");
+    deepEqual(dual.dual, [], "A dualed Caste should not have the ability to be dualed further.");
+    equal(dual.HDT, (a.HDT + b.HDT) / 2, "Proper HDT value.");
+    deepEqual(dual.skills, undefined, dual.name + " does not have thieving skills.");
+    equal(dual.prefs.join(""), "0254631", "Proper .prefs value.");
+    deepEqual(dual.saves.join(",").split(","), "16,17,18,19,19,10,13,14,16,15,10,13,14,16,15,10,13,14,16,15,9,12,13,15,14,9,12,13,13,14,9,12,13,13,14,7,10,11,12,12,7,10,11,12,12,7,9,10,9,11,6,9,10,9,11,6,8,9,8,10,6,8,9,8,10,5,6,7,5,8,5,6,7,5,8,4,5,6,4,7,4,5,6,4,7,3,4,5,4,6,3,4,5,4,6,2,3,4,3,5,2,3,4,3,5,1,2,3,3,4,1,2,3,3,4".split(","), "Proper .saves value.");
+    ok(util.isArray(dual.spells), "Dual Castes should always have an array as the value for .spells.");
+    equal(dual.spells.length, 2, "Dual Caste instance's .spells property should be of length 2.");
+    deepEqual(dual.spells, [[], b.spells], "Proper .spells value.");
+    deepEqual(dual.thaco, "20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,4,2,2,1,1,1,1".split(",").map(Number), "Proper .thaco value.");
+
+    todo("work on dual Caste-ing with two Castes that have .skills.");
     todo("test more");
   });
 });

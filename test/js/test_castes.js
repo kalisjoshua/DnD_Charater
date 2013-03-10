@@ -7,12 +7,12 @@ define([      "castes", "Caste", "util"
 
   function valid_config_object () {
     return {
-        name: "Zero",
-        dual: [],
-        HDT: 3,
-        prefs: "0000000".split(""),
-        saves: "00000000000000000000000".split(""),
-        thaco: "0000000000000000000000000".split("")
+          name: "Zero"
+        , dual: []
+        , HDT: 3
+        , prefs: "0000000".split("")
+        , saves: "00000000000000000000000".split("")
+        , thaco: "0000000000000000000000000".split("")
       };
   }
 
@@ -131,6 +131,49 @@ define([      "castes", "Caste", "util"
     equal(15, castes.length, "collection has the right number of instances.");
 
     ok(castes[0].name === "Acrobat", "Sample instance has a name and it matches what was searched for in the Collection.");
+  });
+
+  test("dual Caste(ing)", function () {
+    throws(function () {
+      var dual = Caste.dual();
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("", "");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("Cleric", "Fighter");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual(castes.named("Cleric")[0], "Fighter");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("Fighter", castes.named("Cleric")[0]);
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual(castes.named("Fighter"), castes.named("Cleric"));
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    var a = castes.named("Fighter")[0]
+      , b = castes.named("Cleric")[0]
+      , dual = Caste.dual(a, b);
+
+    equal(dual.name, a.name + "/" + b.name, "Combining '" + a.name + "' and '" + b.name + "' produces '" + dual.name + "'.");
+    deepEqual(dual.dual, [], "A dualed Caste should not have the ability to be dualed further.");
+    equal(dual.HDT, (a.HDT + b.HDT) / 2, "Proper HDT value.");
+    deepEqual(dual.skills, undefined, dual.name + " does not have thieving skills.");
+    equal(dual.prefs.join(""), "0254631", "Proper .prefs value.");
+    deepEqual(dual.saves.join(",").split(","), "16,17,18,19,19,10,13,14,16,15,10,13,14,16,15,10,13,14,16,15,9,12,13,15,14,9,12,13,13,14,9,12,13,13,14,7,10,11,12,12,7,10,11,12,12,7,9,10,9,11,6,9,10,9,11,6,8,9,8,10,6,8,9,8,10,5,6,7,5,8,5,6,7,5,8,4,5,6,4,7,4,5,6,4,7,3,4,5,4,6,3,4,5,4,6,2,3,4,3,5,2,3,4,3,5,1,2,3,3,4,1,2,3,3,4".split(","), "Proper .saves value.");
+    ok(util.isArray(dual.spells), "Dual Castes should always have an array as the value for .spells.");
+    equal(dual.spells.length, 2, "Dual Caste instance's .spells property should be of length 2.");
+    deepEqual(dual.spells, [[], b.spells], "Proper .spells value.");
+    deepEqual(dual.thaco, "20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,4,2,2,1,1,1,1".split(",").map(Number), "Proper .thaco value.");
+
+    todo("work on dual Caste-ing with two Castes that have .skills.");
     todo("test more");
   });
 });
