@@ -11,7 +11,5 @@ define([      "Collection", "Station"
       ,{name: "npc"     , dice: 3, min: 4}
       ,{name: "Player"  , dice: 3, min: 7}
       ,{name: "Pleb"    , dice: 3, min: 3}
-    ].map(function (config) {
-      return new Station(config);
-    }));
+    ].map(Station));
 });

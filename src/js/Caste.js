@@ -41,33 +41,6 @@ define([      "util"
       return fn.name;
     });
 
-  function _prop (o, p) {
-    return o[p];
-  }
-
-  function _prop_slice (o, p) {
-    return _prop(o, p).slice(0);
-  }
-
-  function addGetter (obj, config, prop) {
-    var fn = util.isArray(config[prop]) ? _prop_slice : _prop;
-    obj.__defineGetter__(prop, fn.bind(null, config, prop));
-  }
-
-  // expected to be used in Array.every for validation
-  function checkProp (type, config, fn) {
-    var prop = fn.name;
-
-    if (!fn(config[prop])) {
-      throw new Error("Attempting to set invalid '{p}' property [{v}] in {t}."
-        .replace("{p}", prop)
-        .replace("{v}", config[prop])
-        .replace("{t}", type));
-    }
-
-    return true; // no error thrown, all is well.
-  }
-
   function combinePrefs (a, b) {
     var i = 0
       , len = a.prefs.length
@@ -117,35 +90,24 @@ define([      "util"
       }, []);
   }
 
-  function isValid (type, config, validations) {
-
-    return validations
-      .every(checkProp.bind(null, type, config));
-  }
-
   function Caste (config) {
     if (this === global) {
       // called as a function instead of a constructor - fix it!
       return new Caste(config);
     }
 
-    if (isValid(Caste.prototype.getType(), config, validations)) {
-      properties.forEach(addGetter.bind(null, this, config));
+    if (util.isValid(Caste.prototype.getType(), config, validations)) {
+      properties.forEach(util.addGetter.bind(null, this, config));
     }
 
-    addGetter(this, config, "skills");
-    addGetter(this, config, "spells");
+    util.addGetter(this, config, "skills");
+    util.addGetter(this, config, "spells");
   }
 
   Caste.prototype = {
     getType: function () {
 
       return "[object Caste]";
-    }
-
-    ,get properties () {
-
-      return properties;
     }
 
     ,toString: function () {

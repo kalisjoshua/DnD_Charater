@@ -36,6 +36,33 @@ define('roll',[], function () {
 define('util',[], function () {
   
 
+  function addGetter (obj, config, prop) {
+    function _prop () {
+      return config[prop];
+    }
+
+    function _prop_slice() {
+      return _prop().slice(0);
+    }
+
+    obj.__defineGetter__(prop, util.isArray(config[prop]) ? _prop_slice : _prop);
+  }
+
+  // expected to be used in Array.every for validation
+  function checkProp (type, config, fn) {
+    var prop  = fn.name
+      , value = config[prop];
+
+    if (!fn(value)) {
+      throw new Error("Attempting to set invalid '{p}' property [{v}] in {t}."
+        .replace("{p}", prop)
+        .replace("{v}", value)
+        .replace("{t}", type));
+    }
+
+    return true; // no error thrown, all is well.
+  }
+
   function clone (obj) {
     var i
       , result = util.isArray(obj) ? [] : {};
@@ -74,25 +101,48 @@ define('util',[], function () {
   }
 
   function isType (type, obj) {
+
     return ((!!obj || obj === '') && type.test(obj.getType ? obj.getType() : ({}).toString.call(obj)));
   }
 
+  function isValid (type, config, validations) {
+
+    return validations.every(checkProp.bind(null, type, config));
+  }
+
+  function numericSort (a, b) {
+
+    return a - b;
+  }
+
   function sortAscending (a, b) {
+
     return a - b;
   }
 
   function sortDescending (a, b) {
+
     return b - a;
   }
 
+  function sum (acc, cur) {
+
+    return acc + cur;
+  }
+
   var util = {
-          clone       : clone
+          addGetter   : addGetter
+        , checkProp   : checkProp
+        , clone       : clone
         , isNumeric   : isNumeric
         , isType      : isType
+        , isValid     : isValid
+        , numericSort : numericSort
         , sort        : {
            asc    : sortAscending
           ,desc   : sortDescending
         }
+        , sum         : sum
       };
 
   return "Array Function String"
@@ -406,33 +456,6 @@ define('Caste',[      "util"
       return fn.name;
     });
 
-  function _prop (o, p) {
-    return o[p];
-  }
-
-  function _prop_slice (o, p) {
-    return _prop(o, p).slice(0);
-  }
-
-  function addGetter (obj, config, prop) {
-    var fn = util.isArray(config[prop]) ? _prop_slice : _prop;
-    obj.__defineGetter__(prop, fn.bind(null, config, prop));
-  }
-
-  // expected to be used in Array.every for validation
-  function checkProp (type, config, fn) {
-    var prop = fn.name;
-
-    if (!fn(config[prop])) {
-      throw new Error("Attempting to set invalid '{p}' property [{v}] in {t}."
-        .replace("{p}", prop)
-        .replace("{v}", config[prop])
-        .replace("{t}", type));
-    }
-
-    return true; // no error thrown, all is well.
-  }
-
   function combinePrefs (a, b) {
     var i = 0
       , len = a.prefs.length
@@ -482,35 +505,24 @@ define('Caste',[      "util"
       }, []);
   }
 
-  function isValid (type, config, validations) {
-
-    return validations
-      .every(checkProp.bind(null, type, config));
-  }
-
   function Caste (config) {
     if (this === global) {
       // called as a function instead of a constructor - fix it!
       return new Caste(config);
     }
 
-    if (isValid(Caste.prototype.getType(), config, validations)) {
-      properties.forEach(addGetter.bind(null, this, config));
+    if (util.isValid(Caste.prototype.getType(), config, validations)) {
+      properties.forEach(util.addGetter.bind(null, this, config));
     }
 
-    addGetter(this, config, "skills");
-    addGetter(this, config, "spells");
+    util.addGetter(this, config, "skills");
+    util.addGetter(this, config, "spells");
   }
 
   Caste.prototype = {
     getType: function () {
 
       return "[object Caste]";
-    }
-
-    ,get properties () {
-
-      return properties;
     }
 
     ,toString: function () {
@@ -1120,10 +1132,7 @@ define('castes',[      "Collection", "Caste"
       }
     ];
 
-  allCastes = new Collection(classConfigs
-    .map(function (config) {
-      return new Caste(config);
-    }));
+  allCastes = new Collection(classConfigs.map(Caste));
 
   allCastes.duals = function () {
       return new Collection().add(allCastes.filter(function (item) {
@@ -1309,7 +1318,6 @@ define('test_castes',[      "castes", "Caste", "util"
     deepEqual(dual.thaco, "20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,4,2,2,1,1,1,1".split(",").map(Number), "Proper .thaco value.");
 
     todo("work on dual Caste-ing with two Castes that have .skills.");
-    todo("test more");
   });
 });
 /*jshint laxcomma:true*/
@@ -1427,41 +1435,57 @@ define('Race',[      "util"
   ], function (util) {
   
 
+  var global = (function () {return this;}())
+    , properties
+    , validations;
+
+  validations = [
+    function name (value) {
+      return !!value && util.isString(value);
+    }
+
+    , function infravision (value) {
+      return util.isNumeric(value);
+    }
+
+    , function languages (value) {
+      return !!value.length && util.isArray(value);
+    }
+
+    , function move (value) {
+      return util.isNumeric(value) && value > 0;
+    }
+
+    , function notes (value) {
+      return value === "" || util.isString(value);
+    }
+
+    , function saves (value) {
+      return value.length === 5 && value.every(util.isNumeric);
+    }
+
+    , function stats (value) {
+      return value.length === 7 && value.every(util.isNumeric);
+    }
+
+    , function thieving (value) {
+      return value.length === 8 && value.every(util.isNumeric);
+    }
+  ];
+
+  properties = validations
+    .map(function (fn) {
+      return fn.name;
+    });
+
   function Race (config) {
-    if (!config.name || !util.isString(config.name)) {
-      throw new Error("No '.name' property given in config passed into Race constructor.");
+    if (this === global) {
+      // called as a function instead of a constructor - fix it!
+      return new Race(config);
     }
 
-    if (!util.isNumeric(config.infravision)) {
-      throw new Error("Invalid '.infravision' property given in config passed into Race constructor (" + config.infravision + ").");
-    }
-
-    if (!config.languages.length || !util.isArray(config.languages)) {
-      throw new Error("Invalid '.languages' property given in config passed into Race constructor (" + config.laguages + ").");
-    }
-
-    if (!util.isNumeric(config.move) || config.move < 0) {
-      throw new Error("Invalid '.move' property given in config passed into Race constructor (" + config.move + ").");
-    }
-
-    if (!!config.notes && !util.isString(config.notes)) {
-      throw new Error("Invalid '.notes' property given in config passed into Race constructor (" + config.notes + ").");
-    }
-
-    if (config.saves.length !== 5 || !config.saves.every(util.isNumeric)) {
-      throw new Error("Invalid '.saves' property given in config passed into Race constructor (" + config.saves + ").");
-    }
-
-    if (config.stats.length !== 7 || !config.stats.every(util.isNumeric)) {
-      throw new Error("Invalid '.stats' property given in config passed into Race constructor (" + config.stats + ").");
-    }
-
-    if (config.thieving.length !== 8 | !config.thieving.every(util.isNumeric)) {
-      throw new Error("Invalid '.thieving' property given in config passed into Race constructor (" + config.thieving + ").");
-    }
-
-    for (var attr in config) {
-      this[attr] = config[attr];
+    if (util.isValid(Race.prototype.getType(), config, validations)) {
+      properties.forEach(util.addGetter.bind(null, this, config));
     }
   }
 
@@ -1596,10 +1620,7 @@ define('races',[      "Collection", "Race"
         }
       ];
 
-  list = new Collection(racesConfigs
-    .map(function (config) {
-      return new Race(config);
-    }));
+  list = new Collection(racesConfigs.map(Race));
 
   list.languages = languages.slice(0);
 
@@ -1747,13 +1768,32 @@ define('test_races',[      "races", "Race", "util"
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('Station',[      "roll"
-  ], function (roll) {
+define('Station',[      "roll", "util"
+  ], function (roll,   util) {
   
 
-  function numericSort (a, b) {
-    return a - b;
-  }
+  var global = (function () {return this;}())
+    , properties
+    , validations;
+
+  validations = [
+    function dice (value) {
+      return !!value && util.isNumeric(value);
+    }
+
+    , function min (value) {
+      return !!value && util.isNumeric(value);
+    }
+
+    , function name (value) {
+      return !!name && util.isString(value);
+    }
+  ];
+
+  properties = validations
+    .map(function (fn) {
+      return fn.name;
+    });
 
   function roll_stat (obj) {
     var result;
@@ -1763,36 +1803,20 @@ define('Station',[      "roll"
         .map(roll.bind(null, "d6"))
         .sort()
         .slice(-3)
-        .reduce(sum);
+        .reduce(util.sum);
     } while (result < obj.min);
 
     return result;
   }
 
-  function sum (acc, cur) {
-    return acc + cur;
-  }
-
   function Station (config) {
-    if (this === (function () {return this;}())) {
+    if (this === global) {
       // called as a function instead of a constructor - fix it!
       return new Station(config);
     }
 
-    if (!config.dice) {
-      throw new Error("No 'dice' property passed into Station constructor.");
-    }
-
-    if (!config.name) {
-      throw new Error("No 'name' property passed into Station constructor.");
-    }
-
-    if (!config.min) {
-      throw new Error("No 'min' property passed into Station constructor.");
-    }
-
-    for (var attr in config) {
-      this[attr] = config[attr];
+    if (util.isValid(Station.prototype.getType(), config, validations)) {
+      properties.forEach(util.addGetter.bind(null, this, config));
     }
   }
 
@@ -1814,7 +1838,7 @@ define('Station',[      "roll"
           result[indx].push(roll_stat(this));
         }
 
-        result[indx] = result[indx].sort(numericSort).reverse();
+        result[indx] = result[indx].sort(util.numericSort).reverse();
       } while (num > ++indx);
 
       return num === 1 ? result[0] : result;
@@ -1851,9 +1875,7 @@ define('station_list',[      "Collection", "Station"
       ,{name: "npc"     , dice: 3, min: 4}
       ,{name: "Player"  , dice: 3, min: 7}
       ,{name: "Pleb"    , dice: 3, min: 3}
-    ].map(function (config) {
-      return new Station(config);
-    }));
+    ].map(Station));
 });
 /*jshint laxcomma:true*/
 /*global define require*/

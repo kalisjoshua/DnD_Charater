@@ -571,10 +571,7 @@ define([      "Collection", "Caste"
       }
     ];
 
-  allCastes = new Collection(classConfigs
-    .map(function (config) {
-      return new Caste(config);
-    }));
+  allCastes = new Collection(classConfigs.map(Caste));
 
   allCastes.duals = function () {
       return new Collection().add(allCastes.filter(function (item) {

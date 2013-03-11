@@ -1,13 +1,32 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define([      "roll"
-  ], function (roll) {
+define([      "roll", "util"
+  ], function (roll,   util) {
   "use strict";
 
-  function numericSort (a, b) {
-    return a - b;
-  }
+  var global = (function () {return this;}())
+    , properties
+    , validations;
+
+  validations = [
+    function dice (value) {
+      return !!value && util.isNumeric(value);
+    }
+
+    , function min (value) {
+      return !!value && util.isNumeric(value);
+    }
+
+    , function name (value) {
+      return !!name && util.isString(value);
+    }
+  ];
+
+  properties = validations
+    .map(function (fn) {
+      return fn.name;
+    });
 
   function roll_stat (obj) {
     var result;
@@ -17,36 +36,20 @@ define([      "roll"
         .map(roll.bind(null, "d6"))
         .sort()
         .slice(-3)
-        .reduce(sum);
+        .reduce(util.sum);
     } while (result < obj.min);
 
     return result;
   }
 
-  function sum (acc, cur) {
-    return acc + cur;
-  }
-
   function Station (config) {
-    if (this === (function () {return this;}())) {
+    if (this === global) {
       // called as a function instead of a constructor - fix it!
       return new Station(config);
     }
 
-    if (!config.dice) {
-      throw new Error("No 'dice' property passed into Station constructor.");
-    }
-
-    if (!config.name) {
-      throw new Error("No 'name' property passed into Station constructor.");
-    }
-
-    if (!config.min) {
-      throw new Error("No 'min' property passed into Station constructor.");
-    }
-
-    for (var attr in config) {
-      this[attr] = config[attr];
+    if (util.isValid(Station.prototype.getType(), config, validations)) {
+      properties.forEach(util.addGetter.bind(null, this, config));
     }
   }
 
@@ -68,7 +71,7 @@ define([      "roll"
           result[indx].push(roll_stat(this));
         }
 
-        result[indx] = result[indx].sort(numericSort).reverse();
+        result[indx] = result[indx].sort(util.numericSort).reverse();
       } while (num > ++indx);
 
       return num === 1 ? result[0] : result;

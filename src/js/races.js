@@ -117,10 +117,7 @@ define([      "Collection", "Race"
         }
       ];
 
-  list = new Collection(racesConfigs
-    .map(function (config) {
-      return new Race(config);
-    }));
+  list = new Collection(racesConfigs.map(Race));
 
   list.languages = languages.slice(0);
 

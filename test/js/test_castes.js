@@ -174,6 +174,5 @@ define([      "castes", "Caste", "util"
     deepEqual(dual.thaco, "20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,4,2,2,1,1,1,1".split(",").map(Number), "Proper .thaco value.");
 
     todo("work on dual Caste-ing with two Castes that have .skills.");
-    todo("test more");
   });
 });
