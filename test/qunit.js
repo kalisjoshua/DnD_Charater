@@ -260,7 +260,7 @@ Test.prototype = {
                     todo++;
                 }
 
-                if ( !assertion.result  && !assertion.todo ) {
+                if ( !assertion.result ) {
                     bad++;
                     config.stats.bad++;
                     config.moduleStats.bad++;

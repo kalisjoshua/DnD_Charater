@@ -1,4 +1,4 @@
-/*jshint laxcomma:true es5:true*/
+/*jshint laxcomma:true*/
 /*global define*/
 
 define([      "util"
@@ -29,6 +29,14 @@ define([      "util"
 
     , function saves (value) {
       return util.isArray(value) && value.length === 23;
+    }
+
+    , function skills () {
+      return true;
+    }
+
+    , function spells () {
+      return true;
     }
 
     , function thaco (value) {
@@ -99,9 +107,6 @@ define([      "util"
     if (util.isValid(Caste.prototype.getType(), config, validations)) {
       properties.forEach(util.addGetter.bind(null, this, config));
     }
-
-    util.addGetter(this, config, "skills");
-    util.addGetter(this, config, "spells");
   }
 
   Caste.prototype = {
