@@ -36,7 +36,7 @@ define([ "jquery", "castes", "races", "station_list"
     function attemptPlayerCreation (event) {
       if ($caste_alpha.val() && $race.val()) {
         $document
-          .trigger("showGrid", 9);
+          .trigger("updateCharacter", 9);
       }
     }
 

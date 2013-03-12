@@ -1978,231 +1978,303 @@ define('test_stations',[      "station_list", "Station", "util"
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('Abilities',[], function () {
+define('Ability',[      "util"
+  ], function (util) {
   
 
-  var abilityOrder = "Strength Intelligence Wisdom Dexterity Constitution Charisma Comeliness".split(" ")
-    , abilityAbbr = abilityOrder.map(function (item) {return item.slice(0,3).toUpperCase();})
-    , lookup = [
-      {   name  : "Strength"
-        , detail: "THAC0 Adjustment: {0}, Damage Adjustment: {1}, Weight Adjustment: {2}, Open Doors: {3}, Bend Bars: {4}"
-        , table : [
-          [],[],[] // tables start at ability score 3
-          , [-3, -1, -350,   '1/6',  0] //  3
-          , [-2, -1, -250,   '1/6',  0] //  4
-          , [-2, -1, -250,   '1/6',  0] //  5
-          , [-1,  0, -150,   '1/6',  0] //  6
-          , [-1,  0, -150,   '1/6',  0] //  7
-          , [ 0,  0,    0,   '2/6',  1] //  8
-          , [ 0,  0,    0,   '2/6',  1] //  9
-          , [ 0,  0,    0,   '2/6',  2] // 10
-          , [ 0,  0,    0,   '2/6',  2] // 11
-          , [ 0,  0,  100,   '2/6',  4] // 12
-          , [ 0,  0,  100,   '2/6',  4] // 13
-          , [ 0,  0,  200,   '2/6',  7] // 14
-          , [ 0,  0,  200,   '2/6',  7] // 15
-          , [ 0,  1,  350,   '3/6', 10] // 16
-          , [ 1,  1,  500,   '3/6', 13] // 17
-          , [ 1,  2,  750,   '3/6', 16] // 18
+  var global = (function () {return this;}())
+    , validations;
 
-          , [ 3,  7, 1250,   '7/8', 25] // 19
-          , [ 3,  8, 1750,   '7/8', 38] // 20
-          , [ 4,  9, 2250,  '9/10', 50] // 21
-          , [ 4, 10, 2750, '11/12', 65] // 22
-          , [ 5, 11, 3250, '11/12', 73] // 23
-          , [ 6, 12, 3600, '19/20', 82] // 24
-        ]}
+  validations = [
+    function name (value) {
+      return !!value && util.isString(value);
+    }
 
-      , { name  : "Intelligence"
-        , detail: "Additional Languages: {0}, Know Spell: {1}, Minimum Spells: {2}, Maximum Spells: {3}"
-        , table : [
-          [],[],[] // tables start at ability score 3
-          , [ 0,  0,  0,  0] //  3
-          , [ 0,  0,  0,  0] //  4
-          , [ 0,  0,  0,  0] //  5
-          , [ 0,  0,  0,  0] //  6
-          , [ 0,  0,  0,  0] //  7
-          , [ 1,  0,  0,  0] //  8
-          , [ 1, 35,  4,  6] //  9
-          , [ 2, 45,  5,  7] // 10
-          , [ 2, 45,  5,  7] // 11
-          , [ 3, 45,  5,  7] // 12
-          , [ 3, 55,  6,  9] // 13
-          , [ 4, 55,  6,  9] // 14
-          , [ 4, 65,  7, 11] // 15
-          , [ 5, 65,  7, 11] // 16
-          , [ 6, 75,  8, 14] // 17
-          , [ 7, 85,  9, 18] // 18
-          , [ 8, 95, 10, 99] // 19
-          , [ 9, 98, 11, 99] // 20
-          , [10, 98, 12, 99] // 21
-          , [11, 98, 13, 99] // 22
-          , [12, 98, 13, 99] // 23
-          , [12, 98, 14, 99] // 24
-        ]}
+    , function detail (value) {
+      return !!value && util.isString(value);
+    }
 
-      , { name  : "Wisdom"
-        , detail: "Magic Adjustment: {0}, Spell Failure: {1}, Bonus Spells: {2}"
-        , table : [
-          [],[],[] // tables start at ability score 3
-          , [-3, 100, ""] //  3
-          , [-2, 100, ""] //  4
-          , [-1, 100, ""] //  5
-          , [-1, 100, ""] //  6
-          , [-1, 100, ""] //  7
-          , [ 0, 100, ""] //  8
-          , [ 0,  20, ""] //  9
-          , [ 0,  15, ""] // 10
-          , [ 0,  10, ""] // 11
-          , [ 0,   5, ""] // 12
-          , [ 0,   0, "1"] // 13
-          , [ 0,   0, "2"] // 14
-          , [ 1,   0, "21"] // 15
-          , [ 2,   0, "22"] // 16
-          , [ 3,   0, "221"] // 17
-          , [ 4,   0, "2211"] // 18
-          , [ 5,   0, "22111"] // 19
-          , [ 6,   0, "221111"] // 20
-          , [ 6,   0, "332111"] // 21
-          , [ 6,   0, "332211"] // 22
-          , [ 6,   0, "443211"] // 23
-          , [ 6,   0, "4433111"] // 24
-        ]}
+    , function table (value) {
+      return util.isArray(value) && value.length === 25;
+    }
+  ];
 
-      , { name  : "Dexterity"
-        , detail: "Reaction Adjustment: {0}, Missile Adjustment: {1}, Defensive Adjustment: {2}"
-        , table : [
-          [],[],[] // tables start at ability score 3
-          , [-3, -3,  4] //  3
-          , [-2, -2,  3] //  4
-          , [-1, -1,  2] //  5
-          , [ 0,  0,  1] //  6
-          , [ 0,  0,  0] //  7
-          , [ 0,  0,  0] //  8
-          , [ 0,  0,  0] //  9
-          , [ 0,  0,  0] // 10
-          , [ 0,  0,  0] // 11
-          , [ 0,  0,  0] // 12
-          , [ 0,  0,  0] // 13
-          , [ 0,  0,  0] // 14
-          , [ 0,  0, -1] // 15
-          , [ 1,  1, -2] // 16
-          , [ 2,  2, -3] // 17
-          , [ 3,  3, -4] // 18
-          , [ 4,  4, -5] // 19
-          , [ 5,  5, -6] // 20
-          , [ 6,  6, -6] // 21
-          , [ 6,  6, -7] // 22
-          , [ 6,  7, -7] // 23
-          , [ 7,  7, -8] // 24
-        ]}
+  function format (template, data) {
+    return data.reduce(function (acc, item, indx) {
+      return acc.replace("{" + indx + "}", item);
+    }, template);
+  }
 
-      , { name  : "Constitution"
-        , detail: "HP Adjustment: {0}, System Shock: {1}, Raise Survival: {2}, Number of times Raised: {3}"
-        , table : [
-          [],[],[] // tables start at ability score 3
-          , [-2,  35,  40,  0] //  3
-          , [-1,  40,  45,  0] //  4
-          , [-1,  45,  50,  0] //  5
-          , [-1,  50,  55,  0] //  6
-          , [ 0,  55,  60,  0] //  7
-          , [ 0,  60,  65,  0] //  8
-          , [ 0,  65,  70,  0] //  9
-          , [ 0,  70,  75,  0] // 10
-          , [ 0,  75,  80,  0] // 11
-          , [ 0,  80,  85,  0] // 12
-          , [ 0,  85,  90,  0] // 13
-          , [ 0,  88,  92,  0] // 14
-          , [ 1,  91,  94,  0] // 15
-          , [ 2,  95,  96,  0] // 16
-          , [ 3,  97,  98,  0] // 17
-          , [ 4,  99, 100,  0] // 18
-          , [ 4, 100, 100,  0] // 19
-          , [ 5, 100, 100,  0] // 20
-          , [ 5, 100, 100,  0] // 21
-          , [ 6, 100, 100,  0] // 22
-          , [ 7, 100, 100,  0] // 23
-          , [10, 100, 100,  0] // 24
-        ]}
+  function Ability (config) {
+    if (this === global) {
+      // called as a function instead of a constructor - fix it!
+      return new Ability(config);
+    }
 
-      , { name  : "Charisma"
-        , detail: "Max Henchment: {0}, Base Loyalty: {1}, Reaction Adjustment: {2}"
-        , table : [
-          [],[],[] // tables start at ability score 3
-          , [ 1, -30, -25,  -5] //  3
-          , [ 1, -25, -20,  -3] //  4
-          , [ 2, -20,  15,  -3] //  5
-          , [ 2, -15, -10,  -1] //  6
-          , [ 3, -10,  -5,  -1] //  7
-          , [ 3,  -5,   0,  -1] //  8
-          , [ 4,   0,   0,   0] //  9
-          , [ 4,   0,   0,   0] // 10
-          , [ 4,   0,   0,   0] // 11
-          , [ 5,   0,   0,   0] // 12
-          , [ 5,   0,   5,   1] // 13
-          , [ 6,   5,  10,   1] // 14
-          , [ 7,  15,  15,   1] // 15
-          , [ 8,  20,  25,   2] // 16
-          , [10,  30,  30,   2] // 17
-          , [15,  40,  35,   3] // 18
-          , [18,  55,  45,   5] // 19
-          , [24,  75,  65,   5] // 20
-          , [27,  85,  75,   7] // 21
-          , [30,  89,  80,  10] // 22
-          , [32,  93,  83,  11] // 23
-          , [35,  97,  86,  12] // 24
-        ]}
+    if (util.isValid(Ability.prototype.getType(), config, validations)) {
+      this.__defineGetter__("name", function () {
+        return config.name;
+      });
 
-      , { name  : "Comeliness"
-        , detail: "Response: {0}, Charisma Bonus: {1}"
-        , table : [ // page 6 in UA - look it up
-          [],[],[] // tables start at ability score 3
-          , ['', '', ''] //  3
-          , ['', '', ''] //  4
-          , ['', '', ''] //  5
-          , ['', '', ''] //  6
-          , ['', '', ''] //  7
-          , ['', '', ''] //  8
-          , ['', '', ''] //  9
-          , ['', '', ''] // 10
-          , ['', '', ''] // 11
-          , ['', '', ''] // 12
-          , ['', '', ''] // 13
-          , ['', '', ''] // 14
-          , ['', '', ''] // 15
-          , ['', '', ''] // 16
-          , ['', '', ''] // 17
-          , ['', '', ''] // 18
-          , ['', '', ''] // 19
-          , ['', '', ''] // 20
-          , ['', '', ''] // 21
-          , ['', '', ''] // 22
-          , ['', '', ''] // 23
-          , ['', '', ''] // 24
-        ]}
-    ]
-    , indx = {};
+      this.__defineGetter__("detail", function () {
+        return config.detail;
+      });
 
-  lookup.reduce(function (acc, item, indx, src) {
-    acc[item.name] = src[indx];
-    return acc;
-  }, indx);
+      this.__defineGetter__("table", function () {
+        return config.table.slice(0);
+      });
+    }
+  }
 
-  console.log(indx);
+  Ability.prototype = {
+    details: function (score) {
+      if (!this.table[score]) {
+        throw new Error("Must pass in a valid score to get details for an Ability.");
+      }
 
-  function Abilities (column, player, optimize) {}
-  // get/set ability score
-  // get original column values
+      return format(this.detail, this.table[score]);
+    }
 
+    , getType: function () {
+      return "[object Ability]";
+    }
+
+    , toString: function () {
+      return this.name;
+    }
+  };
+
+  return Ability;
+});
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('abilities',[      "Ability", "Collection"
+  ], function (Ability,   Collection) {
+  
+
+  var abilityConfigs;
+
+  abilityConfigs = [
+    {   name  : "Strength"
+      , detail: "THAC0 Adjustment: {0}, Damage Adjustment: {1}, Weight Adjustment: {2}, Open Doors: {3}, Bend Bars: {4}"
+      , table : [
+        [],[],[] // tables start at ability score 3
+        , [-3, -1, -350,   '1/6',  0] //  3
+        , [-2, -1, -250,   '1/6',  0] //  4
+        , [-2, -1, -250,   '1/6',  0] //  5
+        , [-1,  0, -150,   '1/6',  0] //  6
+        , [-1,  0, -150,   '1/6',  0] //  7
+        , [ 0,  0,    0,   '2/6',  1] //  8
+        , [ 0,  0,    0,   '2/6',  1] //  9
+        , [ 0,  0,    0,   '2/6',  2] // 10
+        , [ 0,  0,    0,   '2/6',  2] // 11
+        , [ 0,  0,  100,   '2/6',  4] // 12
+        , [ 0,  0,  100,   '2/6',  4] // 13
+        , [ 0,  0,  200,   '2/6',  7] // 14
+        , [ 0,  0,  200,   '2/6',  7] // 15
+        , [ 0,  1,  350,   '3/6', 10] // 16
+        , [ 1,  1,  500,   '3/6', 13] // 17
+        , [ 1,  2,  750,   '3/6', 16] // 18
+
+        , [ 3,  7, 1250,   '7/8', 25] // 19
+        , [ 3,  8, 1750,   '7/8', 38] // 20
+        , [ 4,  9, 2250,  '9/10', 50] // 21
+        , [ 4, 10, 2750, '11/12', 65] // 22
+        , [ 5, 11, 3250, '11/12', 73] // 23
+        , [ 6, 12, 3600, '19/20', 82] // 24
+      ]
+      , exceptional: [
+         [ 1,  3, 1000,   '3/6', 20] // 18 /  1-50
+        ,[ 2,  3, 1250,   '4/6', 25] // 18 / 51-75
+        ,[ 2,  4, 1500,   '4/6', 30] // 18 / 76-90
+        ,[ 2,  5, 2000,   '4/6', 35] // 18 / 91-99
+        ,[ 3,  6, 3000,   '5/6', 40] // 18 / 100+
+      ]}
+
+    , { name  : "Intelligence"
+      , detail: "Additional Languages: {0}, Know Spell: {1}, Minimum Spells: {2}, Maximum Spells: {3}"
+      , table : [
+        [],[],[] // tables start at ability score 3
+        , [ 0,  0,  0,  0] //  3
+        , [ 0,  0,  0,  0] //  4
+        , [ 0,  0,  0,  0] //  5
+        , [ 0,  0,  0,  0] //  6
+        , [ 0,  0,  0,  0] //  7
+        , [ 1,  0,  0,  0] //  8
+        , [ 1, 35,  4,  6] //  9
+        , [ 2, 45,  5,  7] // 10
+        , [ 2, 45,  5,  7] // 11
+        , [ 3, 45,  5,  7] // 12
+        , [ 3, 55,  6,  9] // 13
+        , [ 4, 55,  6,  9] // 14
+        , [ 4, 65,  7, 11] // 15
+        , [ 5, 65,  7, 11] // 16
+        , [ 6, 75,  8, 14] // 17
+        , [ 7, 85,  9, 18] // 18
+        , [ 8, 95, 10, 99] // 19
+        , [ 9, 98, 11, 99] // 20
+        , [10, 98, 12, 99] // 21
+        , [11, 98, 13, 99] // 22
+        , [12, 98, 13, 99] // 23
+        , [12, 98, 14, 99] // 24
+      ]}
+
+    , { name  : "Wisdom"
+      , detail: "Magic Adjustment: {0}, Spell Failure: {1}, Bonus Spells: {2}"
+      , table : [
+        [],[],[] // tables start at ability score 3
+        , [-3, 100, ""] //  3
+        , [-2, 100, ""] //  4
+        , [-1, 100, ""] //  5
+        , [-1, 100, ""] //  6
+        , [-1, 100, ""] //  7
+        , [ 0, 100, ""] //  8
+        , [ 0,  20, ""] //  9
+        , [ 0,  15, ""] // 10
+        , [ 0,  10, ""] // 11
+        , [ 0,   5, ""] // 12
+        , [ 0,   0, "1"] // 13
+        , [ 0,   0, "2"] // 14
+        , [ 1,   0, "21"] // 15
+        , [ 2,   0, "22"] // 16
+        , [ 3,   0, "221"] // 17
+        , [ 4,   0, "2211"] // 18
+        , [ 5,   0, "22111"] // 19
+        , [ 6,   0, "221111"] // 20
+        , [ 6,   0, "332111"] // 21
+        , [ 6,   0, "332211"] // 22
+        , [ 6,   0, "443211"] // 23
+        , [ 6,   0, "4433111"] // 24
+      ]}
+
+    , { name  : "Dexterity"
+      , detail: "Reaction Adjustment: {0}, Missile Adjustment: {1}, Defensive Adjustment: {2}"
+      , table : [
+        [],[],[] // tables start at ability score 3
+        , [-3, -3,  4] //  3
+        , [-2, -2,  3] //  4
+        , [-1, -1,  2] //  5
+        , [ 0,  0,  1] //  6
+        , [ 0,  0,  0] //  7
+        , [ 0,  0,  0] //  8
+        , [ 0,  0,  0] //  9
+        , [ 0,  0,  0] // 10
+        , [ 0,  0,  0] // 11
+        , [ 0,  0,  0] // 12
+        , [ 0,  0,  0] // 13
+        , [ 0,  0,  0] // 14
+        , [ 0,  0, -1] // 15
+        , [ 1,  1, -2] // 16
+        , [ 2,  2, -3] // 17
+        , [ 3,  3, -4] // 18
+        , [ 4,  4, -5] // 19
+        , [ 5,  5, -6] // 20
+        , [ 6,  6, -6] // 21
+        , [ 6,  6, -7] // 22
+        , [ 6,  7, -7] // 23
+        , [ 7,  7, -8] // 24
+      ]}
+
+    , { name  : "Constitution"
+      , detail: "HP Adjustment: {0}, System Shock: {1}, Raise Survival: {2}, Number of times Raised: {3}"
+      , table : [
+        [],[],[] // tables start at ability score 3
+        , [-2,  35,  40,  0] //  3
+        , [-1,  40,  45,  0] //  4
+        , [-1,  45,  50,  0] //  5
+        , [-1,  50,  55,  0] //  6
+        , [ 0,  55,  60,  0] //  7
+        , [ 0,  60,  65,  0] //  8
+        , [ 0,  65,  70,  0] //  9
+        , [ 0,  70,  75,  0] // 10
+        , [ 0,  75,  80,  0] // 11
+        , [ 0,  80,  85,  0] // 12
+        , [ 0,  85,  90,  0] // 13
+        , [ 0,  88,  92,  0] // 14
+        , [ 1,  91,  94,  0] // 15
+        , [ 2,  95,  96,  0] // 16
+        , [ 3,  97,  98,  0] // 17
+        , [ 4,  99, 100,  0] // 18
+        , [ 4, 100, 100,  0] // 19
+        , [ 5, 100, 100,  0] // 20
+        , [ 5, 100, 100,  0] // 21
+        , [ 6, 100, 100,  0] // 22
+        , [ 7, 100, 100,  0] // 23
+        , [10, 100, 100,  0] // 24
+      ]}
+
+    , { name  : "Charisma"
+      , detail: "Max Henchment: {0}, Base Loyalty: {1}, Reaction Adjustment: {2}"
+      , table : [
+        [],[],[] // tables start at ability score 3
+        , [ 1, -30, -25,  -5] //  3
+        , [ 1, -25, -20,  -3] //  4
+        , [ 2, -20,  15,  -3] //  5
+        , [ 2, -15, -10,  -1] //  6
+        , [ 3, -10,  -5,  -1] //  7
+        , [ 3,  -5,   0,  -1] //  8
+        , [ 4,   0,   0,   0] //  9
+        , [ 4,   0,   0,   0] // 10
+        , [ 4,   0,   0,   0] // 11
+        , [ 5,   0,   0,   0] // 12
+        , [ 5,   0,   5,   1] // 13
+        , [ 6,   5,  10,   1] // 14
+        , [ 7,  15,  15,   1] // 15
+        , [ 8,  20,  25,   2] // 16
+        , [10,  30,  30,   2] // 17
+        , [15,  40,  35,   3] // 18
+        , [18,  55,  45,   5] // 19
+        , [24,  75,  65,   5] // 20
+        , [27,  85,  75,   7] // 21
+        , [30,  89,  80,  10] // 22
+        , [32,  93,  83,  11] // 23
+        , [35,  97,  86,  12] // 24
+      ]}
+
+    , { name  : "Comeliness"
+      , detail: "Response: {0}, Charisma Bonus: {1}"
+      , table : [ // page 6 in UA - look it up
+        [],[],[] // tables start at ability score 3
+        , ['', '', ''] //  3
+        , ['', '', ''] //  4
+        , ['', '', ''] //  5
+        , ['', '', ''] //  6
+        , ['', '', ''] //  7
+        , ['', '', ''] //  8
+        , ['', '', ''] //  9
+        , ['', '', ''] // 10
+        , ['', '', ''] // 11
+        , ['', '', ''] // 12
+        , ['', '', ''] // 13
+        , ['', '', ''] // 14
+        , ['', '', ''] // 15
+        , ['', '', ''] // 16
+        , ['', '', ''] // 17
+        , ['', '', ''] // 18
+        , ['', '', ''] // 19
+        , ['', '', ''] // 20
+        , ['', '', ''] // 21
+        , ['', '', ''] // 22
+        , ['', '', ''] // 23
+        , ['', '', ''] // 24
+      ]}
+  ];
+
+  return new Collection(abilityConfigs.map(Ability));
 });
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('test_abilities',[      "Abilities"
-  ], function (Abilities) {
+define('test_abilities',[      "abilities"
+  ], function (abilities) {
   module("Abilities");
 
-  test("", function () {});
+  console.log(abilities[0].details(3));
+
+  test("", function () {
+    ok(true);
+  });
 });
 
 /*jshint laxcomma:true*/

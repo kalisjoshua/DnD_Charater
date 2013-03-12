@@ -1,9 +1,13 @@
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define([      "Abilities"
-  ], function (Abilities) {
+define([      "abilities"
+  ], function (abilities) {
   module("Abilities");
 
-  test("", function () {});
+  console.log(abilities[0].details(3));
+
+  test("", function () {
+    ok(true);
+  });
 });

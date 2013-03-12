@@ -16,6 +16,10 @@ require(["jquery"
       , $saves        = $(_saves)
       , $skills       = $(_skills)
       , $vitals       = $(_vitals)
+      , $all          = $abilities
+                          .and($saves)
+                          .and($skills)
+                          .and($vitals)
 
       , templates     = {
           abilities : $abilities.html()
@@ -24,16 +28,27 @@ require(["jquery"
         , vitals    : $vitals.html()
       };
 
-    $abilities
-      .add($saves)
-      .add($skills)
-      .add($vitals)
-      .html("waiting for HTML");
+    $all.html("waiting for HTML");
 
-    function showGrid (event, player) {
+    function showDetail (event, player) {
       $detail.show();
     }
 
+    function showSaves (event, player) {
+
+    }
+
+    function showSkills (event, player) {
+
+    }
+
+    function showVitals (event, player) {
+
+    }
+
     $(document)
-      .on("showGrid", showGrid);
+      .on("updateCharacter", showDetail)
+      .on("updateCharacter", showSaves)
+      .on("updateCharacter", showSkills)
+      .on("updateCharacter", showVitals);
   });
