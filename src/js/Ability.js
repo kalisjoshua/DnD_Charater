@@ -65,13 +65,15 @@ define([      "util"
         throw new Error("Must pass in a valid score to get details for an Ability.");
       }
 
-      if (this.name === "Strength" && score === 18 && exceptional != null) {
+      if (this.name === "Strength" && score === 18 && arguments.length === 2) {
         if (!util.isNumeric(exceptional) || +exceptional < 1 || +exceptional > 100) {
           throw new Error("Must pass in a valid (1-100) exceptional strength value.");
         } else {
           return format(this.detail, this.exceptional
+            // filter out the tables that 'exceptional' is not less than the max
             .filter(function (item) {
               return item.max >= exceptional;
+            // return the lowest table that the exceptional value falls into
             })[0].table);
         }
       }
