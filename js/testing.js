@@ -1978,7 +1978,7 @@ define('test_stations',[      "station_list", "Station", "util"
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('Ability',[      "util"
+define('Trait',[      "util"
   ], function (util) {
   
 
@@ -2009,13 +2009,13 @@ define('Ability',[      "util"
     return util.isNumeric(value) && +value > 0 && +value < 101;
   }
 
-  function Ability (config) {
+  function Trait (config) {
     if (this === global) {
       // called as a function instead of a constructor - fix it!
-      return new Ability(config);
+      return new Trait(config);
     }
 
-    if (util.isValid(Ability.prototype.getType(), config, validations)) {
+    if (util.isValid(Trait.prototype.getType(), config, validations)) {
       this.__defineGetter__("name", function () {
         return config.name;
       });
@@ -2036,10 +2036,10 @@ define('Ability',[      "util"
     }
   }
 
-  Ability.prototype = {
+  Trait.prototype = {
     details: function (score, exceptional) {
       if (!this.table[score]) {
-        throw new Error("Must pass in a valid score to get details for an Ability.");
+        throw new Error("Must pass in a valid score to get details for an Trait.");
       }
 
       if (this.name === "Strength" && score === 18 && arguments.length === 2) {
@@ -2059,7 +2059,7 @@ define('Ability',[      "util"
     }
 
     , getType: function () {
-      return "[object Ability]";
+      return "[object Trait]";
     }
 
     , toString: function () {
@@ -2067,13 +2067,13 @@ define('Ability',[      "util"
     }
   };
 
-  return Ability;
+  return Trait;
 });
 /*jshint laxcomma:true*/
 /*global define*/
 
-define('abilities',[      "Ability", "Collection"
-  ], function (Ability,   Collection) {
+define('traits',[      "Trait", "Collection"
+  ], function (Trait,   Collection) {
   
 
   var abilities
@@ -2285,7 +2285,7 @@ define('abilities',[      "Ability", "Collection"
       ]}
   ];
 
-  abilities = new Collection(abilityConfigs.map(Ability));
+  abilities = new Collection(abilityConfigs.map(Trait));
 
   // create easy to use accessors as named properties that point to indexed values
   abilities
@@ -2299,9 +2299,9 @@ define('abilities',[      "Ability", "Collection"
 /*jshint laxcomma:true*/
 /*global define require*/
 
-define('test_abilities',[      "abilities"
-  ], function (abilities) {
-  module("Abilities");
+define('test_traits',[      "traits"
+  ], function (traits) {
+  module("Traits");
 
   function simplate (tmpl, data) {
     for (var p in data) {
@@ -2313,12 +2313,12 @@ define('test_abilities',[      "abilities"
 
   function table_manip (stat, indx) {
     // must use the full path to the table object to be sure that actual values aren't altered
-    // if aliased: var table = abilities.str.table[indx]; changes will be on the copy not actual
-    var expected = abilities[stat].table[indx].join("")
+    // if aliased: var table = traits.str.table[indx]; changes will be on the copy not actual
+    var expected = traits[stat].table[indx].join("")
       , result;
 
-    abilities[stat].table[indx][0] += 1;
-    result = abilities[stat].table[indx].join("");
+    traits[stat].table[indx][0] += 1;
+    result = traits[stat].table[indx].join("");
 
     equal(result, expected, "Attempting to change the values in a Ability table does not work.");
   }
@@ -2333,44 +2333,44 @@ define('test_abilities',[      "abilities"
     table_manip("str", 18);
 
     expected = "THAC0 Adjustment: -3, Damage Adjustment: -1, Weight Adjustment: -350, Open Doors: 1/6, Bend Bars: 0";
-    equal(abilities.str.details(3), expected, "Strength score: 3");
+    equal(traits.str.details(3), expected, "Strength score: 3");
 
     expected = "THAC0 Adjustment: 1, Damage Adjustment: 2, Weight Adjustment: 750, Open Doors: 3/6, Bend Bars: 16";
-    equal(abilities.str.details(18), expected, "Strength score: 18");
+    equal(traits.str.details(18), expected, "Strength score: 18");
 
     expected = "THAC0 Adjustment: 1, Damage Adjustment: 3, Weight Adjustment: 1000, Open Doors: 3/6, Bend Bars: 20";
-    equal(abilities.str.details(18, 1), expected, "Strength score: 18/1");
-    equal(abilities.str.details(18, 2), expected, "Strength score: 18/1");
-    equal(abilities.str.details(18, 49), expected, "Strength score: 18/50");
-    equal(abilities.str.details(18, 50), expected, "Strength score: 18/50");
+    equal(traits.str.details(18, 1), expected, "Strength score: 18/1");
+    equal(traits.str.details(18, 2), expected, "Strength score: 18/1");
+    equal(traits.str.details(18, 49), expected, "Strength score: 18/50");
+    equal(traits.str.details(18, 50), expected, "Strength score: 18/50");
 
     expected = "THAC0 Adjustment: 2, Damage Adjustment: 3, Weight Adjustment: 1250, Open Doors: 4/6, Bend Bars: 25";
-    equal(abilities.str.details(18, 51), expected, "Strength score: 18/51");
-    equal(abilities.str.details(18, 52), expected, "Strength score: 18/51");
-    equal(abilities.str.details(18, 74), expected, "Strength score: 18/75");
-    equal(abilities.str.details(18, 75), expected, "Strength score: 18/75");
+    equal(traits.str.details(18, 51), expected, "Strength score: 18/51");
+    equal(traits.str.details(18, 52), expected, "Strength score: 18/51");
+    equal(traits.str.details(18, 74), expected, "Strength score: 18/75");
+    equal(traits.str.details(18, 75), expected, "Strength score: 18/75");
 
     expected = "THAC0 Adjustment: 2, Damage Adjustment: 4, Weight Adjustment: 1500, Open Doors: 4/6, Bend Bars: 30";
-    equal(abilities.str.details(18, 76), expected, "Strength score: 18/76");
-    equal(abilities.str.details(18, 77), expected, "Strength score: 18/76");
-    equal(abilities.str.details(18, 89), expected, "Strength score: 18/90");
-    equal(abilities.str.details(18, 90), expected, "Strength score: 18/90");
+    equal(traits.str.details(18, 76), expected, "Strength score: 18/76");
+    equal(traits.str.details(18, 77), expected, "Strength score: 18/76");
+    equal(traits.str.details(18, 89), expected, "Strength score: 18/90");
+    equal(traits.str.details(18, 90), expected, "Strength score: 18/90");
 
     expected = "THAC0 Adjustment: 2, Damage Adjustment: 5, Weight Adjustment: 2000, Open Doors: 4/6, Bend Bars: 35";
-    equal(abilities.str.details(18, 91), expected, "Strength score: 18/91");
-    equal(abilities.str.details(18, 92), expected, "Strength score: 18/91");
-    equal(abilities.str.details(18, 98), expected, "Strength score: 18/91");
-    equal(abilities.str.details(18, 99), expected, "Strength score: 18/99");
+    equal(traits.str.details(18, 91), expected, "Strength score: 18/91");
+    equal(traits.str.details(18, 92), expected, "Strength score: 18/91");
+    equal(traits.str.details(18, 98), expected, "Strength score: 18/91");
+    equal(traits.str.details(18, 99), expected, "Strength score: 18/99");
 
     expected = "THAC0 Adjustment: 3, Damage Adjustment: 6, Weight Adjustment: 3000, Open Doors: 5/6, Bend Bars: 40";
-    equal(abilities.str.details(18, 100), expected, "Strength score: 18/100");
+    equal(traits.str.details(18, 100), expected, "Strength score: 18/100");
 
     throws(function () {
-      abilities.str.details(18, 0);
+      traits.str.details(18, 0);
     }, "Getting details for a Strength score of 18 requires an exceptional value of 1-100.");
 
     throws(function () {
-      abilities.str.details(18, 101);
+      traits.str.details(18, 101);
     }, "Getting details for a Strength score of 18 requires an exceptional value of 1-100.");
   });
 
@@ -2382,7 +2382,7 @@ define('test_abilities',[      "abilities"
     [3, 8, 14, 18, 24]
       .forEach(function (num) {
         table_manip(stat, num);
-        equal(abilities[stat].details(num), simplate(tmpl, abilities[stat].table[num]));
+        equal(traits[stat].details(num), simplate(tmpl, traits[stat].table[num]));
       });
   });
 
@@ -2394,7 +2394,7 @@ define('test_abilities',[      "abilities"
     [3, 8, 14, 18, 24]
       .forEach(function (num) {
         table_manip(stat, num);
-        equal(abilities[stat].details(num), simplate(tmpl, abilities[stat].table[num]));
+        equal(traits[stat].details(num), simplate(tmpl, traits[stat].table[num]));
       });
   });
 
@@ -2406,7 +2406,7 @@ define('test_abilities',[      "abilities"
     [3, 8, 14, 18, 24]
       .forEach(function (num) {
         table_manip(stat, num);
-        equal(abilities[stat].details(num), simplate(tmpl, abilities[stat].table[num]));
+        equal(traits[stat].details(num), simplate(tmpl, traits[stat].table[num]));
       });
   });
 
@@ -2418,7 +2418,7 @@ define('test_abilities',[      "abilities"
     [3, 8, 14, 18, 24]
       .forEach(function (num) {
         table_manip(stat, num);
-        equal(abilities[stat].details(num), simplate(tmpl, abilities[stat].table[num]));
+        equal(traits[stat].details(num), simplate(tmpl, traits[stat].table[num]));
       });
   });
 
@@ -2430,7 +2430,7 @@ define('test_abilities',[      "abilities"
     [3, 8, 14, 18, 24]
       .forEach(function (num) {
         table_manip(stat, num);
-        equal(abilities[stat].details(num), simplate(tmpl, abilities[stat].table[num]));
+        equal(traits[stat].details(num), simplate(tmpl, traits[stat].table[num]));
       });
   });
 
@@ -2442,7 +2442,7 @@ define('test_abilities',[      "abilities"
     [3, 8, 14, 18, 24]
       .forEach(function (num) {
         table_manip(stat, num);
-        equal(abilities[stat].details(num), simplate(tmpl, abilities[stat].table[num]));
+        equal(traits[stat].details(num), simplate(tmpl, traits[stat].table[num]));
       });
   });
 });
@@ -2455,6 +2455,6 @@ require(["test_castes"]);
 require(["test_collections"]);
 require(["test_races"]);
 require(["test_stations"]);
-require(["test_abilities"]);
+require(["test_traits"]);
 
 define("../../test/js/testing", function(){});

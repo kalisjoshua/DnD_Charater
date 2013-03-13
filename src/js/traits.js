@@ -1,8 +1,8 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define([      "Ability", "Collection"
-  ], function (Ability,   Collection) {
+define([      "Trait", "Collection"
+  ], function (Trait,   Collection) {
   "use strict";
 
   var abilities
@@ -214,7 +214,7 @@ define([      "Ability", "Collection"
       ]}
   ];
 
-  abilities = new Collection(abilityConfigs.map(Ability));
+  abilities = new Collection(abilityConfigs.map(Trait));
 
   // create easy to use accessors as named properties that point to indexed values
   abilities

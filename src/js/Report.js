@@ -25,7 +25,7 @@ define([      "util"
       });
   }
 
-  function Report (column, prefs, bonuses) {
+  function Detail (column, prefs, bonuses) {
     if (!isValid(column) || !isValidScores(column)) {
       throw new Error(errString("column", column));
     }
@@ -44,5 +44,11 @@ define([      "util"
   }
   // get/set ability score
   // get original column values
+
+  Detail.prototype = {
+    getType: function () {
+      return "[object Detail]";
+    }
+  };
 
 });

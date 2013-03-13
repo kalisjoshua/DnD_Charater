@@ -32,13 +32,13 @@ define([      "util"
     return util.isNumeric(value) && +value > 0 && +value < 101;
   }
 
-  function Ability (config) {
+  function Trait (config) {
     if (this === global) {
       // called as a function instead of a constructor - fix it!
-      return new Ability(config);
+      return new Trait(config);
     }
 
-    if (util.isValid(Ability.prototype.getType(), config, validations)) {
+    if (util.isValid(Trait.prototype.getType(), config, validations)) {
       this.__defineGetter__("name", function () {
         return config.name;
       });
@@ -59,10 +59,10 @@ define([      "util"
     }
   }
 
-  Ability.prototype = {
+  Trait.prototype = {
     details: function (score, exceptional) {
       if (!this.table[score]) {
-        throw new Error("Must pass in a valid score to get details for an Ability.");
+        throw new Error("Must pass in a valid score to get details for an Trait.");
       }
 
       if (this.name === "Strength" && score === 18 && arguments.length === 2) {
@@ -82,7 +82,7 @@ define([      "util"
     }
 
     , getType: function () {
-      return "[object Ability]";
+      return "[object Trait]";
     }
 
     , toString: function () {
@@ -90,5 +90,5 @@ define([      "util"
     }
   };
 
-  return Ability;
+  return Trait;
 });
