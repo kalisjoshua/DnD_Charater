@@ -1,7 +1,8 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define([], function () {
+define([      "util"
+  ], function (util) {
   "use strict";
 
   function errString (arg, value) {
@@ -40,15 +41,6 @@ define([], function () {
 
       column = optimize(column, prefs, bonuses);
     }
-
-    var obj = this;
-
-    abilityConfigs
-      .forEach(function (item, indx) {
-        obj.__defineGetter(item, function () {
-          return {};
-        });
-      });
   }
   // get/set ability score
   // get original column values

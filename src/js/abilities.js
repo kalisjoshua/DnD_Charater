@@ -5,7 +5,8 @@ define([      "Ability", "Collection"
   ], function (Ability,   Collection) {
   "use strict";
 
-  var abilityConfigs;
+  var abilities
+    , abilityConfigs;
 
   abilityConfigs = [
     {   name  : "Strength"
@@ -37,11 +38,11 @@ define([      "Ability", "Collection"
         , [ 6, 12, 3600, '19/20', 82] // 24
       ]
       , exceptional: [
-         [ 1,  3, 1000,   '3/6', 20] // 18 /  1-50
-        ,[ 2,  3, 1250,   '4/6', 25] // 18 / 51-75
-        ,[ 2,  4, 1500,   '4/6', 30] // 18 / 76-90
-        ,[ 2,  5, 2000,   '4/6', 35] // 18 / 91-99
-        ,[ 3,  6, 3000,   '5/6', 40] // 18 / 100+
+          { min:   1, max:  50, table: [ 1,  3, 1000,   '3/6', 20] }
+        , { min:  51, max:  75, table: [ 2,  3, 1250,   '4/6', 25] }
+        , { min:  76, max:  90, table: [ 2,  4, 1500,   '4/6', 30] }
+        , { min:  91, max:  99, table: [ 2,  5, 2000,   '4/6', 35] }
+        , { min: 100, max: 100, table: [ 3,  6, 3000,   '5/6', 40] }
       ]}
 
     , { name  : "Intelligence"
@@ -213,5 +214,14 @@ define([      "Ability", "Collection"
       ]}
   ];
 
-  return new Collection(abilityConfigs.map(Ability));
+  abilities = new Collection(abilityConfigs.map(Ability));
+
+  // create easy to use accessors as named properties that point to indexed values
+  abilities
+    .forEach(function (item, indx, src) {
+        abilities[item.name] =
+        abilities[item.name.slice(0, 3).toLowerCase()] = src[indx];
+    });
+
+  return abilities;
 });

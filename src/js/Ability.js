@@ -28,6 +28,10 @@ define([      "util"
     }, template);
   }
 
+  function isValidExceptional (value) {
+    return util.isNumeric(value) && +value > 0 && +value < 101;
+  }
+
   function Ability (config) {
     if (this === global) {
       // called as a function instead of a constructor - fix it!
@@ -44,15 +48,32 @@ define([      "util"
       });
 
       this.__defineGetter__("table", function () {
-        return config.table.slice(0);
+        return JSON.parse(JSON.stringify(config.table.slice(0)));
       });
+
+      if (config.exceptional) {
+        this.__defineGetter__("exceptional", function () {
+          return JSON.parse(JSON.stringify(config.exceptional.slice(0)));
+        });
+      }
     }
   }
 
   Ability.prototype = {
-    details: function (score) {
+    details: function (score, exceptional) {
       if (!this.table[score]) {
         throw new Error("Must pass in a valid score to get details for an Ability.");
+      }
+
+      if (this.name === "Strength" && score === 18 && exceptional != null) {
+        if (!util.isNumeric(exceptional) || +exceptional < 1 || +exceptional > 100) {
+          throw new Error("Must pass in a valid (1-100) exceptional strength value.");
+        } else {
+          return format(this.detail, this.exceptional
+            .filter(function (item) {
+              return item.max >= exceptional;
+            })[0].table);
+        }
       }
 
       return format(this.detail, this.table[score]);
