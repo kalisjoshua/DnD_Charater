@@ -1,8 +1,8 @@
 /*jshint laxcomma:true*/
 /*global define*/
 
-define([      "util"
-  ], function (util) {
+define([      "traits", "util"
+  ], function (traits,   util) {
   "use strict";
 
   function errString (arg, value) {
