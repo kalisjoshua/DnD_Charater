@@ -414,6 +414,114 @@ define('Collection',[      "util"
   return Collection;
 });
 /*jshint laxcomma:true*/
+/*global define require*/
+
+define('test_collections',[      "Collection", "util"
+  ], function (Collection,   util) {
+  module("Collection");
+
+  test("constructor", function () {
+    ok(Collection, "Collection is defined.");
+    ok(new Collection(), "Create an empty collection.");
+    ok(Collection(), "Create an empty collection, without using 'new' keyword.");
+
+    var sample = new Collection();
+
+    equal(0, sample.length, "An empty collection has no items.");
+
+    // Collection methods existence
+    [ "add"
+    , "each"
+    , "getNames"
+    , "named"
+    , "toString"
+    ].forEach(function (method) {
+      ok(sample[method], "Collections have '." + method + "' property defined.");
+      ok(util.isFunction(sample[method]), "Collections '." + method + "' property is a method.");
+    });
+
+    ok(sample.toString, "Collection has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Collection has '.toString' method.");
+    equal("[object Collection]", sample.toString(), "Collection '.toString' return proper string.");
+  });
+
+  test("'.add' - single item", function () {
+    var sample = new Collection();
+
+    sample.add("hello");
+
+    equal(1, sample.length, "Added item increases the length of the Collection.");
+  });
+
+  test("'.add' - array of items", function () {
+    var sample = new Collection();
+
+    /*Collection.add - */
+    sample
+      .add([
+          "hello"
+        , "world"
+      ]);
+
+    equal(2, sample.length, "Added item takes arrays as well as single items.");
+  });
+
+  test("'.each' - alias to Array.forEach", function () {
+    var sample = new Collection()
+      , temp;
+
+    sample
+      .add("hello")
+      .add(" ")
+      .add("world");
+
+    temp = "";
+    sample
+      .each(function (item) {
+        temp += item;
+      });
+
+    equal("hello world", temp, "Collection.each works.");
+  });
+
+  test("'.empty' - most likely only usefule for testing", function  () {
+    var sample = new Collection();
+
+    sample
+      .add("hello")
+      .add("world");
+
+    sample.empty();
+    equal(0, sample.length, "Collection.empty ... empties the collection.");
+  });
+
+  test("'.getNames' and '.named' - assumes that collections are made up of objects with '.name' properties", function () {
+    var data = [{name: "Hanz"},{name: "Franz"}]
+      , sample = new Collection();
+
+    ok(sample.getNames, "'.getNames' is defined.");
+    ok(util.isFunction(sample.getNames), "'.getNames' is a funciton.");
+
+    ok(sample.getNames, "'.named' is defined.");
+    ok(util.isFunction(sample.named), "'.named' is a funciton.");
+
+    sample.add(data);
+
+    equal([data[0].name, data[1].name].join()
+        , sample.getNames().join()
+        , "Names of elements from the collection.");
+
+    equal(data[0].toString()
+        , sample.named(data[0].name).toString()
+        , "Names of elements from the collection.");
+
+    equal(JSON.stringify(data.slice(0, 1))
+        , JSON.stringify(sample.named(data[0].name))
+        , "Names of elements from the collection.");
+  });
+});
+
+/*jshint laxcomma:true*/
 /*global define*/
 
 define('Caste',[      "util"
@@ -1148,292 +1256,6 @@ define('castes',[      "Collection", "Caste"
   return allCastes;
 });
 /*jshint laxcomma:true*/
-/*global define require*/
-
-define('test_castes',[      "castes", "Caste", "util"
-  ], function (castes,   Caste,   util) {
-  module("Caste");
-
-  function valid_config_object () {
-    return {
-          name: "Zero"
-        , dual: []
-        , HDT: 3
-        , prefs: "0000000".split("")
-        , saves: "00000000000000000000000".split("")
-        , thaco: "0000000000000000000000000".split("")
-      };
-  }
-
-  test("constructor", function () {
-    var sample = new Caste(valid_config_object());
-
-    throws(function () {
-      var invalid = new Caste();
-    }, "Passing no config (none) should throw an error.");
-
-    throws(function () {
-      var invalid_config = valid_config_object();
-      invalid_config.name = "";
-      var invalid = new Caste(invalid_config);
-    }, "Passing invalid config (no name) should throw an error.");
-
-    throws(function () {
-      var invalid_config = valid_config_object();
-      invalid_config.dual = "";
-      var invalid = new Caste(invalid_config);
-    }, "Passing invalid config (non-array dual) should throw an error.");
-
-    throws(function () {
-      var invalid_config = valid_config_object();
-      invalid_config.HDT = 1;
-      var invalid = new Caste(invalid_config);
-    }, "Passing invalid config (HDT) should throw an error.");
-
-    throws(function () {
-      var invalid_config = valid_config_object();
-      invalid_config.prefs = "";
-      var invalid = new Caste(invalid_config);
-    }, "Passing invalid config (prefs) should throw an error.");
-
-    throws(function () {
-      var invalid_config = valid_config_object();
-      invalid_config.saves = "";
-      var invalid = new Caste(invalid_config);
-    }, "Passing invalid config (saves) should throw an error.");
-
-    throws(function () {
-      var invalid_config = valid_config_object();
-      invalid_config.thaco = "";
-      var invalid = new Caste(invalid_config);
-    }, "Passing invalid config (thaco) should throw an error.");
-
-    ok((function () {
-      try {
-        var sample = new Caste(valid_config_object());
-        return true;
-      } catch(e) {
-        return false;
-      }
-    }()), "An error is NOT thrown when a valid config is passed into the constructor.");
-
-    ok((function () {
-      try {
-        var sample = Caste(valid_config_object());
-        return true;
-      } catch(e) {
-        return false;
-      }
-    }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
-  });
-
-  test("instance methods", function () {
-    var sample = new Caste(valid_config_object());
-
-    equal(sample.name, "Zero", "Name passed to constructor is what is returned by '.get' method.");
-
-    sample.name = "Other";
-    equal(sample.name, "Zero", "Property values cannot be changed once the object is instantiated.");
-
-    "name HDT"
-      .split(" ")
-      .forEach(function (prop) {
-        var instance  = new Caste(valid_config_object())
-          , expected  = valid_config_object()[prop]
-          , propRef   = instance[prop];
-
-        propRef += 99;
-
-        equal(instance[prop]
-          , expected
-          , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
-      });
-
-    "dual prefs saves thaco"
-      .split(" ")
-      .forEach(function (prop) {
-        var instance  = new Caste(valid_config_object())
-          , expected  = valid_config_object()[prop].join()
-          , propRef   = instance[prop];
-
-        propRef.shift();
-
-        equal(instance[prop].join()
-          , expected
-          , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
-      });
-
-    ok(sample.getType, "Sample instance has '.getType' property.");
-    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
-    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
-    equal(sample.getType(), "[object Caste]", "Call to '.getType' returns a String.");
-
-    ok(sample.toString, "Sample instance has '.toString' property.");
-    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
-    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
-    ok(sample.toString() === valid_config_object().name, "Call to '.toString' returns the correct String.");
-  });
-
-  test("collection of instances", function () {
-    ok(castes, "collecion is defined.");
-    equal("[object Collection]", castes.toString(), "collection is a Collection.");
-    equal(15, castes.length, "collection has the right number of instances.");
-
-    ok(castes[0].name === "Acrobat", "Sample instance has a name and it matches what was searched for in the Collection.");
-  });
-
-  test("dual Caste(ing)", function () {
-    throws(function () {
-      var dual = Caste.dual();
-    }, "Invalid arguments to Caste.dual throws errors.");
-
-    throws(function () {
-      var dual = Caste.dual("", "");
-    }, "Invalid arguments to Caste.dual throws errors.");
-
-    throws(function () {
-      var dual = Caste.dual("Cleric", "Fighter");
-    }, "Invalid arguments to Caste.dual throws errors.");
-
-    throws(function () {
-      var dual = Caste.dual(castes.named("Cleric")[0], "Fighter");
-    }, "Invalid arguments to Caste.dual throws errors.");
-
-    throws(function () {
-      var dual = Caste.dual("Fighter", castes.named("Cleric")[0]);
-    }, "Invalid arguments to Caste.dual throws errors.");
-
-    throws(function () {
-      var dual = Caste.dual(castes.named("Fighter"), castes.named("Cleric"));
-    }, "Invalid arguments to Caste.dual throws errors.");
-
-    var a = castes.named("Fighter")[0]
-      , b = castes.named("Cleric")[0]
-      , dual = Caste.dual(a, b);
-
-    equal(dual.name, a.name + "/" + b.name, "Combining '" + a.name + "' and '" + b.name + "' produces '" + dual.name + "'.");
-    deepEqual(dual.dual, [], "A dualed Caste should not have the ability to be dualed further.");
-    equal(dual.HDT, (a.HDT + b.HDT) / 2, "Proper HDT value.");
-    deepEqual(dual.skills, undefined, dual.name + " does not have thieving skills.");
-    equal(dual.prefs.join(""), "0254631", "Proper .prefs value.");
-    deepEqual(dual.saves.join(",").split(","), "16,17,18,19,19,10,13,14,16,15,10,13,14,16,15,10,13,14,16,15,9,12,13,15,14,9,12,13,13,14,9,12,13,13,14,7,10,11,12,12,7,10,11,12,12,7,9,10,9,11,6,9,10,9,11,6,8,9,8,10,6,8,9,8,10,5,6,7,5,8,5,6,7,5,8,4,5,6,4,7,4,5,6,4,7,3,4,5,4,6,3,4,5,4,6,2,3,4,3,5,2,3,4,3,5,1,2,3,3,4,1,2,3,3,4".split(","), "Proper .saves value.");
-    ok(util.isArray(dual.spells), "Dual Castes should always have an array as the value for .spells.");
-    equal(dual.spells.length, 2, "Dual Caste instance's .spells property should be of length 2.");
-    deepEqual(dual.spells, [[], b.spells], "Proper .spells value.");
-    deepEqual(dual.thaco, "20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,4,2,2,1,1,1,1".split(",").map(Number), "Proper .thaco value.");
-
-    todo("work on dual Caste-ing with two Castes that have .skills.");
-  });
-});
-/*jshint laxcomma:true*/
-/*global define require*/
-
-define('test_collections',[      "Collection", "util"
-  ], function (Collection,   util) {
-  module("Collection");
-
-  test("constructor", function () {
-    ok(Collection, "Collection is defined.");
-    ok(new Collection(), "Create an empty collection.");
-    ok(Collection(), "Create an empty collection, without using 'new' keyword.");
-
-    var sample = new Collection();
-
-    equal(0, sample.length, "An empty collection has no items.");
-
-    // Collection methods existence
-    [ "add"
-    , "each"
-    , "getNames"
-    , "named"
-    , "toString"
-    ].forEach(function (method) {
-      ok(sample[method], "Collections have '." + method + "' property defined.");
-      ok(util.isFunction(sample[method]), "Collections '." + method + "' property is a method.");
-    });
-
-    ok(sample.toString, "Collection has '.toString' property.");
-    ok(util.isFunction(sample.toString), "Collection has '.toString' method.");
-    equal("[object Collection]", sample.toString(), "Collection '.toString' return proper string.");
-  });
-
-  test("'.add' - single item", function () {
-    var sample = new Collection();
-
-    sample.add("hello");
-
-    equal(1, sample.length, "Added item increases the length of the Collection.");
-  });
-
-  test("'.add' - array of items", function () {
-    var sample = new Collection();
-
-    /*Collection.add - */
-    sample
-      .add([
-          "hello"
-        , "world"
-      ]);
-
-    equal(2, sample.length, "Added item takes arrays as well as single items.");
-  });
-
-  test("'.each' - alias to Array.forEach", function () {
-    var sample = new Collection()
-      , temp;
-
-    sample
-      .add("hello")
-      .add(" ")
-      .add("world");
-
-    temp = "";
-    sample
-      .each(function (item) {
-        temp += item;
-      });
-
-    equal("hello world", temp, "Collection.each works.");
-  });
-
-  test("'.empty' - most likely only usefule for testing", function  () {
-    var sample = new Collection();
-
-    sample
-      .add("hello")
-      .add("world");
-
-    sample.empty();
-    equal(0, sample.length, "Collection.empty ... empties the collection.");
-  });
-
-  test("'.getNames' and '.named' - assumes that collections are made up of objects with '.name' properties", function () {
-    var data = [{name: "Hanz"},{name: "Franz"}]
-      , sample = new Collection();
-
-    ok(sample.getNames, "'.getNames' is defined.");
-    ok(util.isFunction(sample.getNames), "'.getNames' is a funciton.");
-
-    ok(sample.getNames, "'.named' is defined.");
-    ok(util.isFunction(sample.named), "'.named' is a funciton.");
-
-    sample.add(data);
-
-    equal([data[0].name, data[1].name].join()
-        , sample.getNames().join()
-        , "Names of elements from the collection.");
-
-    equal(data[0].toString()
-        , sample.named(data[0].name).toString()
-        , "Names of elements from the collection.");
-
-    equal(JSON.stringify(data.slice(0, 1))
-        , JSON.stringify(sample.named(data[0].name))
-        , "Names of elements from the collection.");
-  });
-});
-
-/*jshint laxcomma:true*/
 /*global define*/
 
 define('Race',[      "util"
@@ -1631,350 +1453,6 @@ define('races',[      "Collection", "Race"
 
   return list;
 });
-/*jshint laxcomma:true*/
-/*global define require*/
-
-define('test_races',[      "races", "Race", "util"
-  ], function (races,   Race,   util) {
-  module("Race");
-
-  function valid_config_object () {
-    return {
-        name        : "Dwarf"
-      , infravision : 60
-      , languages   : ["gnome", "goblin", "kobol", "orcish"]
-      , move        : 6
-      , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
-      , saves       : [1, 0, 1, 0, 1]
-      , stats       : [0, 0, 0, 0, 1, -1, 0]
-      , thieving    : [0, 10, 15, 0, 0, 0, -10, -5]};
-  }
-
-  test("constructor", function () {
-    ok(Race, "Race object is defined.");
-    ok(util.isFunction(Race), "Race object is a function.");
-
-    throws(function () {
-      var sample = new Race();
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.name = "";
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.infravision = "";
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.languages = "";
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.move = "";
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.move = -1;
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      delete invalid.move;
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    ok(function () {
-      // notes can be empty so there is no validation
-      try {
-        var invalid = valid_config_object();
-        delete invalid.notes;
-        var sample = new Race(invalid);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.saves.shift();
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.stats.shift();
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var invalid = valid_config_object();
-      invalid.thieving.shift();
-      var sample = new Race(invalid);
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    ok((function () {
-      try {
-        var sample = new Race(valid_config_object());
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }()), "An error is NOT thrown when a valid config is passed into the constructor.");
-
-    ok((function () {
-      try {
-        var sample = Race(valid_config_object());
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
-  });
-
-  test("instance methods", function () {
-    var sample = new Race(valid_config_object());
-
-    ok(sample.getType, "Sample instance has '.getType' property.");
-    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
-    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
-    equal(sample.getType(), "[object Race]", "Call to '.getType' returns a String.");
-
-    ok(sample.toString, "Sample instance has '.toString' property.");
-    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
-    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
-    ok(sample.toString() === valid_config_object().name, "Call to '.toString' returns the correct String.");
-  });
-
-  test("collection of instances", function () {
-    ok(races, "collecion is defined.");
-    equal("[object Collection]", races.toString(), "collection is a Collection.");
-    equal(8, races.length, "collection has the right number of instances.");
-    ok(races.languages, "Races provides all available languages.");
-    ok(util.isArray(races.languages), "Races provides all available languages in an array.");
-
-    var sample = races.named("Dwarf")[0];
-
-    ok(sample.name === "Dwarf", "Sample instance has a name and it matches what was searched for in the Collection.");
-  });
-});
-
-/*jshint laxcomma:true*/
-/*global define*/
-
-define('Station',[      "roll", "util"
-  ], function (roll,   util) {
-  
-
-  var global = (function () {return this;}())
-    , properties
-    , validations;
-
-  validations = [
-    function dice (value) {
-      return !!value && util.isNumeric(value);
-    }
-
-    , function min (value) {
-      return !!value && util.isNumeric(value);
-    }
-
-    , function name (value) {
-      return !!name && util.isString(value);
-    }
-  ];
-
-  properties = validations
-    .map(function (fn) {
-      return fn.name;
-    });
-
-  function roll_stat (obj) {
-    var result;
-
-    do {
-      result = Array.apply(null, Array(obj.dice))
-        .map(roll.bind(null, "d6"))
-        .sort()
-        .slice(-3)
-        .reduce(util.sum);
-    } while (result < obj.min);
-
-    return result;
-  }
-
-  function Station (config) {
-    if (this === global) {
-      // called as a function instead of a constructor - fix it!
-      return new Station(config);
-    }
-
-    if (util.isValid(Station.prototype.getType(), config, validations)) {
-      properties.forEach(util.addGetter.bind(null, this, config));
-    }
-  }
-
-  Station.prototype = {
-    column: function (num) {
-      var indx = 0
-        , result = [];
-
-      if (num < 0 || num != +num || num != ~~num) {
-        num = 1;
-      }
-
-      num = ~~num;
-
-      do {
-        result[indx] = [];
-
-        while (result[indx].length < 7) {
-          result[indx].push(roll_stat(this));
-        }
-
-        result[indx] = result[indx].sort(util.numericSort).reverse();
-      } while (num > ++indx);
-
-      return num === 1 ? result[0] : result;
-    }
-
-    ,getType: function () {
-
-      return "[object Station]";
-    }
-
-    ,toString: function () {
-
-      return this.name;
-    }
-
-    ,valueOf: function () {
-
-      return JSON.stringify(this);
-    }
-  };
-
-  return Station;
-});
-/*jshint laxcomma:true*/
-/*global define*/
-
-define('station_list',[      "Collection", "Station"
-  ], function (Collection,   Station) {
-  
-
-  return new Collection([
-       {name: "Champion", dice: 6, min: 7}
-      ,{name: "Hero"    , dice: 4, min: 4}
-      ,{name: "npc"     , dice: 3, min: 4}
-      ,{name: "Player"  , dice: 3, min: 7}
-      ,{name: "Pleb"    , dice: 3, min: 3}
-    ].map(Station));
-});
-/*jshint laxcomma:true*/
-/*global define require*/
-
-define('test_stations',[      "station_list", "Station", "util"
-  ], function (station_list,   Station,   util) {
-  module("Station");
-
-  test("constructor", function () {
-    ok(Station, "Station object is defined.");
-    ok(util.isFunction(Station), "Station object is a function.");
-
-    throws(function () {
-      var sample = new Station();
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var sample = new Station({});
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var sample = new Station({name: "Charlatan"});
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var sample = new Station({name: "Charlatan", dice: 4});
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    throws(function () {
-      var sample = new Station({name: "Charlatan", min: 6});
-    }, "An error is thrown when an invalid config is passed into the constructor.");
-
-    ok((function () {
-      try {
-        var sample = new Station({name: "Charlatan", dice: 4, min: 6});
-
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }()), "An error is NOT thrown when a valid config is passed into the constructor.");
-
-    ok((function () {
-      try {
-        var sample = Station({name: "Charlatan", dice: 4, min: 6});
-
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
-  });
-
-  test("instance methods", function () {
-    var rank_name = "Charlatan"
-      , sample = Station({name: rank_name, dice: 4, min: 6});
-
-    equal(rank_name, sample.name, "Constructed object has properties from config.");
-    equal(4, sample.dice, "Constructed object has properties from config.");
-    equal(6, sample.min, "Constructed object has properties from config.");
-
-    ok(sample.column, "Sample instance has 'column' property.");
-    ok(util.isFunction(sample.column), "Sample instance '.column' is a function.");
-    ok(sample.column().every(util.isNumeric), "Call to '.column' returns an array of numbers.");
-
-    ok(sample.getType, "Sample instance has '.getType' property.");
-    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
-    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
-    equal(sample.getType(), "[object Station]", "Call to '.getType' returns a String.");
-
-    ok(sample.toString, "Sample instance has '.toString' property.");
-    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
-    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
-    equal(sample.toString(), rank_name, "Call to '.toString' returns the correct String.");
-
-    ok(sample.valueOf, "Sample instance has '.valueOf' property.");
-    ok(util.isFunction(sample.valueOf), "Sample instance has '.valueOf' is a function.");
-    ok(util.isString(sample.valueOf()), "Call to '.valueOf' returns a String.");
-    equal(sample.valueOf(), JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
-  });
-
-  test("Collection of instances", function () {
-    ok(station_list, "station_list is defined.");
-    equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
-    equal(5, station_list.length, "station_list has the right number of Station instances.");
-
-    var rank_name = "Hero"
-      , sample = station_list.named(rank_name)[0]
-      , temp;
-
-    ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");
-  });
-});
-
 /*jshint laxcomma:true*/
 /*global define*/
 
@@ -2297,6 +1775,650 @@ define('traits',[      "Trait", "Collection"
   return abilities;
 });
 /*jshint laxcomma:true*/
+/*global define*/
+
+define('Player',[      "traits", "util"
+  ], function (traits,   util) {
+  
+
+  var global = (function () {return this;}())
+    , properties
+    , validations;
+
+  validations = [
+    function name (value) {
+      return !value || util.isString(value);
+    }
+
+    , function caste (value) {
+      return !!value && value.getType && /object caste/i.test(value.getType());
+    }
+
+    , function level (value) {
+      return util.isNumeric(value);
+    }
+
+    , function options (value) {
+      return !value || util.isObject(value);
+    }
+
+    , function race (value) {
+      return !!value && value.getType && /object race/i.test(value.getType());
+    }
+
+    , function scores (value) {
+      return !!value && value.length === 7 && value.every(util.isNumeric);
+    }
+  ];
+
+  properties = validations.map(function (item) {
+    return item.name;
+  });
+
+  function optimize (column, prefs, bonuses) {
+    return column;
+  }
+
+  /* Player
+    @param config - object
+      name      (optional)    String
+
+      caste(s)  (required)    Caste
+      level     (required)    Integer
+      race      (required)    Race
+      scores    (required)    [Integer]
+
+      options   (optional)    {racialBonuses, optimizeScores}
+
+      station   (optional)    Station (phase II maybe? and for what?)
+  */
+  function Player (config) {
+    if (this === global) {
+      // called as a function instead of a constructor - fix it!
+      return new Player(config);
+    }
+
+    var scores;
+
+    this.isValid = util.isValid(Player.prototype.getType(), config, validations);
+
+    if (this.isValid) {
+      scores = optimize(config.scores, config.caste.prefs, config.race.stats);
+    }
+  }
+
+  Player.prototype = {
+    getType: function () {
+      return "[object Player]";
+    }
+  };
+
+  return Player;
+});
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('test_player',[      "castes", "races", "Player", "util"
+  ], function (castes,   races,   Player,   util) {
+  module("Player");
+
+  function valid_config () {
+    return {
+          caste:  castes.named("Cleric")[0]
+        , level:  1
+        , race:   races.named("Elf")[0]
+        , scores: [5, 5, 5, 5, 5, 5, 5]
+      };
+  }
+
+  test("basics", function () {
+    throws(function () {
+      var sample = new Player();
+    }, "Not a valid Player config: empty.");
+
+    throws(function () {
+      var sample = new Player({});
+    }, "Not a valid Player config: empty object.");
+
+    Object.keys(valid_config())
+      .forEach(function (arg) {
+        var temp = valid_config();
+        delete temp[arg];
+
+        throws(function () {
+          var sample = new Player(temp);
+        }, "Not a valid Player config: missing " + arg);
+      });
+
+    var sample = new Player(valid_config());
+
+    ok(sample.isValid, "Valid Player config produces a valid Player object.");
+  });
+});
+
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('test_castes',[      "castes", "Caste", "util"
+  ], function (castes,   Caste,   util) {
+  module("Caste");
+
+  function valid_config_object () {
+    return {
+          name: "Zero"
+        , dual: []
+        , HDT: 3
+        , prefs: "0000000".split("")
+        , saves: "00000000000000000000000".split("")
+        , thaco: "0000000000000000000000000".split("")
+      };
+  }
+
+  test("constructor", function () {
+    var sample = new Caste(valid_config_object());
+
+    throws(function () {
+      var invalid = new Caste();
+    }, "Passing no config (none) should throw an error.");
+
+    throws(function () {
+      var invalid_config = valid_config_object();
+      invalid_config.name = "";
+      var invalid = new Caste(invalid_config);
+    }, "Passing invalid config (no name) should throw an error.");
+
+    throws(function () {
+      var invalid_config = valid_config_object();
+      invalid_config.dual = "";
+      var invalid = new Caste(invalid_config);
+    }, "Passing invalid config (non-array dual) should throw an error.");
+
+    throws(function () {
+      var invalid_config = valid_config_object();
+      invalid_config.HDT = 1;
+      var invalid = new Caste(invalid_config);
+    }, "Passing invalid config (HDT) should throw an error.");
+
+    throws(function () {
+      var invalid_config = valid_config_object();
+      invalid_config.prefs = "";
+      var invalid = new Caste(invalid_config);
+    }, "Passing invalid config (prefs) should throw an error.");
+
+    throws(function () {
+      var invalid_config = valid_config_object();
+      invalid_config.saves = "";
+      var invalid = new Caste(invalid_config);
+    }, "Passing invalid config (saves) should throw an error.");
+
+    throws(function () {
+      var invalid_config = valid_config_object();
+      invalid_config.thaco = "";
+      var invalid = new Caste(invalid_config);
+    }, "Passing invalid config (thaco) should throw an error.");
+
+    ok((function () {
+      try {
+        var sample = new Caste(valid_config_object());
+        return true;
+      } catch(e) {
+        return false;
+      }
+    }()), "An error is NOT thrown when a valid config is passed into the constructor.");
+
+    ok((function () {
+      try {
+        var sample = Caste(valid_config_object());
+        return true;
+      } catch(e) {
+        return false;
+      }
+    }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
+  });
+
+  test("instance methods", function () {
+    var sample = new Caste(valid_config_object());
+
+    equal(sample.name, "Zero", "Name passed to constructor is what is returned by '.get' method.");
+
+    sample.name = "Other";
+    equal(sample.name, "Zero", "Property values cannot be changed once the object is instantiated.");
+
+    "name HDT"
+      .split(" ")
+      .forEach(function (prop) {
+        var instance  = new Caste(valid_config_object())
+          , expected  = valid_config_object()[prop]
+          , propRef   = instance[prop];
+
+        propRef += 99;
+
+        equal(instance[prop]
+          , expected
+          , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
+      });
+
+    "dual prefs saves thaco"
+      .split(" ")
+      .forEach(function (prop) {
+        var instance  = new Caste(valid_config_object())
+          , expected  = valid_config_object()[prop].join()
+          , propRef   = instance[prop];
+
+        propRef.shift();
+
+        equal(instance[prop].join()
+          , expected
+          , "Actual internal structure '{p}' is not exposed via get methods.".replace("{p}", prop));
+      });
+
+    ok(sample.getType, "Sample instance has '.getType' property.");
+    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+    equal(sample.getType(), "[object Caste]", "Call to '.getType' returns a String.");
+
+    ok(sample.toString, "Sample instance has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+    ok(sample.toString() === valid_config_object().name, "Call to '.toString' returns the correct String.");
+  });
+
+  test("collection of instances", function () {
+    ok(castes, "collecion is defined.");
+    equal("[object Collection]", castes.toString(), "collection is a Collection.");
+    equal(15, castes.length, "collection has the right number of instances.");
+
+    ok(castes[0].name === "Acrobat", "Sample instance has a name and it matches what was searched for in the Collection.");
+  });
+
+  test("dual Caste(ing)", function () {
+    throws(function () {
+      var dual = Caste.dual();
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("", "");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("Cleric", "Fighter");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual(castes.named("Cleric")[0], "Fighter");
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual("Fighter", castes.named("Cleric")[0]);
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    throws(function () {
+      var dual = Caste.dual(castes.named("Fighter"), castes.named("Cleric"));
+    }, "Invalid arguments to Caste.dual throws errors.");
+
+    var a = castes.named("Fighter")[0]
+      , b = castes.named("Cleric")[0]
+      , dual = Caste.dual(a, b);
+
+    equal(dual.name, a.name + "/" + b.name, "Combining '" + a.name + "' and '" + b.name + "' produces '" + dual.name + "'.");
+    deepEqual(dual.dual, [], "A dualed Caste should not have the ability to be dualed further.");
+    equal(dual.HDT, (a.HDT + b.HDT) / 2, "Proper HDT value.");
+    deepEqual(dual.skills, undefined, dual.name + " does not have thieving skills.");
+    equal(dual.prefs.join(""), "0254631", "Proper .prefs value.");
+    deepEqual(dual.saves.join(",").split(","), "16,17,18,19,19,10,13,14,16,15,10,13,14,16,15,10,13,14,16,15,9,12,13,15,14,9,12,13,13,14,9,12,13,13,14,7,10,11,12,12,7,10,11,12,12,7,9,10,9,11,6,9,10,9,11,6,8,9,8,10,6,8,9,8,10,5,6,7,5,8,5,6,7,5,8,4,5,6,4,7,4,5,6,4,7,3,4,5,4,6,3,4,5,4,6,2,3,4,3,5,2,3,4,3,5,1,2,3,3,4,1,2,3,3,4".split(","), "Proper .saves value.");
+    ok(util.isArray(dual.spells), "Dual Castes should always have an array as the value for .spells.");
+    equal(dual.spells.length, 2, "Dual Caste instance's .spells property should be of length 2.");
+    deepEqual(dual.spells, [[], b.spells], "Proper .spells value.");
+    deepEqual(dual.thaco, "20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,4,2,2,1,1,1,1".split(",").map(Number), "Proper .thaco value.");
+
+    todo("work on dual Caste-ing with two Castes that have .skills.");
+  });
+});
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('test_races',[      "races", "Race", "util"
+  ], function (races,   Race,   util) {
+  module("Race");
+
+  function valid_config_object () {
+    return {
+        name        : "Dwarf"
+      , infravision : 60
+      , languages   : ["gnome", "goblin", "kobol", "orcish"]
+      , move        : 6
+      , notes       : "+1 on saves(rsw, sp, poison) for each 3 1/2 of con"
+      , saves       : [1, 0, 1, 0, 1]
+      , stats       : [0, 0, 0, 0, 1, -1, 0]
+      , thieving    : [0, 10, 15, 0, 0, 0, -10, -5]};
+  }
+
+  test("constructor", function () {
+    ok(Race, "Race object is defined.");
+    ok(util.isFunction(Race), "Race object is a function.");
+
+    throws(function () {
+      var sample = new Race();
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.name = "";
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.infravision = "";
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.languages = "";
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.move = "";
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.move = -1;
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      delete invalid.move;
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    ok(function () {
+      // notes can be empty so there is no validation
+      try {
+        var invalid = valid_config_object();
+        delete invalid.notes;
+        var sample = new Race(invalid);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.saves.shift();
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.stats.shift();
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var invalid = valid_config_object();
+      invalid.thieving.shift();
+      var sample = new Race(invalid);
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    ok((function () {
+      try {
+        var sample = new Race(valid_config_object());
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }()), "An error is NOT thrown when a valid config is passed into the constructor.");
+
+    ok((function () {
+      try {
+        var sample = Race(valid_config_object());
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
+  });
+
+  test("instance methods", function () {
+    var sample = new Race(valid_config_object());
+
+    ok(sample.getType, "Sample instance has '.getType' property.");
+    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+    equal(sample.getType(), "[object Race]", "Call to '.getType' returns a String.");
+
+    ok(sample.toString, "Sample instance has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+    ok(sample.toString() === valid_config_object().name, "Call to '.toString' returns the correct String.");
+  });
+
+  test("collection of instances", function () {
+    ok(races, "collecion is defined.");
+    equal("[object Collection]", races.toString(), "collection is a Collection.");
+    equal(8, races.length, "collection has the right number of instances.");
+    ok(races.languages, "Races provides all available languages.");
+    ok(util.isArray(races.languages), "Races provides all available languages in an array.");
+
+    var sample = races.named("Dwarf")[0];
+
+    ok(sample.name === "Dwarf", "Sample instance has a name and it matches what was searched for in the Collection.");
+  });
+});
+
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('Station',[      "roll", "util"
+  ], function (roll,   util) {
+  
+
+  var global = (function () {return this;}())
+    , properties
+    , validations;
+
+  validations = [
+    function dice (value) {
+      return !!value && util.isNumeric(value);
+    }
+
+    , function min (value) {
+      return !!value && util.isNumeric(value);
+    }
+
+    , function name (value) {
+      return !!name && util.isString(value);
+    }
+  ];
+
+  properties = validations
+    .map(function (fn) {
+      return fn.name;
+    });
+
+  function roll_stat (obj) {
+    var result;
+
+    do {
+      result = Array.apply(null, Array(obj.dice))
+        .map(roll.bind(null, "d6"))
+        .sort()
+        .slice(-3)
+        .reduce(util.sum);
+    } while (result < obj.min);
+
+    return result;
+  }
+
+  function Station (config) {
+    if (this === global) {
+      // called as a function instead of a constructor - fix it!
+      return new Station(config);
+    }
+
+    if (util.isValid(Station.prototype.getType(), config, validations)) {
+      properties.forEach(util.addGetter.bind(null, this, config));
+    }
+  }
+
+  Station.prototype = {
+    column: function (num) {
+      var indx = 0
+        , result = [];
+
+      if (num < 0 || num != +num || num != ~~num) {
+        num = 1;
+      }
+
+      num = ~~num;
+
+      do {
+        result[indx] = [];
+
+        while (result[indx].length < 7) {
+          result[indx].push(roll_stat(this));
+        }
+
+        result[indx] = result[indx].sort(util.numericSort).reverse();
+      } while (num > ++indx);
+
+      return num === 1 ? result[0] : result;
+    }
+
+    ,getType: function () {
+
+      return "[object Station]";
+    }
+
+    ,toString: function () {
+
+      return this.name;
+    }
+
+    ,valueOf: function () {
+
+      return JSON.stringify(this);
+    }
+  };
+
+  return Station;
+});
+/*jshint laxcomma:true*/
+/*global define*/
+
+define('station_list',[      "Collection", "Station"
+  ], function (Collection,   Station) {
+  
+
+  return new Collection([
+       {name: "Champion", dice: 6, min: 7}
+      ,{name: "Hero"    , dice: 4, min: 4}
+      ,{name: "Player"  , dice: 3, min: 7}
+      ,{name: "npc"     , dice: 3, min: 4}
+      ,{name: "Pleb"    , dice: 3, min: 3}
+    ].map(Station));
+});
+/*jshint laxcomma:true*/
+/*global define require*/
+
+define('test_stations',[      "station_list", "Station", "util"
+  ], function (station_list,   Station,   util) {
+  module("Station");
+
+  test("constructor", function () {
+    ok(Station, "Station object is defined.");
+    ok(util.isFunction(Station), "Station object is a function.");
+
+    throws(function () {
+      var sample = new Station();
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var sample = new Station({});
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var sample = new Station({name: "Charlatan"});
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var sample = new Station({name: "Charlatan", dice: 4});
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    throws(function () {
+      var sample = new Station({name: "Charlatan", min: 6});
+    }, "An error is thrown when an invalid config is passed into the constructor.");
+
+    ok((function () {
+      try {
+        var sample = new Station({name: "Charlatan", dice: 4, min: 6});
+
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }()), "An error is NOT thrown when a valid config is passed into the constructor.");
+
+    ok((function () {
+      try {
+        var sample = Station({name: "Charlatan", dice: 4, min: 6});
+
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }()), "Constructor function also detects that it was called as a normal function and fixes itself.");
+  });
+
+  test("instance methods", function () {
+    var rank_name = "Charlatan"
+      , sample = Station({name: rank_name, dice: 4, min: 6});
+
+    equal(rank_name, sample.name, "Constructed object has properties from config.");
+    equal(4, sample.dice, "Constructed object has properties from config.");
+    equal(6, sample.min, "Constructed object has properties from config.");
+
+    ok(sample.column, "Sample instance has 'column' property.");
+    ok(util.isFunction(sample.column), "Sample instance '.column' is a function.");
+    ok(sample.column().every(util.isNumeric), "Call to '.column' returns an array of numbers.");
+
+    ok(sample.getType, "Sample instance has '.getType' property.");
+    ok(util.isFunction(sample.getType), "Sample instance has '.getType' is a function.");
+    ok(util.isString(sample.getType()), "Call to '.getType' returns a String.");
+    equal(sample.getType(), "[object Station]", "Call to '.getType' returns a String.");
+
+    ok(sample.toString, "Sample instance has '.toString' property.");
+    ok(util.isFunction(sample.toString), "Sample instance has '.toString' is a function.");
+    ok(util.isString(sample.toString()), "Call to '.toString' returns a String.");
+    equal(sample.toString(), rank_name, "Call to '.toString' returns the correct String.");
+
+    ok(sample.valueOf, "Sample instance has '.valueOf' property.");
+    ok(util.isFunction(sample.valueOf), "Sample instance has '.valueOf' is a function.");
+    ok(util.isString(sample.valueOf()), "Call to '.valueOf' returns a String.");
+    equal(sample.valueOf(), JSON.stringify(sample), "Call to '.valueOf' returns the correct String.");
+  });
+
+  test("Collection of instances", function () {
+    ok(station_list, "station_list is defined.");
+    equal("[object Collection]", station_list.toString(), "station_list is a Collection.");
+    equal(5, station_list.length, "station_list has the right number of Station instances.");
+
+    var rank_name = "Hero"
+      , sample = station_list.named(rank_name)[0]
+      , temp;
+
+    ok(sample.name === rank_name, "Sample instance has a name and it matches what was searched for in the Collection.");
+  });
+});
+
+/*jshint laxcomma:true*/
 /*global define require*/
 
 define('test_traits',[      "traits"
@@ -2451,8 +2573,11 @@ define('test_traits',[      "traits"
 /*global require*/
 
 require(["test_misc"]);
-require(["test_castes"]);
 require(["test_collections"]);
+
+require(["test_player"]);
+
+require(["test_castes"]);
 require(["test_races"]);
 require(["test_stations"]);
 require(["test_traits"]);
