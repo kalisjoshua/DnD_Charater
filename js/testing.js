@@ -134,6 +134,7 @@ define('util',[], function () {
           addGetter   : addGetter
         , checkProp   : checkProp
         , clone       : clone
+        , global      : (function () {return this;}())
         , isNumeric   : isNumeric
         , isType      : isType
         , isValid     : isValid
@@ -847,6 +848,8 @@ define('castes',[      "Collection", "Caste"
           name    : "Acrobat"
         , dual    : []
         , HDT     : 6
+                                    // 3   4   0   1   5   2   6   //
+                                    // Dex Con Str Int Cha Wis Com //
         , prefs   : [3,4,0,1,5,2,6]
         , saves   : saves.Thief
         , skills  : acrobating
@@ -857,6 +860,8 @@ define('castes',[      "Collection", "Caste"
           name    : "Archer"
         , dual    : []
         , HDT     : 8
+                                    // 3   0   4   2   1   5   6   //
+                                    // Dex Str Con Wis Int Cha Com //
         , prefs   : [3,0,4,2,1,5,6]
         , saves   : saves.Cleric
         , thaco   : thacos.Cleric
@@ -866,6 +871,8 @@ define('castes',[      "Collection", "Caste"
           name    : "Assassin"
         , dual    : []
         , HDT     : 6
+                                    // 5   3   1   4   0   2   6   //
+                                    // Cha Dex Int Con Str Wis Com //
         , prefs   : [5,3,1,4,0,2,6]
         , saves   : saves.Thief
         , thaco   : thacos.Thief
@@ -875,7 +882,9 @@ define('castes',[      "Collection", "Caste"
           name    : "Barbarian"
         , dual    : []
         , HDT     : 12
-        , prefs   : [0,4,3,5,1,6,2]
+                                    // 0   4   3   1   6   2   5   //
+                                    // Str Con Dex Int Com Wis Cha //
+        , prefs   : [0,4,3,1,6,2,5]
         , saves   : saves.Fighter
         , thaco   : thacos.Fighter
       }
@@ -884,7 +893,9 @@ define('castes',[      "Collection", "Caste"
           name    : "Bard"
         , dual    : []
         , HDT     : 12
-        , prefs   : [5,0,1,4,3,6,2]
+                                    // 5   1   3   6   2   4   0   //
+                                    // Cha Int Dex Com Wis Con Str //
+        , prefs   : [5,1,3,6,2,4,0]
         , saves   : saves.Fighter
         , spells  : [
           //TODO: fill out these values...?
@@ -927,6 +938,8 @@ define('castes',[      "Collection", "Caste"
           name    : "Cavalier"
         , dual    : []
         , HDT     : 10
+                                    // 0   3   4   1   5   6   2   //
+                                    // Str Dex Con Int Cha Com Wis //
         , prefs   : [0,3,4,1,5,6,2]
         , saves   : saves.Fighter
         , thaco   : thacos.Fighter
@@ -941,7 +954,9 @@ define('castes',[      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 8
-        , prefs   : [2,4,0,3,1,5,6]
+                                    // 2   4   3   1   0   5   6   //
+                                    // Wis Con Dex Int Str Cha Com //
+        , prefs   : [2,4,3,1,0,5,6]
         , saves   : saves.Cleric
         , spells  : [
           // 1 2 3 4 5 6 7  Spell level
@@ -988,6 +1003,8 @@ define('castes',[      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 8
+                                    // 2   5   3   4   1   0   6   //
+                                    // Wis Cha Dex Con Int Str Com //
         , prefs   : [2,5,3,4,1,0,6]
         , saves   : saves.Cleric
         , spells  : [
@@ -1036,7 +1053,9 @@ define('castes',[      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 10
-        , prefs   : [0,5,6,2,1,3,4]
+                                    // 0   4   3   5   1   6   2   //
+                                    // Str Con Dex Cha Int Com Wis //
+        , prefs   : [0,4,3,5,1,6,2]
         , saves   : saves.Fighter
         , thaco   : thacos.Fighter
       }
@@ -1050,6 +1069,8 @@ define('castes',[      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 4
+                                    // 1   3   6   5   4   2   0   //
+                                    // Int Dex Com Cha Con Wis Str //
         , prefs   : [1,3,6,5,4,2,0]
         , saves   : saves.Mage
         , spells  : [
@@ -1097,7 +1118,9 @@ define('castes',[      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 4
-        , prefs   : [1,3,5,2,4,6,0]
+                                    // 1   3   2   5   4   0   6   //
+                                    // Int Dex Wis Cha Con Str Com //
+        , prefs   : [1,3,2,5,4,0,6]
         , saves   : saves.Mage
         , spells  : [
           // 1 2 3 4 5 6 7 8 9  Spell level
@@ -1139,6 +1162,8 @@ define('castes',[      "Collection", "Caste"
           name    : "Monk"
         , dual    : []
         , HDT     : 4
+                                    // 3   4   2   1   0   5   6   //
+                                    // Dex Con Wis Int Str Cha Com //
         , prefs   : [3,4,2,1,0,5,6]
         , saves   : saves.Thief
         , thaco   : thacos.Cleric
@@ -1148,7 +1173,9 @@ define('castes',[      "Collection", "Caste"
           name    : "Paladin"
         , dual    : []
         , HDT     : 10
-        , prefs   : [0,4,3,5,1,6,2]
+                                    // 0   4   3   5   1   2   6   //
+                                    // Str Con Dex Cha Int Wis Com //
+        , prefs   : [0,4,3,5,1,2,6]
         , saves   : saves.Fighter
         , spells  : [
           // 1 2 3 4  Spell level
@@ -1190,7 +1217,9 @@ define('castes',[      "Collection", "Caste"
           name    : "Ranger"
         , dual    : []
         , HDT     : 10
-        , prefs   : [0,4,3,2,5,6,1]
+                                    // 4   1   3   0   2   5   6   //
+                                    // Con Int Dex Str Wis Cha Com //
+        , prefs   : [4,1,3,0,2,5,6]
         , saves   : saves.Fighter
         , spells  : [
           // 1 2 3 4 5  Spell level
@@ -1238,7 +1267,9 @@ define('castes',[      "Collection", "Caste"
           , "Mage"
         ]
         , HDT     : 6
-        , prefs   : [3,1,5,4,0,2,6]
+                                    // 3   1   5   4   0   6   2   //
+                                    // Dex Int Cha Con Str Com Wis //
+        , prefs   : [3,1,5,4,0,6,2]
         , saves   : saves.Thief
         , skills  : thieving
         , thaco   : thacos.Thief
@@ -1781,8 +1812,7 @@ define('Player',[      "traits", "util"
   ], function (traits,   util) {
   
 
-  var global = (function () {return this;}())
-    , properties
+  var properties
     , validations;
 
   validations = [
@@ -1798,10 +1828,6 @@ define('Player',[      "traits", "util"
       return util.isNumeric(value);
     }
 
-    , function options (value) {
-      return !value || util.isObject(value);
-    }
-
     , function race (value) {
       return !!value && value.getType && /object race/i.test(value.getType());
     }
@@ -1815,7 +1841,65 @@ define('Player',[      "traits", "util"
     return item.name;
   });
 
-  function optimize (column, prefs, bonuses) {
+  function countBonuses (ar) {
+    return ar.filter(function (item) {
+        return item > 0;
+      }).length;
+  }
+
+  function countNumber (num, ar) {
+    return ar.filter(function (item) {
+        return item === num;
+      }).length;
+  }
+
+  function distributeScores (config) {
+    var bonuses   = config.addBonus ? config.race.stats.slice(0) : [0,0,0,0,0,0,0]
+      , column    = config.scores.slice(0)
+      , prefs     = config.caste.prefs;
+
+    return prefs
+      .reduce(function (bonuses, prefsIndex, indx) {
+        // max initial score of 18
+        bonuses[prefsIndex] = Math.min(18, column[indx] + bonuses[prefsIndex]);
+        return bonuses;
+      }, bonuses);
+  }
+
+  function hasPriorityBonuses (bonuses, prefs) {
+    return prefs
+      // check the n priority traits where n is the number of bonuses, otherwise
+      // all characters with any bonuses would evaluate to having priority bonuses
+      .slice(0, countBonuses(bonuses))
+      .reduce(function (acc, traitIndex) {
+        return acc || bonuses[traitIndex] > 0;
+      }, false);
+  }
+
+  function numberOfOptimization (bonuses, column) {
+    return Math.min(countBonuses(bonuses), countNumber(17, column));
+  }
+
+  // rule: bonus cannot put initial score above 18
+  // rule: if bonus would put strength over 18, add extra roll for exceptional
+  // if a bonus on a higher trait would allow for swapping with a lower with no
+  // overall loss of points due to the swap.
+  function optimizer (config) {
+    var bonuses   = config.addBonus ? config.race.stats : [0,0,0,0,0,0,0]
+      , column    = config.scores.slice(0).sort(util.sort.desc)
+      , num17     = numberOfOptimization(bonuses, column)
+      , num18     = countNumber(18, column)
+      , prefs     = config.caste.prefs;
+
+    // if optimizations exist
+    // if bonuses are on prioritized traits according to prefs
+    // push the number of 18s below the number of 17s in the array
+    if (num17 && hasPriorityBonuses(bonuses, prefs)) {
+      column = column.slice(num18, (num17 + num18)) // the set of 17s
+        .concat(column.slice(0, num18))             // the set of 18s
+        .concat(column.slice(num17 + num18));       // the rest
+    }
+
     return column;
   }
 
@@ -1828,22 +1912,27 @@ define('Player',[      "traits", "util"
       race      (required)    Race
       scores    (required)    [Integer]
 
-      options   (optional)    {racialBonuses, optimizeScores}
+      addBonus  (optional)    Boolean
+      optimize  (optional)    Boolean
 
       station   (optional)    Station (phase II maybe? and for what?)
   */
   function Player (config) {
-    if (this === global) {
+    if (this === util.global) {
       // called as a function instead of a constructor - fix it!
       return new Player(config);
     }
-
-    var scores;
+    var bonuses   = config.addBonus ? config.race.stats.slice(0) : [0,0,0,0,0,0,0]
+      , column    = config.scores.slice(0)
+      , prefs     = config.caste.prefs;
 
     this.isValid = util.isValid(Player.prototype.getType(), config, validations);
 
     if (this.isValid) {
-      scores = optimize(config.scores, config.caste.prefs, config.race.stats);
+      config.scores = config.optimize ? optimizer(config) : config.scores;
+      config.scores = distributeScores(config);
+
+      this.scores = config.scores;
     }
   }
 
@@ -1867,7 +1956,7 @@ define('test_player',[      "castes", "races", "Player", "util"
           caste:  castes.named("Cleric")[0]
         , level:  1
         , race:   races.named("Elf")[0]
-        , scores: [5, 5, 5, 5, 5, 5, 5]
+        , scores: [18,16,16,15,14,13,11]
       };
   }
 
@@ -1893,6 +1982,50 @@ define('test_player',[      "castes", "races", "Player", "util"
     var sample = new Player(valid_config());
 
     ok(sample.isValid, "Valid Player config produces a valid Player object.");
+  });
+
+  test("optimizing w/ bonuses", function () {
+    var sample;
+
+    // Half-Orc - racial adjustment
+    // +1 Str
+    //  0 Int
+    //  0 Wis
+    //  0 Dex
+    // +1 Con
+    // -1 Cha
+    //  0 Com
+    // Fighter - preferences
+    // 0   4   3   5   1   6   2   //
+    // Str Con Dex Cha Int Com Wis //
+    
+    // start with this input   and become this output
+    [ [[15,14,13,12,11,10, 9], [16,11, 9,13,15,11,10]]
+    , [[16,16,16,16,16,16,16], [17,16,16,16,17,15,16]]
+    , [[17,16,16,16,16,16,16], [18,16,16,16,17,15,16]]
+    , [[18,16,16,16,16,16,16], [18,16,16,16,17,15,16]]
+    , [[17,17,17,17,17,17,17], [18,17,17,17,18,16,17]]
+    , [[18,17,17,17,17,17,17], [18,17,17,18,18,16,17]]
+    , [[18,18,17,17,17,17,17], [18,17,17,18,18,17,17]]
+    , [[18,18,18,17,17,17,17], [18,18,17,18,18,17,17]]
+    , [[18,18,18,18,17,17,17], [18,18,17,18,18,17,18]]
+    , [[18,18,18,18,18,17,17], [18,18,18,18,18,17,18]]
+    , [[18,18,18,18,18,18,18], [18,18,18,18,18,17,18]] ]
+    .forEach(function (scores) {
+      sample = new Player({
+            caste:    castes.named("Fighter")[0]
+          , level:    1
+          , race:     races.named("Half-Orc")[0]
+          , scores:   scores[0]
+          , optimize: true
+          , addBonus: true
+        });
+      deepEqual(sample.scores, scores[1], optimizationError(scores, sample.scores));
+    });
+
+    function optimizationError (scores, output) {
+      return "input: " + scores[0] + ", expectation: " + scores[1] + ", output: " + output;
+    }
   });
 });
 
@@ -2064,7 +2197,7 @@ define('test_castes',[      "castes", "Caste", "util"
     deepEqual(dual.dual, [], "A dualed Caste should not have the ability to be dualed further.");
     equal(dual.HDT, (a.HDT + b.HDT) / 2, "Proper HDT value.");
     deepEqual(dual.skills, undefined, dual.name + " does not have thieving skills.");
-    equal(dual.prefs.join(""), "0254631", "Proper .prefs value.");
+    equal(dual.prefs.join(""), "0243516", "Proper .prefs value.");
     deepEqual(dual.saves.join(",").split(","), "16,17,18,19,19,10,13,14,16,15,10,13,14,16,15,10,13,14,16,15,9,12,13,15,14,9,12,13,13,14,9,12,13,13,14,7,10,11,12,12,7,10,11,12,12,7,9,10,9,11,6,9,10,9,11,6,8,9,8,10,6,8,9,8,10,5,6,7,5,8,5,6,7,5,8,4,5,6,4,7,4,5,6,4,7,3,4,5,4,6,3,4,5,4,6,2,3,4,3,5,2,3,4,3,5,1,2,3,3,4,1,2,3,3,4".split(","), "Proper .saves value.");
     ok(util.isArray(dual.spells), "Dual Castes should always have an array as the value for .spells.");
     equal(dual.spells.length, 2, "Dual Caste instance's .spells property should be of length 2.");

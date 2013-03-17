@@ -166,7 +166,7 @@ define([      "castes", "Caste", "util"
     deepEqual(dual.dual, [], "A dualed Caste should not have the ability to be dualed further.");
     equal(dual.HDT, (a.HDT + b.HDT) / 2, "Proper HDT value.");
     deepEqual(dual.skills, undefined, dual.name + " does not have thieving skills.");
-    equal(dual.prefs.join(""), "0254631", "Proper .prefs value.");
+    equal(dual.prefs.join(""), "0243516", "Proper .prefs value.");
     deepEqual(dual.saves.join(",").split(","), "16,17,18,19,19,10,13,14,16,15,10,13,14,16,15,10,13,14,16,15,9,12,13,15,14,9,12,13,13,14,9,12,13,13,14,7,10,11,12,12,7,10,11,12,12,7,9,10,9,11,6,9,10,9,11,6,8,9,8,10,6,8,9,8,10,5,6,7,5,8,5,6,7,5,8,4,5,6,4,7,4,5,6,4,7,3,4,5,4,6,3,4,5,4,6,2,3,4,3,5,2,3,4,3,5,1,2,3,3,4,1,2,3,3,4".split(","), "Proper .saves value.");
     ok(util.isArray(dual.spells), "Dual Castes should always have an array as the value for .spells.");
     equal(dual.spells.length, 2, "Dual Caste instance's .spells property should be of length 2.");

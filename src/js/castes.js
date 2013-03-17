@@ -173,6 +173,8 @@ define([      "Collection", "Caste"
           name    : "Acrobat"
         , dual    : []
         , HDT     : 6
+                                    // 3   4   0   1   5   2   6   //
+                                    // Dex Con Str Int Cha Wis Com //
         , prefs   : [3,4,0,1,5,2,6]
         , saves   : saves.Thief
         , skills  : acrobating
@@ -183,6 +185,8 @@ define([      "Collection", "Caste"
           name    : "Archer"
         , dual    : []
         , HDT     : 8
+                                    // 3   0   4   2   1   5   6   //
+                                    // Dex Str Con Wis Int Cha Com //
         , prefs   : [3,0,4,2,1,5,6]
         , saves   : saves.Cleric
         , thaco   : thacos.Cleric
@@ -192,6 +196,8 @@ define([      "Collection", "Caste"
           name    : "Assassin"
         , dual    : []
         , HDT     : 6
+                                    // 5   3   1   4   0   2   6   //
+                                    // Cha Dex Int Con Str Wis Com //
         , prefs   : [5,3,1,4,0,2,6]
         , saves   : saves.Thief
         , thaco   : thacos.Thief
@@ -201,7 +207,9 @@ define([      "Collection", "Caste"
           name    : "Barbarian"
         , dual    : []
         , HDT     : 12
-        , prefs   : [0,4,3,5,1,6,2]
+                                    // 0   4   3   1   6   2   5   //
+                                    // Str Con Dex Int Com Wis Cha //
+        , prefs   : [0,4,3,1,6,2,5]
         , saves   : saves.Fighter
         , thaco   : thacos.Fighter
       }
@@ -210,7 +218,9 @@ define([      "Collection", "Caste"
           name    : "Bard"
         , dual    : []
         , HDT     : 12
-        , prefs   : [5,0,1,4,3,6,2]
+                                    // 5   1   3   6   2   4   0   //
+                                    // Cha Int Dex Com Wis Con Str //
+        , prefs   : [5,1,3,6,2,4,0]
         , saves   : saves.Fighter
         , spells  : [
           //TODO: fill out these values...?
@@ -253,6 +263,8 @@ define([      "Collection", "Caste"
           name    : "Cavalier"
         , dual    : []
         , HDT     : 10
+                                    // 0   3   4   1   5   6   2   //
+                                    // Str Dex Con Int Cha Com Wis //
         , prefs   : [0,3,4,1,5,6,2]
         , saves   : saves.Fighter
         , thaco   : thacos.Fighter
@@ -267,7 +279,9 @@ define([      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 8
-        , prefs   : [2,4,0,3,1,5,6]
+                                    // 2   4   3   1   0   5   6   //
+                                    // Wis Con Dex Int Str Cha Com //
+        , prefs   : [2,4,3,1,0,5,6]
         , saves   : saves.Cleric
         , spells  : [
           // 1 2 3 4 5 6 7  Spell level
@@ -314,6 +328,8 @@ define([      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 8
+                                    // 2   5   3   4   1   0   6   //
+                                    // Wis Cha Dex Con Int Str Com //
         , prefs   : [2,5,3,4,1,0,6]
         , saves   : saves.Cleric
         , spells  : [
@@ -362,7 +378,9 @@ define([      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 10
-        , prefs   : [0,5,6,2,1,3,4]
+                                    // 0   4   3   5   1   6   2   //
+                                    // Str Con Dex Cha Int Com Wis //
+        , prefs   : [0,4,3,5,1,6,2]
         , saves   : saves.Fighter
         , thaco   : thacos.Fighter
       }
@@ -376,6 +394,8 @@ define([      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 4
+                                    // 1   3   6   5   4   2   0   //
+                                    // Int Dex Com Cha Con Wis Str //
         , prefs   : [1,3,6,5,4,2,0]
         , saves   : saves.Mage
         , spells  : [
@@ -423,7 +443,9 @@ define([      "Collection", "Caste"
           , "Thief"
         ]
         , HDT     : 4
-        , prefs   : [1,3,5,2,4,6,0]
+                                    // 1   3   2   5   4   0   6   //
+                                    // Int Dex Wis Cha Con Str Com //
+        , prefs   : [1,3,2,5,4,0,6]
         , saves   : saves.Mage
         , spells  : [
           // 1 2 3 4 5 6 7 8 9  Spell level
@@ -465,6 +487,8 @@ define([      "Collection", "Caste"
           name    : "Monk"
         , dual    : []
         , HDT     : 4
+                                    // 3   4   2   1   0   5   6   //
+                                    // Dex Con Wis Int Str Cha Com //
         , prefs   : [3,4,2,1,0,5,6]
         , saves   : saves.Thief
         , thaco   : thacos.Cleric
@@ -474,7 +498,9 @@ define([      "Collection", "Caste"
           name    : "Paladin"
         , dual    : []
         , HDT     : 10
-        , prefs   : [0,4,3,5,1,6,2]
+                                    // 0   4   3   5   1   2   6   //
+                                    // Str Con Dex Cha Int Wis Com //
+        , prefs   : [0,4,3,5,1,2,6]
         , saves   : saves.Fighter
         , spells  : [
           // 1 2 3 4  Spell level
@@ -516,7 +542,9 @@ define([      "Collection", "Caste"
           name    : "Ranger"
         , dual    : []
         , HDT     : 10
-        , prefs   : [0,4,3,2,5,6,1]
+                                    // 4   1   3   0   2   5   6   //
+                                    // Con Int Dex Str Wis Cha Com //
+        , prefs   : [4,1,3,0,2,5,6]
         , saves   : saves.Fighter
         , spells  : [
           // 1 2 3 4 5  Spell level
@@ -564,7 +592,9 @@ define([      "Collection", "Caste"
           , "Mage"
         ]
         , HDT     : 6
-        , prefs   : [3,1,5,4,0,2,6]
+                                    // 3   1   5   4   0   6   2   //
+                                    // Dex Int Cha Con Str Com Wis //
+        , prefs   : [3,1,5,4,0,6,2]
         , saves   : saves.Thief
         , skills  : thieving
         , thaco   : thacos.Thief

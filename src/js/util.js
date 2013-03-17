@@ -102,6 +102,7 @@ define([], function () {
           addGetter   : addGetter
         , checkProp   : checkProp
         , clone       : clone
+        , global      : (function () {return this;}())
         , isNumeric   : isNumeric
         , isType      : isType
         , isValid     : isValid
